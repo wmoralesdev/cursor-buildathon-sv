@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useTranslation } from "../context/language-context";
 
-const LUMA_URL = "https://luma.com/935r7zp6";
+const LUMA_URL = "https://lu.ma/935r7zp6";
 
 const NAV_LINKS = [
   { href: "#about", label: "nav.about" as const },

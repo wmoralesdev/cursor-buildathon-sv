@@ -1,69 +1,196 @@
-import { useRef } from "react";
-import { motion, useInView } from "motion/react";
-import { Calendar, Clock, MapPin, Users } from "lucide-react";
-import { useTranslation } from "../context/language-context";
-import { SectionHeading } from "./section-heading";
-import type { TranslationKey } from "../i18n/translations";
-
-interface DetailItem {
-  icon: React.ReactNode;
-  label: TranslationKey;
-  value: TranslationKey;
-}
-
-const DETAILS: DetailItem[] = [
-  { icon: <Calendar size={22} />, label: "details.date.label", value: "details.date.value" },
-  { icon: <Clock size={22} />, label: "details.time.label", value: "details.time.value" },
-  { icon: <MapPin size={22} />, label: "details.venue.label", value: "details.venue.value" },
-  { icon: <Users size={22} />, label: "details.format.label", value: "details.format.value" },
+const details = [
+  {
+    glyph: "01",
+    label: "Fecha",
+    value: "07/03/2026",
+    sub: "Sábado",
+    accent: false,
+  },
+  {
+    glyph: "02",
+    label: "Horario",
+    value: "10AM — 5PM",
+    sub: "7 horas de hackathon",
+    accent: true,
+  },
+  {
+    glyph: "03",
+    label: "Sede",
+    value: "UVG Z15",
+    sub: "Universidad del Valle de Guatemala",
+    accent: false,
+  },
+  {
+    glyph: "04",
+    label: "Ciudad",
+    value: "Guatemala",
+    sub: "Ciudad de Guatemala, GT",
+    accent: false,
+  },
 ];
 
 export function DetailsSection() {
-  const { t } = useTranslation();
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section id="details" ref={ref} className="section-padding relative py-28 md:py-36">
-      <div className="accent-rule mx-auto mb-20 max-w-4xl" />
+    <section
+      id="details"
+      className="relative py-28 sm:py-36 lg:py-40 px-8 sm:px-12 md:px-16 lg:px-24"
+      style={{ background: "#0a0a0a" }}
+    >
+      {/* Top rule */}
+      <div className="h-rule mb-20 max-w-7xl mx-auto" />
 
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-        >
-          <SectionHeading label="details.label" title="details.title" lineNumber="03" />
-        </motion.div>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {DETAILS.map((item, i) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.15 + i * 0.1, duration: 0.6 }}
-              className="glass-card rounded-2xl p-6 transition-all duration-300"
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16 reveal">
+          <div>
+            <span className="tag mb-4 inline-block">// detalles</span>
+            <h2
+              className="font-bold uppercase leading-none"
+              style={{
+                fontFamily: "Chakra Petch, sans-serif",
+                fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                color: "#f5f0e8",
+                letterSpacing: "-0.02em",
+              }}
             >
-              <div className="mb-4 text-accent">{item.icon}</div>
-              <p className="mb-1 text-xs font-semibold tracking-widest uppercase text-text-muted">
-                {t(item.label)}
+              DÓNDE &amp; CUÁNDO
+            </h2>
+          </div>
+          <p
+            style={{
+              fontFamily: "JetBrains Mono, monospace",
+              fontSize: "0.7rem",
+              color: "#888888",
+              letterSpacing: "0.1em",
+              maxWidth: "240px",
+              textAlign: "right",
+              lineHeight: 1.6,
+            }}
+          >
+            Asistencia presencial<br />requerida para participar
+          </p>
+        </div>
+
+        {/* Detail cards grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {details.map((d, i) => (
+            <div
+              key={d.glyph}
+              className="reveal py-9 px-7 relative overflow-hidden"
+              style={{
+                transitionDelay: `${i * 0.08}s`,
+                border: `1px solid ${d.accent ? "rgba(255,75,0,0.5)" : "#1e1e1e"}`,
+                background: d.accent ? "rgba(255,75,0,0.06)" : "#0e0e0e",
+              }}
+            >
+              {/* Index glyph */}
+              <span
+                className="absolute top-4 right-4"
+                style={{
+                  fontFamily: "JetBrains Mono, monospace",
+                  fontSize: "0.55rem",
+                  color: d.accent ? "rgba(255,75,0,0.5)" : "#2a2a2a",
+                  letterSpacing: "0.1em",
+                }}
+              >
+                {d.glyph}
+              </span>
+
+              {/* Corner accent for highlighted card */}
+              {d.accent && (
+                <div
+                  className="absolute top-0 left-0"
+                  style={{
+                    width: "2px",
+                    height: "40px",
+                    background: "#ff4b00",
+                  }}
+                />
+              )}
+
+              <p
+                style={{
+                  fontFamily: "JetBrains Mono, monospace",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: d.accent ? "#ff4b00" : "#555555",
+                  marginBottom: "12px",
+                }}
+              >
+                {d.label}
               </p>
-              <p className="font-display text-base font-medium leading-snug whitespace-pre-line">
-                {t(item.value)}
+
+              <p
+                style={{
+                  fontFamily: "Chakra Petch, sans-serif",
+                  fontSize: "clamp(1.3rem, 3vw, 1.8rem)",
+                  fontWeight: 700,
+                  color: d.accent ? "#ff4b00" : "#f5f0e8",
+                  letterSpacing: d.accent ? "0" : "-0.02em",
+                  lineHeight: 1.1,
+                  marginBottom: "8px",
+                }}
+              >
+                {d.value}
               </p>
-            </motion.div>
+
+              <p
+                style={{
+                  fontFamily: "JetBrains Mono, monospace",
+                  fontSize: "0.65rem",
+                  color: "#444444",
+                  letterSpacing: "0.05em",
+                  lineHeight: 1.5,
+                }}
+              >
+                {d.sub}
+              </p>
+            </div>
           ))}
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.7, duration: 0.6 }}
-          className="mt-10 max-w-2xl text-sm leading-relaxed text-text-muted"
+        {/* Map reference bar */}
+        <div
+          className="reveal mt-6 flex items-center justify-between flex-wrap gap-3 py-6 px-8"
+          style={{
+            border: "1px solid #1e1e1e",
+            background: "#0e0e0e",
+          }}
         >
-          {t("details.note")}
-        </motion.p>
+          <div className="flex items-center gap-4">
+            <span style={{ color: "#ff4b00", fontSize: "0.9rem" }}>◎</span>
+            <span
+              style={{
+                fontFamily: "JetBrains Mono, monospace",
+                fontSize: "0.7rem",
+                color: "#888888",
+                letterSpacing: "0.08em",
+              }}
+            >
+              18 Av. 11-95 Zona 15 Vista Hermosa III, Ciudad de Guatemala
+            </span>
+          </div>
+          <a
+            href="https://maps.google.com/?q=Universidad+del+Valle+de+Guatemala"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "JetBrains Mono, monospace",
+              fontSize: "0.65rem",
+              color: "#ff4b00",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              borderBottom: "1px solid rgba(255,75,0,0.3)",
+              paddingBottom: "1px",
+              transition: "border-color 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#ff4b00")}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,75,0,0.3)")}
+          >
+            Ver en mapa →
+          </a>
+        </div>
       </div>
     </section>
   );
