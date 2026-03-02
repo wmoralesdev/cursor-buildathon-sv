@@ -1,8 +1,30 @@
-import { PersonCard } from "./person-card";
-import type { PersonCardData } from "./person-card";
-import { sortPeopleByName } from "../../utils/sort-people";
+import React from "react";
+import { PersonCard } from "./brief/person-card";
+import type { PersonCardData } from "./brief/person-card";
+import { sortPeopleByName } from "../utils/sort-people";
 
-const mentors: PersonCardData[] = [
+const organizers: PersonCardData[] = [
+  {
+    initials: "OM",
+    name: "Oscar Morales",
+    photo: "/staff/oscar.jpeg",
+    role: "Lead Organizer",
+    blurb:
+      "Founding AI Engineer en Finny, startup que mejora el bienestar financiero en LatAm; fundador de the502project, comunidad de +300 builders y founders en Guatemala. Cursor Ambassador, creador de contenido en CL y Notion — conectando talento tech y emprendedores en toda la región. Builder y community founder comprometido con hacer crecer el ecosistema de IA en Centroamérica.",
+    hasCursorBadge: true,
+  },
+  {
+    initials: "WM",
+    name: "Walter Morales",
+    photo: "/staff/walter.png",
+    role: "Lead Organizer",
+    blurb:
+      "Fundador de AI Labs SV, comunidad de 500+ builders en El Salvador. Cursor Ambassador para El Salvador y Centroamérica — organiza eventos, talleres universitarios y hackathons en toda la región. 6+ años como software engineer en SOUTHWORKS (partner de AWS y Microsoft); colabora con universidades de El Salvador para elevar la educación tech en Centroamérica.",
+    hasCursorBadge: true,
+  },
+];
+
+const invitados: PersonCardData[] = [
   {
     initials: "DH",
     name: "Daniela Huezo",
@@ -92,53 +114,52 @@ const mentors: PersonCardData[] = [
   },
 ];
 
-export function MentorsSection() {
+export function PeopleSection() {
   return (
     <section
-      id="mentors"
+      id="people"
       className="relative py-24 sm:py-32 section-padding bg-bg"
     >
       <div className="h-rule mb-16 max-w-7xl mx-auto" />
 
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-14">
-          <div className="lg:col-span-5 reveal">
-            <span className="tag mb-4 inline-block">// 06 — mentores</span>
+        {/* Header */}
+        <div className="reveal mb-16">
+          <span className="tag mb-4 inline-block">// equipo & invitados</span>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <h2 className="font-bold uppercase leading-none font-display text-[clamp(1.8rem,4vw,2.8rem)] text-fg tracking-[-0.02em]">
-              MENTORES
+              LAS PERSONAS<br />DETRÁS DEL EVENTO
             </h2>
-            <p className="mt-4 font-display text-sm text-fg-3 leading-[1.7]">
-              Profesionales con experiencia práctica que acompañan a los equipos durante el hackathon, orientando en producto, tecnología y estrategia de negocio.
+            <p className="font-display text-sm text-fg-3 leading-[1.7] max-w-[360px] sm:text-right">
+              El equipo organizador y los invitados que harán posible el Cursor Hackathon Guatemala.
             </p>
-          </div>
-
-          <div className="lg:col-span-7 reveal reveal-delay-1 flex items-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-              {[
-                { area: "Producto & UX", desc: "Diseño de experiencia y validación de ideas" },
-                { area: "Ingeniería", desc: "Arquitectura, IA y uso avanzado de Cursor" },
-                { area: "Negocio", desc: "Modelo de negocio, mercado y pitching" },
-                { area: "Industria", desc: "Expertise sectorial por track" },
-              ].map((area) => (
-                <div
-                  key={area.area}
-                  className="flex items-start gap-3 border border-border-faint p-4"
-                >
-                  <span className="font-mono text-[0.65rem] text-accent mt-0.5 shrink-0">→</span>
-                  <div>
-                    <div className="font-display text-[0.8rem] font-semibold text-fg-2 mb-0.5">{area.area}</div>
-                    <div className="font-display text-[0.75rem] text-fg-4 leading-[1.5]">{area.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
-          {sortPeopleByName(mentors).map((mentor, i) => (
-            <PersonCard key={mentor.name} {...mentor} size="sm" index={i} />
-          ))}
+        {/* Organizers */}
+        <div className="mb-16">
+          <div className="flex items-center gap-4 mb-8">
+            <span className="font-mono text-[0.58rem] tracking-[0.2em] text-accent uppercase">Organizadores</span>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {sortPeopleByName(organizers).map((person, i) => (
+              <PersonCard key={person.name} {...person} size="lg" index={i} />
+            ))}
+          </div>
+        </div>
+
+        {/* Invitados */}
+        <div>
+          <div className="flex items-center gap-4 mb-8">
+            <span className="font-mono text-[0.58rem] tracking-[0.2em] text-accent uppercase">Invitados</span>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+            {sortPeopleByName(invitados).map((person, i) => (
+              <PersonCard key={person.name} {...person} size="sm" index={i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

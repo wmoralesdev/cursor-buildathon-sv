@@ -19,10 +19,11 @@ const stats = [
     label: "Alcance",
     sub: "Toda Centroamérica",
   },
+  /* was: value: "5", sub: "categorías temáticas" */
   {
-    value: "5",
+    value: "???",
     label: "Tracks",
-    sub: "categorías temáticas",
+    sub: "???",
   },
   {
     value: "1",

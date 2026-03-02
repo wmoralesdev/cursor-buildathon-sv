@@ -10,10 +10,10 @@ import App from "./app";
 import "./index.css";
 import { LandingPage } from "./pages/landing-page";
 import { BriefPage } from "./pages/brief-page";
-import { DashboardPage } from "./pages/dashboard-page";
-import { SignInPage } from "./pages/sign-in-page";
-import { SSOCallback } from "./pages/sso-callback";
-import { AdminPage } from "./pages/admin-page";
+// import { DashboardPage } from "./pages/dashboard-page";
+// import { SignInPage } from "./pages/sign-in-page";
+// import { SSOCallback } from "./pages/sso-callback";
+// import { AdminPage } from "./pages/admin-page";
 
 const convex = new ConvexReactClient(
   import.meta.env.VITE_CONVEX_URL as string
@@ -34,11 +34,11 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <LandingPage /> },
       { path: "/brief", element: <BriefPage /> },
-      { path: "/dashboard", element: <DashboardPage /> },
-      { path: "/login", element: <SignInPage /> },
-      { path: "/sign-in", element: <Navigate to="/login" replace /> },
-      { path: "/sso-callback", element: <SSOCallback /> },
-      { path: "/admin", element: <AdminPage /> },
+      // { path: "/dashboard", element: <DashboardPage /> },
+      // { path: "/login", element: <SignInPage /> },
+      // { path: "/sign-in", element: <Navigate to="/login" replace /> },
+      // { path: "/sso-callback", element: <SSOCallback /> },
+      // { path: "/admin", element: <AdminPage /> },
     ],
   },
 ]);

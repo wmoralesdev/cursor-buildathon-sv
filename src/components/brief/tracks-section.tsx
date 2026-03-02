@@ -1,6 +1,7 @@
 import React from "react";
 
-const tracks = [
+/*
+const tracksReal = [
   {
     code: "T-01",
     name: "AI Consumer",
@@ -34,6 +35,38 @@ const tracks = [
       "dashboard simple para freelancers que cobran en varias monedas",
       "calculadora de gastos para estudiantes universitarios",
     ],
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden>
+        <rect x="4" y="12" width="32" height="20" rx="1.5" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+        <rect x="4" y="12" width="32" height="8" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="12" cy="27" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M20 27h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+];
+*/
+
+const tracks = [
+  {
+    code: "T-01",
+    name: "???",
+    description: "???",
+    examples: ["???"],
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden>
+        <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+        <circle cx="20" cy="20" r="10" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M20 14v12M14 20h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="20" cy="20" r="2.5" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    code: "T-02",
+    name: "???",
+    description: "???",
+    examples: ["???"],
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden>
         <rect x="4" y="12" width="32" height="20" rx="1.5" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />

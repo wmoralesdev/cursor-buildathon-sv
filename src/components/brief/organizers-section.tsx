@@ -1,5 +1,6 @@
 import { PersonCard } from "./person-card";
 import type { PersonCardData } from "./person-card";
+import { sortPeopleByName } from "../../utils/sort-people";
 
 const organizers: PersonCardData[] = [
   {
@@ -52,7 +53,7 @@ export function OrganizersSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {organizers.map((person, i) => (
+          {sortPeopleByName(organizers).map((person, i) => (
             <PersonCard key={person.name} {...person} size="lg" index={i} />
           ))}
         </div>
