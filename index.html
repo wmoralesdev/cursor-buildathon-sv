@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang="es">
   <head>
+    <script type="module">
+      const devtoolsEnabled = import.meta.env.VITE_DEVTOOLS_ENABLED !== "false";
+      if (import.meta.env.DEV && devtoolsEnabled) {
+        import("react-grab");
+        import("@react-grab/mcp/client");
+        const script = document.createElement("script");
+        script.src = "https://unpkg.com/react-scan/dist/auto.global.js";
+        script.crossOrigin = "anonymous";
+        document.head.appendChild(script);
+      }
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
