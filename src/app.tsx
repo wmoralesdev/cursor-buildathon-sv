@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useMutation } from "convex/react";
 import { useConvexAuth } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import "./app.css";
+
 import { NoiseOverlay } from "./components/noise-overlay";
 import { SiteNav } from "./components/site-nav";
 
