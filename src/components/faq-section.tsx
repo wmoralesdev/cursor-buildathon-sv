@@ -42,8 +42,7 @@ export function FAQSection() {
   return (
     <section
       id="faq"
-      className="relative py-28 sm:py-36 lg:py-48 section-padding"
-      style={{ background: "#080808" }}
+      className="relative py-28 sm:py-36 lg:py-48 section-padding bg-bg"
     >
       {/* Top rule */}
       <div className="h-rule mb-20 max-w-7xl mx-auto" />
@@ -53,27 +52,10 @@ export function FAQSection() {
           {/* Left heading */}
           <div className="lg:col-span-4 reveal">
             <span className="tag mb-4 inline-block">// preguntas frecuentes</span>
-            <h2
-              className="font-bold uppercase leading-none"
-              style={{
-                fontFamily: "Chakra Petch, sans-serif",
-                fontSize: "clamp(2rem, 4vw, 3rem)",
-                color: "#f5f0e8",
-                letterSpacing: "-0.02em",
-              }}
-            >
+            <h2 className="font-bold uppercase leading-none font-display text-[clamp(2rem,4vw,3rem)] text-fg tracking-[-0.02em]">
               ¿TIENES<br />DUDAS?
             </h2>
-            <p
-              className="mt-4"
-              style={{
-                fontFamily: "Chakra Petch, sans-serif",
-                fontSize: "0.85rem",
-                color: "#555555",
-                lineHeight: 1.7,
-                maxWidth: "260px",
-              }}
-            >
+            <p className="mt-4 font-display text-[0.85rem] text-fg-3 leading-[1.7] max-w-[260px]">
               Si no encuentras tu respuesta aquí, únete a nuestra comunidad de WhatsApp.
             </p>
             {/* TODO: Replace with actual WhatsApp community invite URL when available */}
@@ -82,20 +64,7 @@ export function FAQSection() {
               aria-label="Unirse a la comunidad de WhatsApp"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block"
-              style={{
-                fontFamily: "JetBrains Mono, monospace",
-                fontSize: "0.65rem",
-                color: "#ff4b00",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                textDecoration: "none",
-                borderBottom: "1px solid rgba(255,75,0,0.3)",
-                paddingBottom: "2px",
-                transition: "border-color 0.2s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#ff4b00")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,75,0,0.3)")}
+              className="mt-6 inline-block font-mono text-[0.65rem] text-accent tracking-[0.12em] uppercase no-underline border-b border-accent/30 pb-0.5 transition-[border-color] duration-200 hover:border-accent"
             >
               Comunidad WhatsApp →
             </a>
@@ -106,48 +75,23 @@ export function FAQSection() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="reveal"
-                style={{
-                  transitionDelay: `${i * 0.05}s`,
-                  borderBottom: "1px solid #1a1a1a",
-                }}
+                className="reveal border-b border-border-faint"
+                style={{ "--delay": `${i * 0.05}s` } as React.CSSProperties}
               >
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full text-left py-6 flex items-start justify-between gap-6 group"
-                  style={{ background: "none", border: "none" }}
+                  className="w-full text-left py-6 flex items-start justify-between gap-6 group bg-transparent border-none"
                   aria-expanded={open === i}
                   aria-controls={`faq-answer-${i}`}
                   id={`faq-question-${i}`}
                 >
                   <span
-                    style={{
-                      fontFamily: "Chakra Petch, sans-serif",
-                      fontSize: "0.95rem",
-                      fontWeight: 500,
-                      color: open === i ? "#f5f0e8" : "#888888",
-                      lineHeight: 1.4,
-                      transition: "color 0.2s ease",
-                      flex: 1,
-                    }}
+                    className={`font-display text-[0.95rem] font-medium leading-snug flex-1 transition-colors duration-200 ${open === i ? "text-fg" : "text-fg-2"}`}
                   >
                     {faq.q}
                   </span>
                   <span
-                    style={{
-                      fontFamily: "JetBrains Mono, monospace",
-                      fontSize: "0.9rem",
-                      color: open === i ? "#ff4b00" : "#333333",
-                      transition: "color 0.2s ease, transform 0.2s ease",
-                      transform: open === i ? "rotate(45deg)" : "rotate(0deg)",
-                      flexShrink: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: "24px",
-                      height: "24px",
-                      marginTop: "2px",
-                    }}
+                    className={`font-mono text-[0.9rem] shrink-0 flex items-center justify-center w-6 h-6 mt-0.5 transition-[color,transform] duration-200 ${open === i ? "text-accent rotate-45" : "text-fg-5"}`}
                   >
                     +
                   </span>
@@ -157,22 +101,10 @@ export function FAQSection() {
                   id={`faq-answer-${i}`}
                   role="region"
                   aria-labelledby={`faq-question-${i}`}
-                  style={{
-                    maxHeight: open === i ? "300px" : "0",
-                    overflow: "hidden",
-                    transition: "max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
+                  className="faq-accordion-content"
+                  data-open={open === i ? "true" : "false"}
                 >
-                  <p
-                    className="pb-6"
-                    style={{
-                      fontFamily: "Chakra Petch, sans-serif",
-                      fontSize: "0.875rem",
-                      color: "#555555",
-                      lineHeight: 1.8,
-                      maxWidth: "600px",
-                    }}
-                  >
+                  <p className="pb-6 font-display text-sm text-fg-3 leading-[1.8] max-w-[600px]">
                     {faq.a}
                   </p>
                 </div>

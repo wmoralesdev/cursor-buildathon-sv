@@ -77,12 +77,7 @@ export function WhoSection() {
               </p>
 
               <div
-                className="pointer-events-none absolute -right-8 -bottom-8 h-32 w-32 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
-                style={{
-                  background: card.accentColor.includes("electric")
-                    ? "rgba(0, 229, 160, 0.08)"
-                    : "rgba(255, 107, 44, 0.08)",
-                }}
+                className={`pointer-events-none absolute -right-8 -bottom-8 h-32 w-32 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100 ${card.accentColor.includes("electric") ? "glow-blob-electric" : "glow-blob-accent"}`}
               />
             </motion.div>
           ))}

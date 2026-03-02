@@ -33,8 +33,7 @@ export function DetailsSection() {
   return (
     <section
       id="details"
-      className="relative py-28 sm:py-36 lg:py-48 section-padding"
-      style={{ background: "#0a0a0a" }}
+      className="relative py-28 sm:py-36 lg:py-48 section-padding bg-bg-alt"
     >
       {/* Top rule */}
       <div className="h-rule mb-20 max-w-7xl mx-auto" />
@@ -43,29 +42,11 @@ export function DetailsSection() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16 reveal">
           <div>
             <span className="tag mb-4 inline-block">// detalles</span>
-            <h2
-              className="font-bold uppercase leading-none"
-              style={{
-                fontFamily: "Chakra Petch, sans-serif",
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                color: "#f5f0e8",
-                letterSpacing: "-0.02em",
-              }}
-            >
+            <h2 className="font-bold uppercase leading-none font-display text-[clamp(2rem,5vw,3.5rem)] text-fg tracking-[-0.02em]">
               DÓNDE &amp; CUÁNDO
             </h2>
           </div>
-          <p
-            style={{
-              fontFamily: "JetBrains Mono, monospace",
-              fontSize: "0.7rem",
-              color: "#888888",
-              letterSpacing: "0.1em",
-              maxWidth: "240px",
-              textAlign: "right",
-              lineHeight: 1.6,
-            }}
-          >
+          <p className="font-mono text-[0.7rem] text-fg-2 tracking-[0.1em] max-w-[240px] text-right leading-[1.6]">
             Asistencia presencial<br />requerida para participar
           </p>
         </div>
@@ -75,74 +56,34 @@ export function DetailsSection() {
           {details.map((d, i) => (
             <div
               key={d.glyph}
-              className="reveal py-9 px-7 relative overflow-hidden"
-              style={{
-                transitionDelay: `${i * 0.08}s`,
-                border: `1px solid ${d.accent ? "rgba(255,75,0,0.5)" : "#1e1e1e"}`,
-                background: d.accent ? "rgba(255,75,0,0.06)" : "#0e0e0e",
-              }}
+              className={`reveal py-9 px-7 relative overflow-hidden border ${d.accent ? "border-accent/50 bg-accent/[0.06]" : "border-border bg-bg-raised"}`}
+              style={{ "--delay": `${i * 0.08}s` } as React.CSSProperties}
             >
               {/* Index glyph */}
               <span
-                className="absolute top-4 right-4"
-                style={{
-                  fontFamily: "JetBrains Mono, monospace",
-                  fontSize: "0.55rem",
-                  color: d.accent ? "rgba(255,75,0,0.5)" : "#2a2a2a",
-                  letterSpacing: "0.1em",
-                }}
+                className={`absolute top-4 right-4 font-mono text-[0.55rem] tracking-[0.1em] ${d.accent ? "text-accent/50" : "text-fg-6"}`}
               >
                 {d.glyph}
               </span>
 
               {/* Corner accent for highlighted card */}
               {d.accent && (
-                <div
-                  className="absolute top-0 left-0"
-                  style={{
-                    width: "2px",
-                    height: "40px",
-                    background: "#ff4b00",
-                  }}
-                />
+                <div className="absolute top-0 left-0 w-0.5 h-10 bg-accent" />
               )}
 
               <p
-                style={{
-                  fontFamily: "JetBrains Mono, monospace",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: d.accent ? "#ff4b00" : "#555555",
-                  marginBottom: "12px",
-                }}
+                className={`font-mono text-[0.6rem] tracking-[0.18em] uppercase mb-3 ${d.accent ? "text-accent" : "text-fg-3"}`}
               >
                 {d.label}
               </p>
 
               <p
-                style={{
-                  fontFamily: "Chakra Petch, sans-serif",
-                  fontSize: "clamp(1.3rem, 3vw, 1.8rem)",
-                  fontWeight: 700,
-                  color: d.accent ? "#ff4b00" : "#f5f0e8",
-                  letterSpacing: d.accent ? "0" : "-0.02em",
-                  lineHeight: 1.1,
-                  marginBottom: "8px",
-                }}
+                className={`font-display text-[clamp(1.3rem,3vw,1.8rem)] font-bold leading-[1.1] mb-2 ${d.accent ? "text-accent tracking-normal" : "text-fg tracking-[-0.02em]"}`}
               >
                 {d.value}
               </p>
 
-              <p
-                style={{
-                  fontFamily: "JetBrains Mono, monospace",
-                  fontSize: "0.65rem",
-                  color: "#444444",
-                  letterSpacing: "0.05em",
-                  lineHeight: 1.5,
-                }}
-              >
+              <p className="font-mono text-[0.65rem] text-fg-4 tracking-[0.05em] leading-[1.5]">
                 {d.sub}
               </p>
             </div>
@@ -150,23 +91,10 @@ export function DetailsSection() {
         </div>
 
         {/* Map reference bar */}
-        <div
-          className="reveal mt-6 flex items-center justify-between flex-wrap gap-3 py-6 px-8"
-          style={{
-            border: "1px solid #1e1e1e",
-            background: "#0e0e0e",
-          }}
-        >
+        <div className="reveal mt-6 flex items-center justify-between flex-wrap gap-3 py-6 px-8 border border-border bg-bg-raised">
           <div className="flex items-center gap-4">
-            <span style={{ color: "#ff4b00", fontSize: "0.9rem" }}>◎</span>
-            <span
-              style={{
-                fontFamily: "JetBrains Mono, monospace",
-                fontSize: "0.7rem",
-                color: "#888888",
-                letterSpacing: "0.08em",
-              }}
-            >
+            <span className="text-accent text-[0.9rem]">◎</span>
+            <span className="font-mono text-[0.7rem] text-fg-2 tracking-[0.08em]">
               18 Av. 11-95 Zona 15 Vista Hermosa III, Ciudad de Guatemala
             </span>
           </div>
@@ -174,19 +102,7 @@ export function DetailsSection() {
             href="https://maps.google.com/?q=Universidad+del+Valle+de+Guatemala"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              fontFamily: "JetBrains Mono, monospace",
-              fontSize: "0.65rem",
-              color: "#ff4b00",
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-              borderBottom: "1px solid rgba(255,75,0,0.3)",
-              paddingBottom: "1px",
-              transition: "border-color 0.2s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#ff4b00")}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,75,0,0.3)")}
+            className="font-mono text-[0.65rem] text-accent tracking-[0.12em] uppercase no-underline border-b border-accent/30 pb-px transition-[border-color] duration-200 hover:border-accent"
           >
             Ver en mapa →
           </a>

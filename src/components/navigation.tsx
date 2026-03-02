@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTranslation } from "../context/language-context";
+import { useTheme } from "next-themes";
+import { NavAuthBlock } from "./nav-auth-block";
 
 const LUMA_URL = "https://lu.ma/935r7zp6";
 
@@ -13,6 +15,7 @@ const NAV_LINKS = [
 
 export function Navigation() {
   const { language, toggleLanguage, t } = useTranslation();
+  const { theme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -59,11 +62,21 @@ export function Navigation() {
             {language === "en" ? "ES" : "EN"}
           </button>
 
+          <NavAuthBlock variant="full" />
+
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle theme"
+            className="rounded-full border border-white/10 p-2 text-text-secondary transition-all duration-200 hover:border-accent/40 hover:text-accent"
+          >
+            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
+
           <a
             href={LUMA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg bg-accent px-5 py-2 text-sm font-semibold text-[#050505] transition-all duration-200 hover:shadow-[0_0_24px_rgba(255,107,44,0.3)] hover:brightness-110"
+            className="rounded-lg border border-white/20 px-5 py-2 text-sm font-semibold text-text-secondary transition-all duration-200 hover:border-accent/40 hover:text-accent"
           >
             {t("nav.register")}
           </a>
@@ -107,11 +120,21 @@ export function Navigation() {
                   {language === "en" ? "ES" : "EN"}
                 </button>
 
+                <NavAuthBlock variant="full" onLinkClick={() => setMobileOpen(false)} />
+
+                <button
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  aria-label="Toggle theme"
+                  className="rounded-full border border-white/10 p-2 text-text-secondary transition-all duration-200 hover:border-accent/40 hover:text-accent"
+                >
+                  {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+                </button>
+
                 <a
                   href={LUMA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-lg bg-accent px-5 py-2 text-sm font-semibold text-[#050505]"
+                  className="rounded-lg border border-white/20 px-5 py-2 text-sm font-semibold text-text-secondary"
                 >
                   {t("nav.register")}
                 </a>

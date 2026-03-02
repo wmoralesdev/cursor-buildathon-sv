@@ -13,12 +13,7 @@ export function RegisterCta() {
   return (
     <section ref={ref} className="section-padding relative overflow-hidden py-32 md:py-44">
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        style={{
-          width: "600px",
-          height: "600px",
-          background: "radial-gradient(circle, rgba(255,107,44,0.08) 0%, transparent 65%)",
-        }}
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,107,44,0.08)_0%,transparent_65%)]"
         aria-hidden="true"
       />
 

@@ -51,8 +51,7 @@ export function ScheduleSection() {
   return (
     <section
       id="schedule"
-      className="relative py-28 sm:py-36 lg:py-48 section-padding"
-      style={{ background: "#090909" }}
+      className="relative py-28 sm:py-36 lg:py-48 section-padding bg-bg"
     >
       {/* Top rule */}
       <div className="h-rule mb-20 max-w-7xl mx-auto" />
@@ -62,60 +61,20 @@ export function ScheduleSection() {
           {/* Left sticky heading */}
           <div className="lg:col-span-4 reveal">
             <span className="tag mb-4 inline-block">// agenda</span>
-            <h2
-              className="font-bold uppercase leading-none mb-6"
-              style={{
-                fontFamily: "Chakra Petch, sans-serif",
-                fontSize: "clamp(2rem, 4vw, 3rem)",
-                color: "#f5f0e8",
-                letterSpacing: "-0.02em",
-              }}
-            >
+            <h2 className="font-bold uppercase leading-none mb-6 font-display text-[clamp(2rem,4vw,3rem)] text-fg tracking-[-0.02em]">
               EL DÍA<br />
-              <span style={{ color: "#ff4b00" }}>07.03</span>
+              <span className="text-accent">07.03</span>
             </h2>
-            <p
-              style={{
-                fontFamily: "Chakra Petch, sans-serif",
-                fontSize: "0.9rem",
-                color: "#555555",
-                lineHeight: 1.7,
-                maxWidth: "300px",
-              }}
-            >
+            <p className="font-display text-[0.9rem] text-fg-3 leading-[1.7] max-w-[300px]">
               Un día completo de construcción, aprendizaje y conexiones con la comunidad tech de Centroamérica.
             </p>
 
             {/* Duration badge */}
-            <div
-              className="mt-8 inline-flex flex-col"
-              style={{
-                border: "1px solid #1e1e1e",
-                padding: "16px 20px",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "JetBrains Mono, monospace",
-                  fontSize: "0.55rem",
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "#555555",
-                  marginBottom: "6px",
-                }}
-              >
+            <div className="mt-8 inline-flex flex-col border border-border px-5 py-4">
+              <span className="font-mono text-[0.55rem] tracking-[0.18em] uppercase text-fg-3 mb-1.5">
                 duración total
               </span>
-              <span
-                style={{
-                  fontFamily: "Chakra Petch, sans-serif",
-                  fontSize: "2rem",
-                  fontWeight: 700,
-                  color: "#ff4b00",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1,
-                }}
-              >
+              <span className="font-display text-[2rem] font-bold text-accent tracking-[-0.02em] leading-none">
                 7h
               </span>
             </div>
@@ -124,76 +83,33 @@ export function ScheduleSection() {
           {/* Timeline */}
           <div className="lg:col-span-8 relative">
             {/* Vertical line */}
-            <div
-              className="absolute left-0 top-0 bottom-0"
-              style={{
-                width: "1px",
-                background: "linear-gradient(to bottom, #ff4b00, #1e1e1e 80%)",
-                left: "0px",
-              }}
-            />
+            <div className="absolute left-0 top-0 bottom-0 w-px timeline-line" />
 
             <div className="space-y-0 pl-8">
               {schedule.map((item, i) => (
                 <div
                   key={item.time}
-                  className={`reveal relative ${i === 0 ? "pt-0 pb-8" : i === schedule.length - 1 ? "pt-8 pb-0" : "py-8"}`}
-                  style={{
-                    transitionDelay: `${i * 0.07}s`,
-                    borderBottom: i < schedule.length - 1 ? "1px solid #111111" : "none",
-                  }}
+                  className={`reveal relative ${i === 0 ? "pt-0 pb-8" : i === schedule.length - 1 ? "pt-8 pb-0" : "py-8"} ${i < schedule.length - 1 ? "border-b border-border-dim" : ""}`}
+                  style={{ "--delay": `${i * 0.07}s` } as React.CSSProperties}
                 >
                   {/* Dot on timeline */}
                   <div
-                    className="absolute"
-                    style={{
-                      left: "-33px",
-                      top: i === 0 ? "6px" : "30px",
-                      width: item.highlight ? "10px" : "6px",
-                      height: item.highlight ? "10px" : "6px",
-                      borderRadius: "50%",
-                      background: item.highlight ? "#ff4b00" : "#2a2a2a",
-                      border: item.highlight ? "none" : "1px solid #333333",
-                      boxShadow: item.highlight ? "0 0 10px rgba(255,75,0,0.5)" : "none",
-                      transform: "translateX(-50%)",
-                    }}
+                    className={`absolute rounded-full timeline-dot ${item.highlight ? "timeline-dot--highlight" : ""} ${i === 0 ? "timeline-dot--first" : ""}`}
                   />
 
                   <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
                     <span
-                      style={{
-                        fontFamily: "JetBrains Mono, monospace",
-                        fontSize: "0.75rem",
-                        color: item.highlight ? "#ff4b00" : "#444444",
-                        letterSpacing: "0.08em",
-                        minWidth: "52px",
-                        flexShrink: 0,
-                      }}
+                      className={`font-mono text-[0.75rem] tracking-[0.08em] min-w-[52px] shrink-0 ${item.highlight ? "text-accent" : "text-fg-4"}`}
                     >
                       {item.time}
                     </span>
                     <div>
                       <h3
-                        style={{
-                          fontFamily: "Chakra Petch, sans-serif",
-                          fontSize: "1rem",
-                          fontWeight: item.highlight ? 600 : 500,
-                          color: item.highlight ? "#f5f0e8" : "#888888",
-                          letterSpacing: "0.03em",
-                          marginBottom: "4px",
-                          textTransform: "uppercase",
-                        }}
+                        className={`font-display text-base uppercase tracking-[0.03em] mb-1 ${item.highlight ? "font-semibold text-fg" : "font-medium text-fg-2"}`}
                       >
                         {item.title}
                       </h3>
-                      <p
-                        style={{
-                          fontFamily: "Chakra Petch, sans-serif",
-                          fontSize: "0.82rem",
-                          color: "#444444",
-                          lineHeight: 1.6,
-                        }}
-                      >
+                      <p className="font-display text-[0.82rem] text-fg-4 leading-[1.6]">
                         {item.desc}
                       </p>
                     </div>

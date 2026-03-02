@@ -55,51 +55,21 @@ export function CountdownTimer() {
         <div key={unit.label} className="flex items-center gap-2 sm:gap-4">
           <div className="flex flex-col items-center">
             <div
-              className="relative overflow-hidden"
-              style={{
-                fontFamily: "JetBrains Mono, monospace",
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                fontWeight: 700,
-                color: "#f5f0e8",
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
-                animation: tick ? "countdown-tick 0.1s ease" : undefined,
-              }}
+              className={`relative overflow-hidden font-mono text-[clamp(2rem,5vw,3.5rem)] font-bold text-fg leading-none tracking-[-0.02em] ${tick ? "animate-[countdown-tick_0.1s_ease]" : ""}`}
             >
               <span
-                style={{
-                  color: unit.label === "días" && unit.value <= 7 ? "#ff4b00" : undefined,
-                  transition: "color 0.3s ease",
-                }}
+                className={`transition-colors duration-300 ease ${unit.label === "días" && unit.value <= 7 ? "text-accent" : ""}`}
               >
                 {pad(unit.value)}
               </span>
             </div>
-            <span
-              style={{
-                fontFamily: "JetBrains Mono, monospace",
-                fontSize: "0.55rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "#555555",
-                marginTop: "4px",
-              }}
-            >
+            <span className="font-mono text-[0.55rem] tracking-[0.2em] uppercase text-fg-3 mt-1">
               {unit.label}
             </span>
           </div>
           {i < units.length - 1 && (
             <span
-              style={{
-                fontFamily: "JetBrains Mono, monospace",
-                fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
-                color: "#ff4b00",
-                lineHeight: 1,
-                opacity: tick ? 1 : 0.3,
-                transition: "opacity 0.5s ease",
-                alignSelf: "flex-start",
-                marginTop: "2px",
-              }}
+              className={`font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-accent leading-none self-start mt-0.5 transition-opacity duration-[500ms] ${tick ? "opacity-100" : "opacity-30"}`}
             >
               :
             </span>

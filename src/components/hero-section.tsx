@@ -1,128 +1,45 @@
+import { useTheme } from "next-themes";
 import { CountdownTimer } from "./countdown-timer";
-
-const LUMA_URL = "https://lu.ma/935r7zp6";
+import { LUMA_URL } from "../constants";
 
 export function HeroSection() {
+  const { resolvedTheme } = useTheme();
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col overflow-hidden section-padding"
-      style={{ background: "#080808" }}
+      className="relative min-h-screen flex flex-col overflow-hidden section-padding bg-bg"
     >
       {/* Grid lines background */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(30,30,30,0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(30,30,30,0.5) 1px, transparent 1px)
-          `,
-          backgroundSize: "80px 80px",
-          maskImage: "radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%)",
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-grid mask-radial-hero" />
 
       {/* Radial orange glow from top */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: "-20%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "900px",
-          height: "600px",
-          background: "radial-gradient(ellipse at center, rgba(255,75,0,0.12) 0%, transparent 70%)",
-        }}
-      />
-
-      {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between max-w-7xl mx-auto w-full py-8">
-        <div className="flex items-center gap-3">
-          {/* Cursor hexagonal logo mark */}
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M14 2L25.2 8.5V21.5L14 28L2.8 21.5V8.5L14 2Z"
-              fill="#f5f0e8"
-              fillOpacity="0.05"
-              stroke="#f5f0e8"
-              strokeWidth="1.2"
-            />
-            <path d="M14 7L20.6 11V19L14 23L7.4 19V11L14 7Z" fill="#f5f0e8" fillOpacity="0.9" />
-          </svg>
-          <span
-            style={{
-              fontFamily: "JetBrains Mono, monospace",
-              fontSize: "0.7rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "#555555",
-            }}
-          >
-            cursor / gt
-          </span>
-        </div>
-        <a
-          href={LUMA_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-phosphor text-xs hidden sm:inline-block"
-          style={{ padding: "10px 28px" }}
-        >
-          Registrate →
-        </a>
-      </nav>
+      <div className="absolute pointer-events-none glow-top-center" />
 
       {/* Main content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center max-w-7xl mx-auto w-full pt-12 pb-24">
         {/* Event label */}
-        <div className="mb-10" style={{ animationDelay: "0.1s" }}>
+        <div className="mb-10 animate-delay-[0.1s]">
           <span className="tag">
             07 · 03 · 2026 &nbsp;·&nbsp; 10AM–5PM &nbsp;·&nbsp; UVG Z15
           </span>
         </div>
 
         {/* Giant headline with glitch */}
-        <div className="relative mb-6" style={{ animation: "flicker 8s ease-in-out infinite" }}>
+        <div className="relative mb-6 animate-[flicker_8s_ease-in-out_infinite]">
           <h1
-            className="relative font-bold uppercase leading-none select-none"
-            style={{
-              fontFamily: "Chakra Petch, sans-serif",
-              fontSize: "clamp(3.5rem, 12vw, 10rem)",
-              color: "#f5f0e8",
-              letterSpacing: "-0.02em",
-              lineHeight: 0.9,
-            }}
+            className="relative font-bold uppercase leading-[0.9] select-none font-display text-[clamp(3.5rem,12vw,10rem)] text-fg tracking-[-0.02em]"
           >
             {/* Glitch layers */}
             <span
               aria-hidden="true"
-              className="absolute inset-0"
-              style={{
-                color: "#ff4b00",
-                animation: "glitch-1 6s ease-in-out infinite",
-                fontFamily: "Chakra Petch, sans-serif",
-                fontSize: "clamp(3.5rem, 12vw, 10rem)",
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                lineHeight: 0.9,
-                userSelect: "none",
-              }}
+              className="absolute inset-0 text-accent font-display text-[clamp(3.5rem,12vw,10rem)] font-bold tracking-[-0.02em] leading-[0.9] select-none animate-[glitch-1_6s_ease-in-out_infinite]"
             >
               CURSOR<br />HACKATHON
             </span>
             <span
               aria-hidden="true"
-              className="absolute inset-0"
-              style={{
-                color: "#00ffcc",
-                animation: "glitch-2 6s ease-in-out infinite",
-                fontFamily: "Chakra Petch, sans-serif",
-                fontSize: "clamp(3.5rem, 12vw, 10rem)",
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                lineHeight: 0.9,
-                userSelect: "none",
-              }}
+              className="absolute inset-0 text-[#00ffcc] font-display text-[clamp(3.5rem,12vw,10rem)] font-bold tracking-[-0.02em] leading-[0.9] select-none animate-[glitch-2_6s_ease-in-out_infinite]"
             >
               CURSOR<br />HACKATHON
             </span>
@@ -131,31 +48,13 @@ export function HeroSection() {
         </div>
 
         {/* Subtitle */}
-        <p
-          className="mb-14"
-          style={{
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: "clamp(0.85rem, 2vw, 1.1rem)",
-            color: "#555555",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-          }}
-        >
+        <p className="mb-14 font-mono text-[clamp(0.85rem,2vw,1.1rem)] text-fg-3 tracking-[0.15em] uppercase">
           Ciudad de Guatemala &nbsp;·&nbsp; 2026
         </p>
 
         {/* Countdown */}
         <div className="mb-14">
-          <p
-            style={{
-              fontFamily: "JetBrains Mono, monospace",
-              fontSize: "0.6rem",
-              letterSpacing: "0.2em",
-              color: "#ff4b00",
-              textTransform: "uppercase",
-              marginBottom: "12px",
-            }}
-          >
+          <p className="font-mono text-[0.6rem] tracking-[0.2em] text-accent uppercase mb-3">
             // tiempo restante
           </p>
           <CountdownTimer />
@@ -177,10 +76,7 @@ export function HeroSection() {
         </div>
 
         {/* Stats bar */}
-        <div
-          className="mt-16 flex flex-wrap gap-8 justify-center"
-          style={{ borderTop: "1px solid #1e1e1e", paddingTop: "24px" }}
-        >
+        <div className="mt-16 flex flex-wrap gap-8 justify-center border-t border-border pt-6">
           {[
             { value: "79+", label: "registrados" },
             { value: "2–4", label: "por equipo" },
@@ -188,27 +84,10 @@ export function HeroSection() {
             { value: "GT", label: "Guatemala City" },
           ].map((stat) => (
             <div key={stat.label}>
-              <div
-                style={{
-                  fontFamily: "Chakra Petch, sans-serif",
-                  fontSize: "1.5rem",
-                  fontWeight: 700,
-                  color: "#f5f0e8",
-                  lineHeight: 1,
-                }}
-              >
+              <div className="font-display text-[1.5rem] font-bold text-fg leading-none">
                 {stat.value}
               </div>
-              <div
-                style={{
-                  fontFamily: "JetBrains Mono, monospace",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.15em",
-                  color: "#555555",
-                  textTransform: "uppercase",
-                  marginTop: "4px",
-                }}
-              >
+              <div className="font-mono text-[0.6rem] tracking-[0.15em] text-fg-3 uppercase mt-1">
                 {stat.label}
               </div>
             </div>
@@ -217,16 +96,12 @@ export function HeroSection() {
       </div>
 
       {/* City skyline silhouette */}
-      <div
-        className="absolute bottom-0 left-0 right-0 pointer-events-none"
-        style={{ height: "220px" }}
-      >
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none h-[220px]">
         <svg
           viewBox="0 0 1440 220"
           preserveAspectRatio="xMidYMax slice"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
-          style={{ opacity: 0.15 }}
+          className="w-full h-full opacity-15"
         >
           {/* Guatemala City-inspired skyline */}
           <path
@@ -249,30 +124,16 @@ export function HeroSection() {
             L1310,160 L1310,140 L1325,140 L1325,160
             L1355,160 L1355,120 L1365,120 L1365,95 L1375,95 L1375,120 L1390,120 L1390,160
             L1440,160 L1440,220 Z"
-            fill="#f5f0e8"
+            fill={resolvedTheme === "light" ? "#1c1814" : "#f5f0e8"}
           />
         </svg>
         {/* Gradient fade at bottom */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to bottom, transparent 0%, #080808 100%)",
-          }}
-        />
+        <div className="absolute inset-0 fade-to-bg-bottom" />
       </div>
 
       {/* Scroll indicator */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        style={{ animation: "float-up 2.5s ease-in-out infinite" }}
-      >
-        <div
-          style={{
-            width: "1px",
-            height: "48px",
-            background: "linear-gradient(to bottom, rgba(255,75,0,0.8), transparent)",
-          }}
-        />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-[float-up_2.5s_ease-in-out_infinite]">
+        <div className="w-px h-12 bg-[linear-gradient(to_bottom,rgba(255,75,0,0.8),transparent)]" />
       </div>
     </section>
   );
