@@ -6,6 +6,7 @@ import { api } from "@/convex/_generated/api";
 
 import { NoiseOverlay } from "./components/noise-overlay";
 import { SiteNav } from "./components/site-nav";
+import { useHashScroll } from "./hooks/use-hash-scroll";
 
 function useCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
@@ -96,6 +97,7 @@ function StoreUserOnAuth() {
 export default function App() {
   const { dotRef, ringRef } = useCursor();
   useScrollReveal();
+  useHashScroll();
 
   return (
     <div className="relative min-h-screen bg-bg">
