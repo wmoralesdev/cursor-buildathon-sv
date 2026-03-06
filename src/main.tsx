@@ -10,6 +10,7 @@ import App from "./app";
 import "./index.css";
 import { LandingPage } from "./pages/landing-page";
 import { BriefPage } from "./pages/brief-page";
+import { EventPage } from "./pages/event-page";
 // import { DashboardPage } from "./pages/dashboard-page";
 // import { SignInPage } from "./pages/sign-in-page";
 // import { SSOCallback } from "./pages/sso-callback";
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <LandingPage /> },
       { path: "/brief", element: <BriefPage /> },
+      { path: "/event", element: <EventPage /> },
       // { path: "/dashboard", element: <DashboardPage /> },
       // { path: "/login", element: <SignInPage /> },
       // { path: "/sign-in", element: <Navigate to="/login" replace /> },
