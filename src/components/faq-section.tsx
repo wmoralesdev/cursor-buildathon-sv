@@ -1,89 +1,68 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
 import { AnchorHeading } from "./anchor-heading";
+import { useTranslation } from "../context/language-context";
+import type { TranslationKey } from "../i18n/translations";
 
-interface FAQItem {
-  q: string;
-  a: string;
-}
-
-const faqs: FAQItem[] = [
-  {
-    q: "¿Necesito saber programar para participar?",
-    a: "No. Las herramientas de IA que usaremos (como Cursor) permiten que cualquier persona construya productos funcionales. Lo que buscamos es diversidad de perspectivas: diseñadores, marketers, emprendedores y curiosos son igual de bienvenidos que los desarrolladores.",
-  },
-  {
-    q: "¿Puedo participar solo o necesito un equipo?",
-    a: "Puedes registrarte sin equipo y serás asignado a uno equilibrado antes del evento. También puedes venir con tu equipo de 2 a 4 personas. Todos los miembros del equipo deben registrarse individualmente.",
-  },
-  {
-    q: "¿El evento es gratuito?",
-    a: "Sí, la participación no tiene costo. Solo necesitas registrarte en Luma y recibir aprobación. El cupo es limitado para garantizar calidad en la experiencia.",
-  },
-  {
-    q: "¿Puedo participar si soy de fuera de Guatemala?",
-    a: "Sí. Builders de toda Centroamérica son bienvenidos. El único requisito es asistir presencialmente al evento en la Universidad del Valle de Guatemala.",
-  },
-  {
-    q: "¿Qué herramientas se usarán durante el hackathon?",
-    a: "Cursor es la herramienta principal. Es un editor de código con IA integrada que permite construir aplicaciones completas sin experiencia técnica avanzada. El día del evento recibirás acceso y una introducción rápida.",
-  },
-  {
-    q: "¿Habrá premios?",
-    a: "Sí. Los detalles de premios se anunciarán próximamente. Los criterios de evaluación incluyen impacto, originalidad, ejecución técnica y presentación.",
-  },
-  {
-    q: "¿Puedo empezar a trabajar en mi proyecto antes del evento?",
-    a: "Los proyectos deben construirse el día del hackathon desde cero. Puedes llegar con ideas y referencias, pero el código y el producto deben ser nuevos.",
-  },
-];
+const FAQ_KEYS = [
+  { q: "faq.q0", a: "faq.a0" },
+  { q: "faq.q1", a: "faq.a1" },
+  { q: "faq.q2", a: "faq.a2" },
+  { q: "faq.q3", a: "faq.a3" },
+  { q: "faq.q4", a: "faq.a4" },
+  { q: "faq.q5", a: "faq.a5" },
+  { q: "faq.q6", a: "faq.a6" },
+] as const satisfies { q: TranslationKey; a: TranslationKey }[];
 
 export function FAQSection() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState<number | null>(null);
+
+  const faqs = useMemo(
+    () => FAQ_KEYS.map((k) => ({ q: t(k.q), a: t(k.a) })),
+    [t],
+  );
 
   return (
     <section
       id="faq"
       className="group relative py-28 sm:py-36 lg:py-48 section-padding bg-bg"
     >
-      {/* Top rule */}
       <div className="h-rule mb-20 max-w-7xl mx-auto" />
 
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-          {/* Left heading */}
           <div className="lg:col-span-4 reveal">
-            <span className="tag mb-4 inline-block">// preguntas frecuentes</span>
+            <span className="tag mb-4 inline-block">{t("faq.tag")}</span>
             <AnchorHeading id="faq">
               <h2 className="font-bold uppercase leading-none font-display text-[clamp(2rem,4vw,3rem)] text-fg tracking-[-0.02em]">
-                ¿TIENES<br />DUDAS?
+                {t("faq.title1")}
+                <br />
+                {t("faq.title2")}
               </h2>
             </AnchorHeading>
-            <p className="mt-4 font-display text-[0.85rem] text-fg-3 leading-[1.7] max-w-[260px]">
-              Si no encuentras tu respuesta aquí, únete a nuestra comunidad de WhatsApp.
+            <p className="mt-4 font-display text-[0.85rem] text-fg-3 leading-[1.7] max-w-[280px]">
+              {t("faq.subtitle")}
             </p>
-            {/* TODO: Replace with actual WhatsApp community invite URL when available */}
             <a
-              href="https://chat.whatsapp.com/"
-              aria-label="Unirse a la comunidad de WhatsApp"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#tiers"
               className="mt-6 inline-block font-mono text-[0.65rem] text-accent tracking-[0.12em] uppercase no-underline border-b border-accent/30 pb-0.5 transition-[border-color] duration-200 hover:border-accent"
             >
-              Comunidad WhatsApp →
+              {t("faq.toTiers")}
             </a>
           </div>
 
-          {/* Right accordion */}
           <div className="lg:col-span-8">
             {faqs.map((faq, i) => (
               <div
-                key={i}
+                key={faq.q}
                 className="reveal border-b border-border-faint"
                 style={{ "--delay": `${i * 0.05}s` } as React.CSSProperties}
               >
                 <button
+                  type="button"
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full text-left py-6 flex items-start justify-between gap-6 group bg-transparent border-none"
+                  className="w-full text-left py-6 flex items-start justify-between gap-6 group bg-transparent border-none cursor-pointer"
                   aria-expanded={open === i}
                   aria-controls={`faq-answer-${i}`}
                   id={`faq-question-${i}`}
@@ -107,9 +86,7 @@ export function FAQSection() {
                   className="faq-accordion-content"
                   data-open={open === i ? "true" : "false"}
                 >
-                  <p className="pb-6 font-display text-sm text-fg-3 leading-[1.8] max-w-[600px]">
-                    {faq.a}
-                  </p>
+                  <p className="pb-6 font-display text-sm text-fg-3 leading-[1.8] max-w-[600px]">{faq.a}</p>
                 </div>
               </div>
             ))}

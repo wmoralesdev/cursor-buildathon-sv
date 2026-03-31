@@ -5,6 +5,8 @@ export interface PersonCardData {
   name: string;
   role: string;
   company?: string;
+  /** When set, company is rendered as an external link */
+  companyHref?: string;
   blurb?: string;
   photo?: string;
   hasCursorBadge?: boolean;
@@ -21,6 +23,7 @@ export function PersonCard({
   name,
   role,
   company,
+  companyHref,
   blurb,
   photo,
   hasCursorBadge,
@@ -136,9 +139,18 @@ export function PersonCard({
           {/* Company */}
           {company && company !== "—" && (
             <div className="mt-1.5">
-              <span className="font-mono text-[0.55rem] tracking-[0.1em] uppercase text-fg-4">
-                {company}
-              </span>
+              {companyHref ? (
+                <a
+                  href={companyHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[0.55rem] tracking-[0.1em] uppercase text-fg-4 underline decoration-border underline-offset-2 transition-colors hover:text-accent hover:decoration-accent/50"
+                >
+                  {company}
+                </a>
+              ) : (
+                <span className="font-mono text-[0.55rem] tracking-[0.1em] uppercase text-fg-4">{company}</span>
+              )}
             </div>
           )}
 

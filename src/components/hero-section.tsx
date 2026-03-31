@@ -1,101 +1,100 @@
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { CountdownTimer } from "./countdown-timer";
-import { LUMA_URL } from "../constants";
+import { EVENT_VENUE_SHORT } from "../constants";
+import { useTranslation } from "../context/language-context";
+import type { TranslationKey } from "../i18n/translations";
 
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
+  const { t } = useTranslation();
+
+  const stats = useMemo(
+    () =>
+      [
+        { v: "~24h", labelKey: "hero.stat.build" },
+        { v: "~200", labelKey: "hero.stat.capacity" },
+        { v: "CA", labelKey: "hero.stat.region" },
+        { v: t("hero.stat.editionValue"), labelKey: "hero.stat.edition" },
+      ] as { v: string; labelKey: TranslationKey }[],
+    [t],
+  );
 
   return (
     <section
       id="hero"
       className="relative min-h-screen flex flex-col overflow-hidden section-padding bg-bg"
     >
-      {/* Grid lines background */}
       <div className="absolute inset-0 pointer-events-none bg-grid mask-radial-hero" />
 
-      {/* Radial orange glow from top */}
       <div className="absolute pointer-events-none glow-top-center" />
 
-      {/* Main content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center max-w-7xl mx-auto w-full pt-12 pb-24">
-        {/* Event label */}
         <div className="mb-10 animate-delay-[0.1s]">
           <span className="tag">
-            07 · 03 · 2026 &nbsp;·&nbsp; 10AM–5PM &nbsp;·&nbsp; UVG Z15
+            {t("hero.sponsorTagline")} {EVENT_VENUE_SHORT}
           </span>
         </div>
 
-        {/* Giant headline with glitch */}
         <div className="relative mb-6 animate-[flicker_8s_ease-in-out_infinite]">
           <h1
             className="relative font-bold uppercase leading-[0.9] select-none font-display text-[clamp(3.5rem,12vw,10rem)] text-fg tracking-[-0.02em]"
           >
-            {/* Glitch layers */}
             <span
               aria-hidden="true"
               className="absolute inset-0 text-accent font-display text-[clamp(3.5rem,12vw,10rem)] font-bold tracking-[-0.02em] leading-[0.9] select-none animate-[glitch-1_6s_ease-in-out_infinite]"
             >
-              CURSOR<br />HACKATHON
+              CURSOR<br />BUILDATHON
             </span>
             <span
               aria-hidden="true"
               className="absolute inset-0 text-[#00ffcc] font-display text-[clamp(3.5rem,12vw,10rem)] font-bold tracking-[-0.02em] leading-[0.9] select-none animate-[glitch-2_6s_ease-in-out_infinite]"
             >
-              CURSOR<br />HACKATHON
+              CURSOR<br />BUILDATHON
             </span>
-            CURSOR<br />HACKATHON
+            CURSOR<br />BUILDATHON
           </h1>
         </div>
 
-        {/* Subtitle */}
-        <p className="mb-14 font-mono text-[clamp(0.85rem,2vw,1.1rem)] text-fg-3 tracking-[0.15em] uppercase">
-          Ciudad de Guatemala &nbsp;·&nbsp; 2026
+        <p className="mb-4 font-mono text-[clamp(0.85rem,2vw,1.1rem)] text-fg-3 tracking-[0.15em] uppercase">
+          {t("hero.regionYear")}
+        </p>
+        <p className="mb-14 max-w-2xl mx-auto font-display text-[0.98rem] text-fg-2 leading-[1.75] px-2">
+          {t("hero.pitch")}
         </p>
 
-        {/* Countdown */}
         <div className="mb-14">
           <p className="font-mono text-[0.6rem] tracking-[0.2em] text-accent uppercase mb-3">
-            // tiempo restante
+            {t("hero.countdownLabel")}
           </p>
           <CountdownTimer />
         </div>
 
-        {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 sm:justify-center">
-          <a
-            href={LUMA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-phosphor inline-block text-center"
+          <Link
+            to={{ pathname: "/", hash: "tiers" }}
+            className="btn-phosphor inline-block text-center no-underline"
           >
-            Registrate ahora →
-          </a>
+            {t("hero.ctaTiers")}
+          </Link>
           <a href="#about" className="btn-ghost inline-block text-center">
-            Conoce el evento
+            {t("hero.ctaAbout")}
           </a>
         </div>
 
-        {/* Stats bar */}
         <div className="mt-16 flex flex-wrap gap-8 justify-center border-t border-border pt-6">
-          {[
-            { value: "79+", label: "registrados" },
-            { value: "2–4", label: "por equipo" },
-            { value: "7h", label: "de hackathon" },
-            { value: "GT", label: "Guatemala City" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <div className="font-display text-[1.5rem] font-bold text-fg leading-none">
-                {stat.value}
-              </div>
+          {stats.map((stat) => (
+            <div key={stat.labelKey}>
+              <div className="font-display text-[1.5rem] font-bold text-fg leading-none">{stat.v}</div>
               <div className="font-mono text-[0.6rem] tracking-[0.15em] text-fg-3 uppercase mt-1">
-                {stat.label}
+                {t(stat.labelKey)}
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* City skyline silhouette */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none h-[220px]">
         <svg
           viewBox="0 0 1440 220"
@@ -103,7 +102,6 @@ export function HeroSection() {
           xmlns="http://www.w3.org/2000/svg"
           className="w-full h-full opacity-15"
         >
-          {/* Guatemala City-inspired skyline */}
           <path
             d="M0,220 L0,160 L40,160 L40,130 L55,130 L55,100 L70,100 L70,130 L85,130 L85,160
             L120,160 L120,110 L135,110 L135,80 L145,80 L145,60 L155,60 L155,80 L165,80 L165,110 L180,110 L180,160
@@ -127,11 +125,9 @@ export function HeroSection() {
             fill={resolvedTheme === "light" ? "#1c1814" : "#f5f0e8"}
           />
         </svg>
-        {/* Gradient fade at bottom */}
         <div className="absolute inset-0 fade-to-bg-bottom" />
       </div>
 
-      {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-[float-up_2.5s_ease-in-out_infinite]">
         <div className="w-px h-12 bg-[linear-gradient(to_bottom,rgba(255,75,0,0.8),transparent)]" />
       </div>

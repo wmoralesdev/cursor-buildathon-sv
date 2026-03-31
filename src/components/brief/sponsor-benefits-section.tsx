@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useMemo } from "react";
 
-const SPONSOR_EMAIL = "mailto:hello@wmorales.dev";
+import { SPONSOR_MAILTO } from "../../constants";
+import { useTranslation } from "../../context/language-context";
+import type { TranslationKey } from "../../i18n/translations";
 
-const benefits = [
+const benefitDefs = [
   {
     code: "B-01",
-    title: "Cobertura en redes",
-    body: "Logo y mención en todas las publicaciones del evento — antes, durante y después del hackathon. Tu marca frente a la comunidad de builders de Centroamérica.",
+    titleKey: "sponsorBenefits.b1.title" as const,
+    bodyKey: "sponsorBenefits.b1.body" as const,
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9" aria-hidden>
         <circle cx="20" cy="20" r="17" stroke="currentColor" strokeWidth="1.5" opacity="0.25" />
@@ -19,8 +21,8 @@ const benefits = [
   },
   {
     code: "B-02",
-    title: "Tiempo en escena",
-    body: "2–3 minutos para presentarte ante todos los builders el día del evento. Acceso directo al micrófono y a la atención de cada equipo participante.",
+    titleKey: "sponsorBenefits.b2.title" as const,
+    bodyKey: "sponsorBenefits.b2.body" as const,
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9" aria-hidden>
         <rect x="6" y="8" width="28" height="20" rx="1.5" stroke="currentColor" strokeWidth="1.5" opacity="0.25" />
@@ -32,8 +34,8 @@ const benefits = [
   },
   {
     code: "B-03",
-    title: "Acceso al talento",
-    body: "Contacto directo con los mejores builders de Centroamérica. Conoce a los equipos, evalúa perfiles y conecta con la próxima generación de fundadores y desarrolladores.",
+    titleKey: "sponsorBenefits.b3.title" as const,
+    bodyKey: "sponsorBenefits.b3.body" as const,
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9" aria-hidden>
         <circle cx="20" cy="14" r="5.5" stroke="currentColor" strokeWidth="1.5" />
@@ -43,9 +45,21 @@ const benefits = [
       </svg>
     ),
   },
-];
+] satisfies { code: string; titleKey: TranslationKey; bodyKey: TranslationKey; icon: React.ReactNode }[];
 
 export function SponsorBenefitsSection() {
+  const { t } = useTranslation();
+
+  const benefits = useMemo(
+    () =>
+      benefitDefs.map((b) => ({
+        ...b,
+        title: t(b.titleKey),
+        body: t(b.bodyKey),
+      })),
+    [t],
+  );
+
   return (
     <section
       id="benefits"
@@ -56,17 +70,16 @@ export function SponsorBenefitsSection() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
           <div className="lg:col-span-5 reveal">
-            <span className="tag mb-4 inline-block">// 07 — patrocinio</span>
+            <span className="tag mb-4 inline-block">{t("sponsorBenefits.tag")}</span>
             <h2 className="font-bold uppercase leading-none font-display text-[clamp(1.8rem,4vw,2.8rem)] text-fg tracking-[-0.02em]">
-              QUÉ OBTIENEN<br />
-              <span className="text-accent">LOS PATROCINADORES</span>
+              {t("sponsorBenefits.title1")}
+              <br />
+              <span className="text-accent">{t("sponsorBenefits.title2")}</span>
             </h2>
           </div>
 
           <div className="lg:col-span-7 reveal reveal-delay-1 flex items-center">
-            <p className="font-display text-[1.05rem] text-fg-2 leading-[1.8]">
-              Patrocinar el Cursor Hackathon Guatemala es apostar por el ecosistema tech de Centroamérica — y obtener visibilidad real frente a los builders que están construyendo el futuro de la región.
-            </p>
+            <p className="font-display text-[1.05rem] text-fg-2 leading-[1.8]">{t("sponsorBenefits.intro")}</p>
           </div>
         </div>
 
@@ -79,20 +92,14 @@ export function SponsorBenefitsSection() {
             >
               <span className="absolute top-0 right-0 w-8 h-8 border-t border-r border-accent/20 transition-colors duration-300 group-hover:border-accent/50" />
 
-              <div className="text-fg-3 transition-colors duration-300 group-hover:text-accent/60">
-                {b.icon}
-              </div>
+              <div className="text-fg-3 transition-colors duration-300 group-hover:text-accent/60">{b.icon}</div>
 
               <div>
-                <div className="font-mono text-[0.58rem] tracking-[0.15em] text-accent uppercase mb-2">
-                  {b.code}
-                </div>
+                <div className="font-mono text-[0.58rem] tracking-[0.15em] text-accent uppercase mb-2">{b.code}</div>
                 <h3 className="font-display text-base font-semibold text-fg uppercase tracking-[0.03em] mb-3">
                   {b.title}
                 </h3>
-                <p className="font-display text-sm text-fg-3 leading-[1.75]">
-                  {b.body}
-                </p>
+                <p className="font-display text-sm text-fg-3 leading-[1.75]">{b.body}</p>
               </div>
             </div>
           ))}
@@ -101,17 +108,12 @@ export function SponsorBenefitsSection() {
         <div className="reveal border border-accent/20 bg-accent/3 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
             <div className="font-mono text-[0.6rem] tracking-[0.15em] text-accent uppercase mb-2">
-              // ¿listo para patrocinar?
+              {t("sponsorBenefits.ctaLabel")}
             </div>
-            <p className="font-display text-[0.95rem] text-fg-2 leading-[1.7] max-w-[480px]">
-              Escríbenos directamente y coordinamos los detalles. Los cupos de patrocinio son limitados.
-            </p>
+            <p className="font-display text-[0.95rem] text-fg-2 leading-[1.7] max-w-[480px]">{t("sponsorBenefits.ctaBody")}</p>
           </div>
-          <a
-            href={SPONSOR_EMAIL}
-            className="btn-phosphor px-7 py-3 shrink-0"
-          >
-            Patrocinar el evento →
+          <a href={SPONSOR_MAILTO} className="btn-phosphor px-7 py-3 shrink-0">
+            {t("sponsorBenefits.ctaButton")}
           </a>
         </div>
       </div>

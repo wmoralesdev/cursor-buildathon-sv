@@ -7,12 +7,12 @@ const eligibilityRules = [
 ];
 
 const participationRules = [
-  "Sin código pre-escrito — proyectos se construyen desde cero el día del evento",
+  "Sin código preescrito — proyectos se construyen desde cero el día del evento",
   "Cursor es la herramienta principal requerida para construir",
   "Un proyecto por equipo",
-  "El código debe ser nuevo; no se permiten proyectos pre-existentes",
+  "El código debe ser nuevo; no se permiten proyectos preexistentes",
   "Puedes llegar con ideas y referencias, no con código",
-  "Repositorio o link compartido requerido al finalizar",
+  "Repositorio o enlace compartido requerido al finalizar",
 ];
 
 export function RulesSection() {

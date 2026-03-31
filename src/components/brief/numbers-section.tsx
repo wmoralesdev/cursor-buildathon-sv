@@ -1,38 +1,22 @@
-const stats = [
-  {
-    value: "79+",
-    label: "Registrados",
-    sub: "y creciendo",
-  },
-  {
-    value: "2–4",
-    label: "Por equipo",
-    sub: "personas",
-  },
-  {
-    value: "7h",
-    label: "De hackathon",
-    sub: "10:30–17:30",
-  },
-  {
-    value: "CA",
-    label: "Alcance",
-    sub: "Toda Centroamérica",
-  },
-  /* was: value: "5", sub: "categorías temáticas" */
-  {
-    value: "???",
-    label: "Tracks",
-    sub: "???",
-  },
-  {
-    value: "1",
-    label: "Día",
-    sub: "07 · 03 · 2026",
-  },
-];
+import { useMemo } from "react";
+
+import { useTranslation } from "../../context/language-context";
 
 export function NumbersSection() {
+  const { t } = useTranslation();
+
+  const stats = useMemo(
+    () => [
+      { value: "~24h+", label: t("numbers.s1.label"), sub: t("numbers.s1.sub") },
+      { value: "2–4", label: t("numbers.s2.label"), sub: t("numbers.s2.sub") },
+      { value: "UFG", label: t("numbers.s3.label"), sub: t("numbers.s3.sub") },
+      { value: "CA", label: t("numbers.s4.label"), sub: t("numbers.s4.sub") },
+      { value: t("hero.stat.editionValue"), label: t("numbers.s5.label"), sub: t("numbers.s5.sub") },
+      { value: "~200", label: t("numbers.s6.label"), sub: t("numbers.s6.sub") },
+    ],
+    [t],
+  );
+
   return (
     <section
       id="numbers"
@@ -42,9 +26,11 @@ export function NumbersSection() {
 
       <div className="max-w-7xl mx-auto">
         <div className="reveal mb-14">
-          <span className="tag mb-4 inline-block">// 02 — en números</span>
+          <span className="tag mb-4 inline-block">{t("numbers.tag")}</span>
           <h2 className="font-bold uppercase leading-none font-display text-[clamp(1.8rem,4vw,2.8rem)] text-fg tracking-[-0.02em]">
-            EL EVENTO<br />EN CIFRAS
+            {t("numbers.title1")}
+            <br />
+            {t("numbers.title2")}
           </h2>
         </div>
 
@@ -55,10 +41,9 @@ export function NumbersSection() {
               className={`reveal relative overflow-hidden text-center border-r border-t border-b border-border px-5 py-7 ${i === 0 ? "border-l" : ""}`}
               style={{ "--delay": `${i * 0.07}s` } as React.CSSProperties}
             >
-              {/* Faint bg value */}
               <div
                 aria-hidden="true"
-                className="absolute inset-0 flex items-center justify-center font-display text-[5rem] font-bold tracking-[-0.04em] select-none pointer-events-none text-accent/[0.04]"
+                className="absolute inset-0 flex items-center justify-center font-display text-[5rem] font-bold tracking-[-0.04em] select-none pointer-events-none text-accent/4"
               >
                 {stat.value}
               </div>
@@ -71,9 +56,7 @@ export function NumbersSection() {
                 {stat.label}
               </div>
 
-              <div className="font-mono text-[0.58rem] tracking-[0.1em] text-fg-5 uppercase">
-                {stat.sub}
-              </div>
+              <div className="font-mono text-[0.58rem] tracking-widest text-fg-5 uppercase">{stat.sub}</div>
             </div>
           ))}
         </div>

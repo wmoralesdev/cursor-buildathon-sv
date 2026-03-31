@@ -1,9 +1,29 @@
 /* eslint-disable react-refresh/only-export-components -- Provider and hook are coupled; splitting would require exporting context separately */
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  type ReactNode,
+} from "react";
 import { translations, type TranslationKey, type Language } from "../i18n/translations";
+
+const STORAGE_KEY = "cursor-buildathon-lang";
+
+function readStoredLanguage(): Language | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw === "en" || raw === "es") return raw;
+  } catch {
+    /* ignore */
+  }
+  return null;
+}
 
 interface LanguageContextValue {
   language: Language;
+  setLanguage: (lang: Language) => void;
   toggleLanguage: () => void;
   t: (key: TranslationKey) => string;
 }
@@ -11,10 +31,31 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("es");
+  const [language, setLanguageState] = useState<Language>(() => readStoredLanguage() ?? "en");
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
+  const setLanguage = useCallback((lang: Language) => {
+    setLanguageState(lang);
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   const toggleLanguage = useCallback(() => {
-    setLanguage((prev) => (prev === "en" ? "es" : "en"));
+    setLanguageState((prev) => {
+      const next = prev === "en" ? "es" : "en";
+      try {
+        localStorage.setItem(STORAGE_KEY, next);
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
   }, []);
 
   const t = useCallback(
@@ -25,7 +66,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

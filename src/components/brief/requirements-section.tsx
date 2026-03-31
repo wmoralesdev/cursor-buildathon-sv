@@ -1,27 +1,23 @@
 const requirements = [
   {
     code: "R-01",
-    text: "Construido completamente durante el hackathon (10:30–15:30)",
+    text: "Construido durante la ventana oficial del buildathon (detalle de horas por anunciar)",
   },
   {
     code: "R-02",
-    text: "Demo en vivo requerida — 3 minutos por equipo ante el jurado",
+    text: "Demo o presentación en vivo según formato que publiquen los organizadores",
   },
   {
     code: "R-03",
-    text: "El jurado puede hacer preguntas al equipo (1–2 min adicionales)",
-  },
-  {
-    code: "R-04",
     text: "El proyecto debe usar Cursor como herramienta principal de desarrollo",
   },
   {
-    code: "R-05",
-    text: "Código accesible al finalizar: GitHub repo o link compartido con los organizadores",
+    code: "R-04",
+    text: "Código accesible al finalizar: repositorio o enlace compartido con organizadores",
   },
   {
-    code: "R-06",
-    text: "No se permiten proyectos pre-existentes ni boilerplates complejos pre-configurados",
+    code: "R-05",
+    text: "No se permiten proyectos completos preexistentes; lineamientos finos se publicarán antes del evento",
   },
 ];
 
@@ -35,18 +31,16 @@ export function RequirementsSection() {
 
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-          {/* Left heading */}
           <div className="lg:col-span-4 reveal">
-            <span className="tag mb-4 inline-block">// 04 — entrega</span>
+            <span className="tag mb-4 inline-block">// entrega</span>
             <h2 className="font-bold uppercase leading-none font-display text-[clamp(1.8rem,4vw,2.8rem)] text-fg tracking-[-0.02em]">
               REQUISITOS DE<br />ENTREGA
             </h2>
             <p className="mt-4 font-display text-[0.875rem] text-fg-3 leading-[1.7]">
-              Todo proyecto que no cumpla estos requisitos puede ser descalificado. Ante cualquier duda, consulta a los organizadores durante el evento.
+              Borrador orientativo; la lista definitiva se alineará con el reglamento publicado antes del buildathon.
             </p>
           </div>
 
-          {/* Right requirements list */}
           <div className="lg:col-span-8">
             {requirements.map((req, i) => (
               <div

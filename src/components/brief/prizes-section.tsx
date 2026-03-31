@@ -42,7 +42,7 @@ export function PrizesSection() {
             PREMIOS
           </h2>
           <p className="font-display mt-4 text-[0.875rem] text-fg-3 leading-[1.7] max-w-[440px]">
-            Los premios serán anunciados próximamente. Seguí nuestras redes y el canal de WhatsApp para estar al tanto.
+            Los premios serán anunciados próximamente. Sigue nuestras redes y el canal de WhatsApp para estar al tanto.
           </p>
         </div>
 

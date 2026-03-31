@@ -1,8 +1,5 @@
 import { useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { useMutation } from "convex/react";
-import { useConvexAuth } from "convex/react";
-import { api } from "@/convex/_generated/api";
 
 import { NoiseOverlay } from "./components/noise-overlay";
 import { SiteNav } from "./components/site-nav";
@@ -81,19 +78,6 @@ function useScrollReveal() {
   }, [location.pathname]);
 }
 
-function StoreUserOnAuth() {
-  const { isAuthenticated } = useConvexAuth();
-  const storeUser = useMutation(api.users.storeUser);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      storeUser();
-    }
-  }, [isAuthenticated, storeUser]);
-
-  return null;
-}
-
 export default function App() {
   const { dotRef, ringRef } = useCursor();
   useScrollReveal();
@@ -101,14 +85,10 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-bg">
-      {/* Custom cursor */}
       <div ref={dotRef} className="cursor-dot" />
       <div ref={ringRef} className="cursor-ring" />
 
-      {/* Canvas grain */}
       <NoiseOverlay />
-
-      <StoreUserOnAuth />
 
       <SiteNav />
 

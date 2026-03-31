@@ -1,67 +1,28 @@
-interface ImgLogoTileProps {
-  src: string;
-  alt: string;
-  size?: "lg" | "sm";
-  imgClassName?: string;
-  noFilter?: boolean;
-}
-
-import React from "react";
 import { useTheme } from "next-themes";
+
 import { AnchorHeading } from "./anchor-heading";
-
-function tileBase(size: "lg" | "sm") {
-  return `border border-border bg-bg-raised flex items-center justify-center transition-[border-color,background] duration-300 cursor-default ${size === "lg" ? "px-10 py-8 min-h-[100px]" : "px-8 py-6 min-h-[80px]"}`;
-}
-
-function hoverHandlers() {
-  return {
-    onMouseEnter: (e: React.MouseEvent<HTMLDivElement>) => {
-      const el = e.currentTarget;
-      el.style.borderColor = "rgba(255,75,0,0.5)";
-      el.style.background = "rgba(255,75,0,0.04)";
-    },
-    onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
-      const el = e.currentTarget;
-      el.style.borderColor = "var(--border)";
-      el.style.background = "var(--bg-raised)";
-    },
-  };
-}
-
-function LogoTile({ src, alt, size = "lg", imgClassName = "h-10", noFilter = false, fill = false }: ImgLogoTileProps & { fill?: boolean }) {
-  return (
-    <div className={`${tileBase(size)} ${fill ? "overflow-hidden p-0" : ""}`} {...hoverHandlers()}>
-      <img
-        src={src}
-        alt={alt}
-        className={`${fill ? "w-full h-full object-cover scale-150" : `w-auto object-contain ${imgClassName}`} ${noFilter ? "opacity-90 hover:opacity-100 transition-opacity duration-200" : "logo-img"}`}
-      />
-    </div>
-  );
-}
-
+import { SPONSOR_MAILTO } from "../constants";
+import { useTranslation } from "../context/language-context";
 
 export function SponsorsSection() {
   const { resolvedTheme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <section id="sponsors" className="group relative py-28 sm:py-36 lg:py-48 section-padding bg-bg-alt">
       <div className="max-w-7xl mx-auto">
-
-        {/* Host — most prominent */}
         <div className="reveal mb-28">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
-              <span className="tag mb-4 inline-block">// presentado por</span>
+              <span className="tag mb-4 inline-block">{t("sponsorsPage.hostTag")}</span>
               <AnchorHeading id="sponsors">
                 <h2 className="font-bold uppercase font-display text-[clamp(2rem,5vw,3rem)] text-fg tracking-[-0.02em] leading-[0.95]">
-                  HOST
+                  {t("sponsorsPage.hostTitle")}
                 </h2>
               </AnchorHeading>
             </div>
             <p className="font-mono text-[0.65rem] text-fg-3 tracking-[0.08em] leading-[1.6] max-w-[220px] text-right sm:text-right">
-              La empresa detrás de las herramientas de IA que harán posible este evento
+              {t("sponsorsPage.hostAside")}
             </p>
           </div>
 
@@ -76,7 +37,6 @@ export function SponsorsSection() {
               (e.currentTarget as HTMLDivElement).style.background = "var(--bg-raised)";
             }}
           >
-            {/* Corner accents */}
             <span className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-accent" />
             <span className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-accent" />
             <span className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-accent" />
@@ -90,88 +50,25 @@ export function SponsorsSection() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="h-rule mb-24" />
 
-        {/* Sponsors */}
-        <div className="mb-24">
-          <div className="reveal flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
+        <div id="partners" className="scroll-mt-28">
+          <div className="reveal flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-6">
             <div>
-              <span className="tag mb-4 inline-block">// patrocinadores</span>
-              <AnchorHeading id="sponsors">
-                <h2 className="font-bold uppercase font-display text-[clamp(2rem,5vw,3rem)] text-fg tracking-[-0.02em] leading-[0.95]">
-                  SPONSORS
-                </h2>
-              </AnchorHeading>
-            </div>
-            <p className="font-mono text-[0.65rem] text-fg-3 tracking-[0.08em] leading-[1.6] max-w-[220px] text-right">
-              Hacen posible este evento
-            </p>
-          </div>
-
-          <div className="reveal grid grid-cols-2 sm:grid-cols-4 gap-6">
-            <LogoTile src="/uvg.png" alt="UVG" imgClassName="h-12" />
-            <LogoTile src={resolvedTheme === "light" ? "/logo-vudy-dark.png" : "/logo-vudy.png"} alt="Vudy" imgClassName="h-10" noFilter />
-            <LogoTile src="/paq.svg" alt="PAQ Wallet" imgClassName="h-10" />
-            <LogoTile src="/v0.png" alt="v0" imgClassName="h-8" />
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="h-rule mb-24" />
-
-        {/* Partners */}
-        <div id="partners" className="group">
-          <div className="reveal flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
-            <div>
-              <span className="tag mb-4 inline-block">// aliados</span>
+              <span className="tag mb-4 inline-block">{t("sponsorsPage.communityTag")}</span>
               <AnchorHeading id="partners">
-                <h2 className="font-bold uppercase font-display text-[clamp(2rem,5vw,3rem)] text-fg tracking-[-0.02em] leading-[0.95]">
-                  PARTNERS
+                <h2 className="font-bold uppercase font-display text-[clamp(1.5rem,3vw,2rem)] text-fg tracking-[-0.02em] leading-[0.95]">
+                  {t("sponsorsPage.communityTitle")}
                 </h2>
               </AnchorHeading>
             </div>
           </div>
-
-          <div className="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div
-              className="border border-border bg-bg-raised flex items-center justify-center px-8 py-6 min-h-[80px] h-[90px] overflow-hidden transition-[border-color,background] duration-300 cursor-default"
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,75,0,0.5)";
-                (e.currentTarget as HTMLDivElement).style.background = "rgba(255,75,0,0.04)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border)";
-                (e.currentTarget as HTMLDivElement).style.background = "var(--bg-raised)";
-              }}
-            >
-              <img
-                src="/502.png"
-                alt="the502project"
-                className="logo-img w-auto object-contain h-20 max-w-[100px]"
-              />
-            </div>
-            <LogoTile src="/ailabs.svg" alt="AI Labs SV" size="sm" imgClassName="h-8 max-w-[140px]" />
-            <LogoTile src="/ccti.svg" alt="CCTI" size="sm" imgClassName="h-10 max-w-[120px]" />
-            <LogoTile src="/from021.svg" alt="from021" size="sm" imgClassName="h-8 max-w-[140px]" />
-          </div>
-        </div>
-
-        {/* Become a sponsor CTA */}
-        <div className="reveal mt-12 flex items-center justify-between flex-wrap gap-4 py-8 px-10 border border-dashed border-fg-6 bg-[rgba(255,75,0,0.02)]">
-          <div>
-            <p className="font-display text-base text-fg font-semibold mb-1">
-              ¿Quieres ser sponsor?
-            </p>
-            <p className="font-mono text-[0.65rem] text-fg-3 tracking-[0.06em]">
-              Conecta tu marca con los builders de Centroamérica
-            </p>
-          </div>
+          <p className="font-display text-sm text-fg-3 leading-[1.7] max-w-xl">{t("sponsorsPage.communityBody")}</p>
           <a
-            href="mailto:wmoralesdev@gmail.com?subject=Cursor Hackathon GT - Patrocinio"
-            className="btn-ghost text-sm px-6 py-2.5 inline-block no-underline"
+            href={SPONSOR_MAILTO}
+            className="inline-block mt-4 font-mono text-[0.65rem] text-accent tracking-[0.12em] uppercase no-underline border-b border-accent/30 pb-0.5 hover:border-accent transition-colors"
           >
-            Contáctanos →
+            {t("sponsorsPage.contact")}
           </a>
         </div>
       </div>
