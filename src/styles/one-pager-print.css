@@ -1,0 +1,235 @@
+/**
+ * Sponsor one-pager: US Letter print + on-screen preview.
+ * Imported only by one-pager.tsx.
+ * Uses the project's semantic color tokens via forced light theme.
+ */
+
+@page {
+  size: letter;
+  /* Tighter margins so body fits one sheet with typical browser print engines */
+  margin: 0.32in 0.42in;
+}
+
+/* Match browser chrome to sheet on /onepager (avoids visible color seam) */
+@media screen {
+  html:has(.one-pager-root.one-pager-white),
+  body:has(.one-pager-root.one-pager-white) {
+    background-color: #ffffff !important;
+  }
+}
+
+/* White page (screen + PDF) — avoids cream vs chrome seam; subtle cards stay off-white */
+.one-pager-root.one-pager-white[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-alt: #ffffff;
+  --bg-raised: #f5f5f4;
+  --bg-deep: #ecebe9;
+  --surface: rgba(0, 0, 0, 0.02);
+  --border: #d8d4d0;
+  --border-faint: #e8e6e3;
+  --border-dim: #ccc8c4;
+  --fg: #1c1814;
+  --fg-2: #5a5450;
+  --fg-3: #78726c;
+  --fg-4: #888280;
+  --fg-5: #989290;
+  --grid: rgba(140, 130, 120, 0.1);
+  --grid-alt: rgba(140, 130, 120, 0.07);
+}
+
+.one-pager-root {
+  min-height: 100vh;
+  cursor: auto;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Chakra Petch", sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.one-pager-sheet {
+  width: 8.5in;
+  min-height: 11in;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5in 0.55in 0.4in;
+  box-sizing: border-box;
+  background: var(--bg);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+/* Faint grid texture (landing-page DNA, print-safe) */
+.one-pager-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(140, 130, 120, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 130, 120, 0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
+}
+
+.one-pager-white .one-pager-grid {
+  opacity: 0.45;
+}
+
+/* Header: date / venue block on the right */
+.one-pager-header-meta {
+  max-width: 13rem;
+}
+@media (min-width: 640px) {
+  .one-pager-header-meta {
+    max-width: min(48%, 14rem);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .one-pager-sheet {
+    width: 100%;
+    min-height: auto;
+    padding: 1rem;
+    box-shadow: none;
+  }
+}
+
+.one-pager-avoid-break {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Step number markers for "How it works" */
+.one-pager-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  background: #ff4b00;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Accent CTA bar — light text on orange (easier to read than dark on orange) */
+.one-pager-cta-bar {
+  background: #ff4b00;
+  color: #fff8f4;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.one-pager-cta-bar a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.one-pager-cta-bar a:hover {
+  color: #fff;
+}
+
+.one-pager-cta-bar p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Stats strip — compact but readable */
+.one-pager-stats {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Proof photo strip — keep print/PDF height predictable */
+.one-pager-proof-photo {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Accent dot marker for audience cards */
+.one-pager-dot::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: #ff4b00;
+  border-radius: 1px;
+  flex-shrink: 0;
+  margin-top: 0.35em;
+}
+
+@media print {
+  /* Pure white page + margins (matches screen preview) */
+  html:has(.one-pager-root),
+  body:has(.one-pager-root) {
+    background: #ffffff !important;
+  }
+
+  .one-pager-root {
+    min-height: auto;
+    background: #ffffff !important;
+  }
+
+  .one-pager-sheet {
+    width: 100% !important;
+    min-height: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    /* Slightly smaller base so the full brief fits one Letter page */
+    font-size: 8pt;
+    line-height: 1.22;
+  }
+
+  .one-pager-grid {
+    opacity: 0.35;
+  }
+
+  .one-pager-no-print {
+    display: none !important;
+  }
+
+  /* Tighter vertical rhythm in print without rewriting every Tailwind class */
+  .one-pager-sheet .one-pager-stat-cell {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+  }
+
+  .one-pager-stats {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  .one-pager-sheet footer {
+    margin-top: 0.5rem !important;
+  }
+
+  .one-pager-cta-bar {
+    padding-top: 0.55rem !important;
+    padding-bottom: 0.55rem !important;
+  }
+
+  .one-pager-proof-photo {
+    max-height: 1.25in !important;
+  }
+
+  /* Allow the footer block to split if needed; avoids pushing a whole second page */
+  .one-pager-footer-block {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

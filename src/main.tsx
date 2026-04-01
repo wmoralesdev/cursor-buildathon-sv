@@ -6,8 +6,19 @@ import { LanguageProvider } from "./context/language-context";
 import App from "./app";
 import "./index.css";
 import { LandingPage } from "./pages/landing-page";
+import { OnePagerPage } from "./pages/one-pager";
 
 const router = createBrowserRouter([
+  {
+    path: "/onepager",
+    element: (
+      <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
+        <LanguageProvider>
+          <OnePagerPage />
+        </LanguageProvider>
+      </ThemeProvider>
+    ),
+  },
   {
     element: (
       <LanguageProvider>

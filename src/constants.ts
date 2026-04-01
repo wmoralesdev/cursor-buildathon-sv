@@ -3,7 +3,7 @@ export const LUMA_URL = "https://luma.com/tm16k0kj";
 
 /** Sponsor outreach (mailto with subject) */
 export const SPONSOR_MAILTO =
-  "mailto:wmoralesdev@gmail.com?subject=Cursor%20Buildathon%20SV%20-%20Patrocinio";
+  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Patrocinio";
 
 /** Ai /abs community */
 export const AILABS_URL = "https://ailabs.sv";
