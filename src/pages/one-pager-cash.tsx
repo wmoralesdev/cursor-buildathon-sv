@@ -2,12 +2,11 @@ import { Printer } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 
 import { OnePagerSponsors } from "../components/one-pager-sponsors";
-import { AILABS_URL, SPONSOR_MAILTO } from "../constants";
+import { AILABS_URL, CASH_SPONSOR_MAILTO } from "../constants";
 import "../styles/one-pager-print.css";
 
 const UFG_URL = "https://ufg.edu.sv/";
 
-/** Proof images in `public/onepager/` (Jan 2026 Cursor Hackathon El Salvador) */
 const ONEPAGER_PROOF_IMAGES = [
   {
     src: "/onepager/hackathon-cursor-amdp-labs.jpg",
@@ -28,7 +27,60 @@ const siteDisplay =
     ? import.meta.env.VITE_SITE_URL.replace(/^https?:\/\//, "").replace(/\/+$/, "")
     : "Event site";
 
-export function OnePagerPage() {
+type TierValue = string | boolean;
+
+interface BenefitRow {
+  label: string;
+  bronze: TierValue;
+  silver: TierValue;
+  gold: TierValue;
+}
+
+interface BenefitGroup {
+  category: string;
+  rows: BenefitRow[];
+}
+
+const TIER_BENEFITS: BenefitGroup[] = [
+  {
+    category: "Talent access",
+    rows: [
+      { label: "Attendee profiles (LinkedIn + GitHub)", bronze: true, silver: true, gold: true },
+      { label: "On-site team seats", bronze: "2", silver: "4", gold: "8" },
+      { label: "Office hours slot with attendees", bronze: false, silver: "30 min", gold: "60 min" },
+      { label: "Priority intros + early demo access", bronze: false, silver: false, gold: true },
+    ],
+  },
+  {
+    category: "Event presence",
+    rows: [
+      { label: "Discord channel + opening ceremony shout-out", bronze: true, silver: true, gold: true },
+      { label: "Lead a session or panel", bronze: false, silver: "30 min", gold: "60 min" },
+      { label: "Sponsor a side activity", bronze: false, silver: "1", gold: "2" },
+      { label: "Co-host a meal or coffee break", bronze: false, silver: false, gold: true },
+      { label: "Named award + stand + closing stage \u00B9", bronze: false, silver: false, gold: true },
+    ],
+  },
+  {
+    category: "Brand visibility",
+    rows: [
+      { label: "Logo on event site & slides", bronze: true, silver: true, gold: true },
+      { label: "Posts on event social channels", bronze: true, silver: true, gold: true },
+      { label: "Spotlight in pre-event comms", bronze: false, silver: true, gold: true },
+      { label: "Hand out branded material + digital guide feature", bronze: false, silver: false, gold: true },
+    ],
+  },
+  {
+    category: "Post-event",
+    rows: [
+      { label: "Thank-you in post-event email", bronze: true, silver: true, gold: true },
+      { label: "Opt-in attendee contact list", bronze: false, silver: true, gold: true },
+      { label: "Talent report + content package", bronze: false, silver: false, gold: true },
+    ],
+  },
+];
+
+export function OnePagerCashPage() {
   const [searchParams] = useSearchParams();
   const embedOnly =
     searchParams.get("embed") === "1" || searchParams.get("embed") === "true";
@@ -55,14 +107,11 @@ export function OnePagerPage() {
         id="one-pager-sheet"
         className="one-pager-sheet bg-bg text-[9pt] leading-snug text-fg"
       >
-        {/* Faint grid atmosphere */}
         <div className="one-pager-grid" aria-hidden />
 
-        {/* Accent top bar */}
         <div className="relative">
           <div className="mb-2 h-1 w-full bg-accent" />
 
-          {/* Header — titles left, date/venue meta right (saves vertical space) */}
           <header className="one-pager-avoid-break mb-3">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
               <div className="min-w-0">
@@ -86,7 +135,6 @@ export function OnePagerPage() {
           </header>
         </div>
 
-        {/* Stats strip */}
         <section
           className="one-pager-stats one-pager-avoid-break mb-3 grid grid-cols-5 overflow-hidden rounded-md border border-border bg-bg-raised text-center"
           aria-label="Key numbers"
@@ -95,94 +143,100 @@ export function OnePagerPage() {
           <StatCell value="145" label="attended Jan 31" sub="Cursor Hackathon SV" />
           <StatCell value="45" label="groups built" sub="last hackathon" />
           <StatCell value="500+" label="builders reached" sub="Ai /abs community" />
-          <StatCell value="24h" label="product usage" sub="continuous build" />
+          <StatCell value="24h" label="continuous build" sub="non-stop event" />
         </section>
 
         <OnePagerSponsors />
 
-        {/* Two columns — min-w-0 so Figma importer does not overflow narrow column */}
         <div className="one-pager-cols-main grid grid-cols-[1.15fr_0.95fr] gap-4">
-          {/* Left: pitch + how it works */}
+          {/* Left: why sponsor + tier table */}
           <div className="min-w-0 space-y-3">
-            {/* Hero callout */}
             <div className="one-pager-avoid-break border-l-4 border-accent pl-3">
               <h2 className="mb-2 font-mono text-[0.6rem] font-bold uppercase tracking-[0.12em] text-accent">
-                What your brand gets
+                Why sponsor this event
               </h2>
-              <p className="text-[9pt] leading-relaxed text-fg">
-                Put your product in front of ~200 builders during a 24-hour buildathon built for
-                hands-on adoption, not passive logo placement. Best-fit partners are AI, API, and
-                cloud-devtools teams that want product usage, project demos, and direct feedback
-                from builders who ship fast.
-              </p>
-              <p className="mt-2 text-[7.5pt] leading-relaxed text-fg-2">
-                Audience mix: 50% developers, 20% designers, 10% marketing, 10% founders, and
-                10% students. Most attendees come from El Salvador, with open reach across Central
-                America and balanced experience levels in the room.
-              </p>
-            </div>
-
-            {/* Support request */}
-            <div className="one-pager-avoid-break rounded border border-accent/30 bg-accent/[0.02] p-2.5">
-              <h2 className="mb-2 font-mono text-[0.6rem] font-bold uppercase tracking-[0.12em] text-fg">
-                What we need from you
-              </h2>
-              <ul className="space-y-1 text-[7.5pt] leading-relaxed text-fg-2">
-                <li>API credits, licenses, trials, or extended plans for teams building on your tool</li>
-                <li>A short warm-up session or starter resources so attendees arrive ready to build</li>
-                <li>Logo files plus one clear product message for your named track or bounty</li>
-                <li>Optional swag or separate prize support if you want a larger sponsor award</li>
-              </ul>
-              <p className="mt-2 text-[7pt] leading-relaxed text-fg-3">
-                Judges must attend in person. Mentors can join online. Tooling support and bounty
-                prizes can be handled separately when needed.
-              </p>
-            </div>
-
-            {/* How it works */}
-            <div className="one-pager-avoid-break rounded border border-border bg-bg-raised p-2.5">
-              <h2 className="mb-2 font-mono text-[0.6rem] font-bold uppercase tracking-[0.12em] text-fg">
-                Before / during / after
-              </h2>
-              <div className="space-y-2">
-                <Step n={1} title="Before the event">
-                  <li>Warm-up session and sponsor activation plan locked in writing</li>
-                  <li>Track name, prize mechanics, logo usage, and redemption flow approved early</li>
-                </Step>
-
-                <Step n={2} title="During the 24h build">
-                  <li>Named track or bounty: &ldquo;Best use of [Your Product]&rdquo;</li>
-                  <li>Your brand on event assets, venue screens, and communications</li>
-                  <li>In-person judge option for your team, with remote mentors welcome online</li>
-                </Step>
-
-                <Step n={3} title="After the event">
-                  <li>Recap with winning builds, sponsor mentions, and usage highlights</li>
-                  <li>Feedback summary plus social posts featuring teams that built with your tool</li>
-                </Step>
+              <div className="space-y-1.5 text-[7.5pt] leading-relaxed text-fg-2">
+                <WhyItem n={1} title="Reach active builders">
+                  Your company lands in front of ~200 developers, designers, and founders
+                  during a focused 24-hour build. No passive expo halls — attendees are
+                  engaged and building the entire time.
+                </WhyItem>
+                <WhyItem n={2} title="See talent under pressure">
+                  Watch people solve hard problems live. Identify who ships fast, collaborates
+                  well, and thinks on their feet — then talk to them before anyone else does.
+                </WhyItem>
+                <WhyItem n={3} title="Hire before the job post">
+                  Access attendee profiles, hold on-site conversations, and book private
+                  interviews. The best candidates are found here, not on job boards.
+                </WhyItem>
+                <WhyItem n={4} title="Invest in the ecosystem">
+                  Backing a local tech event builds long-term goodwill. Attendees remember
+                  the companies that showed up early when it mattered.
+                </WhyItem>
               </div>
+            </div>
+
+            {/* Tier comparison table — overflow visible so Figma does not clip wide rows */}
+            <div className="one-pager-avoid-break min-w-0 rounded border border-border bg-bg-raised">
+              <div className="border-b border-border px-2.5 py-2">
+                <h2 className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.12em] text-fg">
+                  Sponsorship tiers
+                </h2>
+              </div>
+
+              <table className="one-pager-tier-table w-full text-[6.8pt]">
+                <thead>
+                  <tr className="border-b border-border bg-bg text-center">
+                    <th className="py-1.5 pl-2.5 pr-1 text-left font-mono text-[0.5rem] font-normal uppercase tracking-[0.1em] text-fg-3">
+                      Benefit
+                    </th>
+                    <th className="px-1 py-1.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#8b5a2b]">
+                      Bronze
+                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">$500+</span>
+                    </th>
+                    <th className="px-1 py-1.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#6b7280]">
+                      Silver
+                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">$1,000+</span>
+                    </th>
+                    <th className="px-1 py-1.5 pr-2.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-accent">
+                      Gold
+                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">$2,000+</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {TIER_BENEFITS.map((group) => (
+                    <TierGroup key={group.category} group={group} />
+                  ))}
+                </tbody>
+              </table>
+
+              <p className="border-t border-border px-2.5 py-1.5 text-[6pt] leading-relaxed text-fg-4">
+                <sup>1</sup> Physical stand and named award subject to venue availability.
+                All prices in USD. Custom packages available on request.
+              </p>
             </div>
           </div>
 
-          {/* Right: audience + warm-up + proof */}
+          {/* Right: audience + proof + organizers + photos */}
           <div className="min-w-0 space-y-3">
-            <SectionTitle>Why this audience matters</SectionTitle>
+            <SectionTitle>Who attends</SectionTitle>
             <div className="grid min-w-0 grid-cols-2 gap-2 text-[7.5pt]">
               <AudienceCard
                 title="50% developers"
-                body="Primary users for AI, infra, and devtools products. Strong fit for hands-on adoption."
+                body="Software engineers and full-stack builders across all experience levels. High-value hires for any tech team."
               />
               <AudienceCard
                 title="20% designers"
-                body="Product and UX collaborators shaping workflows, prompts, and user-facing demos in real time."
+                body="Product and UX professionals who collaborate closely with engineering. Hard-to-find cross-functional talent."
               />
               <AudienceCard
                 title="20% founders + marketing"
-                body="Decision-makers who care about shipping, storytelling, demos, and distribution after the event."
+                body="Decision-makers building startups or leading teams. Potential clients, partners, or senior hires."
               />
               <AudienceCard
                 title="10% students"
-                body="Early-career builders and future hires getting first exposure to professional developer tooling."
+                body="Early-career talent getting first exposure to professional tooling. Future interns and junior hires."
               />
             </div>
             <p className="text-[7pt] leading-relaxed text-fg-3">
@@ -222,9 +276,9 @@ export function OnePagerPage() {
               </div>
             </div>
 
-            <div className="one-pager-avoid-break">
+            <div className="one-pager-avoid-break min-w-0">
               <SectionTitle>Event photos</SectionTitle>
-              <div className="grid grid-cols-3 gap-1.5">
+              <div className="grid min-w-0 grid-cols-3 gap-1.5">
                 {ONEPAGER_PROOF_IMAGES.map(({ src, alt }) => (
                   <figure
                     key={src}
@@ -245,12 +299,21 @@ export function OnePagerPage() {
                 the photos themselves.
               </p>
             </div>
+
+            <div className="one-pager-avoid-break min-w-0 max-w-full rounded border border-accent/30 bg-accent/[0.02] p-2.5">
+              <h2 className="mb-1 font-mono text-[0.55rem] font-bold uppercase tracking-[0.12em] text-accent">
+                Where your sponsorship goes
+              </h2>
+              <p className="text-[7.5pt] leading-relaxed text-fg-2">
+                Cash sponsorships fund the prize pool, event logistics (food and supplies),
+                printed materials and signage, and pre-event marketing and promotion.
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Footer */}
         <footer className="one-pager-footer-block mt-4">
-          {/* Organizers */}
           <div className="mb-2 flex min-w-0 flex-wrap items-start justify-between gap-3 border-t border-border pt-2 text-[7.5pt] text-fg-2">
             <div className="min-w-0">
               <p className="mb-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-wider text-fg">Organizers</p>
@@ -258,7 +321,7 @@ export function OnePagerPage() {
                 <a href={AILABS_URL} className="font-semibold text-fg underline">Ai /abs</a> with{" "}
                 <a href={UFG_URL} className="text-fg underline">UFG</a> and Cursor Community support.
               </p>
-              <p>Built for sponsor activations that turn into usage, demos, and follow-up relationships.</p>
+              <p>Cash sponsorships fund venue, logistics, prizes, and a better experience for every attendee.</p>
             </div>
             <div className="shrink-0 text-right text-fg-3">
               <p>San Salvador, 2026.</p>
@@ -266,23 +329,22 @@ export function OnePagerPage() {
             </div>
           </div>
 
-          {/* Accent CTA bar */}
           <div className="one-pager-cta-bar rounded px-4 py-2.5">
             <div className="flex min-w-0 flex-wrap items-center justify-between gap-4">
               <div className="min-w-0">
                 <a
-                  href={SPONSOR_MAILTO}
+                  href={CASH_SPONSOR_MAILTO}
                   className="font-display text-[11pt] font-bold tracking-tight"
                 >
                   hello@wmorales.dev
                 </a>
                 <p className="mt-1 text-[7.5pt] leading-relaxed">
-                  Tell us what your product can offer and we&apos;ll send back a named track,
-                  activation plan, and sponsor scope within 48h.
+                  Pick a tier or tell us what you have in mind. We&apos;ll send back a
+                  custom activation plan within 48h.
                 </p>
               </div>
               <span className="shrink-0 font-mono text-[0.5rem] font-bold uppercase tracking-wider">
-                Get the sponsor brief →
+                Become a sponsor →
               </span>
             </div>
           </div>
@@ -299,6 +361,8 @@ export function OnePagerPage() {
     </div>
   );
 }
+
+/* ── Sub-components ─────────────────────────────────────────── */
 
 function SectionTitle({ children }: { children: string }) {
   return (
@@ -356,16 +420,46 @@ function ProofItem({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
+function WhyItem({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
   return (
-    <div className="flex gap-2">
-      <span className="one-pager-step-num mt-px">{n}</span>
-      <div className="min-w-0 flex-1">
-        <p className="mb-0.5 text-[8pt] font-bold uppercase tracking-wide text-fg">{title}</p>
-        <ul className="space-y-1 text-[7.5pt] leading-relaxed text-fg-2">
-          {children}
-        </ul>
-      </div>
+    <div className="one-pager-why-line grid grid-cols-[auto_minmax(0,1fr)] gap-x-2">
+      <span className="one-pager-step-num mt-px shrink-0">{n}</span>
+      <p className="m-0 min-w-0 break-words">
+        <span className="font-semibold text-fg">{title}.</span> {children}
+      </p>
     </div>
+  );
+}
+
+function TierCell({ value }: { value: TierValue }) {
+  if (value === true) {
+    return <span className="text-accent">●</span>;
+  }
+  if (value === false) {
+    return <span className="text-fg-4">—</span>;
+  }
+  return <span className="font-semibold tabular-nums text-fg">{value}</span>;
+}
+
+function TierGroup({ group }: { group: BenefitGroup }) {
+  return (
+    <>
+      <tr>
+        <td
+          colSpan={4}
+          className="border-b border-border bg-bg px-2.5 py-1 font-mono text-[0.48rem] font-bold uppercase tracking-[0.14em] text-accent"
+        >
+          {group.category}
+        </td>
+      </tr>
+      {group.rows.map((row) => (
+        <tr key={row.label} className="border-b border-border-faint last:border-border">
+          <td className="min-w-0 break-words py-[3px] pl-2.5 pr-1 text-fg-2">{row.label}</td>
+          <td className="px-1 py-[3px] text-center"><TierCell value={row.bronze} /></td>
+          <td className="px-1 py-[3px] text-center"><TierCell value={row.silver} /></td>
+          <td className="px-1 py-[3px] pr-2.5 text-center"><TierCell value={row.gold} /></td>
+        </tr>
+      ))}
+    </>
   );
 }

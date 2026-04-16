@@ -47,6 +47,18 @@
   print-color-adjust: exact;
 }
 
+/* Sheet only for Figma MCP / screenshots — no toolbar, no full-viewport chrome */
+@media screen {
+  .one-pager-root.one-pager-embed {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    box-sizing: border-box;
+  }
+}
+
 .one-pager-sheet {
   width: 8.5in;
   min-height: 11in;
@@ -59,6 +71,17 @@
     0 1px 3px rgba(0, 0, 0, 0.08),
     0 8px 24px rgba(0, 0, 0, 0.06);
   position: relative;
+  /* Do not use overflow-x:hidden — Figma html-to-design clips text to the frame instead of wrapping */
+}
+
+/* Grid/flex children default to min-width:auto and refuse to shrink — breaks Figma capture */
+.one-pager-sheet .one-pager-cols-main {
+  min-width: 0;
+  width: 100%;
+}
+
+.one-pager-sheet .one-pager-cols-main > * {
+  min-width: 0;
 }
 
 /* Faint grid texture (landing-page DNA, print-safe) */
@@ -152,7 +175,33 @@
   print-color-adjust: exact;
 }
 
-/* Accent dot marker for audience cards */
+/* Tier comparison table */
+.one-pager-tier-table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.one-pager-tier-table th,
+.one-pager-tier-table td {
+  vertical-align: middle;
+}
+
+.one-pager-tier-table td {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.one-pager-tier-table th:first-child,
+.one-pager-tier-table td:first-child {
+  width: 52%;
+}
+
+.one-pager-tier-table th:not(:first-child),
+.one-pager-tier-table td:not(:first-child) {
+  width: 16%;
+}
+
+/* Accent dot — pseudo variant (avoid for new markup; Figma importer handles real nodes better) */
 .one-pager-dot::before {
   content: "";
   display: inline-block;
@@ -162,6 +211,26 @@
   border-radius: 1px;
   flex-shrink: 0;
   margin-top: 0.35em;
+}
+
+/* Real DOM bullets + grid text column — reliable wrapping in Figma html-to-design */
+.one-pager-proof-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: #ff4b00;
+  border-radius: 1px;
+}
+
+.one-pager-proof-line p {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Cash one-pager: numbered “Why sponsor” rows (same importer rules as proof lines) */
+.one-pager-why-line p {
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 @media print {
@@ -177,6 +246,7 @@
   }
 
   .one-pager-sheet {
+    overflow-x: visible !important;
     width: 100% !important;
     min-height: auto !important;
     max-width: none !important;
@@ -220,6 +290,14 @@
 
   .one-pager-proof-photo {
     max-height: 1.25in !important;
+  }
+
+  /* Tier table: tighter rows in print */
+  .one-pager-tier-table td,
+  .one-pager-tier-table th {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    font-size: 6.5pt !important;
   }
 
   /* Allow the footer block to split if needed; avoids pushing a whole second page */

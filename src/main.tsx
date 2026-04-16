@@ -7,17 +7,28 @@ import App from "./app";
 import "./index.css";
 import { LandingPage } from "./pages/landing-page";
 import { OnePagerPage } from "./pages/one-pager";
+import { OnePagerCashPage } from "./pages/one-pager-cash";
+
+const onePagerTheme = (
+  <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
+    <OnePagerPage />
+  </ThemeProvider>
+);
+
+const onePagerCashTheme = (
+  <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
+    <OnePagerCashPage />
+  </ThemeProvider>
+);
 
 const router = createBrowserRouter([
   {
     path: "/onepager",
-    element: (
-      <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
-        <LanguageProvider>
-          <OnePagerPage />
-        </LanguageProvider>
-      </ThemeProvider>
-    ),
+    element: onePagerTheme,
+  },
+  {
+    path: "/onepager-cash",
+    element: onePagerCashTheme,
   },
   {
     element: (
