@@ -604,6 +604,17 @@ export const translations = {
     en: "The company behind the AI tools that make this event possible",
     es: "La empresa detrás de las herramientas de IA que harán posible este evento",
   },
+  "sponsorsPage.productTag": { en: "// product partners", es: "// partners de producto" },
+  "sponsorsPage.productTitle": { en: "PRODUCT PARTNERS", es: "PARTNERS DE PRODUCTO" },
+  "sponsorsPage.productAside": {
+    en: "Tools, licenses, and credits that participants can use during the buildathon",
+    es: "Herramientas, licencias y créditos que los participantes pueden usar durante el buildathon",
+  },
+  "sponsors.n8n.perk": {
+    en: "200 n8n Cloud Pro licenses for participants",
+    es: "200 licencias n8n Cloud Pro para participantes",
+  },
+
   "sponsorsPage.communityTag": { en: "// allies", es: "// aliados" },
   "sponsorsPage.communityTitle": { en: "COMMUNITY", es: "COMUNIDAD" },
   "sponsorsPage.communityBody": {
