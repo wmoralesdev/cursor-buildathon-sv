@@ -45,12 +45,12 @@ export function CountdownTimer() {
   }, []);
 
   return (
-    <div className="flex items-center gap-2 sm:gap-4">
+    <div className="flex items-center justify-center gap-1.5 sm:gap-2.5">
       {values.map((value, i) => (
-        <div key={labels[i]} className="flex items-center gap-2 sm:gap-4">
+        <div key={labels[i]} className="flex items-center gap-1.5 sm:gap-2.5">
           <div className="flex flex-col items-center">
             <div
-              className={`relative overflow-hidden font-mono text-[clamp(2rem,5vw,3.5rem)] font-bold text-fg leading-none tracking-[-0.02em] ${tick ? "animate-[countdown-tick_0.1s_ease]" : ""}`}
+              className={`relative overflow-hidden font-mono text-[clamp(1.2rem,3.2vw,2.1rem)] font-bold text-fg leading-none tracking-[-0.02em] ${tick ? "animate-[countdown-tick_0.1s_ease]" : ""}`}
             >
               <span
                 className={`transition-colors duration-300 ease ${i === 0 && value <= 7 ? "text-accent" : ""}`}
@@ -58,13 +58,13 @@ export function CountdownTimer() {
                 {pad(value)}
               </span>
             </div>
-            <span className="font-mono text-[0.55rem] tracking-[0.2em] uppercase text-fg-3 mt-1">
+            <span className="font-mono text-[0.48rem] sm:text-[0.5rem] tracking-[0.18em] uppercase text-fg-3 mt-0.5">
               {labels[i]}
             </span>
           </div>
           {i < values.length - 1 && (
             <span
-              className={`font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-accent leading-none self-start mt-0.5 transition-opacity duration-[500ms] ${tick ? "opacity-100" : "opacity-30"}`}
+              className={`font-mono text-[clamp(1rem,2.4vw,1.5rem)] text-accent leading-none self-start mt-0.5 transition-opacity duration-[500ms] ${tick ? "opacity-100" : "opacity-30"}`}
             >
               :
             </span>

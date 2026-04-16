@@ -6,6 +6,27 @@ import { EVENT_VENUE_SHORT } from "../constants";
 import { useTranslation } from "../context/language-context";
 import type { TranslationKey } from "../i18n/translations";
 
+const HERO_TITLE = "CURSOR BUILDATHON";
+
+const HERO_PARTNER_LOGOS = [
+  {
+    id: "n8n",
+    href: "https://n8n.io",
+    logo: "/sponsors/n8n-logo.svg",
+    logoDark: "/sponsors/n8n-logo-dark.svg",
+    label: "n8n",
+    logoClassName: "h-6 w-auto max-h-6 max-w-[88px] object-contain sm:h-6 sm:max-h-6",
+  },
+  {
+    id: "zavu",
+    href: "https://zavu.dev",
+    logo: "/sponsors/zavu-logo.svg",
+    logoDark: "/sponsors/zavu-logo-dark.webp",
+    label: "Zavu",
+    logoClassName: "h-8 w-auto max-h-8 max-w-[132px] object-contain sm:h-9 sm:max-h-9",
+  },
+] as const;
+
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
   const { t } = useTranslation();
@@ -37,24 +58,47 @@ export function HeroSection() {
           </span>
         </div>
 
-        <div className="relative mb-6 animate-[flicker_8s_ease-in-out_infinite]">
-          <h1
-            className="relative font-bold uppercase leading-[0.9] select-none font-display text-[clamp(3.5rem,12vw,10rem)] text-fg tracking-[-0.02em]"
-          >
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 text-accent font-display text-[clamp(3.5rem,12vw,10rem)] font-bold tracking-[-0.02em] leading-[0.9] select-none animate-[glitch-1_6s_ease-in-out_infinite]"
+        <div className="relative mb-6 w-full max-w-6xl mx-auto px-1">
+          <div className="flex flex-col items-center gap-5">
+            <div className="relative mx-auto w-full max-w-[min(100%,42rem)] animate-[flicker_8s_ease-in-out_infinite]">
+              <h1 className="relative select-none text-center font-display font-bold uppercase leading-[0.92] tracking-[-0.02em] text-[clamp(2.1rem,6.25vw,4.85rem)] text-fg whitespace-normal sm:whitespace-nowrap">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 font-display text-[clamp(2.1rem,6.25vw,4.85rem)] font-bold uppercase leading-[0.92] tracking-[-0.02em] text-accent animate-[glitch-1_6s_ease-in-out_infinite]"
+                >
+                  {HERO_TITLE}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 font-display text-[clamp(2.1rem,6.25vw,4.85rem)] font-bold uppercase leading-[0.92] tracking-[-0.02em] text-[#00ffcc] animate-[glitch-2_6s_ease-in-out_infinite]"
+                >
+                  {HERO_TITLE}
+                </span>
+                {HERO_TITLE}
+              </h1>
+            </div>
+
+            <div
+              className="flex w-full max-w-xl shrink-0 flex-wrap items-center justify-center gap-7 border-t border-border/45 pt-6 sm:gap-9"
+              aria-label="Partner logos"
             >
-              CURSOR<br />BUILDATHON
-            </span>
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 text-[#00ffcc] font-display text-[clamp(3.5rem,12vw,10rem)] font-bold tracking-[-0.02em] leading-[0.9] select-none animate-[glitch-2_6s_ease-in-out_infinite]"
-            >
-              CURSOR<br />BUILDATHON
-            </span>
-            CURSOR<br />BUILDATHON
-          </h1>
+              {HERO_PARTNER_LOGOS.map((p) => {
+                const src = resolvedTheme === "dark" ? p.logoDark : p.logo;
+                return (
+                  <a
+                    key={p.id}
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative block opacity-95 transition-opacity hover:opacity-100"
+                    aria-label={`${p.label} (opens in a new tab)`}
+                  >
+                    <img src={src} alt="" className={p.logoClassName} />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         <p className="mb-4 font-mono text-[clamp(0.85rem,2vw,1.1rem)] text-fg-3 tracking-[0.15em] uppercase">
@@ -64,21 +108,21 @@ export function HeroSection() {
           {t("hero.pitch")}
         </p>
 
-        <div className="mb-14">
-          <p className="font-mono text-[0.6rem] tracking-[0.2em] text-accent uppercase mb-3">
+        <div className="mb-12">
+          <p className="font-mono text-[0.55rem] tracking-[0.2em] text-accent uppercase mb-2.5">
             {t("hero.countdownLabel")}
           </p>
           <CountdownTimer />
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 sm:justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 sm:justify-center">
           <Link
             to={{ pathname: "/", hash: "tiers" }}
-            className="btn-phosphor inline-block text-center no-underline"
+            className="btn-phosphor inline-block text-center text-[0.78rem] py-[11px] px-7 no-underline"
           >
             {t("hero.ctaTiers")}
           </Link>
-          <a href="#about" className="btn-ghost inline-block text-center">
+          <a href="#about" className="btn-ghost inline-block text-center text-[0.78rem] py-[10px] px-7">
             {t("hero.ctaAbout")}
           </a>
         </div>
