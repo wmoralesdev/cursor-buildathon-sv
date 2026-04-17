@@ -15,15 +15,16 @@ const HERO_PARTNER_LOGOS = [
     logo: "/sponsors/n8n-logo.svg",
     logoDark: "/sponsors/n8n-logo-dark.svg",
     label: "n8n",
-    logoClassName: "h-6 w-auto max-h-6 max-w-[88px] object-contain sm:h-6 sm:max-h-6",
+    logoClassName: "h-8 w-auto max-h-8 max-w-[104px] object-contain sm:h-9 sm:max-h-9 sm:max-w-[112px]",
   },
   {
     id: "zavu",
     href: "https://zavu.dev",
-    logo: "/sponsors/zavu-logo.svg",
-    logoDark: "/sponsors/zavu-logo-dark.webp",
+    logo: "/sponsors/zavu-light.png",
+    logoDark: "/sponsors/zavu-dark.png",
     label: "Zavu",
-    logoClassName: "h-8 w-auto max-h-8 max-w-[132px] object-contain sm:h-9 sm:max-h-9",
+    logoClassName:
+      "h-[4.5rem] w-auto max-h-[4.5rem] max-w-[min(24rem,90vw)] object-contain object-center sm:h-[5.75rem] sm:max-h-[5.75rem] sm:max-w-[28rem]",
   },
 ] as const;
 
