@@ -113,15 +113,15 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] flex flex-col overflow-hidden bg-bg"
+      className="relative flex min-h-[calc(100dvh_-_var(--site-nav-height))] flex-col overflow-hidden bg-bg"
     >
       <div className="absolute inset-0 pointer-events-none bg-grid mask-radial-hero opacity-70" />
       <div className="absolute inset-x-0 top-0 h-[60vh] pointer-events-none glow-top-center opacity-80" />
 
-      {/* Centered hero composition — brief + marquee live as one block */}
-      <div className="relative z-10 flex-1 flex items-center section-padding pt-10 lg:pt-12 pb-10">
-        <div className="max-w-[1400px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      {/* One block: grid + sponsor rail, centered in the viewport band below the in-flow nav */}
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center section-padding py-8 sm:py-10">
+        <div className="mx-auto w-full max-w-[1400px]">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
             {/* Left column — value proposition + CTAs */}
             <motion.div
               className="lg:col-span-7 flex flex-col"

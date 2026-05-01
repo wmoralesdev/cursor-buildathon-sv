@@ -39,6 +39,14 @@
   --grid-alt:      rgba(30, 30, 30, 0.4);
   --ghost-color:   #f5f0e8;
   --ghost-border:  rgba(245, 240, 232, 0.3);
+  /* In-flow site nav approximate block height — keep in sync with `site-nav.tsx` padding */
+  --site-nav-height: 5.5rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --site-nav-height: 6rem;
+  }
 }
 
 [data-theme="light"] {
