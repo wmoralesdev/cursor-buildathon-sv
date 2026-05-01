@@ -47,43 +47,42 @@ export function PeopleSection() {
   return (
     <section
       id="people"
-      className="group relative py-24 sm:py-32 section-padding bg-bg"
+      className="relative py-24 sm:py-32 lg:py-40 section-padding bg-bg"
     >
-      <div className="h-rule mb-16 max-w-7xl mx-auto" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="reveal mb-16">
-          <span className="tag mb-4 inline-block">{t("people.tag")}</span>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div className="max-w-[1400px] mx-auto">
+        <header className="reveal mb-12 grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <span className="tag mb-4 inline-block">{t("people.tag")}</span>
             <AnchorHeading id="people">
-              <h2 className="font-bold uppercase leading-none font-display text-[clamp(1.8rem,4vw,2.8rem)] text-fg tracking-[-0.02em]">
+              <h2 className="font-display font-medium text-fg tracking-[-0.02em] leading-[1] text-[clamp(2rem,4.4vw,3.4rem)]">
                 {t("people.title1")}
                 <br />
                 <span className="text-accent">{t("people.title2")}</span>
               </h2>
             </AnchorHeading>
-            <p className="font-display text-sm text-fg-3 leading-[1.7] max-w-[360px] sm:text-right">
-              {t("people.aside")}
-            </p>
           </div>
-        </div>
+          <p className="md:col-span-5 font-display text-base text-fg-3 leading-[1.7] max-w-[40ch] md:text-right md:ml-auto">
+            {t("people.aside")}
+          </p>
+        </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+        {/* Proof strip — borderless data band, not 3 boxed cards */}
+        <ul className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border-faint border-y border-border-faint mb-12">
           {proofPoints.map((point, i) => (
-            <div
+            <li
               key={point.label}
-              className="reveal border border-border bg-bg-raised px-6 py-7"
-              style={{ "--delay": `${i * 0.08}s` } as React.CSSProperties}
+              className="reveal px-4 py-7 sm:px-6"
+              style={{ "--delay": `${i * 0.07}s` } as React.CSSProperties}
             >
-              <div className="font-display text-[1.85rem] font-bold text-accent leading-none mb-2">
+              <div className="font-display text-[1.85rem] sm:text-[2rem] font-bold text-accent leading-none mb-2 tabular-nums tracking-[-0.02em]">
                 {point.value}
               </div>
-              <div className="font-mono text-[0.62rem] tracking-[0.12em] uppercase text-fg-4 leading-[1.6]">
+              <div className="font-mono text-[0.65rem] tracking-[0.14em] uppercase text-fg-4 leading-[1.6]">
                 {point.label}
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {organizers.map((person, i) => (

@@ -1,12 +1,13 @@
+import type { OnePagerSponsorLogoId, ProductSponsorId } from "../components/sponsor-logos";
 import type { TranslationKey } from "../i18n/translations";
 
 export type SponsorTier = "gold" | "silver" | "bronze" | "product";
 
+export type { OnePagerSponsorLogoId, ProductSponsorId };
+
 export interface Sponsor {
-  id: string;
+  id: ProductSponsorId;
   name: string;
-  logo: string;
-  logoDark?: string;
   url: string;
   tier: SponsorTier;
   perkKey?: TranslationKey;
@@ -16,11 +17,27 @@ export const sponsors: Sponsor[] = [
   {
     id: "n8n",
     name: "n8n",
-    logo: "/sponsors/n8n-logo.svg",
-    logoDark: "/sponsors/n8n-logo-dark.svg",
     url: "https://n8n.io",
     tier: "product",
     perkKey: "sponsors.n8n.perk",
+  },
+  {
+    id: "codex",
+    name: "Codex",
+    url: "https://openai.com/codex",
+    tier: "product",
+  },
+  {
+    id: "yonjob",
+    name: "Yonjob",
+    url: "https://yonjobsv.com/",
+    tier: "product",
+  },
+  {
+    id: "nubiwork",
+    name: "NubiWork",
+    url: "https://nubi.work/",
+    tier: "product",
   },
 ];
 
@@ -32,9 +49,8 @@ export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
 export type OnePagerSponsorBadge = "host" | "gold";
 
 export interface OnePagerSponsorEntry {
-  id: string;
+  id: OnePagerSponsorLogoId;
   name: string;
-  logo: string;
   url: string;
   badge: OnePagerSponsorBadge;
 }
@@ -44,19 +60,31 @@ if (!n8nSponsor) {
   throw new Error("sponsors: n8n entry required for onePagerSponsors");
 }
 
+const codexSponsor = sponsors.find((s) => s.id === "codex");
+const yonjobSponsor = sponsors.find((s) => s.id === "yonjob");
+const nubiworkSponsor = sponsors.find((s) => s.id === "nubiwork");
+if (!codexSponsor || !yonjobSponsor || !nubiworkSponsor) {
+  throw new Error("sponsors: codex, yonjob, nubiwork required for onePagerSponsors");
+}
+
+function toOnePagerGold(s: Sponsor): OnePagerSponsorEntry {
+  return {
+    id: s.id,
+    name: s.name,
+    url: s.url,
+    badge: "gold",
+  };
+}
+
 export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
   {
     id: "cursor",
     name: "Cursor",
-    logo: "/lockup-light.png",
     url: "https://cursor.com",
     badge: "host",
   },
-  {
-    id: n8nSponsor.id,
-    name: n8nSponsor.name,
-    logo: n8nSponsor.logo,
-    url: n8nSponsor.url,
-    badge: "gold",
-  },
+  toOnePagerGold(n8nSponsor),
+  toOnePagerGold(codexSponsor),
+  toOnePagerGold(yonjobSponsor),
+  toOnePagerGold(nubiworkSponsor),
 ];

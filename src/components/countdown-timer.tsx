@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { EVENT_START_ISO } from "../constants";
 import { useTranslation } from "../context/language-context";
 
@@ -49,25 +50,32 @@ export function CountdownTimer() {
       {values.map((value, i) => (
         <div key={labels[i]} className="flex items-center gap-1.5 sm:gap-2.5">
           <div className="flex flex-col items-center">
-            <div
-              className={`relative overflow-hidden font-mono text-[clamp(1.2rem,3.2vw,2.1rem)] font-bold text-fg leading-none tracking-[-0.02em] ${tick ? "animate-[countdown-tick_0.1s_ease]" : ""}`}
-            >
-              <span
-                className={`transition-colors duration-300 ease ${i === 0 && value <= 7 ? "text-accent" : ""}`}
-              >
-                {pad(value)}
-              </span>
+            <div className="relative overflow-hidden font-mono text-[clamp(1.2rem,3.2vw,2.1rem)] font-bold text-fg leading-none tracking-[-0.02em] h-[1.2em]">
+              <AnimatePresence mode="popLayout">
+                <motion.span
+                  key={`${i}-${value}`}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "-100%", opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className={`block ${i === 0 && value <= 7 ? "text-accent" : ""}`}
+                >
+                  {pad(value)}
+                </motion.span>
+              </AnimatePresence>
             </div>
-            <span className="font-mono text-[0.48rem] sm:text-[0.5rem] tracking-[0.18em] uppercase text-fg-3 mt-0.5">
+            <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-fg-3 mt-0.5">
               {labels[i]}
             </span>
           </div>
           {i < values.length - 1 && (
-            <span
-              className={`font-mono text-[clamp(1rem,2.4vw,1.5rem)] text-accent leading-none self-start mt-0.5 transition-opacity duration-[500ms] ${tick ? "opacity-100" : "opacity-30"}`}
+            <motion.span
+              animate={{ opacity: tick ? 1 : 0.3 }}
+              transition={{ duration: 0.5 }}
+              className="font-mono text-[clamp(1rem,2.4vw,1.5rem)] text-accent leading-none self-start mt-0.5"
             >
               :
-            </span>
+            </motion.span>
           )}
         </div>
       ))}

@@ -77,7 +77,7 @@ export function LogisticsSection() {
                 { label: "País", value: "El Salvador" },
               ].map(({ label, value }) => (
                 <div key={label} className="flex flex-col gap-1">
-                  <span className="font-mono text-[0.58rem] tracking-[0.15em] text-fg-5 uppercase">
+                  <span className="font-mono text-[0.65rem] tracking-[0.15em] text-fg-5 uppercase">
                     {label}
                   </span>
                   <span className="font-display text-[0.9rem] text-fg-2">

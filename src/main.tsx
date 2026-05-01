@@ -5,19 +5,24 @@ import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "./context/language-context";
 import App from "./app";
 import "./index.css";
+import { OnePagerGate } from "./components/one-pager-gate";
 import { LandingPage } from "./pages/landing-page";
 import { OnePagerPage } from "./pages/one-pager";
 import { OnePagerCashPage } from "./pages/one-pager-cash";
 
 const onePagerTheme = (
   <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
-    <OnePagerPage />
+    <OnePagerGate>
+      <OnePagerPage />
+    </OnePagerGate>
   </ThemeProvider>
 );
 
 const onePagerCashTheme = (
   <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
-    <OnePagerCashPage />
+    <OnePagerGate>
+      <OnePagerCashPage />
+    </OnePagerGate>
   </ThemeProvider>
 );
 

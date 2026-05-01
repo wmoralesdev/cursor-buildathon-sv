@@ -1,5 +1,6 @@
-import type { OnePagerSponsorBadge } from "../data/sponsors";
+import type { OnePagerSponsorBadge, OnePagerSponsorLogoId } from "../data/sponsors";
 import { onePagerSponsors } from "../data/sponsors";
+import { OnePagerBrandLogo } from "./sponsor-logos";
 
 const BADGE_STYLES: Record<OnePagerSponsorBadge, string> = {
   host: "border-accent/50 bg-accent/[0.08] text-accent",
@@ -7,13 +8,13 @@ const BADGE_STYLES: Record<OnePagerSponsorBadge, string> = {
 };
 
 function SponsorCell({
+  id,
   name,
-  logo,
   url,
   badge,
 }: {
+  id: OnePagerSponsorLogoId;
   name: string;
-  logo: string;
   url: string;
   badge: OnePagerSponsorBadge;
 }) {
@@ -24,8 +25,8 @@ function SponsorCell({
       rel="noopener noreferrer"
       className="group flex min-h-0 items-center justify-center gap-2 rounded border border-accent/20 bg-bg px-2.5 py-1.5 no-underline transition-colors hover:border-accent/40"
     >
-      <img
-        src={logo}
+      <OnePagerBrandLogo
+        id={id}
         alt={name}
         className="h-3.5 w-auto max-w-[82px] shrink-0 object-contain"
       />
@@ -62,9 +63,9 @@ export function OnePagerSponsors() {
           {onePagerSponsors.length} confirmed · limited availability
         </span>
       </div>
-      <div className="grid auto-cols-fr grid-flow-col gap-2">
+      <div className="flex flex-wrap items-stretch justify-start gap-2">
         {onePagerSponsors.map((s) => (
-          <SponsorCell key={s.id} {...s} />
+          <SponsorCell key={s.id} id={s.id} name={s.name} url={s.url} badge={s.badge} />
         ))}
         <OpenSlot />
       </div>

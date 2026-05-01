@@ -1,4 +1,5 @@
 import { Printer } from "lucide-react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { OnePagerSponsors } from "../components/one-pager-sponsors";
@@ -26,6 +27,14 @@ const siteDisplay =
   typeof import.meta.env.VITE_SITE_URL === "string" && import.meta.env.VITE_SITE_URL.length > 0
     ? import.meta.env.VITE_SITE_URL.replace(/^https?:\/\//, "").replace(/\/+$/, "")
     : "Event site";
+
+/** Tier minimums in USD; global is default on the cash one-pager. */
+const SPONSOR_TIER_AMOUNTS = {
+  global: { bronze: "$500+", silver: "$1,000+", gold: "$2,000+" },
+  local: { bronze: "$500+", silver: "$750+", gold: "$1,000+" },
+} as const;
+
+type SponsorTierRegion = keyof typeof SPONSOR_TIER_AMOUNTS;
 
 type TierValue = string | boolean;
 
@@ -85,13 +94,16 @@ export function OnePagerCashPage() {
   const embedOnly =
     searchParams.get("embed") === "1" || searchParams.get("embed") === "true";
 
+  const [tierRegion, setTierRegion] = useState<SponsorTierRegion>("global");
+  const amounts = SPONSOR_TIER_AMOUNTS[tierRegion];
+
   return (
     <div
       className={`one-pager-root one-pager-white${embedOnly ? " one-pager-embed" : ""}`}
       data-theme="light"
     >
       {!embedOnly && (
-        <div className="one-pager-no-print flex justify-center border-b border-border bg-bg py-2">
+        <div className="one-pager-no-print flex flex-wrap items-center justify-center gap-3 border-b border-border bg-bg px-2 py-2">
           <button
             type="button"
             onClick={() => window.print()}
@@ -100,6 +112,36 @@ export function OnePagerCashPage() {
             <Printer className="size-3.5" aria-hidden />
             Print / Save PDF
           </button>
+          <div
+            className="inline-flex rounded border border-border bg-bg-raised p-0.5 shadow-sm"
+            role="group"
+            aria-label="Sponsorship tier pricing region"
+          >
+            <button
+              type="button"
+              aria-pressed={tierRegion === "global"}
+              onClick={() => setTierRegion("global")}
+              className={`rounded px-2.5 py-1.5 font-mono text-[0.65rem] font-semibold uppercase tracking-wider transition-colors ${
+                tierRegion === "global"
+                  ? "bg-accent text-white"
+                  : "text-fg-2 hover:bg-bg hover:text-fg"
+              }`}
+            >
+              Global
+            </button>
+            <button
+              type="button"
+              aria-pressed={tierRegion === "local"}
+              onClick={() => setTierRegion("local")}
+              className={`rounded px-2.5 py-1.5 font-mono text-[0.65rem] font-semibold uppercase tracking-wider transition-colors ${
+                tierRegion === "local"
+                  ? "bg-accent text-white"
+                  : "text-fg-2 hover:bg-bg hover:text-fg"
+              }`}
+            >
+              Local
+            </button>
+          </div>
         </div>
       )}
 
@@ -190,17 +232,17 @@ export function OnePagerCashPage() {
                     <th className="py-1.5 pl-2.5 pr-1 text-left font-mono text-[0.5rem] font-normal uppercase tracking-[0.1em] text-fg-3">
                       Benefit
                     </th>
-                    <th className="px-1 py-1.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#8b5a2b]">
+                    <th className="px-1 py-1.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#cd7f32]">
                       Bronze
-                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">$500+</span>
+                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">{amounts.bronze}</span>
                     </th>
-                    <th className="px-1 py-1.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#6b7280]">
+                    <th className="px-1 py-1.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#8f969e]">
                       Silver
-                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">$1,000+</span>
+                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">{amounts.silver}</span>
                     </th>
-                    <th className="px-1 py-1.5 pr-2.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-accent">
+                    <th className="px-1 py-1.5 pr-2.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#d4af37]">
                       Gold
-                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">$2,000+</span>
+                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">{amounts.gold}</span>
                     </th>
                   </tr>
                 </thead>

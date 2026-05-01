@@ -33,67 +33,68 @@ export function ScheduleSection() {
   return (
     <section
       id="schedule"
-      className="group relative py-28 sm:py-36 lg:py-48 section-padding bg-bg"
+      className="relative py-24 sm:py-32 lg:py-40 section-padding bg-bg"
     >
-      <div className="h-rule mb-20 max-w-7xl mx-auto" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
-          <div className="lg:col-span-4 reveal">
+      <div className="max-w-[1400px] mx-auto">
+        <header className="reveal mb-12 grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
             <span className="tag mb-4 inline-block">{t("schedule.tag")}</span>
             <AnchorHeading id="schedule">
-              <h2 className="font-bold uppercase leading-none mb-6 font-display text-[clamp(2rem,4vw,3rem)] text-fg tracking-[-0.02em]">
+              <h2 className="font-display font-medium text-fg tracking-[-0.02em] leading-[1] text-[clamp(2rem,4.4vw,3.4rem)]">
                 {t("schedule.title1")}
                 <br />
                 <span className="text-accent">{t("schedule.title2")}</span>
               </h2>
             </AnchorHeading>
-            <p className="font-display text-[0.9rem] text-fg-3 leading-[1.7] max-w-[300px]">{t("schedule.intro")}</p>
-
-            <div className="mt-8 inline-flex flex-col border border-border px-5 py-4">
-              <span className="font-mono text-[0.55rem] tracking-[0.18em] uppercase text-fg-3 mb-1.5">
-                {t("schedule.durationLabel")}
-              </span>
-              <span className="font-display text-[2rem] font-bold text-accent tracking-[-0.02em] leading-none">
-                ~24 h
-              </span>
-            </div>
           </div>
 
-          <div className="lg:col-span-8 relative">
-            <div className="absolute left-0 top-0 bottom-0 w-px timeline-line" />
-
-            <div className="space-y-0 pl-8">
-              {schedule.map((item, i) => (
-                <div
-                  key={item.time}
-                  className={`reveal relative ${i === 0 ? "pt-0 pb-8" : i === schedule.length - 1 ? "pt-8 pb-0" : "py-8"} ${i < schedule.length - 1 ? "border-b border-border-dim" : ""}`}
-                  style={{ "--delay": `${i * 0.07}s` } as React.CSSProperties}
-                >
-                  <div
-                    className={`absolute rounded-full timeline-dot ${item.highlight ? "timeline-dot--highlight" : ""} ${i === 0 ? "timeline-dot--first" : ""}`}
-                  />
-
-                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
-                    <span
-                      className={`font-mono text-[0.75rem] tracking-[0.08em] min-w-[52px] shrink-0 ${item.highlight ? "text-accent" : "text-fg-4"}`}
-                    >
-                      {item.time}
-                    </span>
-                    <div>
-                      <h3
-                        className={`font-display text-base uppercase tracking-[0.03em] mb-1 ${item.highlight ? "font-semibold text-fg" : "font-medium text-fg-2"}`}
-                      >
-                        {item.title}
-                      </h3>
-                      <p className="font-display text-[0.82rem] text-fg-4 leading-[1.6]">{item.desc}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="md:col-span-5 md:text-right md:ml-auto">
+            <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-fg-3 block mb-1.5">
+              {t("schedule.durationLabel")}
+            </span>
+            <span className="font-display text-2xl font-bold text-accent tracking-[-0.02em] leading-none tabular-nums">
+              ~24 h
+            </span>
           </div>
-        </div>
+        </header>
+
+        <p className="reveal mb-10 font-display text-base text-fg-3 leading-[1.75] max-w-[60ch]">
+          {t("schedule.intro")}
+        </p>
+
+        {/* Timeline rail — single column on mobile, 3 columns on lg */}
+        <ol className="grid gap-px bg-border-faint sm:grid-cols-3">
+          {schedule.map((item, i) => (
+            <li
+              key={item.time}
+              className={`reveal relative flex flex-col gap-3 px-7 py-8 sm:px-8 sm:py-10 ${
+                item.highlight ? "bg-accent/[0.04]" : "bg-bg-raised"
+              }`}
+              style={{ "--delay": `${i * 0.08}s` } as React.CSSProperties}
+            >
+              {item.highlight && (
+                <span aria-hidden className="absolute top-0 left-0 h-10 w-0.5 bg-accent" />
+              )}
+              <span
+                className={`font-mono text-[0.7rem] tracking-[0.18em] uppercase tabular-nums ${
+                  item.highlight ? "text-accent" : "text-fg-4"
+                }`}
+              >
+                {item.time}
+              </span>
+              <h3
+                className={`font-display text-base sm:text-lg uppercase tracking-[0.02em] ${
+                  item.highlight ? "font-semibold text-fg" : "font-medium text-fg-2"
+                }`}
+              >
+                {item.title}
+              </h3>
+              <p className="font-display text-sm text-fg-4 leading-[1.7] max-w-[34ch]">
+                {item.desc}
+              </p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

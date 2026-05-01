@@ -26,27 +26,25 @@ export function FAQSection() {
   return (
     <section
       id="faq"
-      className="group relative py-28 sm:py-36 lg:py-48 section-padding bg-bg"
+      className="relative py-24 sm:py-32 lg:py-40 section-padding bg-bg"
     >
-      <div className="h-rule mb-20 max-w-7xl mx-auto" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-          <div className="lg:col-span-4 reveal">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
+          <div className="lg:col-span-4 reveal lg:sticky lg:top-24 self-start">
             <span className="tag mb-4 inline-block">{t("faq.tag")}</span>
             <AnchorHeading id="faq">
-              <h2 className="font-bold uppercase leading-none font-display text-[clamp(2rem,4vw,3rem)] text-fg tracking-[-0.02em]">
+              <h2 className="font-display font-medium text-fg tracking-[-0.02em] leading-[1] text-[clamp(2rem,4.4vw,3rem)]">
                 {t("faq.title1")}
                 <br />
-                {t("faq.title2")}
+                <span className="text-accent">{t("faq.title2")}</span>
               </h2>
             </AnchorHeading>
-            <p className="mt-4 font-display text-[0.85rem] text-fg-3 leading-[1.7] max-w-[280px]">
+            <p className="mt-5 font-display text-base text-fg-3 leading-[1.7] max-w-[36ch]">
               {t("faq.subtitle")}
             </p>
             <a
               href="#tiers"
-              className="mt-6 inline-block font-mono text-[0.65rem] text-accent tracking-[0.12em] uppercase no-underline border-b border-accent/30 pb-0.5 transition-[border-color] duration-200 hover:border-accent"
+              className="mt-6 inline-block font-mono text-[0.7rem] text-accent tracking-[0.16em] uppercase no-underline border-b border-accent/40 pb-1 transition-[border-color] duration-200 hover:border-accent"
             >
               {t("faq.toTiers")}
             </a>
@@ -68,7 +66,7 @@ export function FAQSection() {
                   id={`faq-question-${i}`}
                 >
                   <span
-                    className={`font-display text-[0.95rem] font-medium leading-snug flex-1 transition-colors duration-200 ${open === i ? "text-fg" : "text-fg-2"}`}
+                    className={`font-display text-base font-medium leading-snug flex-1 transition-colors duration-200 ${open === i ? "text-fg" : "text-fg-2"}`}
                   >
                     {faq.q}
                   </span>

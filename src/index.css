@@ -11,6 +11,11 @@
   --color-accent: #ff4b00;
   --color-accent-dim: #cc3d00;
   --color-accent-glow: rgba(255, 75, 0, 0.15);
+
+  /* Secondary accent — cyan energy */
+  --color-accent-2: #00ffcc;
+  --color-accent-2-dim: #00cca3;
+  --color-accent-2-glow: rgba(0, 255, 204, 0.15);
 }
 
 /* Semantic color tokens */
@@ -92,13 +97,6 @@
     background-color: var(--bg);
     color: var(--fg);
     font-family: "Chakra Petch", sans-serif;
-    cursor: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      cursor: auto;
-    }
   }
 
   body {
@@ -133,46 +131,6 @@
   color: var(--fg);
 }
 
-/* Custom cursor */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: #ff4b00;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.15s ease, transform 0.1s ease;
-  mix-blend-mode: screen;
-}
-
-[data-theme="light"] .cursor-dot {
-  mix-blend-mode: multiply;
-}
-
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(255, 75, 0, 0.6);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
-}
-
-.cursor-ring.hovering {
-  width: 48px;
-  height: 48px;
-  border-color: #ff4b00;
-}
-
 /* Scroll reveal */
 .reveal {
   opacity: 0;
@@ -192,21 +150,18 @@
 .reveal-delay-4 { transition-delay: 0.4s; }
 .reveal-delay-5 { transition-delay: 0.5s; }
 
-/* Glitch animation */
+/* Glitch animation — kept for legacy callers; rest restrained or unused now */
 @keyframes glitch-1 {
-  0%, 90%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
-  92% { clip-path: inset(8% 0 60% 0); transform: translate(-4px, 2px); }
-  94% { clip-path: inset(40% 0 30% 0); transform: translate(4px, -2px); }
-  96% { clip-path: inset(70% 0 5% 0); transform: translate(-2px, 1px); }
-  98% { clip-path: inset(20% 0 70% 0); transform: translate(3px, -1px); }
+  0%, 95%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  96% { clip-path: inset(8% 0 60% 0); transform: translate(-3px, 1px); }
+  97% { clip-path: inset(40% 0 30% 0); transform: translate(3px, -1px); }
+  98% { clip-path: inset(70% 0 5% 0); transform: translate(-2px, 1px); }
 }
 
 @keyframes glitch-2 {
-  0%, 88%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
-  90% { clip-path: inset(50% 0 20% 0); transform: translate(6px, -3px); color: #ff4b00; }
-  93% { clip-path: inset(15% 0 65% 0); transform: translate(-6px, 1px); }
-  96% { clip-path: inset(80% 0 2% 0); transform: translate(3px, -2px); color: #00ffcc; }
-  99% { clip-path: inset(30% 0 45% 0); transform: translate(-3px, 3px); }
+  0%, 95%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  96% { clip-path: inset(50% 0 20% 0); transform: translate(4px, -2px); }
+  98% { clip-path: inset(15% 0 65% 0); transform: translate(-4px, 1px); }
 }
 
 @keyframes scanline {
@@ -243,21 +198,36 @@
   50% { transform: translateY(-8px); }
 }
 
-/* Grain overlay */
+@keyframes marquee {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(var(--marquee-shift, -50%), 0, 0); }
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+/* Grain overlay — fixed/pointer-event-none to avoid scroll repaints */
 .grain {
   position: fixed;
   inset: -200%;
   width: 400%;
   height: 400%;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.03;
+  opacity: 0.018;
   pointer-events: none;
   z-index: 9997;
   animation: grain-shift 0.5s steps(2) infinite;
 }
 
 [data-theme="light"] .grain {
-  opacity: 0.05;
+  opacity: 0.035;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain {
+    animation: none;
+  }
 }
 
 @keyframes grain-shift {
@@ -305,7 +275,7 @@
   display: inline-block;
 }
 
-/* Phosphor button */
+/* Phosphor button — tactile, hover-only shimmer (no perpetual glow) */
 .btn-phosphor {
   font-family: "Chakra Petch", sans-serif;
   font-weight: 600;
@@ -316,28 +286,39 @@
   background: #ff4b00;
   border: none;
   padding: 14px 32px;
-  cursor: none;
   position: relative;
   overflow: hidden;
-  transition: background 0.2s ease;
-  animation: pulse-glow 3s ease-in-out infinite;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .btn-phosphor::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
   transform: translateX(-100%);
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+.btn-phosphor:hover {
+  background: #ff5a14;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 24px -10px rgba(255, 75, 0, 0.55);
 }
 
 .btn-phosphor:hover::after {
   transform: translateX(100%);
 }
 
-.btn-phosphor:hover {
-  background: #ff6020;
+.btn-phosphor:active {
+  transform: translateY(1px);
+  background: #e84200;
+}
+
+.btn-phosphor:focus-visible {
+  outline: 2px solid #ff4b00;
+  outline-offset: 3px;
 }
 
 /* Ghost button */
@@ -351,13 +332,21 @@
   background: transparent;
   border: 1px solid var(--ghost-border);
   padding: 13px 32px;
-  cursor: none;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .btn-ghost:hover {
   border-color: #ff4b00;
   color: #ff4b00;
+}
+
+.btn-ghost:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost:focus-visible {
+  outline: 2px solid #ff4b00;
+  outline-offset: 3px;
 }
 
 /* Decorative grid overlay */
@@ -480,4 +469,22 @@
 /* Brief nav background */
 .bg-nav {
   background: rgba(8, 8, 8, 0.92);
+}
+
+/* Reduced-motion safety: kill perpetual loops + marquee */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessible focus default for interactive elements */
+:where(a, button, [role="button"]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }

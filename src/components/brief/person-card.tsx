@@ -144,12 +144,12 @@ export function PersonCard({
                   href={companyHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[0.55rem] tracking-[0.1em] uppercase text-fg-4 underline decoration-border underline-offset-2 transition-colors hover:text-accent hover:decoration-accent/50"
+                  className="font-mono text-[0.65rem] tracking-[0.1em] uppercase text-fg-4 underline decoration-border underline-offset-2 transition-colors hover:text-accent hover:decoration-accent/50"
                 >
                   {company}
                 </a>
               ) : (
-                <span className="font-mono text-[0.55rem] tracking-[0.1em] uppercase text-fg-4">{company}</span>
+                <span className="font-mono text-[0.65rem] tracking-[0.1em] uppercase text-fg-4">{company}</span>
               )}
             </div>
           )}

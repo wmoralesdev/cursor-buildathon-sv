@@ -36,7 +36,7 @@ export function EventOverview() {
           </div>
 
           <div className="lg:col-span-7 reveal reveal-delay-1 flex items-center">
-            <p className="font-display text-[1.05rem] text-fg-2 leading-[1.8]">{t("overview.lead")}</p>
+            <p className="font-display text-base text-fg-2 leading-[1.8]">{t("overview.lead")}</p>
           </div>
         </div>
 
@@ -47,7 +47,7 @@ export function EventOverview() {
               className="reveal border border-border p-8 bg-surface"
               style={{ "--delay": `${i * 0.08}s` } as React.CSSProperties}
             >
-              <div className="font-mono text-[0.6rem] tracking-[0.15em] text-fg-5 uppercase mb-4">{h.code}</div>
+              <div className="font-mono text-[0.65rem] tracking-[0.15em] text-fg-5 uppercase mb-4">{h.code}</div>
               <h3 className="font-display text-base font-semibold text-fg uppercase tracking-[0.03em] mb-3">
                 {t(h.titleKey)}
               </h3>
