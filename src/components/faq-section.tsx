@@ -43,10 +43,10 @@ export function FAQSection() {
               {t("faq.subtitle")}
             </p>
             <a
-              href="#tiers"
+              href="#cta"
               className="mt-6 inline-block font-mono text-[0.7rem] text-accent tracking-[0.16em] uppercase no-underline border-b border-accent/40 pb-1 transition-[border-color] duration-200 hover:border-accent"
             >
-              {t("faq.toTiers")}
+              {t("faq.toCta")}
             </a>
           </div>
 

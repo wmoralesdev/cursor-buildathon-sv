@@ -15,7 +15,6 @@ export function FooterCTA() {
       [
         { href: "#about", labelKey: "footer.nav.audience" as const },
         { href: "#benefits", labelKey: "footer.nav.benefits" as const },
-        { href: "#tiers", labelKey: "footer.nav.packages" as const },
         { href: "#people", labelKey: "footer.nav.credibility" as const },
         { href: "#numbers", labelKey: "footer.nav.numbers" as const },
         { href: "#details", labelKey: "footer.nav.details" as const },
@@ -64,7 +63,7 @@ export function FooterCTA() {
               {t("footer.ctaPrimary")}
             </a>
             <Link
-              to={{ pathname: "/", hash: "tiers" }}
+              to={{ pathname: "/", hash: "faq" }}
               className="btn-ghost inline-flex items-center justify-center text-sm px-7 py-4 no-underline"
             >
               {t("footer.ctaSecondary")}
@@ -129,10 +128,10 @@ export function FooterCTA() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-border-dim pt-5">
             <span className="font-mono text-[0.65rem] text-fg-5 tracking-[0.08em]">{t("footer.copyright")}</span>
             <a
-              href="#tiers"
+              href="#cta"
               className="font-mono text-[0.65rem] text-accent tracking-[0.12em] uppercase no-underline"
             >
-              {t("footer.toTiers")}
+              {t("footer.toSponsor")}
             </a>
           </div>
         </div>

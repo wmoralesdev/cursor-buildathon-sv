@@ -154,7 +154,7 @@ export function HeroSection() {
                 <div className="hidden sm:block h-12 w-px bg-border-faint" />
                 <div className="inline-flex flex-wrap gap-3">
                   <Link
-                    to={{ pathname: "/", hash: "tiers" }}
+                    to={{ pathname: "/", hash: "cta" }}
                     className="btn-phosphor inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm py-2.5 px-5 no-underline"
                   >
                     {t("hero.ctaTiers")}
@@ -219,7 +219,7 @@ export function HeroSection() {
                 </dl>
 
                 <Link
-                  to={{ pathname: "/", hash: "tiers" }}
+                  to={{ pathname: "/", hash: "cta" }}
                   className="group/cta flex items-center justify-between border-t border-border-faint px-6 py-4 no-underline transition-colors duration-200 hover:bg-accent/[0.04] focus-visible:bg-accent/[0.04]"
                 >
                   <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-accent whitespace-nowrap">

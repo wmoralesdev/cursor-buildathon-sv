@@ -58,7 +58,7 @@ export function SiteNav() {
         </button>
 
         <Link
-          to={{ pathname: "/", hash: "tiers" }}
+          to={{ pathname: "/", hash: "cta" }}
           className="btn-phosphor text-xs px-4 py-2.5 sm:px-6 sm:py-2.5 no-underline"
         >
           <span className="hidden sm:inline">{t("nav.sponsorCta")}</span>

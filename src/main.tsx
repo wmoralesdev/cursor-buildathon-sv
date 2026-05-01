@@ -36,7 +36,7 @@ const devOnlyRoutes = import.meta.env.DEV
 const mainLayoutRoutes = [
   { path: "/", element: <LandingPage /> },
   ...(import.meta.env.DEV
-    ? [{ path: "/brief", element: <Navigate to={{ pathname: "/", hash: "tiers" }} replace /> }]
+    ? [{ path: "/brief", element: <Navigate to={{ pathname: "/", hash: "cta" }} replace /> }]
     : []),
   ...(import.meta.env.PROD ? [{ path: "*", element: <Navigate to="/" replace /> }] : []),
 ];
