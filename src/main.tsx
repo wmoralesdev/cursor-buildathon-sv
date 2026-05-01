@@ -26,25 +26,30 @@ const onePagerCashTheme = (
   </ThemeProvider>
 );
 
+const devOnlyRoutes = import.meta.env.DEV
+  ? [
+      { path: "/onepager", element: onePagerTheme },
+      { path: "/onepager-cash", element: onePagerCashTheme },
+    ]
+  : [];
+
+const mainLayoutRoutes = [
+  { path: "/", element: <LandingPage /> },
+  ...(import.meta.env.DEV
+    ? [{ path: "/brief", element: <Navigate to={{ pathname: "/", hash: "tiers" }} replace /> }]
+    : []),
+  ...(import.meta.env.PROD ? [{ path: "*", element: <Navigate to="/" replace /> }] : []),
+];
+
 const router = createBrowserRouter([
-  {
-    path: "/onepager",
-    element: onePagerTheme,
-  },
-  {
-    path: "/onepager-cash",
-    element: onePagerCashTheme,
-  },
+  ...devOnlyRoutes,
   {
     element: (
       <LanguageProvider>
         <App />
       </LanguageProvider>
     ),
-    children: [
-      { path: "/", element: <LandingPage /> },
-      { path: "/brief", element: <Navigate to={{ pathname: "/", hash: "tiers" }} replace /> },
-    ],
+    children: mainLayoutRoutes,
   },
 ]);
 
