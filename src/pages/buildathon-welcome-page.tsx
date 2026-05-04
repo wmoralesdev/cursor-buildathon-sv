@@ -1,0 +1,50 @@
+import { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+
+import { BuildathonWelcomeForm } from "../components/buildathon-welcome-form";
+import { BuildathonWelcomePreview } from "../components/buildathon-welcome-preview";
+import type { WelcomeFormValues } from "./buildathon-welcome-types";
+
+function readInitialParam(raw: string | null): string {
+  if (!raw) return "";
+  try {
+    return decodeURIComponent(raw).trim();
+  } catch {
+    return raw.trim();
+  }
+}
+
+export function BuildathonWelcomePage() {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("t");
+
+  const defaultValues = useMemo<WelcomeFormValues>(
+    () => ({
+      handle: readInitialParam(searchParams.get("handle")),
+      photo: null,
+      aspectFormat: "post",
+    }),
+    [searchParams],
+  );
+
+  const methods = useForm<WelcomeFormValues>({
+    defaultValues,
+  });
+
+  return (
+    <FormProvider {...methods}>
+      <main className="relative max-w-[1400px] mx-auto w-full section-padding pb-24 pt-6 sm:pt-10">
+        <div
+          className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[min(90vw,48rem)] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl"
+          aria-hidden
+        />
+
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-start">
+          <BuildathonWelcomeForm inviteToken={token} />
+          <BuildathonWelcomePreview defaultSnapshot={defaultValues} />
+        </div>
+      </main>
+    </FormProvider>
+  );
+}

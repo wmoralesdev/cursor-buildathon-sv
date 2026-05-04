@@ -27,12 +27,15 @@ function useScrollReveal() {
 }
 
 export default function App() {
+  const location = useLocation();
   useScrollReveal();
   useHashScroll();
 
   return (
     <div className="relative min-h-screen bg-bg">
-      <div className="grain" aria-hidden="true" />
+      {location.pathname !== "/welcome" ? (
+        <div className="grain" aria-hidden="true" />
+      ) : null}
 
       <SiteNav />
 

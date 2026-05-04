@@ -9,6 +9,7 @@ import { OnePagerGate } from "./components/one-pager-gate";
 import { LandingPage } from "./pages/landing-page";
 import { OnePagerPage } from "./pages/one-pager";
 import { OnePagerCashPage } from "./pages/one-pager-cash";
+import { BuildathonWelcomePage } from "./pages/buildathon-welcome-page";
 
 const onePagerTheme = (
   <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
@@ -35,6 +36,7 @@ const devOnlyRoutes = import.meta.env.DEV
 
 const mainLayoutRoutes = [
   { path: "/", element: <LandingPage /> },
+  { path: "/welcome", element: <BuildathonWelcomePage /> },
   ...(import.meta.env.DEV
     ? [{ path: "/brief", element: <Navigate to={{ pathname: "/", hash: "cta" }} replace /> }]
     : []),

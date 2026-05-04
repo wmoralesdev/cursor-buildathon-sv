@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "buildathon-welcome-render",
+  "main": "src/worker.ts",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "r2_buckets": [
+    {
+      "binding": "VIDEO_BUCKET",
+      "bucket_name": "buildathon-welcome-videos"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "RENDER_CONTAINER",
+        "class_name": "RenderContainer"
+      }
+    ]
+  },
+  "containers": [
+    {
+      "class_name": "RenderContainer",
+      "image": "../Dockerfile.render-worker",
+      "name": "buildathon-welcome-render-container",
+      "max_instances": 5,
+      "instance_type": "standard"
+    }
+  ],
+  "migrations": [
+    {
+      "new_sqlite_classes": ["RenderContainer"],
+      "tag": "v1"
+    }
+  ]
+}
