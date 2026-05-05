@@ -4,12 +4,7 @@ import type { AspectFormat } from "../pages/buildathon-welcome-types";
 import { WelcomeCardExportContent } from "./welcome-card-export-content";
 import { WelcomeCardExportSponsorSlate } from "./welcome-card-export-sponsor-slate";
 import { WelcomeCardExportVideoBackground } from "./welcome-card-export-video-background";
-import {
-  DESIGN_DIMENSIONS,
-  SEQUENCE_TIMELINE,
-  introOpacity,
-  introTranslateY,
-} from "./welcome-card-canvas-spec";
+import { DESIGN_DIMENSIONS, SEQUENCE_TIMELINE } from "./welcome-card-canvas-spec";
 
 const EXPORT_FRAME_BORDER = "1px solid rgba(255, 75, 0, 0.4)";
 const EXPORT_FRAME_SHADOW =
@@ -57,8 +52,6 @@ export function WelcomeCardExportSequence({
     transformOrigin: "top left",
     border: EXPORT_FRAME_BORDER,
     boxShadow: EXPORT_FRAME_SHADOW,
-    opacity: introOpacity(progressSeconds),
-    translate: `0 ${introTranslateY(progressSeconds)}px`,
     backgroundColor: "#14120b",
     position: "relative",
     overflow: "hidden",
