@@ -9,17 +9,6 @@
         } catch (_) {}
       })();
     </script>
-    <script type="module">
-      const devtoolsEnabled = import.meta.env.VITE_DEVTOOLS_ENABLED !== "false";
-      if (import.meta.env.DEV && devtoolsEnabled) {
-        import("react-grab");
-        import("@react-grab/mcp/client");
-        const script = document.createElement("script");
-        script.src = "https://unpkg.com/react-scan/dist/auto.global.js";
-        script.crossOrigin = "anonymous";
-        document.head.appendChild(script);
-      }
-    </script>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="canonical" href="%SITE_URL%/" />

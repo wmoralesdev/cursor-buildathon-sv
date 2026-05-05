@@ -1,7 +1,10 @@
 import type { BrandLogoProps } from "./logo-props";
 import type { ComponentType } from "react";
 import type { ProductSponsorId } from "./sponsor-logo-ids";
+import { AbacoLogo } from "./abaco-logo";
 import { CodexLogo } from "./codex-logo";
+import { ElevenLabsLogo } from "./elevenlabs-logo";
+import { SimovLogo } from "./simov-logo";
 import { N8nLogo } from "./n8n-logo";
 import { NubiworkLogo } from "./nubiwork-logo";
 import { YonjobLogo } from "./yonjob-logo";
@@ -13,7 +16,10 @@ export { buildThemedLogoSrc } from "./build-themed-logo-src";
 export { ThemedLogoImg } from "./themed-logo";
 export type { ThemedLogoImgProps } from "./themed-logo";
 export { CursorLockup } from "./cursor-lockup";
+export { AbacoLogo } from "./abaco-logo";
 export { CodexLogo } from "./codex-logo";
+export { ElevenLabsLogo } from "./elevenlabs-logo";
+export { SimovLogo } from "./simov-logo";
 export { N8nLogo } from "./n8n-logo";
 export { NubiworkLogo } from "./nubiwork-logo";
 export { YonjobLogo } from "./yonjob-logo";
@@ -24,4 +30,7 @@ export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<Bran
   codex: CodexLogo,
   yonjob: YonjobLogo,
   nubiwork: NubiworkLogo,
+  abaco: AbacoLogo,
+  elevenlabs: ElevenLabsLogo,
+  simov: SimovLogo,
 };

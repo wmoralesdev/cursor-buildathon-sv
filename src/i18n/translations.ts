@@ -278,7 +278,6 @@ export const translations = {
   "hero.countdown.days": { en: "days", es: "días" },
   "hero.countdown.hours": { en: "hrs", es: "horas" },
   "hero.countdown.minutes": { en: "min", es: "min" },
-  "hero.countdown.seconds": { en: "sec", es: "seg" },
   "hero.ctaTiers": { en: "Coordinate sponsorship →", es: "Coordinar patrocinio →" },
   "hero.ctaAbout": { en: "See audience", es: "Ver audiencia" },
   "hero.stat.build": { en: "continuous build", es: "build continuo" },
@@ -729,6 +728,102 @@ export const translations = {
     es: "Cursor Ambassador · Lead organizer · Co-Founder, Ai /abs",
   },
   "footer.host.walter": { en: "@wmoralesdev", es: "@wmoralesdev" },
+
+  "welcome.kicker": { en: "Accepted", es: "Aceptado" },
+  "welcome.title": { en: "You're in.", es: "Ya entraste." },
+  "welcome.lead": {
+    en: "Add your handle and photo, pick square or vertical, then create your video when the preview looks good.",
+    es: "Agrega tu usuario y foto, elige cuadrado o vertical y crea el video cuando la vista previa te guste.",
+  },
+  "welcome.invite.emailLink": {
+    en: "Open this page from your acceptance email.",
+    es: "Abre esta página desde el correo de aceptación.",
+  },
+  "welcome.footer": {
+    en: "Keep your invite email handy for check-in.",
+    es: "Guarda el correo de invitación para el check-in.",
+  },
+
+  "welcome.field.handle": { en: "Handle (required)", es: "Usuario (obligatorio)" },
+  "welcome.field.handlePlaceholder": { en: "@yourhandle", es: "@usuario" },
+  "welcome.field.photo": { en: "Photo (required)", es: "Foto (obligatoria)" },
+  "welcome.field.chooseImage": { en: "Choose image", es: "Elegir imagen" },
+  "welcome.field.photoHint": { en: "JPEG, PNG, or WebP · max 5 MB", es: "JPEG, PNG o WebP · máx. 5 MB" },
+  "welcome.field.photoErrorType": { en: "Use a JPEG, PNG, or WebP image.", es: "Usa una imagen JPEG, PNG o WebP." },
+  "welcome.field.photoErrorSize": { en: "Image must be 5 MB or smaller.", es: "La imagen debe pesar 5 MB o menos." },
+  "welcome.field.format": { en: "Format", es: "Formato" },
+  "welcome.field.post": { en: "Post · 1:1", es: "Post · 1:1" },
+  "welcome.field.story": { en: "Story · 9:16", es: "Historia · 9:16" },
+  "welcome.field.removePhotoAria": { en: "Remove photo", es: "Quitar foto" },
+  "welcome.field.organizer": {
+    en: 'Organizer (card shows "Lead organizer" instead of "Accepted builder")',
+    es: 'Organizador (la tarjeta dice "Lead organizer" en lugar de "Accepted builder")',
+  },
+  "welcome.field.adjustPhoto": { en: "Adjust crop", es: "Ajustar recorte" },
+
+  "welcome.photoCrop.title": { en: "Crop your photo", es: "Recorta tu foto" },
+  "welcome.photoCrop.hint": {
+    en: "Pinch or drag to position. Use zoom to fill the square frame—the card photo is always 1:1.",
+    es: "Arrastra para posicionar. Usa zoom para llenar el marco cuadrado: la foto de la tarjeta es siempre 1:1.",
+  },
+  "welcome.photoCrop.zoom": { en: "Zoom", es: "Zoom" },
+  "welcome.photoCrop.cancel": { en: "Cancel", es: "Cancelar" },
+  "welcome.photoCrop.apply": { en: "Use photo", es: "Usar foto" },
+  "welcome.photoCrop.applying": { en: "Saving…", es: "Guardando…" },
+  "welcome.photoCrop.errorLoad": { en: "Could not load this image.", es: "No se pudo cargar esta imagen." },
+  "welcome.photoCrop.errorApply": {
+    en: "Could not process the crop. Try another image.",
+    es: "No se pudo procesar el recorte. Prueba otra imagen.",
+  },
+  "welcome.photoCrop.errorTooLarge": {
+    en: "Cropped file is still over 5 MB. Zoom out slightly or pick a smaller source image.",
+    es: "El recorte sigue superando 5 MB. Aleja el zoom un poco o elige una imagen más pequeña.",
+  },
+
+  "welcome.preview.kicker": { en: "Preview", es: "Vista previa" },
+  "welcome.preview.hint": {
+    en: "Preview is the 1:1 post. “Create video” downloads both post and story formats.",
+    es: "La vista previa es el post 1:1. «Crear video» descarga post e historia.",
+  },
+  "welcome.preview.devSponsorKicker": {
+    en: "Partner wall (localhost)",
+    es: "Muro de partners (localhost)",
+  },
+  "welcome.preview.devSponsorHint": {
+    en: "Layout after the glitch transition — matches the exported video’s sponsor slate. Only shown when developing on localhost.",
+    es: "Diseño tras la transición con glitch — coincide con la pizarra de partners del video exportado. Solo visible en localhost al desarrollar.",
+  },
+  "welcome.preview.devAspectLabel": {
+    en: "Preview canvas",
+    es: "Lienzo de vista previa",
+  },
+  "welcome.preview.devAspectNote": {
+    en: "Localhost only. Does not change exported videos — both post and story still download.",
+    es: "Solo en localhost. No cambia los videos exportados — siguen descargándose post e historia.",
+  },
+  "welcome.preview.ariaLabel": { en: "Welcome video preview", es: "Vista previa del video de bienvenida" },
+  "welcome.shareWhenPosting": {
+    en: "Sharing your clip? Tag Cursor and Ai /abs—we'd love to see it.",
+    es: "¿Lo compartes? Etiqueta a Cursor y a Ai /abs—nos encantaría verlo.",
+  },
+  "welcome.share.blurbLabel": { en: "Suggested caption", es: "Texto sugerido" },
+  "welcome.share.blurb": {
+    en: "Got accepted to the Cursor Buildathon El Salvador! Excited to build with AI with my friends, see you there!",
+    es: "Me aceptaron en el Cursor Buildathon El Salvador! Emocionado de construir con IA junto a mis amigos, nos vemos ahí!",
+  },
+  "welcome.share.copy": { en: "Copy text", es: "Copiar texto" },
+  "welcome.share.copied": { en: "Copied", es: "Copiado" },
+
+  "welcome.video.create": { en: "Create video", es: "Crear video" },
+  "welcome.video.downloadPost": { en: "Download post · 1:1", es: "Descargar post · 1:1" },
+  "welcome.video.downloadStory": { en: "Download story · 9:16", es: "Descargar historia · 9:16" },
+  "welcome.video.ready": { en: "Here are your files.", es: "Aquí están tus archivos." },
+  "welcome.video.preparing": { en: "Getting ready…", es: "Preparando…" },
+  "welcome.video.working": { en: "Creating your video…", es: "Creando tu video…" },
+  "welcome.video.waitHint": {
+    en: "Can take a minute—leave this tab open.",
+    es: "Puede tardar un minuto—deja esta pestaña abierta.",
+  },
 } as const;
 
 export type TranslationKey = keyof typeof translations;

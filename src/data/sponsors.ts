@@ -39,6 +39,24 @@ export const sponsors: Sponsor[] = [
     url: "https://nubi.work/",
     tier: "product",
   },
+  {
+    id: "abaco",
+    name: "Abaco",
+    url: "https://www.abacocapital.co/",
+    tier: "product",
+  },
+  {
+    id: "elevenlabs",
+    name: "ElevenLabs",
+    url: "https://elevenlabs.io/",
+    tier: "product",
+  },
+  {
+    id: "simov",
+    name: "Simov",
+    url: "https://simov.io/",
+    tier: "product",
+  },
 ];
 
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
@@ -63,8 +81,9 @@ if (!n8nSponsor) {
 const codexSponsor = sponsors.find((s) => s.id === "codex");
 const yonjobSponsor = sponsors.find((s) => s.id === "yonjob");
 const nubiworkSponsor = sponsors.find((s) => s.id === "nubiwork");
-if (!codexSponsor || !yonjobSponsor || !nubiworkSponsor) {
-  throw new Error("sponsors: codex, yonjob, nubiwork required for onePagerSponsors");
+const abacoSponsor = sponsors.find((s) => s.id === "abaco");
+if (!codexSponsor || !yonjobSponsor || !nubiworkSponsor || !abacoSponsor) {
+  throw new Error("sponsors: codex, yonjob, nubiwork, abaco required for onePagerSponsors");
 }
 
 function toOnePagerGold(s: Sponsor): OnePagerSponsorEntry {
@@ -87,4 +106,5 @@ export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
   toOnePagerGold(codexSponsor),
   toOnePagerGold(yonjobSponsor),
   toOnePagerGold(nubiworkSponsor),
+  toOnePagerGold(abacoSponsor),
 ];

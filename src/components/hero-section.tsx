@@ -30,6 +30,9 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   codex:    "h-9 w-auto max-w-[9rem] object-contain object-left",
   yonjob:   "h-8 w-auto max-w-[9rem] object-contain object-left",
   nubiwork: "h-11 w-auto max-w-[12rem] object-contain object-left",
+  abaco:    "h-6 w-auto max-w-[7.5rem] object-contain object-left",
+  elevenlabs: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
+  simov: "h-6 w-auto max-w-[8rem] object-contain object-left",
 };
 
 const PARTNER_ORDER: readonly HeroPartnerId[] = [
@@ -37,6 +40,9 @@ const PARTNER_ORDER: readonly HeroPartnerId[] = [
   "codex",
   "yonjob",
   "nubiwork",
+  "abaco",
+  "elevenlabs",
+  "simov",
   "zavu",
 ] as const;
 

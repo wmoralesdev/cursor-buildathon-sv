@@ -1,62 +1,53 @@
+import { memo } from "react";
+
+import { acceptedCardRoleLabel } from "../lib/accepted-card-role-label";
+import { formatHandle } from "../lib/format-handle";
 import {
   ACCEPTED_LABEL_CLASS,
   CursorLogo,
   EventHeader,
   EventInfoBlock,
   PhotoFrame,
-  SPONSOR_LOGOS,
-  SponsorLogo,
-  formatHandle,
   type AcceptedCardProps,
 } from "./accepted-card-shared";
 
-export function AcceptedCardStoryContent({
+export const AcceptedCardStoryContent = memo(function AcceptedCardStoryContent({
   handle,
   imageUrl,
   eventName = "Buildathon",
   eventLocation = "San Salvador",
+  isLeadOrganizer,
 }: AcceptedCardProps) {
   const handleForLine = formatHandle(handle);
 
-  const firstRowCount = Math.ceil(SPONSOR_LOGOS.length / 2);
-  const firstRow = SPONSOR_LOGOS.slice(0, firstRowCount);
-  const secondRow = SPONSOR_LOGOS.slice(firstRowCount);
-
   return (
-    <div className="relative z-10 flex min-h-0 w-full flex-1 flex-col p-6 sm:p-7">
+    <div className="relative flex h-full min-h-0 w-full flex-1 flex-col px-[clamp(1.25rem,4.75cqmin,6.75cqmin)] pt-[clamp(1.1rem,4.2cqmin,6cqmin)] pb-[clamp(0.9rem,3.6cqmin,5cqmin)]">
       <div className="flex shrink-0 items-start justify-between gap-3">
         <EventHeader eventName={eventName} eventLocation={eventLocation} />
-        <CursorLogo className="h-5 w-auto shrink-0 opacity-80" />
+        <CursorLogo className="h-[clamp(1.125rem,6.05cqmin,9cqmin)] w-auto shrink-0 opacity-80" />
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-6 py-6">
-        <span className={`${ACCEPTED_LABEL_CLASS} text-center`}>Accepted builder</span>
+      <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-[clamp(0.85rem,3cqmin,4.25cqmin)] py-[clamp(0.65rem,2.1cqmin,3cqmin)]">
+        <span
+          className={`${ACCEPTED_LABEL_CLASS} text-center text-[clamp(0.875rem,3.45cqmin,5cqmin)]`}
+        >
+          {acceptedCardRoleLabel(isLeadOrganizer)}
+        </span>
         <PhotoFrame
           imageUrl={imageUrl}
-          className="h-56 w-56 shrink-0 sm:h-64 sm:w-64"
+          organizerAccentGlow={isLeadOrganizer}
+          className="aspect-square shrink-0 size-[clamp(18rem,min(68cqmin,86cqw),min(82cqmin,88cqw))]"
         />
         <span
-          className={`${ACCEPTED_LABEL_CLASS} max-w-[80%] truncate text-center text-[0.7rem] tracking-[0.06em]`}
+          className={`${ACCEPTED_LABEL_CLASS} max-w-[84%] truncate text-center tracking-[0.06em] text-[clamp(0.875rem,3.55cqmin,5.1cqmin)]`}
         >
           {handleForLine}
         </span>
       </div>
 
-      <div className="shrink-0 space-y-5 pt-2">
+      <div className="shrink-0 pt-0">
         <EventInfoBlock />
-        <div className="space-y-3">
-          <div className="flex flex-nowrap items-center justify-center gap-x-4">
-            {firstRow.map((asset) => (
-              <SponsorLogo key={asset.src} asset={asset} />
-            ))}
-          </div>
-          <div className="flex flex-nowrap items-center justify-center gap-x-4">
-            {secondRow.map((asset) => (
-              <SponsorLogo key={asset.src} asset={asset} />
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
-}
+});

@@ -6,53 +6,42 @@ export type AcceptedCardProps = {
   format: AspectFormat;
   eventName?: string;
   eventLocation?: string;
+  isLeadOrganizer?: boolean;
 };
 
 export const CURSOR_DARK_LOGO = "/sponsors/cursor-dark.svg";
 
-export type SponsorAsset = {
-  src: string;
-  alt: string;
-  invert?: boolean;
-  heightClass: string;
-  maxWidthClass?: string;
-};
-
-export const SPONSOR_LOGOS: SponsorAsset[] = [
-  { src: "/sponsors/n8n-logo-dark.svg", alt: "n8n", heightClass: "h-3.5", maxWidthClass: "max-w-[4.5rem]" },
-  { src: "/sponsors/codex-logo.svg", alt: "Codex", invert: true, heightClass: "h-5", maxWidthClass: "max-w-[5.5rem]" },
-  { src: "/sponsors/yonjob-dark.svg", alt: "Yonjob", heightClass: "h-4.5", maxWidthClass: "max-w-[6rem]" },
-  { src: "/sponsors/nubiwork-dark.svg", alt: "Nubiwork", heightClass: "h-4.5", maxWidthClass: "max-w-[6rem]" },
-  { src: "/sponsors/zavu-dark.svg", alt: "Zavu", heightClass: "h-2.5", maxWidthClass: "max-w-[3rem]" },
-  { src: "/sponsors/from021.svg", alt: "021", invert: true, heightClass: "h-2.5", maxWidthClass: "max-w-[2.5rem]" },
-  { src: "/sponsors/ailabs.svg", alt: "AI Labs", invert: true, heightClass: "h-2.5", maxWidthClass: "max-w-[3rem]" },
-];
-
 export const ACCEPTED_LABEL_CLASS =
-  "font-mono text-[0.6rem] font-medium uppercase leading-tight tracking-[0.04em] text-[#ff4b00]";
+  "font-mono font-medium uppercase leading-tight tracking-[0.04em] text-[#ff4b00]";
 
 export function PhotoFrame({
   imageUrl,
   className,
+  compactEmptyLabel,
+  organizerAccentGlow,
 }: {
   imageUrl: string | null;
   className?: string;
+  compactEmptyLabel?: boolean;
+  organizerAccentGlow?: boolean;
 }) {
+  const emptyLabelClass = compactEmptyLabel
+    ? "font-mono text-[clamp(0.75rem,2.85cqmin,4.05cqmin)] uppercase tracking-[0.18em] text-[#555]"
+    : "font-mono text-[clamp(0.875rem,3.25cqmin,4.75cqmin)] uppercase tracking-[0.18em] text-[#555]";
+
+  const defaultFrameShadow =
+    "inset 0 0 0 1px rgba(255, 75, 0, 0.25), 0 8px 40px -12px rgba(0, 0, 0, 0.6)";
+
   return (
     <div
-      className={`relative shrink-0 overflow-hidden ${className ?? ""}`}
-      style={{
-        boxShadow:
-          "inset 0 0 0 1px rgba(255, 75, 0, 0.25), 0 8px 40px -12px rgba(0, 0, 0, 0.6)",
-      }}
+      className={`relative shrink-0 overflow-hidden ${organizerAccentGlow ? "photo-frame-organizer-glow" : ""} ${className ?? ""}`}
+      style={organizerAccentGlow ? undefined : { boxShadow: defaultFrameShadow }}
     >
       {imageUrl ? (
         <img src={imageUrl} alt="" className="h-full w-full object-cover" />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-[#111]">
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-[#555]">
-            Your photo
-          </p>
+          <p className={emptyLabelClass}>Your photo</p>
         </div>
       )}
     </div>
@@ -68,49 +57,58 @@ export function CursorLogo({ className }: { className?: string }) {
 export function EventHeader({
   eventName,
   eventLocation,
+  compact,
 }: {
   eventName: string;
   eventLocation: string;
+  compact?: boolean;
 }) {
+  const titleClamp = compact
+    ? "text-[clamp(0.625rem,2.15cqmin,3.05cqmin)]"
+    : "text-[clamp(0.6875rem,2.42cqmin,3.45cqmin)]";
+  const subtitleClamp = compact
+    ? "text-[clamp(0.5625rem,1.9cqmin,2.75cqmin)]"
+    : "text-[clamp(0.625rem,2.18cqmin,3.15cqmin)]";
+
   return (
     <div className="min-w-0 flex-1">
-      <p className="font-mono text-[0.6rem] font-medium uppercase tracking-[0.18em] text-[#f5f0e8] leading-snug">
+      <p
+        className={`font-mono ${titleClamp} font-medium uppercase tracking-[0.18em] text-[#f5f0e8] leading-snug`}
+      >
         Cursor {eventName}
       </p>
-      <p className="mt-0.5 font-mono text-[0.55rem] uppercase tracking-[0.22em] text-[#888]">
+      <p className={`mt-0.5 font-mono ${subtitleClamp} uppercase tracking-[0.22em] text-[#888]`}>
         {eventLocation}
       </p>
     </div>
   );
 }
 
-export function EventInfoBlock() {
-  return (
-    <p className="text-center font-mono text-[0.55rem] leading-relaxed tracking-[0.12em] text-[#666] uppercase">
-      Jul 4th · UFG
-    </p>
-  );
-}
+export function EventInfoBlock({ compact }: { compact?: boolean } = {}) {
+  const textClamp = compact
+    ? "text-[clamp(0.6875rem,2.38cqmin,3.45cqmin)]"
+    : "text-[clamp(0.75rem,2.65cqmin,3.85cqmin)]";
+  const rowClass = `flex flex-wrap items-center justify-center gap-x-[clamp(0.35rem,1.35cqmin,1.85cqmin)] gap-y-1 text-center font-mono ${textClamp} leading-relaxed tracking-[0.12em] text-[#666] uppercase`;
 
-export function SponsorLogo({ asset }: { asset: SponsorAsset }) {
-  const { src, alt, invert, heightClass, maxWidthClass } = asset;
   return (
-    <img
-      src={src}
-      alt={alt}
-      draggable={false}
-      className={`${heightClass} w-auto shrink-0 object-contain ${maxWidthClass ?? "max-w-[4.5rem]"}`}
-      style={
-        invert
-          ? { filter: "brightness(0) invert(1) grayscale(1)", opacity: 0.55 }
-          : { filter: "grayscale(1)", opacity: 0.55 }
-      }
-    />
+    <div className={rowClass}>
+      <span>Jul 4th · UFG</span>
+      <span className="select-none opacity-45" aria-hidden>
+        ·
+      </span>
+      <span className="inline-flex items-center gap-x-[clamp(0.3rem,1.15cqmin,1.55cqmin)]">
+        <span>Powered by</span>
+        <img
+          src="/sponsors/ailabs.svg"
+          alt="AI Labs"
+          draggable={false}
+          className="-translate-y-[0.19em] h-[1.32em] w-auto shrink-0 object-contain self-center"
+          style={{
+            filter: "brightness(0) invert(1)",
+            opacity: 0.72,
+          }}
+        />
+      </span>
+    </div>
   );
-}
-
-export function formatHandle(handle: string): string {
-  const trimmed = handle.trim();
-  if (!trimmed) return "@yourhandle";
-  return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
 }

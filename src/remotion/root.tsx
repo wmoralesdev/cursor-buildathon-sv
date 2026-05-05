@@ -4,7 +4,7 @@ import "../index.css";
 
 import {
   EXPORT_DIMENSIONS,
-  VIDEO_DURATION_FRAMES,
+  EXPORT_VIDEO_DURATION_FRAMES,
   VIDEO_FPS,
 } from "../components/welcome-card-canvas-spec";
 import {
@@ -16,6 +16,7 @@ const DEFAULT_PROPS: WelcomeCardCompositionProps = {
   handle: "@yourhandle",
   imageUrl: null,
   aspectFormat: "post",
+  isLeadOrganizer: false,
 };
 
 export function RemotionRoot() {
@@ -27,7 +28,7 @@ export function RemotionRoot() {
       <Composition
         id="welcome-card-post"
         component={WelcomeCardComposition}
-        durationInFrames={VIDEO_DURATION_FRAMES}
+        durationInFrames={EXPORT_VIDEO_DURATION_FRAMES}
         fps={VIDEO_FPS}
         width={post.width}
         height={post.height}
@@ -36,7 +37,7 @@ export function RemotionRoot() {
       <Composition
         id="welcome-card-story"
         component={WelcomeCardComposition}
-        durationInFrames={VIDEO_DURATION_FRAMES}
+        durationInFrames={EXPORT_VIDEO_DURATION_FRAMES}
         fps={VIDEO_FPS}
         width={story.width}
         height={story.height}

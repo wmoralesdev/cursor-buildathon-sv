@@ -1,8 +1,12 @@
+import { memo } from "react";
+
 type Props = {
   className?: string;
 };
 
-export function DarkGrainyPosterBackground({ className = "" }: Props) {
+export const DarkGrainyPosterBackground = memo(function DarkGrainyPosterBackground({
+  className = "",
+}: Props) {
   return (
     <div
       data-poster-bg=""
@@ -19,4 +23,4 @@ export function DarkGrainyPosterBackground({ className = "" }: Props) {
       <div className="poster-bg__grain-b" />
     </div>
   );
-}
+});

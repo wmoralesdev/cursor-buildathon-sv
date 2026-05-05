@@ -2,28 +2,51 @@ import type { AspectFormat } from "../pages/buildathon-welcome-types";
 
 export const VIDEO_FPS = 30 as const;
 
-/**
- * Total animated duration of the welcome card. Picked so the slowest poster
- * loop (10s sweep) plays at least half a cycle and the 5s bloom/glow/shadow
- * loops complete a full cycle, giving a satisfying export without bloating
- * file size.
- */
-export const VIDEO_DURATION_SECONDS = 5 as const;
+export const DEFAULT_CARD_DURATION_SECONDS = 4.5 as const;
 
-export const VIDEO_DURATION_FRAMES = VIDEO_DURATION_SECONDS * VIDEO_FPS;
+export const GLITCH_TRANSITION_SECONDS = 0.45 as const;
 
-/**
- * Bumped any time the canvas markup, animation timeline, or poster CSS
- * changes in a way that should invalidate cached renders in R2.
- */
-export const CANVAS_VERSION = "v1" as const;
+export const SPONSOR_SLATE_DURATION_SECONDS = 2.9 as const;
 
-/**
- * Design (pre-upscale) pixel dimensions per format. The export composition
- * renders at `EXPORT_DIMENSIONS[format]` and visually scales the design
- * box (via CSS `transform: scale`) so typography stays sharp on phones
- * with high DPR (iPhone 17 Pro Max, Galaxy S25+).
- */
+export const FINAL_CARD_HOLD_SECONDS = 0.9 as const;
+
+export const EXPORT_VIDEO_DURATION_SECONDS =
+  DEFAULT_CARD_DURATION_SECONDS +
+  GLITCH_TRANSITION_SECONDS +
+  SPONSOR_SLATE_DURATION_SECONDS +
+  GLITCH_TRANSITION_SECONDS +
+  FINAL_CARD_HOLD_SECONDS;
+
+export const EXPORT_VIDEO_DURATION_FRAMES = Math.round(
+  EXPORT_VIDEO_DURATION_SECONDS * VIDEO_FPS,
+);
+
+export const SEQUENCE_TIMELINE = {
+  defaultEnd: DEFAULT_CARD_DURATION_SECONDS,
+  glitchOutEnd: DEFAULT_CARD_DURATION_SECONDS + GLITCH_TRANSITION_SECONDS,
+  sponsorHoldEnd:
+    DEFAULT_CARD_DURATION_SECONDS +
+    GLITCH_TRANSITION_SECONDS +
+    SPONSOR_SLATE_DURATION_SECONDS,
+  glitchBackEnd:
+    DEFAULT_CARD_DURATION_SECONDS +
+    GLITCH_TRANSITION_SECONDS +
+    SPONSOR_SLATE_DURATION_SECONDS +
+    GLITCH_TRANSITION_SECONDS,
+  totalEnd: EXPORT_VIDEO_DURATION_SECONDS,
+} as const;
+
+export const SPONSOR_SLATE_HOLD_PREVIEW_SECONDS =
+  SEQUENCE_TIMELINE.glitchOutEnd + SPONSOR_SLATE_DURATION_SECONDS * 0.5;
+
+/** @deprecated Use DEFAULT_CARD_DURATION_SECONDS (preview) or EXPORT_VIDEO_DURATION_SECONDS (export). */
+export const VIDEO_DURATION_SECONDS = DEFAULT_CARD_DURATION_SECONDS;
+
+/** @deprecated Use EXPORT_VIDEO_DURATION_FRAMES for Remotion compositions. */
+export const VIDEO_DURATION_FRAMES = EXPORT_VIDEO_DURATION_FRAMES;
+
+export const CANVAS_VERSION = "v23" as const;
+
 export const DESIGN_DIMENSIONS: Record<AspectFormat, { width: number; height: number }> = {
   post: { width: 1080, height: 1080 },
   story: { width: 1080, height: 1920 },
@@ -38,11 +61,6 @@ export function exportScaleFor(format: AspectFormat): number {
   return EXPORT_DIMENSIONS[format].width / DESIGN_DIMENSIONS[format].width;
 }
 
-/**
- * Card intro motion timeline (web preview & Remotion read this same spec).
- * `progressSeconds` is elapsed time since playback start; both consumers
- * derive opacity/translate from it deterministically.
- */
 export const INTRO_DURATION_SECONDS = 0.6 as const;
 
 export function introOpacity(progressSeconds: number): number {
