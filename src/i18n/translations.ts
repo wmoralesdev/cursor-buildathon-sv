@@ -767,6 +767,10 @@ export const translations = {
     es: "Arrastra para posicionar. Usa zoom para llenar el marco cuadrado: la foto de la tarjeta es siempre 1:1.",
   },
   "welcome.photoCrop.zoom": { en: "Zoom", es: "Zoom" },
+  "welcome.photoCrop.reset": {
+    en: "Reset zoom & position",
+    es: "Restablecer zoom y posición",
+  },
   "welcome.photoCrop.cancel": { en: "Cancel", es: "Cancelar" },
   "welcome.photoCrop.apply": { en: "Use photo", es: "Usar foto" },
   "welcome.photoCrop.applying": { en: "Saving…", es: "Guardando…" },

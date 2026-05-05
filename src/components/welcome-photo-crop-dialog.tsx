@@ -32,6 +32,14 @@ export function WelcomePhotoCropDialog({
     setPixels(areaPixels);
   }, []);
 
+  const atDefaultCropView =
+    Math.abs(zoom - 1) < 0.001 && Math.abs(crop.x) < 0.5 && Math.abs(crop.y) < 0.5;
+
+  function resetCropView() {
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
+  }
+
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -106,8 +114,8 @@ export function WelcomePhotoCropDialog({
           />
         </div>
 
-        <div className="space-y-2">
-          <label className="flex items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-fg-3 sm:text-xs sm:tracking-[0.12em]">
+        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2">
+          <label className="flex min-w-0 flex-1 items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-fg-3 sm:text-xs sm:tracking-[0.12em]">
             <span className="shrink-0">{t("welcome.photoCrop.zoom")}</span>
             <input
               type="range"
@@ -117,8 +125,17 @@ export function WelcomePhotoCropDialog({
               value={zoom}
               onChange={(e) => setZoom(Number(e.target.value))}
               className="min-w-0 flex-1 accent-accent"
+              aria-valuetext={`${Math.round(zoom * 100)}%`}
             />
           </label>
+          <button
+            type="button"
+            disabled={applying || atDefaultCropView}
+            onClick={() => resetCropView()}
+            className="shrink-0 self-start border border-border-faint px-3 py-2 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-fg-2 transition-colors hover:border-fg-5 hover:text-fg disabled:pointer-events-none disabled:opacity-40 sm:self-center sm:py-2 sm:text-[0.65rem]"
+          >
+            {t("welcome.photoCrop.reset")}
+          </button>
         </div>
 
         {applyError ? (
