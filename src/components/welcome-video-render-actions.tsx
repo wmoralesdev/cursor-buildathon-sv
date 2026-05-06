@@ -55,6 +55,10 @@ const RenderActionRow = memo(function RenderActionRow({
         <p className="text-[0.65rem] leading-snug text-fg-4 sm:text-xs sm:leading-relaxed">
           {t("welcome.shareWhenPosting")}
         </p>
+        <ul className="list-inside list-disc space-y-1 text-[0.65rem] leading-snug text-fg-3 sm:text-xs sm:leading-relaxed">
+          <li>{t("welcome.share.linkedInTags")}</li>
+          <li>{t("welcome.share.xTags")}</li>
+        </ul>
       </div>
     );
   }

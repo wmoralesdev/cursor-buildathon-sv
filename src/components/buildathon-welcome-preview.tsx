@@ -235,6 +235,10 @@ export function BuildathonWelcomePreview({ defaultSnapshot }: Props) {
         <p className="mt-2 text-[0.65rem] leading-snug text-fg-4 sm:mt-3 sm:text-xs sm:leading-relaxed">
           {t("welcome.shareWhenPosting")}
         </p>
+        <ul className="mt-2 list-inside list-disc space-y-1 text-[0.65rem] leading-snug text-fg-3 sm:mt-2.5 sm:text-xs sm:leading-relaxed">
+          <li>{t("welcome.share.linkedInTags")}</li>
+          <li>{t("welcome.share.xTags")}</li>
+        </ul>
 
         {devPreview ? (
           <>

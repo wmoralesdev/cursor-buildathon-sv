@@ -11,9 +11,10 @@ import {
 
 type Props = {
   inviteToken: string | null;
+  onReplayWelcome?: () => void;
 };
 
-export function BuildathonWelcomeForm({ inviteToken }: Props) {
+export function BuildathonWelcomeForm({ inviteToken, onReplayWelcome }: Props) {
   const { t } = useTranslation();
   const { getValues } = useFormContext<WelcomeFormValues>();
   const videoActionsRef = useRef<WelcomeVideoRenderActionsHandle | null>(null);
@@ -38,6 +39,15 @@ export function BuildathonWelcomeForm({ inviteToken }: Props) {
       <p className="mt-3 max-w-[55ch] text-sm leading-snug text-fg-3 sm:mt-4 sm:text-base sm:leading-relaxed">
         {t("welcome.lead")}
       </p>
+      {onReplayWelcome ? (
+        <button
+          type="button"
+          className="mt-3 inline-flex items-center gap-2 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-accent/95 underline-offset-[3px] transition-colors hover:text-accent hover:underline sm:text-[0.65rem]"
+          onClick={onReplayWelcome}
+        >
+          {t("welcome.showChecklist")}
+        </button>
+      ) : null}
 
       <form className="mt-8 space-y-5 sm:mt-10 sm:space-y-6" onSubmit={onFormSubmit} noValidate>
         <WelcomeFormFields />

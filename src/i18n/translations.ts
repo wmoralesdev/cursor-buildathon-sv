@@ -732,8 +732,8 @@ export const translations = {
   "welcome.kicker": { en: "Accepted", es: "Aceptado" },
   "welcome.title": { en: "You're in.", es: "Ya entraste." },
   "welcome.lead": {
-    en: "Add your handle and photo, pick square or vertical, then create your video when the preview looks good.",
-    es: "Agrega tu usuario y foto, elige cuadrado o vertical y crea el video cuando la vista previa te guste.",
+    en: "Build your acceptance card below—you can reopen the welcome checklist anytime. For now, nothing else is required: wait for further instructions from the organizers.",
+    es: "Crea tu tarjeta de aceptación abajo—puedes volver a abrir el checklist cuando quieras. Por ahora no hay más pendientes: espera próximas instrucciones del equipo organizador.",
   },
   "welcome.invite.emailLink": {
     en: "Open this page from your acceptance email.",
@@ -742,6 +742,47 @@ export const translations = {
   "welcome.footer": {
     en: "Keep your invite email handy for check-in.",
     es: "Guarda el correo de invitación para el check-in.",
+  },
+  "welcome.showChecklist": { en: "Show welcome checklist again", es: "Ver el checklist de bienvenida" },
+
+  "welcome.onboarding.kicker": { en: "Getting started", es: "Empieza aquí" },
+  "welcome.onboarding.title": { en: "What to do next", es: "Qué hacer ahora" },
+  "welcome.onboarding.lead": {
+    en: "Three quick steps so you stay in the loop. After that: wait—we’ll reach out with anything else.",
+    es: "Tres pasos para no perderte nada; después espera—te avisamos si hay algo más.",
+  },
+  "welcome.onboarding.progress": { en: "Step {step} · 3", es: "Paso {step} · 3" },
+  "welcome.onboarding.step1.title": { en: "Follow Ai Labs", es: "Sigue a Ai Labs" },
+  "welcome.onboarding.step1.body": {
+    en: "We post announcements, context, and community updates.",
+    es: "Compartimos anuncios, contexto y actualizaciones de la comunidad.",
+  },
+  "welcome.onboarding.step1.cta": { en: "Open links hub", es: "Abrir centro de enlaces" },
+  "welcome.onboarding.step2.title": { en: "Join the WhatsApp group", es: "Únete al grupo de WhatsApp" },
+  "welcome.onboarding.step2.body": {
+    en: "Logistics and next instructions land here first.",
+    es: "Primero llegan aquí la logística y los próximos pasos.",
+  },
+  "welcome.onboarding.step2.cta": { en: "Join group", es: "Unirme al grupo" },
+  "welcome.onboarding.step3.title": { en: "Export & share your video", es: "Exporta y comparte tu video" },
+  "welcome.onboarding.step3.body": {
+    en: "When your card is ready, download both clips and publish on LinkedIn and X. Tagging helps us amplify your story.",
+    es: "Cuando tu tarjeta esté lista, descarga ambos formatos y publica en LinkedIn y X. Las menciones nos ayudan a amplificar.",
+  },
+  "welcome.onboarding.tagBulletLinkedIn": {
+    en: "LinkedIn · mention Cursor, Ai /abs (company page), Walter Morales, and Daniela Huezo.",
+    es: "LinkedIn · menciona a Cursor, Ai /abs (página de empresa), Walter Morales y Daniela Huezo.",
+  },
+  "welcome.onboarding.tagBulletX": {
+    en: "X · tag @cursor, @wmoralesdev and @irenehl__.",
+    es: "X · etiqueta a @cursor, @wmoralesdev y @irenehl__.",
+  },
+  "welcome.onboarding.back": { en: "Back", es: "Atrás" },
+  "welcome.onboarding.next": { en: "Next", es: "Siguiente" },
+  "welcome.onboarding.done": { en: "Continue to video studio", es: "Ir al video" },
+  "welcome.onboarding.waitNote": {
+    en: "No more onboarding after this—for now hang tight until we send the next instructions.",
+    es: "No hay más pasos en esta guía por ahora: espera próximas instrucciones por WhatsApp.",
   },
 
   "welcome.field.handle": { en: "Handle (required)", es: "Usuario (obligatorio)" },
@@ -807,13 +848,21 @@ export const translations = {
   },
   "welcome.preview.ariaLabel": { en: "Welcome video preview", es: "Vista previa del video de bienvenida" },
   "welcome.shareWhenPosting": {
-    en: "Sharing your clip? Tag Cursor and Ai /abs—we'd love to see it.",
-    es: "¿Lo compartes? Etiqueta a Cursor y a Ai /abs—nos encantaría verlo.",
+    en: "Post on LinkedIn and X—and tag us so we can amplify your story.",
+    es: "Publícala en LinkedIn y X—etiquétanos para que podamos amplificar.",
+  },
+  "welcome.share.linkedInTags": {
+    en: "LinkedIn: mention Cursor, Ai /abs (company page), Walter Morales, and Daniela Huezo.",
+    es: "LinkedIn: menciona a Cursor, Ai /abs (página de empresa), Walter Morales y Daniela Huezo.",
+  },
+  "welcome.share.xTags": {
+    en: "X: tag @cursor, @wmoralesdev and @irenehl__.",
+    es: "X: etiqueta a @cursor, @wmoralesdev y @irenehl__.",
   },
   "welcome.share.blurbLabel": { en: "Suggested caption", es: "Texto sugerido" },
   "welcome.share.blurb": {
-    en: "Got accepted to the Cursor Buildathon El Salvador! Excited to build with AI with my friends, see you there!",
-    es: "Me aceptaron en el Cursor Buildathon El Salvador! Emocionado de construir con IA junto a mis amigos, nos vemos ahí!",
+    en: "Got accepted to Cursor Buildathon El Salvador—can’t wait to build with AI! On LinkedIn, mention Cursor, Ai /abs, Walter Morales, Daniela Huezo. On X: @cursor @wmoralesdev @irenehl__",
+    es: "Me aceptaron al Cursor Buildathon El Salvador—con ganas de construir con IA. En LinkedIn: Cursor, Ai /abs, Walter Morales, Daniela Huezo. En X: @cursor @wmoralesdev @irenehl__",
   },
   "welcome.share.copy": { en: "Copy text", es: "Copiar texto" },
   "welcome.share.copied": { en: "Copied", es: "Copiado" },
