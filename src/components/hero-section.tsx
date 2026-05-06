@@ -6,7 +6,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowUpRight, Calendar, MapPin, Users, Zap } from "lucide-react";
 
@@ -17,6 +16,7 @@ import {
   productSponsorLogoById,
   ZavuLogo,
 } from "./sponsor-logos";
+import { SPONSOR_MAILTO } from "../constants";
 import { sponsors } from "../data/sponsors";
 import { useTranslation } from "../context/language-context";
 import type { TranslationKey } from "../i18n/translations";
@@ -159,12 +159,12 @@ export function HeroSection() {
                 </div>
                 <div className="hidden sm:block h-12 w-px bg-border-faint" />
                 <div className="inline-flex flex-wrap gap-3">
-                  <Link
-                    to={{ pathname: "/", hash: "cta" }}
+                  <a
+                    href={SPONSOR_MAILTO}
                     className="btn-phosphor inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm py-2.5 px-5 no-underline"
                   >
                     {t("hero.ctaTiers")}
-                  </Link>
+                  </a>
                   <a
                     href="#about"
                     className="btn-ghost inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm py-2.5 px-5 no-underline"
@@ -224,8 +224,8 @@ export function HeroSection() {
                   ))}
                 </dl>
 
-                <Link
-                  to={{ pathname: "/", hash: "cta" }}
+                <a
+                  href={SPONSOR_MAILTO}
                   className="group/cta flex items-center justify-between border-t border-border-faint px-6 py-4 no-underline transition-colors duration-200 hover:bg-accent/[0.04] focus-visible:bg-accent/[0.04]"
                 >
                   <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-accent whitespace-nowrap">
@@ -236,7 +236,7 @@ export function HeroSection() {
                     strokeWidth={1.5}
                     aria-hidden
                   />
-                </Link>
+                </a>
               </div>
             </motion.aside>
           </div>

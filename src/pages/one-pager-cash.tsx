@@ -1,5 +1,4 @@
 import { Printer } from "lucide-react";
-import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { OnePagerSponsors } from "../components/one-pager-sponsors";
@@ -28,74 +27,59 @@ const siteDisplay =
     ? import.meta.env.VITE_SITE_URL.replace(/^https?:\/\//, "").replace(/\/+$/, "")
     : "Event site";
 
-/** Tier minimums in USD; global is default on the cash one-pager. */
-const SPONSOR_TIER_AMOUNTS = {
-  global: { bronze: "$500+", silver: "$1,000+", gold: "$2,000+" },
-  local: { bronze: "$500+", silver: "$750+", gold: "$1,000+" },
-} as const;
-
-type SponsorTierRegion = keyof typeof SPONSOR_TIER_AMOUNTS;
-
-type TierValue = string | boolean;
-
-interface BenefitRow {
-  label: string;
-  bronze: TierValue;
-  silver: TierValue;
-  gold: TierValue;
-}
+const SPONSOR_AMOUNT = "$750";
 
 interface BenefitGroup {
   category: string;
-  rows: BenefitRow[];
+  items: string[];
 }
 
-const TIER_BENEFITS: BenefitGroup[] = [
+const SPONSOR_BENEFITS: BenefitGroup[] = [
   {
     category: "Talent access",
-    rows: [
-      { label: "Attendee profiles (LinkedIn + GitHub)", bronze: true, silver: true, gold: true },
-      { label: "On-site team seats", bronze: "2", silver: "4", gold: "8" },
-      { label: "Office hours slot with attendees", bronze: false, silver: "30 min", gold: "60 min" },
-      { label: "Priority intros + early demo access", bronze: false, silver: false, gold: true },
+    items: [
+      "Attendee profiles (LinkedIn + GitHub)",
+      "4 on-site team seats",
+      "30-min office hours slot with attendees",
     ],
   },
   {
     category: "Event presence",
-    rows: [
-      { label: "Discord channel + opening ceremony shout-out", bronze: true, silver: true, gold: true },
-      { label: "Lead a session or panel", bronze: false, silver: "30 min", gold: "60 min" },
-      { label: "Sponsor a side activity", bronze: false, silver: "1", gold: "2" },
-      { label: "Co-host a meal or coffee break", bronze: false, silver: false, gold: true },
-      { label: "Named award + stand + closing stage \u00B9", bronze: false, silver: false, gold: true },
+    items: [
+      "Discord channel + opening ceremony shout-out",
+      "30-min session or panel slot",
+      "1 sponsored side activity",
     ],
   },
   {
     category: "Brand visibility",
-    rows: [
-      { label: "Logo on event site & slides", bronze: true, silver: true, gold: true },
-      { label: "Posts on event social channels", bronze: true, silver: true, gold: true },
-      { label: "Spotlight in pre-event comms", bronze: false, silver: true, gold: true },
-      { label: "Hand out branded material + digital guide feature", bronze: false, silver: false, gold: true },
+    items: [
+      "Logo on event site & slides",
+      "Posts on event social channels",
+      "Spotlight in pre-event comms",
+      "Branded material + digital guide feature",
     ],
   },
   {
     category: "Post-event",
-    rows: [
-      { label: "Thank-you in post-event email", bronze: true, silver: true, gold: true },
-      { label: "Opt-in attendee contact list", bronze: false, silver: true, gold: true },
-      { label: "Talent report + content package", bronze: false, silver: false, gold: true },
+    items: [
+      "Thank-you in post-event email",
+      "Opt-in attendee contact list",
+      "Talent report + content package",
     ],
   },
+];
+
+const PREMIUM_ADDONS = [
+  "Priority intros + early demo access",
+  "Additional on-site seats",
+  "Extended session time (60 min)",
 ];
 
 export function OnePagerCashPage() {
   const [searchParams] = useSearchParams();
   const embedOnly =
     searchParams.get("embed") === "1" || searchParams.get("embed") === "true";
-
-  const [tierRegion, setTierRegion] = useState<SponsorTierRegion>("global");
-  const amounts = SPONSOR_TIER_AMOUNTS[tierRegion];
 
   return (
     <div
@@ -112,36 +96,6 @@ export function OnePagerCashPage() {
             <Printer className="size-3.5" aria-hidden />
             Print / Save PDF
           </button>
-          <div
-            className="inline-flex rounded border border-border bg-bg-raised p-0.5 shadow-sm"
-            role="group"
-            aria-label="Sponsorship tier pricing region"
-          >
-            <button
-              type="button"
-              aria-pressed={tierRegion === "global"}
-              onClick={() => setTierRegion("global")}
-              className={`rounded px-2.5 py-1.5 font-mono text-[0.65rem] font-semibold uppercase tracking-wider transition-colors ${
-                tierRegion === "global"
-                  ? "bg-accent text-white"
-                  : "text-fg-2 hover:bg-bg hover:text-fg"
-              }`}
-            >
-              Global
-            </button>
-            <button
-              type="button"
-              aria-pressed={tierRegion === "local"}
-              onClick={() => setTierRegion("local")}
-              className={`rounded px-2.5 py-1.5 font-mono text-[0.65rem] font-semibold uppercase tracking-wider transition-colors ${
-                tierRegion === "local"
-                  ? "bg-accent text-white"
-                  : "text-fg-2 hover:bg-bg hover:text-fg"
-              }`}
-            >
-              Local
-            </button>
-          </div>
         </div>
       )}
 
@@ -218,44 +172,43 @@ export function OnePagerCashPage() {
               </div>
             </div>
 
-            {/* Tier comparison table — overflow visible so Figma does not clip wide rows */}
             <div className="one-pager-avoid-break min-w-0 rounded border border-border bg-bg-raised">
-              <div className="border-b border-border px-2.5 py-2">
+              <div className="flex items-baseline justify-between border-b border-border px-2.5 py-2">
                 <h2 className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.12em] text-fg">
-                  Sponsorship tiers
+                  Sponsor package
                 </h2>
+                <span className="font-display text-[0.85rem] font-bold tabular-nums text-accent">
+                  {SPONSOR_AMOUNT} <span className="text-[0.5rem] font-semibold text-fg-2">USD</span>
+                </span>
               </div>
 
-              <table className="one-pager-tier-table w-full text-[6.8pt]">
-                <thead>
-                  <tr className="border-b border-border bg-bg text-center">
-                    <th className="py-1.5 pl-2.5 pr-1 text-left font-mono text-[0.5rem] font-normal uppercase tracking-[0.1em] text-fg-3">
-                      Benefit
-                    </th>
-                    <th className="px-1 py-1.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#cd7f32]">
-                      Bronze
-                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">{amounts.bronze}</span>
-                    </th>
-                    <th className="px-1 py-1.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#8f969e]">
-                      Silver
-                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">{amounts.silver}</span>
-                    </th>
-                    <th className="px-1 py-1.5 pr-2.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.1em] text-[#d4af37]">
-                      Gold
-                      <span className="block text-[0.55rem] font-bold tabular-nums text-fg">{amounts.gold}</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {TIER_BENEFITS.map((group) => (
-                    <TierGroup key={group.category} group={group} />
+              <div className="space-y-0 text-[6.8pt]">
+                {SPONSOR_BENEFITS.map((group) => (
+                  <BenefitCategory key={group.category} group={group} />
+                ))}
+              </div>
+
+              <div className="border-t border-border px-2.5 py-2">
+                <div className="mb-1 flex items-baseline gap-2">
+                  <p className="font-mono text-[0.48rem] font-bold uppercase tracking-[0.14em] text-fg-3">
+                    Premium add-ons
+                  </p>
+                  <span className="rounded-sm border border-fg-4/30 bg-bg px-1 py-px font-mono text-[0.4rem] font-semibold uppercase tracking-wider text-fg-3">
+                    extra cost
+                  </span>
+                </div>
+                <ul className="space-y-0.5 text-[6.8pt] text-fg-2">
+                  {PREMIUM_ADDONS.map((addon) => (
+                    <li key={addon} className="flex items-start gap-1.5">
+                      <span className="mt-[0.3em] text-[0.5rem] text-fg-4">+</span>
+                      <span>{addon}</span>
+                    </li>
                   ))}
-                </tbody>
-              </table>
+                </ul>
+              </div>
 
               <p className="border-t border-border px-2.5 py-1.5 text-[6pt] leading-relaxed text-fg-4">
-                <sup>1</sup> Physical stand and named award subject to venue availability.
-                All prices in USD. Custom packages available on request.
+                All prices in USD. Custom packages available on request for smaller budgets.
               </p>
             </div>
           </div>
@@ -381,8 +334,8 @@ export function OnePagerCashPage() {
                   hello@wmorales.dev
                 </a>
                 <p className="mt-1 text-[7.5pt] leading-relaxed">
-                  Pick a tier or tell us what you have in mind. We&apos;ll send back a
-                  custom activation plan within 48h.
+                  Grab the {SPONSOR_AMOUNT} package or tell us what you have in mind.
+                  We&apos;ll send back a custom activation plan within 48h.
                 </p>
               </div>
               <span className="shrink-0 font-mono text-[0.5rem] font-bold uppercase tracking-wider">
@@ -473,35 +426,20 @@ function WhyItem({ n, title, children }: { n: number; title: string; children: R
   );
 }
 
-function TierCell({ value }: { value: TierValue }) {
-  if (value === true) {
-    return <span className="text-accent">●</span>;
-  }
-  if (value === false) {
-    return <span className="text-fg-4">—</span>;
-  }
-  return <span className="font-semibold tabular-nums text-fg">{value}</span>;
-}
-
-function TierGroup({ group }: { group: BenefitGroup }) {
+function BenefitCategory({ group }: { group: BenefitGroup }) {
   return (
-    <>
-      <tr>
-        <td
-          colSpan={4}
-          className="border-b border-border bg-bg px-2.5 py-1 font-mono text-[0.48rem] font-bold uppercase tracking-[0.14em] text-accent"
-        >
-          {group.category}
-        </td>
-      </tr>
-      {group.rows.map((row) => (
-        <tr key={row.label} className="border-b border-border-faint last:border-border">
-          <td className="min-w-0 break-words py-[3px] pl-2.5 pr-1 text-fg-2">{row.label}</td>
-          <td className="px-1 py-[3px] text-center"><TierCell value={row.bronze} /></td>
-          <td className="px-1 py-[3px] text-center"><TierCell value={row.silver} /></td>
-          <td className="px-1 py-[3px] pr-2.5 text-center"><TierCell value={row.gold} /></td>
-        </tr>
-      ))}
-    </>
+    <div className="border-b border-border last:border-b-0">
+      <p className="border-b border-border bg-bg px-2.5 py-1 font-mono text-[0.48rem] font-bold uppercase tracking-[0.14em] text-accent">
+        {group.category}
+      </p>
+      <ul className="px-2.5 py-1.5 space-y-0.5">
+        {group.items.map((item) => (
+          <li key={item} className="flex items-start gap-1.5 text-fg-2">
+            <span className="mt-[0.25em] text-accent">●</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

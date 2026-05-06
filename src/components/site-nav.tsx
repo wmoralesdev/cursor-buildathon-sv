@@ -3,6 +3,7 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
 import { CursorLockup } from "./sponsor-logos";
+import { SPONSOR_MAILTO } from "../constants";
 import { useTranslation } from "../context/language-context";
 
 export function SiteNav() {
@@ -65,15 +66,15 @@ export function SiteNav() {
           </button>
         </div>
 
-        <Link
-          to={{ pathname: "/", hash: "cta" }}
+        <a
+          href={SPONSOR_MAILTO}
           className="btn-phosphor shrink-0 text-xs px-3 py-2 sm:px-6 sm:py-2.5 no-underline"
         >
           <span className="hidden sm:inline">{t("nav.sponsorCta")}</span>
           <span className="sm:hidden" aria-hidden="true">
             Sponsor →
           </span>
-        </Link>
+        </a>
       </div>
     </nav>
   );

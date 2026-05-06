@@ -82,8 +82,19 @@ const codexSponsor = sponsors.find((s) => s.id === "codex");
 const yonjobSponsor = sponsors.find((s) => s.id === "yonjob");
 const nubiworkSponsor = sponsors.find((s) => s.id === "nubiwork");
 const abacoSponsor = sponsors.find((s) => s.id === "abaco");
-if (!codexSponsor || !yonjobSponsor || !nubiworkSponsor || !abacoSponsor) {
-  throw new Error("sponsors: codex, yonjob, nubiwork, abaco required for onePagerSponsors");
+const elevenlabsSponsor = sponsors.find((s) => s.id === "elevenlabs");
+const simovSponsor = sponsors.find((s) => s.id === "simov");
+if (
+  !codexSponsor ||
+  !yonjobSponsor ||
+  !nubiworkSponsor ||
+  !abacoSponsor ||
+  !elevenlabsSponsor ||
+  !simovSponsor
+) {
+  throw new Error(
+    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov required for onePagerSponsors",
+  );
 }
 
 function toOnePagerGold(s: Sponsor): OnePagerSponsorEntry {
@@ -107,4 +118,6 @@ export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
   toOnePagerGold(yonjobSponsor),
   toOnePagerGold(nubiworkSponsor),
   toOnePagerGold(abacoSponsor),
+  toOnePagerGold(elevenlabsSponsor),
+  toOnePagerGold(simovSponsor),
 ];

@@ -1,40 +1,40 @@
-import type { OnePagerSponsorBadge, OnePagerSponsorLogoId } from "../data/sponsors";
+import type { OnePagerSponsorLogoId } from "../data/sponsors";
 import { onePagerSponsors } from "../data/sponsors";
 import { OnePagerBrandLogo } from "./sponsor-logos";
 
-const BADGE_STYLES: Record<OnePagerSponsorBadge, string> = {
-  host: "border-accent/50 bg-accent/[0.08] text-accent",
-  gold: "border-[#c9a227]/55 bg-[#c9a227]/14 text-[#6b4f0a]",
-};
+/** Slightly taller + wider caps so wordmarks read clearly compared to SVG defaults. */
+const ONE_PAGER_LOGO_LARGE_IDS = new Set<OnePagerSponsorLogoId>(["codex", "yonjob", "nubiwork"]);
+
+function sponsorLogoClasses(id: OnePagerSponsorLogoId): string {
+  if (ONE_PAGER_LOGO_LARGE_IDS.has(id)) {
+    return "h-5 w-auto max-w-[112px] shrink-0 object-contain";
+  }
+  return "h-3.5 w-auto max-w-[82px] shrink-0 object-contain";
+}
 
 function SponsorCell({
   id,
   name,
   url,
-  badge,
+  isHost,
 }: {
   id: OnePagerSponsorLogoId;
   name: string;
   url: string;
-  badge: OnePagerSponsorBadge;
+  isHost?: boolean;
 }) {
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex min-h-0 items-center justify-center gap-2 rounded border border-accent/20 bg-bg px-2.5 py-1.5 no-underline transition-colors hover:border-accent/40"
+      className={`group flex min-h-0 items-center justify-center rounded px-2.5 py-1.5 no-underline transition-colors ${
+        isHost
+          ? "border border-accent/40 bg-accent/[0.07] hover:border-accent/60"
+          : "border border-accent/20 bg-bg hover:border-accent/40"
+      }`}
     >
-      <OnePagerBrandLogo
-        id={id}
-        alt={name}
-        className="h-3.5 w-auto max-w-[82px] shrink-0 object-contain"
-      />
-      <span
-        className={`shrink-0 rounded-sm border px-1.5 py-px font-mono text-[0.4rem] font-bold uppercase leading-none tracking-[0.12em] ${BADGE_STYLES[badge]}`}
-      >
-        {badge}
-      </span>
+      <OnePagerBrandLogo id={id} alt={name} className={sponsorLogoClasses(id)} />
     </a>
   );
 }
@@ -65,7 +65,7 @@ export function OnePagerSponsors() {
       </div>
       <div className="flex flex-wrap items-stretch justify-start gap-2">
         {onePagerSponsors.map((s) => (
-          <SponsorCell key={s.id} id={s.id} name={s.name} url={s.url} badge={s.badge} />
+          <SponsorCell key={s.id} id={s.id} name={s.name} url={s.url} isHost={s.badge === "host"} />
         ))}
         <OpenSlot />
       </div>

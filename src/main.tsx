@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
@@ -10,6 +10,18 @@ import { LandingPage } from "./pages/landing-page";
 import { OnePagerPage } from "./pages/one-pager";
 import { OnePagerCashPage } from "./pages/one-pager-cash";
 import { BuildathonWelcomePage } from "./pages/buildathon-welcome-page";
+import { SPONSOR_MAILTO } from "./constants";
+
+let sponsorBriefRedirectIssued = false;
+
+function BriefToSponsorMail() {
+  useEffect(() => {
+    if (sponsorBriefRedirectIssued) return;
+    sponsorBriefRedirectIssued = true;
+    window.location.replace(SPONSOR_MAILTO);
+  }, []);
+  return null;
+}
 
 const onePagerTheme = (
   <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
@@ -38,7 +50,7 @@ const mainLayoutRoutes = [
   { path: "/", element: <LandingPage /> },
   { path: "/welcome", element: <BuildathonWelcomePage /> },
   ...(import.meta.env.DEV
-    ? [{ path: "/brief", element: <Navigate to={{ pathname: "/", hash: "cta" }} replace /> }]
+    ? [{ path: "/brief", element: <BriefToSponsorMail /> }]
     : []),
   ...(import.meta.env.PROD ? [{ path: "*", element: <Navigate to="/" replace /> }] : []),
 ];

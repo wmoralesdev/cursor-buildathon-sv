@@ -20,7 +20,7 @@ export function FooterCTA() {
         { href: "#details", labelKey: "footer.nav.details" as const },
         { href: "#schedule", labelKey: "footer.nav.schedule" as const },
         { href: "#faq", labelKey: "footer.nav.faq" as const },
-        { href: "#cta", labelKey: "footer.nav.contact" as const },
+        { href: SPONSOR_MAILTO, labelKey: "footer.nav.contact" as const },
       ] satisfies { href: string; labelKey: TranslationKey }[],
     [],
   );
@@ -98,7 +98,7 @@ export function FooterCTA() {
               </p>
               <ul className="grid grid-cols-2 sm:grid-cols-1 gap-x-6 gap-y-2">
                 {navLinks.map((link) => (
-                  <li key={link.href}>
+                  <li key={link.labelKey}>
                     <a
                       href={link.href}
                       className="footer-nav-link font-display text-sm text-fg-3 no-underline tracking-[0.04em] transition-colors duration-200"
@@ -128,7 +128,7 @@ export function FooterCTA() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-border-dim pt-5">
             <span className="font-mono text-[0.65rem] text-fg-5 tracking-[0.08em]">{t("footer.copyright")}</span>
             <a
-              href="#cta"
+              href={SPONSOR_MAILTO}
               className="font-mono text-[0.65rem] text-accent tracking-[0.12em] uppercase no-underline"
             >
               {t("footer.toSponsor")}

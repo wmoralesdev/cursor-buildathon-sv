@@ -10,6 +10,14 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+build
+out
+
+# Local MCP / Figma scratch (payloads, args dumps)
+scripts/.figma-*.txt
+scripts/figma-*.json
+scripts/figma-*.txt
+scripts/mcp-*.json
 *.local
 
 # Env (secrets — never commit)
