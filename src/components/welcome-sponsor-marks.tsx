@@ -17,6 +17,8 @@ export const WELCOME_CARD_SPONSOR_MARK_KEYS = [
   "021",
   "yonjob",
   "nubiwork",
+  "kreali",
+  "weris",
 ] as const;
 
 function slateLogoImgStyle(invert?: boolean, logoOpacity = 0.85): CSSProperties {
@@ -188,6 +190,32 @@ export function SponsorMarkSimov(props: SponsorMarkProps) {
   );
 }
 
+export function SponsorMarkKreali(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src="/sponsors/kreali-dark.svg"
+        alt="Kreali"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkWeris(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src="/sponsors/weris_dark.svg"
+        alt="Weris"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
 export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkCodex,
   SponsorMarkN8n,
@@ -198,4 +226,6 @@ export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkZeroTwoOne,
   SponsorMarkYonjob,
   SponsorMarkNubiwork,
+  SponsorMarkKreali,
+  SponsorMarkWeris,
 ] as const;

@@ -84,7 +84,19 @@ export function EventHeader({
   );
 }
 
-export function EventInfoBlock({ compact }: { compact?: boolean } = {}) {
+export function EventInfoBlock(
+  {
+    compact,
+    poweredByLogoSrc = "/sponsors/ailabs.svg",
+    poweredByLogoClassName = "h-[1.32em]",
+  }: {
+    compact?: boolean;
+    /** Use `staticFile("sponsors/ailabs.svg")` in Remotion compositions. */
+    poweredByLogoSrc?: string;
+    /** Tailwind height/size classes for the powered-by mark (default sized for welcome card). */
+    poweredByLogoClassName?: string;
+  } = {},
+) {
   const textClamp = compact
     ? "text-[clamp(0.6875rem,2.38cqmin,3.45cqmin)]"
     : "text-[clamp(0.75rem,2.65cqmin,3.85cqmin)]";
@@ -99,10 +111,10 @@ export function EventInfoBlock({ compact }: { compact?: boolean } = {}) {
       <span className="inline-flex items-center gap-x-[clamp(0.3rem,1.15cqmin,1.55cqmin)]">
         <span>Powered by</span>
         <img
-          src="/sponsors/ailabs.svg"
+          src={poweredByLogoSrc}
           alt="AI Labs"
           draggable={false}
-          className="-translate-y-[0.19em] h-[1.32em] w-auto shrink-0 object-contain self-center"
+          className={`-translate-y-[0.19em] w-auto shrink-0 object-contain self-center ${poweredByLogoClassName}`}
           style={{
             filter: "brightness(0) invert(1)",
             opacity: 0.72,

@@ -17,7 +17,7 @@ import {
   ZavuLogo,
 } from "./sponsor-logos";
 import { SPONSOR_MAILTO } from "../constants";
-import { sponsors } from "../data/sponsors";
+import { sponsors, type Sponsor } from "../data/sponsors";
 import { useTranslation } from "../context/language-context";
 import type { TranslationKey } from "../i18n/translations";
 
@@ -33,6 +33,8 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   abaco:    "h-6 w-auto max-w-[7.5rem] object-contain object-left",
   elevenlabs: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
   simov: "h-6 w-auto max-w-[8rem] object-contain object-left",
+  kreali: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
+  weris: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
 };
 
 const PARTNER_ORDER: readonly HeroPartnerId[] = [
@@ -43,6 +45,8 @@ const PARTNER_ORDER: readonly HeroPartnerId[] = [
   "abaco",
   "elevenlabs",
   "simov",
+  "kreali",
+  "weris",
   "zavu",
 ] as const;
 
@@ -78,6 +82,18 @@ function buildRail(): RailEntry[] {
 }
 
 const PARTNER_RAIL = buildRail();
+
+function requireSponsor(id: ProductSponsorId): Sponsor {
+  const s = sponsors.find((x) => x.id === id);
+  if (!s) throw new Error(`hero: sponsor "${id}" missing`);
+  return s;
+}
+
+const codexSponsorEntry = requireSponsor("codex");
+const elevenlabsSponsorEntry = requireSponsor("elevenlabs");
+
+const CodexLogo = productSponsorLogoById.codex;
+const ElevenLabsLogo = productSponsorLogoById.elevenlabs;
 
 interface BriefRow {
   Icon: ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -145,6 +161,38 @@ export function HeroSection() {
                   {t("hero.title.line2")}
                 </span>
               </h1>
+
+              <div className="mt-5 sm:mt-6">
+                <p className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-fg-4 mb-3">
+                  {t("hero.tierPartners.label")}
+                </p>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-3 sm:gap-x-8">
+                  <a
+                    href={codexSponsorEntry.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex min-h-11 items-center py-1 opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.02] active:scale-[0.98]"
+                    aria-label={`${codexSponsorEntry.name} — product partner`}
+                  >
+                    <CodexLogo
+                      alt={codexSponsorEntry.name}
+                      className="h-11 w-auto max-w-[12rem] sm:h-[3.25rem] sm:max-w-[15rem] object-contain object-left"
+                    />
+                  </a>
+                  <a
+                    href={elevenlabsSponsorEntry.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex min-h-11 items-center py-1 opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.02] active:scale-[0.98]"
+                    aria-label={`${elevenlabsSponsorEntry.name} — product partner`}
+                  >
+                    <ElevenLabsLogo
+                      alt={elevenlabsSponsorEntry.name}
+                      className="h-7 w-auto max-w-[9rem] sm:h-9 sm:max-w-[10rem] object-contain object-left"
+                    />
+                  </a>
+                </div>
+              </div>
 
               <p className="mt-7 max-w-[58ch] font-display text-base sm:text-[1.05rem] text-fg-2 leading-[1.75]">
                 {t("hero.lede")}

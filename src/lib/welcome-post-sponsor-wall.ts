@@ -1,4 +1,4 @@
-export const WELCOME_POST_SPONSOR_ROW_LENGTHS = [4, 3, 2] as const;
+export const WELCOME_POST_SPONSOR_ROW_LENGTHS = [4, 4, 3] as const;
 
 export function buildWelcomePostSponsorRowIndices(markCount: number): number[][] {
   const sum = WELCOME_POST_SPONSOR_ROW_LENGTHS.reduce((a, b) => a + b, 0);

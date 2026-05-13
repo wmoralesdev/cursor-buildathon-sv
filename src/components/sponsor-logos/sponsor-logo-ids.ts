@@ -5,6 +5,8 @@ export type ProductSponsorId =
   | "nubiwork"
   | "abaco"
   | "elevenlabs"
-  | "simov";
+  | "simov"
+  | "kreali"
+  | "weris";
 
 export type OnePagerSponsorLogoId = ProductSponsorId | "cursor";

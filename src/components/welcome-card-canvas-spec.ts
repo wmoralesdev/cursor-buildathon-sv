@@ -21,6 +21,30 @@ export const EXPORT_VIDEO_DURATION_FRAMES = Math.round(
   EXPORT_VIDEO_DURATION_SECONDS * VIDEO_FPS,
 );
 
+/** Sponsor spot Remotion clips duration (8.0s @ 30fps). */
+export const SPONSOR_SPOT_DURATION_FRAMES = 240;
+
+/**
+ * Sponsor spot beat timeline in frames (assuming 30fps / 8.0s = 240 frames).
+ * Used to drive the Terminal (TUI) reveal narrative.
+ *
+ * Beats:
+ *   typeCommand - Typing effect for user prompt (starts immediately)
+ *   terminalLogs- Fake build logs appearing
+ *   heroBurst   - Sponsor logo bursts forward in mono inside the terminal
+ *   colorBloom  - Grayscale -> brand color, glow ramp
+ *   hold        - Full-color hold with ambient drift
+ *   exit        - Fades out terminal contents to loop seamlessly back to frame 0
+ */
+export const SPONSOR_SPOT_TIMELINE = {
+  typeCommand: { startFrame: 0, endFrame: 60 },
+  terminalLogs: { startFrame: 65, endFrame: 105 },
+  heroBurst: { startFrame: 110, endFrame: 130 },
+  colorBloom: { startFrame: 130, endFrame: 150 },
+  hold: { startFrame: 150, endFrame: 225 },
+  exit: { startFrame: 225, endFrame: 240 },
+} as const;
+
 export const SEQUENCE_TIMELINE = {
   defaultEnd: DEFAULT_CARD_DURATION_SECONDS,
   glitchOutEnd: DEFAULT_CARD_DURATION_SECONDS + GLITCH_TRANSITION_SECONDS,

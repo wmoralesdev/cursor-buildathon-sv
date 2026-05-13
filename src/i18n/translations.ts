@@ -248,6 +248,10 @@ export const translations = {
   },
   "hero.title.line1": { en: "Cursor Buildathon", es: "Cursor Buildathon" },
   "hero.title.line2": { en: "El Salvador · 2026", es: "El Salvador · 2026" },
+  "hero.tierPartners.label": {
+    en: "Lead partners",
+    es: "Partners destacados",
+  },
   "hero.lede": {
     en: "Put your brand in front of ~200 AI-native builders during a continuous 24-hour build at UFG, San Salvador. Second edition in El Salvador, set up for awareness, hiring, and product activation.",
     es: "Pon tu marca frente a ~200 builders AI-native durante una ventana continua de 24 h en la UFG, San Salvador. Segunda edición en el país, lista para awareness, hiring y activación de producto.",

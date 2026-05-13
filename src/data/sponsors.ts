@@ -57,6 +57,18 @@ export const sponsors: Sponsor[] = [
     url: "https://simov.io/",
     tier: "product",
   },
+  {
+    id: "kreali",
+    name: "Kreali",
+    url: "https://www.krealistudio.com/en",
+    tier: "product",
+  },
+  {
+    id: "weris",
+    name: "Weris",
+    url: "https://weris.app/en",
+    tier: "product",
+  },
 ];
 
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
@@ -84,16 +96,20 @@ const nubiworkSponsor = sponsors.find((s) => s.id === "nubiwork");
 const abacoSponsor = sponsors.find((s) => s.id === "abaco");
 const elevenlabsSponsor = sponsors.find((s) => s.id === "elevenlabs");
 const simovSponsor = sponsors.find((s) => s.id === "simov");
+const krealiSponsor = sponsors.find((s) => s.id === "kreali");
+const werisSponsor = sponsors.find((s) => s.id === "weris");
 if (
   !codexSponsor ||
   !yonjobSponsor ||
   !nubiworkSponsor ||
   !abacoSponsor ||
   !elevenlabsSponsor ||
-  !simovSponsor
+  !simovSponsor ||
+  !krealiSponsor ||
+  !werisSponsor
 ) {
   throw new Error(
-    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov required for onePagerSponsors",
+    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris required for onePagerSponsors",
   );
 }
 
@@ -120,4 +136,6 @@ export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
   toOnePagerGold(abacoSponsor),
   toOnePagerGold(elevenlabsSponsor),
   toOnePagerGold(simovSponsor),
+  toOnePagerGold(krealiSponsor),
+  toOnePagerGold(werisSponsor),
 ];

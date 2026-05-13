@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "remotion:studio": "remotion studio src/remotion/index.ts",
-    "remotion:render": "remotion render src/remotion/index.ts welcome-card-post out/welcome-card-post.mp4"
+    "remotion:studio:sponsors": "remotion studio src/remotion/sponsor-spot-index.ts",
+    "remotion:render": "remotion render src/remotion/index.ts welcome-card-post out/welcome-card-post.mp4",
+    "remotion:render:sponsor": "remotion render src/remotion/sponsor-spot-index.ts sponsor-spot-codex-post out/sponsor-spot-codex-post.mp4"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.456",

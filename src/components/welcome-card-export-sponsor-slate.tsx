@@ -10,6 +10,8 @@ import {
   SponsorMarkAbaco,
   SponsorMarkCodex,
   SponsorMarkElevenLabs,
+  SponsorMarkKreali,
+  SponsorMarkWeris,
   SponsorMarkN8n,
   SponsorMarkNubiwork,
   SponsorMarkSimov,
@@ -72,6 +74,8 @@ const EXPORT_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkZeroTwoOneExport,
   SponsorMarkYonjob,
   SponsorMarkNubiwork,
+  SponsorMarkKreali,
+  SponsorMarkWeris,
 ] as const;
 
 export const WelcomeCardExportSponsorSlate = memo(

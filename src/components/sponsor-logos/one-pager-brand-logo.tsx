@@ -3,7 +3,9 @@ import { AbacoLogo } from "./abaco-logo";
 import { CodexLogo } from "./codex-logo";
 import { CursorLockup } from "./cursor-lockup";
 import { ElevenLabsLogo } from "./elevenlabs-logo";
+import { KrealiLogo } from "./kreali-logo";
 import { SimovLogo } from "./simov-logo";
+import { WerisLogo } from "./weris-logo";
 import { N8nLogo } from "./n8n-logo";
 import { NubiworkLogo } from "./nubiwork-logo";
 import { YonjobLogo } from "./yonjob-logo";
@@ -31,6 +33,10 @@ export function OnePagerBrandLogo({
       return <ElevenLabsLogo {...props} />;
     case "simov":
       return <SimovLogo {...props} />;
+    case "kreali":
+      return <KrealiLogo {...props} />;
+    case "weris":
+      return <WerisLogo {...props} />;
     default: {
       const _exhaustive: never = id;
       return _exhaustive;
