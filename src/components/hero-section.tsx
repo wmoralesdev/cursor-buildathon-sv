@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { motion } from "motion/react";
-import { ArrowUpRight, Calendar, MapPin, Users, Zap } from "lucide-react";
+import { ArrowUpRight, Calendar, MapPin, Users } from "lucide-react";
 
 import { CountdownTimer } from "./countdown-timer";
 import type { BrandLogoProps, ProductSponsorId } from "./sponsor-logos";
@@ -120,12 +120,6 @@ const BRIEF_ROWS: BriefRow[] = [
     labelKey: "hero.brief.audience.label",
     valueKey: "hero.brief.audience.value",
     subKey: "hero.brief.audience.sub",
-  },
-  {
-    Icon: Zap,
-    labelKey: "hero.brief.edition.label",
-    valueKey: "hero.brief.edition.value",
-    subKey: "hero.brief.edition.sub",
   },
 ];
 
