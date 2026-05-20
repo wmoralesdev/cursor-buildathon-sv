@@ -1,0 +1,21 @@
+## Learned User Preferences
+
+- When trade-offs affect sponsor UI, favor treatments that keep sponsor logos prominent; visibility to partners is a stated priority.
+- For Remotion sponsor-spot (and similar) compositions, prefer Cursor-faithful chrome and terminal styling, a visually integrated sponsor mark with minimal outer framing, enough hold time to read on-screen copy, and seamless looping when the piece should repeat.
+- When giving design or UX recommendations, state a concrete desired end state; avoid vague critique without actionable direction.
+- Unless specified otherwise, keep partner/sponsor rail order with Codex, n8n, and Zavu first and grouped together; other partners follow.
+- Landing hero work should preserve the partner logo marquee as part of the hero.
+- Below the hero geo line, the “Lead partners” strip is for featured product marks only (Codex, ElevenLabs); keep Cursor in the scrolling partner rail rather than duplicating it in that strip.
+- For sponsor-spot Remotion clips, the fake typed CLI line should use the sponsor’s lowercase product id inside the quoted token (e.g. `weris`) when terminal-authentic copy is intended.
+- For event-intro Remotion story format, align chrome with sponsor-spot story (`SponsorSpotCornerHeader`, matching vertical band padding).
+- When tuning the event-intro center Cursor mark, prefer lengthening the full-opacity hold via `event-intro-spec.ts` timeline shifts rather than slowing lock-in/out ramps unless explicitly requested.
+- For light sponsor one-pagers (`/onepager-niu`, `/onepager-boxful`), favor executive-scan layout: clearly separate **funds already committed** from the **suggested new contribution**; tighten copy (no AI-flavored jargon, avoid repeating the same positioning hook); print/PDF should honor the selected **locale and preview scale** and open **sheet-only** content without extra chrome.
+
+## Learned Workspace Facts
+
+- Product sponsor changes usually propagate through `src/components/sponsor-logos/sponsor-logo-ids.ts`, themed logo components and `productSponsorLogoById`, `src/data/sponsors.ts` (including `onePagerSponsors` guards), `src/components/hero-section.tsx` (`PARTNER_ORDER`, `RAIL_LOGO_CLASS`), `src/components/welcome-sponsor-marks.tsx` (keys, components, and matching order), `src/lib/welcome-post-sponsor-wall.ts` row lengths that sum to the mark count, `src/components/welcome-card-export-sponsor-slate.tsx` export list parity, and `src/components/sponsor-spot-logo.tsx` with Remotion sponsor-spot comps derived from welcome mark keys.
+- Kreali uses themed SVGs at `public/sponsors/kreali-dark.svg` and `public/sponsors/kreali-light.svg`.
+- Weris uses themed SVGs at `public/sponsors/weris_dark.svg` and `public/sponsors/weris_light.svg`.
+- `.agents` (local agent skills / scratch) is gitignored at the repo root.
+- Event-intro partner wall: global `.sponsor-slot` stays at `opacity: 0` until welcome-slate `[data-slate-active="true"]`; Remotion event-intro marks the wall with `data-event-intro-partner-wall="true"` and a scoped override in `src/index.css` so logos stay visible with frame-driven timing.
+- Light sponsor outreach uses `/onepager-niu` and `/onepager-boxful`, shared `src/pages/light-one-pager-sheet.tsx`, i18n `onePager.niu` / `onePager.boxful`, and `NIU_SPONSOR_MAILTO` / `BOXFUL_SPONSOR_MAILTO` in `src/constants.ts` (legacy `onepager-cash`, `onePager.cash`, and `CASH_SPONSOR_MAILTO` are retired).
