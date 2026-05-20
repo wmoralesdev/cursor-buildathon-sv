@@ -11,6 +11,8 @@ import {
   WelcomeCardComposition,
   type WelcomeCardCompositionProps,
 } from "./welcome-card-composition";
+import { EVENT_INTRO_DURATION_FRAMES } from "../components/event-intro-spec";
+import { EventIntroComposition } from "./event-intro-composition";
 
 const DEFAULT_PROPS: WelcomeCardCompositionProps = {
   handle: "@yourhandle",
@@ -42,6 +44,24 @@ export function RemotionRoot() {
         width={story.width}
         height={story.height}
         defaultProps={{ ...DEFAULT_PROPS, aspectFormat: "story" }}
+      />
+      <Composition
+        id="event-intro-post"
+        component={EventIntroComposition}
+        durationInFrames={EVENT_INTRO_DURATION_FRAMES}
+        fps={VIDEO_FPS}
+        width={post.width}
+        height={post.height}
+        defaultProps={{ aspectFormat: "post" }}
+      />
+      <Composition
+        id="event-intro-story"
+        component={EventIntroComposition}
+        durationInFrames={EVENT_INTRO_DURATION_FRAMES}
+        fps={VIDEO_FPS}
+        width={story.width}
+        height={story.height}
+        defaultProps={{ aspectFormat: "story" }}
       />
     </>
   );

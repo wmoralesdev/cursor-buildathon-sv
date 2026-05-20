@@ -545,6 +545,14 @@
   animation-delay: calc(var(--sponsor-slot-index, 0) * 55ms);
 }
 
+/* Remotion event-intro: stagger is frame-driven; drop slate hide + keyframe animation */
+[data-event-intro-partner-wall="true"] .sponsor-slot {
+  opacity: 1;
+  transform: none;
+  animation: none;
+  will-change: auto;
+}
+
 @keyframes sponsor-slot-reveal {
   from {
     opacity: 0;
