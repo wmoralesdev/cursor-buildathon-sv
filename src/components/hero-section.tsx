@@ -1,12 +1,15 @@
 import {
   type ComponentType,
   type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+  type MouseEvent as ReactMouseEvent,
   type Ref,
+  useCallback,
   useLayoutEffect,
   useRef,
   useState,
 } from "react";
-import { motion } from "motion/react";
+import { motion, useAnimationFrame, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Calendar, MapPin, Users } from "lucide-react";
 
 import { CountdownTimer } from "./countdown-timer";
@@ -35,6 +38,10 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   simov: "h-6 w-auto max-w-[8rem] object-contain object-left",
   kreali: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
   weris: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
+  boxful: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
+  drop: "h-6 w-auto max-w-[7.5rem] object-contain object-left",
+  gamesquad: "h-10 w-auto max-w-[12rem] object-contain object-left",
+  searchyou: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
 };
 
 const PARTNER_ORDER: readonly HeroPartnerId[] = [
@@ -47,6 +54,10 @@ const PARTNER_ORDER: readonly HeroPartnerId[] = [
   "simov",
   "kreali",
   "weris",
+  "boxful",
+  "drop",
+  "gamesquad",
+  "searchyou",
   "zavu",
 ] as const;
 
@@ -294,13 +305,38 @@ export function HeroSection() {
 }
 
 const MARQUEE_PX_PER_SECOND = 40;
+const MARQUEE_DRAG_THRESHOLD_PX = 6;
+
+function wrapMarqueeOffset(offset: number, groupWidth: number): number {
+  if (groupWidth <= 0) return offset;
+  let wrapped = offset % groupWidth;
+  if (wrapped > 0) wrapped -= groupWidth;
+  return wrapped;
+}
 
 function SponsorRail() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const measureGroupRef = useRef<HTMLDivElement>(null);
   const [groupWidth, setGroupWidth] = useState<number>(0);
   const [copies, setCopies] = useState<number>(2);
+  const [isDragging, setIsDragging] = useState(false);
+  const offsetRef = useRef(0);
+  const lastFrameRef = useRef<number | null>(null);
+  const dragSessionRef = useRef({
+    active: false,
+    startX: 0,
+    startOffset: 0,
+    moved: false,
+  });
+
+  const applyTrackOffset = useCallback((offset: number) => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(${offset}px, 0, 0)`;
+    }
+  }, []);
 
   useLayoutEffect(() => {
     const viewport = viewportRef.current;
@@ -314,6 +350,8 @@ function SponsorRail() {
 
       setGroupWidth(gw);
       setCopies(Math.max(2, Math.ceil(vw / gw) + 1));
+      offsetRef.current = wrapMarqueeOffset(offsetRef.current, gw);
+      applyTrackOffset(offsetRef.current);
     };
 
     measure();
@@ -321,15 +359,77 @@ function SponsorRail() {
     ro.observe(viewport);
     ro.observe(group);
     return () => ro.disconnect();
+  }, [applyTrackOffset]);
+
+  useAnimationFrame((time) => {
+    if (prefersReducedMotion || dragSessionRef.current.active || groupWidth <= 0) return;
+
+    if (lastFrameRef.current === null) {
+      lastFrameRef.current = time;
+      return;
+    }
+
+    const dt = (time - lastFrameRef.current) / 1000;
+    lastFrameRef.current = time;
+    offsetRef.current = wrapMarqueeOffset(
+      offsetRef.current - MARQUEE_PX_PER_SECOND * dt,
+      groupWidth,
+    );
+    applyTrackOffset(offsetRef.current);
+  });
+
+  const handlePointerDown = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0) return;
+    dragSessionRef.current = {
+      active: true,
+      startX: event.clientX,
+      startOffset: offsetRef.current,
+      moved: false,
+    };
+    setIsDragging(true);
+    lastFrameRef.current = null;
+    event.currentTarget.setPointerCapture(event.pointerId);
   }, []);
 
-  const trackStyle: CSSProperties =
-    groupWidth > 0
-      ? ({
-          ["--marquee-shift" as string]: `-${groupWidth}px`,
-          animationDuration: `${(groupWidth / MARQUEE_PX_PER_SECOND).toFixed(3)}s`,
-        } as CSSProperties)
-      : {};
+  const handlePointerMove = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (!dragSessionRef.current.active || groupWidth <= 0) return;
+
+      const deltaX = event.clientX - dragSessionRef.current.startX;
+      if (Math.abs(deltaX) > MARQUEE_DRAG_THRESHOLD_PX) {
+        dragSessionRef.current.moved = true;
+      }
+
+      offsetRef.current = wrapMarqueeOffset(
+        dragSessionRef.current.startOffset + deltaX,
+        groupWidth,
+      );
+      applyTrackOffset(offsetRef.current);
+    },
+    [applyTrackOffset, groupWidth],
+  );
+
+  const endDrag = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!dragSessionRef.current.active) return;
+    dragSessionRef.current.active = false;
+    setIsDragging(false);
+    lastFrameRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  }, []);
+
+  const handleClickCapture = useCallback((event: ReactMouseEvent<HTMLDivElement>) => {
+    if (dragSessionRef.current.moved) {
+      event.preventDefault();
+      event.stopPropagation();
+      dragSessionRef.current.moved = false;
+    }
+  }, []);
+
+  const trackStyle: CSSProperties = {
+    willChange: "transform",
+  };
 
   return (
     <motion.section
@@ -375,7 +475,13 @@ function SponsorRail() {
           {/* Marquee viewport — padding lives on the clip container so the moving track stays uniform */}
           <div
             ref={viewportRef}
-            className="relative overflow-hidden px-6 motion-reduce:px-0"
+            className={`relative overflow-hidden px-6 touch-pan-y motion-reduce:overflow-x-auto motion-reduce:px-0 ${
+              isDragging ? "cursor-grabbing select-none" : "cursor-grab"
+            }`}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
           >
             {/* Edge fades */}
             <span
@@ -389,9 +495,11 @@ function SponsorRail() {
 
             {/* MOTION: marquee track — N copies, translates by exactly one group width */}
             <div
-              className="flex w-max items-stretch py-6 md:py-7 motion-safe:animate-[marquee_linear_infinite] motion-safe:hover:[animation-play-state:paused] motion-safe:[will-change:transform] motion-reduce:overflow-x-auto motion-reduce:snap-x motion-reduce:snap-mandatory"
+              ref={trackRef}
+              className="flex w-max items-stretch py-6 md:py-7 motion-reduce:overflow-x-auto motion-reduce:snap-x motion-reduce:snap-mandatory"
               style={trackStyle}
               role="list"
+              onClickCapture={handleClickCapture}
             >
               {Array.from({ length: copies }).map((_, idx) => (
                 <SponsorRailGroup
