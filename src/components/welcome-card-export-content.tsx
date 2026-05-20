@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { staticFile } from "remotion";
 
 import { acceptedCardRoleLabel } from "../lib/accepted-card-role-label";
 import { formatHandle } from "../lib/format-handle";
@@ -57,7 +58,7 @@ const WelcomeCardExportPostContent = memo(function WelcomeCardExportPostContent(
       </div>
 
       <div className="shrink-0 pt-0">
-        <EventInfoBlock compact />
+        <EventInfoBlock compact poweredByLogoSrc={staticFile("sponsors/ailabs.svg")} />
       </div>
     </div>
   );
@@ -98,7 +99,7 @@ const WelcomeCardExportStoryContent = memo(function WelcomeCardExportStoryConten
       </div>
 
       <div className="shrink-0 pt-0">
-        <EventInfoBlock />
+        <EventInfoBlock poweredByLogoSrc={staticFile("sponsors/ailabs.svg")} />
       </div>
     </div>
   );
