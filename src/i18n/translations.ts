@@ -878,6 +878,395 @@ export const translations = {
     en: "Can take a minute—leave this tab open.",
     es: "Puede tardar un minuto—deja esta pestaña abierta.",
   },
+
+  "onePager.sponsors.ariaLabel": { en: "Confirmed sponsors", es: "Patrocinadores confirmados" },
+  "onePager.sponsors.title": { en: "Confirmed sponsors", es: "Patrocinadores confirmados" },
+  "onePager.sponsors.confirmedTail": {
+    en: "confirmed · limited availability",
+    es: "confirmados · cupos limitados",
+  },
+  "onePager.sponsors.slotsAvailable": { en: "Slots available", es: "Cupos disponibles" },
+
+  "onePager.niu.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
+  "onePager.niu.previewScaleAria": {
+    en: "Preview zoom (screen only)",
+    es: "Zoom de vista previa (solo en pantalla)",
+  },
+  "onePager.niu.fallbackSite": { en: "Event site", es: "Sitio del evento" },
+  "onePager.niu.imgAlt1": {
+    en: "Cursor Hackathon El Salvador — wide shot at AMPD Labs",
+    es: "Cursor Hackathon El Salvador — plano amplio en AMPD Labs",
+  },
+  "onePager.niu.imgAlt2": {
+    en: "Cursor Hackathon El Salvador — event photo",
+    es: "Cursor Hackathon El Salvador — foto del evento",
+  },
+  "onePager.niu.imgAlt3": {
+    en: "Cursor Hackathon El Salvador — participants",
+    es: "Cursor Hackathon El Salvador — participantes",
+  },
+  "onePager.niu.heroTitle": { en: "NIU x Cursor Buildathon", es: "NIU x Cursor Buildathon" },
+  "onePager.niu.heroSubtitle": {
+    en: "Put NIU inside the winner moment",
+    es: "Pon a NIU dentro del momento ganador",
+  },
+  "onePager.niu.headerWhenWhere": {
+    en: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+    es: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+  },
+  "onePager.niu.ufgUniversity": { en: " · Universidad Francisco Gavidia", es: " · Universidad Francisco Gavidia" },
+  "onePager.niu.statsAria": { en: "Key numbers", es: "Cifras clave" },
+  "onePager.niu.stat1.label": { en: "already committed", es: "ya comprometidos" },
+  "onePager.niu.stat1.sub": { en: "current sponsors", es: "sponsors actuales" },
+  "onePager.niu.stat2.label": { en: "suggested ask", es: "aporte sugerido" },
+  "onePager.niu.stat2.sub": { en: "can be more or less", es: "puede subir o bajar" },
+  "onePager.niu.stat3.label": { en: "young attendees", es: "jóvenes asistentes" },
+  "onePager.niu.stat3.sub": { en: "Gen Z + early career", es: "Gen Z + inicio carrera" },
+  "onePager.niu.stat4.label": { en: "attended Jan 31", es: "asistieron 31 ene" },
+  "onePager.niu.stat4.sub": { en: "previous event", es: "evento anterior" },
+  "onePager.niu.stat5.label": { en: "groups built", es: "equipos armados" },
+  "onePager.niu.stat5.sub": { en: "previous event", es: "evento anterior" },
+  "onePager.niu.decisionKicker": { en: "Executive decision", es: "Decisión ejecutiva" },
+  "onePager.niu.decisionTitle": {
+    en: "Let winners receive their buildathon award through NIU",
+    es: "Que los ganadores reciban su reconocimiento del buildathon vía NIU",
+  },
+  "onePager.niu.decisionBody": {
+    en: "A flexible cash contribution raises the stakes and gives NIU a useful brand moment with young Salvadorans already comfortable trying new financial products.",
+    es: "Un aporte flexible sube el nivel del evento y le da a NIU un momento de marca útil con jóvenes salvadoreños abiertos a probar productos financieros nuevos.",
+  },
+  "onePager.niu.decisionMini1.title": { en: "Payout", es: "Entrega" },
+  "onePager.niu.decisionMini1.body": {
+    en: "Winning teams receive funds through NIU, making the product part of the ceremony.",
+    es: "Los equipos ganadores reciben fondos vía NIU, haciendo el producto parte de la ceremonia.",
+  },
+  "onePager.niu.decisionMini2.title": { en: "Media", es: "Cobertura" },
+  "onePager.niu.decisionMini2.body": {
+    en: "NIU marketing can film, interview teams, and capture winners on site.",
+    es: "Marketing de NIU puede grabar, entrevistar equipos y capturar ganadores en sitio.",
+  },
+  "onePager.niu.decisionMini3.title": { en: "Audience", es: "Audiencia" },
+  "onePager.niu.decisionMini3.body": {
+    en: "Mostly Gen Z and early-career builders with mobile-first finance habits.",
+    es: "Mayormente Gen Z y talento joven con hábitos financieros mobile-first.",
+  },
+  "onePager.niu.fundingKicker": { en: "Already raised", es: "Ya recaudado" },
+  "onePager.niu.fundingBody": {
+    en: "committed by current sponsors.",
+    es: "comprometidos por sponsors actuales.",
+  },
+  "onePager.niu.fastDecisionLabel": { en: "Suggested NIU amount", es: "Aporte sugerido NIU" },
+  "onePager.niu.fastDecisionBody": {
+    en: "Starting point only. It can go lower, higher, or scale with the activation.",
+    es: "Solo punto de partida. Puede bajar, subir o escalar con la activación.",
+  },
+  "onePager.niu.packageTitle": { en: "Flexible NIU contribution", es: "Aporte flexible NIU" },
+  "onePager.niu.usd": { en: "USD", es: "USD" },
+  "onePager.niu.suggestedBadge": { en: "suggested USD", es: "USD sugeridos" },
+  "onePager.niu.flexTitle": {
+    en: "Start here, then tune",
+    es: "Empieza aquí, luego ajustamos",
+  },
+  "onePager.niu.flexBody": {
+    en: "$750 is a practical starting point, not a fixed price. NIU can contribute less, contribute more, or scale the activation around the winning teams.",
+    es: "$750 es un punto de partida práctico, no un precio fijo. NIU puede aportar menos, aportar más o escalar la activación alrededor de los equipos ganadores.",
+  },
+  "onePager.niu.benefit.talent.category": { en: "Talent + user access", es: "Talento + usuarios" },
+  "onePager.niu.benefit.talent.i0": {
+    en: "Opt-in attendee profiles for follow-up",
+    es: "Perfiles opt-in de asistentes para seguimiento",
+  },
+  "onePager.niu.benefit.talent.i1": { en: "4 on-site seats for NIU's team", es: "4 cupos en sitio para el equipo NIU" },
+  "onePager.niu.benefit.talent.i2": {
+    en: "30-min product conversations with builders",
+    es: "30 min de conversaciones de producto con builders",
+  },
+  "onePager.niu.benefit.presence.category": { en: "Awards activation", es: "Activación de premiación" },
+  "onePager.niu.benefit.presence.i0": {
+    en: "Opening + awards mention tied to NIU's contribution",
+    es: "Mención en apertura + premiación conectada al aporte de NIU",
+  },
+  "onePager.niu.benefit.presence.i1": {
+    en: "Winner payout flow can be routed through NIU",
+    es: "La ruta de pago a ganadores puede hacerse vía NIU",
+  },
+  "onePager.niu.benefit.presence.i2": {
+    en: "Optional fintech/product prompt for teams",
+    es: "Reto opcional fintech/producto para equipos",
+  },
+  "onePager.niu.benefit.brand.category": { en: "Brand visibility", es: "Visibilidad de marca" },
+  "onePager.niu.benefit.brand.i0": { en: "Logo on event site & slides", es: "Logo en sitio del evento y diapositivas" },
+  "onePager.niu.benefit.brand.i1": { en: "Posts on event social channels", es: "Publicaciones en redes del evento" },
+  "onePager.niu.benefit.brand.i2": {
+    en: "Pre-event spotlight with young builders",
+    es: "Destaque previo con builders jóvenes",
+  },
+  "onePager.niu.benefit.brand.i3": {
+    en: "On-site filming, interviews, and winner content for NIU's channels",
+    es: "Grabación, entrevistas y contenido de ganadores para canales de NIU",
+  },
+  "onePager.niu.benefit.post.category": { en: "Post-event", es: "Post-evento" },
+  "onePager.niu.benefit.post.i0": {
+    en: "Thank-you in post-event email",
+    es: "Agradecimiento en correo post-evento",
+  },
+  "onePager.niu.benefit.post.i1": { en: "Opt-in attendee contact list", es: "Lista de contacto opt-in de asistentes" },
+  "onePager.niu.benefit.post.i2": {
+    en: "Talent + content recap after demos",
+    es: "Recap de talento + contenido tras demos",
+  },
+  "onePager.niu.premiumTitle": { en: "Premium add-ons", es: "Complementos premium" },
+  "onePager.niu.extraCostBadge": { en: "extra cost", es: "costo extra" },
+  "onePager.niu.addon.i0": {
+    en: "Additional cash for larger or special awards",
+    es: "Aporte adicional para reconocimientos más grandes o especiales",
+  },
+  "onePager.niu.addon.i1": { en: "Additional on-site seats", es: "Cupos adicionales en sitio" },
+  "onePager.niu.addon.i2": {
+    en: "Longer product session or workshop (60 min)",
+    es: "Sesión de producto o workshop extendido (60 min)",
+  },
+  "onePager.niu.pricesNote": {
+    en: "Final amount, payout details, and coverage access can be scoped with NIU's team.",
+    es: "El monto final, la ruta de pago y el acceso de cobertura se definen con el equipo NIU.",
+  },
+  "onePager.niu.proofTitle": { en: "Proof this is real", es: "Pruebas de que es real" },
+  "onePager.niu.proofCollected": {
+    en: "$1.5K is already committed by sponsors; NIU can make the winner handoff more memorable.",
+    es: "$1.5K ya están comprometidos por sponsors; NIU puede hacer más memorable la entrega a ganadores.",
+  },
+  "onePager.niu.proof1": {
+    en: "Cursor Hackathon El Salvador on Jan 31 brought 145 attendees and 45 groups.",
+    es: "El Cursor Hackathon El Salvador del 31 de enero reunió 145 asistentes y 45 equipos.",
+  },
+  "onePager.niu.proof2": {
+    en: "Distribution runs through Cursor support, Ai /abs, UFG socials, WhatsApp groups, and local tech creators.",
+    es: "La difusión corre por apoyo de Cursor, Ai /abs, redes de la UFG, grupos de WhatsApp y creadores tech locales.",
+  },
+  "onePager.niu.proof3": {
+    en: "UFG gives the event a real university venue plus local ecosystem credibility.",
+    es: "La UFG aporta sede universitaria real y credibilidad en el ecosistema local.",
+  },
+  "onePager.niu.photosTitle": { en: "Event photos", es: "Fotos del evento" },
+  "onePager.niu.photosDisclaimer": {
+    en: "These images are documentary only and do not include sponsor logos or watermarks on the photos themselves.",
+    es: "Estas imágenes son solo documentales y no incluyen logos de patrocinadores ni marcas de agua en las fotos.",
+  },
+  "onePager.niu.footer.organizersLabel": { en: "Organizers", es: "Organizadores" },
+  "onePager.niu.footer.organizersLine": {
+    en: " with ",
+    es: " con ",
+  },
+  "onePager.niu.footer.organizersTail": {
+    en: " and Cursor Community support.",
+    es: " y apoyo de Cursor Community.",
+  },
+  "onePager.niu.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
+  "onePager.niu.footer.place2": {
+    en: "Mostly El Salvador, open to Central America.",
+    es: "Principalmente El Salvador, abierto a Centroamérica.",
+  },
+  "onePager.niu.ctaEmailHint": {
+    en: "Share the amount NIU wants to contribute and what your team wants to capture. We'll send a concrete plan within 48h.",
+    es: "Compártenos el monto que NIU quiere aportar y qué desea capturar su equipo. Respondemos con un plan concreto en 48 h.",
+  },
+  "onePager.niu.ctaBecomeSponsor": { en: "Become a sponsor →", es: "Ser patrocinador →" },
+  "onePager.niu.footerCopyright": {
+    en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
+    es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
+  },
+
+  "onePager.boxful.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
+  "onePager.boxful.previewScaleAria": {
+    en: "Preview zoom (screen only)",
+    es: "Zoom de vista previa (solo en pantalla)",
+  },
+  "onePager.boxful.fallbackSite": { en: "Event site", es: "Sitio del evento" },
+  "onePager.boxful.imgAlt1": {
+    en: "Cursor Hackathon El Salvador — wide shot at AMPD Labs",
+    es: "Cursor Hackathon El Salvador — plano amplio en AMPD Labs",
+  },
+  "onePager.boxful.imgAlt2": {
+    en: "Cursor Hackathon El Salvador — event photo",
+    es: "Cursor Hackathon El Salvador — foto del evento",
+  },
+  "onePager.boxful.imgAlt3": {
+    en: "Cursor Hackathon El Salvador — participants",
+    es: "Cursor Hackathon El Salvador — participantes",
+  },
+  "onePager.boxful.heroTitle": { en: "Boxful x Cursor Buildathon", es: "Boxful x Cursor Buildathon" },
+  "onePager.boxful.heroSubtitle": {
+    en: "Stand next to builders who ship overnight",
+    es: "Párate junto a builders que despachan overnight",
+  },
+  "onePager.boxful.headerWhenWhere": {
+    en: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+    es: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+  },
+  "onePager.boxful.ufgUniversity": { en: " · Universidad Francisco Gavidia", es: " · Universidad Francisco Gavidia" },
+  "onePager.boxful.statsAria": { en: "Key numbers", es: "Cifras clave" },
+  "onePager.boxful.stat1.label": { en: "already committed", es: "ya comprometidos" },
+  "onePager.boxful.stat1.sub": { en: "current sponsors", es: "sponsors actuales" },
+  "onePager.boxful.stat2.label": { en: "suggested ask", es: "aporte sugerido" },
+  "onePager.boxful.stat2.sub": { en: "can be more or less", es: "puede subir o bajar" },
+  "onePager.boxful.stat3.label": { en: "young attendees", es: "jóvenes asistentes" },
+  "onePager.boxful.stat3.sub": { en: "Gen Z + early career", es: "Gen Z + inicio carrera" },
+  "onePager.boxful.stat4.label": { en: "attended Jan 31", es: "asistieron 31 ene" },
+  "onePager.boxful.stat4.sub": { en: "previous event", es: "evento anterior" },
+  "onePager.boxful.stat5.label": { en: "groups built", es: "equipos armados" },
+  "onePager.boxful.stat5.sub": { en: "previous event", es: "evento anterior" },
+  "onePager.boxful.decisionKicker": { en: "Executive decision", es: "Decisión ejecutiva" },
+  "onePager.boxful.decisionTitle": {
+    en: "Put Boxful beside teams building commerce and ops",
+    es: "Ubica a Boxful junto a equipos que construyen comercio y operaciones",
+  },
+  "onePager.boxful.decisionBody": {
+    en: "Boxful helps SMBs ship nationwide with fulfillment and carrier tooling across Central America. This room prototypes storefronts, logistics UX, and ops dashboards overnight — the same muscle your customers exercise daily.",
+    es: "Boxful ayuda a PyMEs a despachar a nivel país con fulfillment y herramientas de carriers en Centroamérica. Aquí prototipan tiendas, UX logística y tableros de operaciones overnight — el mismo músculo que tus clientes ejercen día a día.",
+  },
+  "onePager.boxful.decisionMini1.title": { en: "Winner arc", es: "Arco ganadores" },
+  "onePager.boxful.decisionMini1.body": {
+    en: "Optional: pair prizes with Boxful credits or a scoped logistics story — tuned with your team.",
+    es: "Opcional: combinar premios con créditos Boxful o una historia logística acotada — lo afinamos con tu equipo.",
+  },
+  "onePager.boxful.decisionMini2.title": { en: "Media", es: "Cobertura" },
+  "onePager.boxful.decisionMini2.body": {
+    en: "Boxful marketing can film builders, demos, and winner moments on site.",
+    es: "Marketing de Boxful puede grabar builders, demos y momentos ganadores en sitio.",
+  },
+  "onePager.boxful.decisionMini3.title": { en: "Audience", es: "Audiencia" },
+  "onePager.boxful.decisionMini3.body": {
+    en: "Gen Z + early-career builders — many touching e‑commerce, SMB tools, or delivery journeys.",
+    es: "Gen Z y talento joven — muchos rozando e‑commerce, herramientas PyME o journeys de entrega.",
+  },
+  "onePager.boxful.fundingKicker": { en: "Already raised", es: "Ya recaudado" },
+  "onePager.boxful.fundingBody": {
+    en: "committed by current sponsors.",
+    es: "comprometidos por sponsors actuales.",
+  },
+  "onePager.boxful.fastDecisionLabel": { en: "Suggested Boxful amount", es: "Aporte sugerido Boxful" },
+  "onePager.boxful.fastDecisionBody": {
+    en: "Starting point only. It can go lower, higher, or scale with the activation.",
+    es: "Solo punto de partida. Puede bajar, subir o escalar con la activación.",
+  },
+  "onePager.boxful.packageTitle": { en: "Flexible Boxful contribution", es: "Aporte flexible Boxful" },
+  "onePager.boxful.usd": { en: "USD", es: "USD" },
+  "onePager.boxful.suggestedBadge": { en: "suggested USD", es: "USD sugeridos" },
+  "onePager.boxful.flexTitle": {
+    en: "Start here, then tune",
+    es: "Empieza aquí, luego ajustamos",
+  },
+  "onePager.boxful.flexBody": {
+    en: "$750 is a practical starting point, not a fixed price. Boxful can contribute less, contribute more, or scale perks around winning teams.",
+    es: "$750 es un punto de partida práctico, no un precio fijo. Boxful puede aportar menos, más o escalar beneficios alrededor de equipos ganadores.",
+  },
+  "onePager.boxful.benefit.talent.category": { en: "Talent + user access", es: "Talento + usuarios" },
+  "onePager.boxful.benefit.talent.i0": {
+    en: "Opt-in attendee profiles for follow-up",
+    es: "Perfiles opt-in de asistentes para seguimiento",
+  },
+  "onePager.boxful.benefit.talent.i1": {
+    en: "4 on-site seats for Boxful's team",
+    es: "4 cupos en sitio para el equipo Boxful",
+  },
+  "onePager.boxful.benefit.talent.i2": {
+    en: "30-min conversations with builders shipping demos",
+    es: "30 min de conversaciones con builders que despachan demos",
+  },
+  "onePager.boxful.benefit.presence.category": { en: "Awards activation", es: "Activación de premiación" },
+  "onePager.boxful.benefit.presence.i0": {
+    en: "Opening + awards mention tied to Boxful's contribution",
+    es: "Mención en apertura + premiación conectada al aporte de Boxful",
+  },
+  "onePager.boxful.benefit.presence.i1": {
+    en: "Optional commerce/logistics prompt or sponsored perk for winners",
+    es: "Reto opcional comercio/logística o beneficio patrocinado para ganadores",
+  },
+  "onePager.boxful.benefit.presence.i2": {
+    en: "Optional “ship-it” storytelling beat during demos",
+    es: "Opcional: momento \"ship-it\" durante demos",
+  },
+  "onePager.boxful.benefit.brand.category": { en: "Brand visibility", es: "Visibilidad de marca" },
+  "onePager.boxful.benefit.brand.i0": { en: "Logo on event site & slides", es: "Logo en sitio del evento y diapositivas" },
+  "onePager.boxful.benefit.brand.i1": { en: "Posts on event social channels", es: "Publicaciones en redes del evento" },
+  "onePager.boxful.benefit.brand.i2": {
+    en: "Pre-event spotlight with builders",
+    es: "Destaque previo con builders",
+  },
+  "onePager.boxful.benefit.brand.i3": {
+    en: "On-site filming, interviews, and winner content for Boxful's channels",
+    es: "Grabación, entrevistas y contenido de ganadores para canales de Boxful",
+  },
+  "onePager.boxful.benefit.post.category": { en: "Post-event", es: "Post-evento" },
+  "onePager.boxful.benefit.post.i0": {
+    en: "Thank-you in post-event email",
+    es: "Agradecimiento en correo post-evento",
+  },
+  "onePager.boxful.benefit.post.i1": { en: "Opt-in attendee contact list", es: "Lista de contacto opt-in de asistentes" },
+  "onePager.boxful.benefit.post.i2": {
+    en: "Talent + content recap after demos",
+    es: "Recap de talento + contenido tras demos",
+  },
+  "onePager.boxful.premiumTitle": { en: "Premium add-ons", es: "Complementos premium" },
+  "onePager.boxful.extraCostBadge": { en: "extra cost", es: "costo extra" },
+  "onePager.boxful.addon.i0": {
+    en: "Additional sponsorship for larger or special awards",
+    es: "Patrocinio adicional para reconocimientos más grandes o especiales",
+  },
+  "onePager.boxful.addon.i1": { en: "Additional on-site seats", es: "Cupos adicionales en sitio" },
+  "onePager.boxful.addon.i2": {
+    en: "Longer hands-on session or ops/product workshop (60 min)",
+    es: "Sesión hands-on u ops/producto extendida (60 min)",
+  },
+  "onePager.boxful.pricesNote": {
+    en: "Final amount, perk mix, and coverage access can be scoped with Boxful's team.",
+    es: "El monto final, la mezcla de beneficios y el acceso de cobertura se definen con el equipo Boxful.",
+  },
+  "onePager.boxful.proofTitle": { en: "Proof this is real", es: "Pruebas de que es real" },
+  "onePager.boxful.proofCollected": {
+    en: "$1.5K is already committed by sponsors; Boxful can make the winner beat louder.",
+    es: "$1.5K ya están comprometidos por sponsors; Boxful puede hacer más ruido el momento ganador.",
+  },
+  "onePager.boxful.proof1": {
+    en: "Cursor Hackathon El Salvador on Jan 31 brought 145 attendees and 45 groups.",
+    es: "El Cursor Hackathon El Salvador del 31 de enero reunió 145 asistentes y 45 equipos.",
+  },
+  "onePager.boxful.proof2": {
+    en: "Distribution runs through Cursor support, Ai /abs, UFG socials, WhatsApp groups, and local tech creators.",
+    es: "La difusión corre por apoyo de Cursor, Ai /abs, redes de la UFG, grupos de WhatsApp y creadores tech locales.",
+  },
+  "onePager.boxful.proof3": {
+    en: "UFG gives the event a real university venue plus local ecosystem credibility.",
+    es: "La UFG aporta sede universitaria real y credibilidad en el ecosistema local.",
+  },
+  "onePager.boxful.photosTitle": { en: "Event photos", es: "Fotos del evento" },
+  "onePager.boxful.photosDisclaimer": {
+    en: "These images are documentary only and do not include sponsor logos or watermarks on the photos themselves.",
+    es: "Estas imágenes son solo documentales y no incluyen logos de patrocinadores ni marcas de agua en las fotos.",
+  },
+  "onePager.boxful.footer.organizersLabel": { en: "Organizers", es: "Organizadores" },
+  "onePager.boxful.footer.organizersLine": {
+    en: " with ",
+    es: " con ",
+  },
+  "onePager.boxful.footer.organizersTail": {
+    en: " and Cursor Community support.",
+    es: " y apoyo de Cursor Community.",
+  },
+  "onePager.boxful.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
+  "onePager.boxful.footer.place2": {
+    en: "Mostly El Salvador, open to Central America.",
+    es: "Principalmente El Salvador, abierto a Centroamérica.",
+  },
+  "onePager.boxful.ctaEmailHint": {
+    en: "Share the amount Boxful wants to contribute and what your team wants to capture. We'll send a concrete plan within 48h.",
+    es: "Compártenos el monto que Boxful quiere aportar y qué desea capturar su equipo. Respondemos con un plan concreto en 48 h.",
+  },
+  "onePager.boxful.ctaBecomeSponsor": { en: "Become a sponsor →", es: "Ser patrocinador →" },
+  "onePager.boxful.footerCopyright": {
+    en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
+    es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
+  },
 } as const;
 
 export type TranslationKey = keyof typeof translations;

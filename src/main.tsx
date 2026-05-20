@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- Entry module defines dev-only route helpers and JSX route trees */
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
@@ -8,12 +9,14 @@ import "./index.css";
 import { OnePagerGate } from "./components/one-pager-gate";
 import { LandingPage } from "./pages/landing-page";
 import { OnePagerPage } from "./pages/one-pager";
-import { OnePagerCashPage } from "./pages/one-pager-cash";
+import { OnePagerBoxfulPage } from "./pages/one-pager-boxful";
+import { OnePagerNiuPage } from "./pages/one-pager-niu";
 import { BuildathonWelcomePage } from "./pages/buildathon-welcome-page";
 import { SPONSOR_MAILTO } from "./constants";
 
 let sponsorBriefRedirectIssued = false;
 
+/** Dev-only mailto redirect route element */
 function BriefToSponsorMail() {
   useEffect(() => {
     if (sponsorBriefRedirectIssued) return;
@@ -24,25 +27,40 @@ function BriefToSponsorMail() {
 }
 
 const onePagerTheme = (
-  <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
-    <OnePagerGate>
-      <OnePagerPage />
-    </OnePagerGate>
-  </ThemeProvider>
+  <LanguageProvider>
+    <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
+      <OnePagerGate>
+        <OnePagerPage />
+      </OnePagerGate>
+    </ThemeProvider>
+  </LanguageProvider>
 );
 
-const onePagerCashTheme = (
-  <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
-    <OnePagerGate>
-      <OnePagerCashPage />
-    </OnePagerGate>
-  </ThemeProvider>
+const onePagerNiuTheme = (
+  <LanguageProvider>
+    <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
+      <OnePagerGate>
+        <OnePagerNiuPage />
+      </OnePagerGate>
+    </ThemeProvider>
+  </LanguageProvider>
+);
+
+const onePagerBoxfulTheme = (
+  <LanguageProvider>
+    <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
+      <OnePagerGate>
+        <OnePagerBoxfulPage />
+      </OnePagerGate>
+    </ThemeProvider>
+  </LanguageProvider>
 );
 
 const devOnlyRoutes = import.meta.env.DEV
   ? [
       { path: "/onepager", element: onePagerTheme },
-      { path: "/onepager-cash", element: onePagerCashTheme },
+      { path: "/onepager-niu", element: onePagerNiuTheme },
+      { path: "/onepager-boxful", element: onePagerBoxfulTheme },
     ]
   : [];
 

@@ -1,6 +1,6 @@
 /**
  * Sponsor one-pager: US Letter print + on-screen preview.
- * Imported only by one-pager.tsx.
+ * Imported by one-pager route pages (`one-pager.tsx`, `light-one-pager-sheet.tsx`, etc.).
  * Uses the project's semantic color tokens via forced light theme.
  */
 
@@ -56,6 +56,34 @@
     align-items: center;
     padding: 0.75rem;
     box-sizing: border-box;
+  }
+
+  /* Print/PDF tab: only the letter sheet, no outer padding or frame */
+  .one-pager-root.one-pager-embed.one-pager-sheet-only-host {
+    padding: 0 !important;
+    min-height: auto !important;
+    align-items: center;
+  }
+
+  .one-pager-root.one-pager-embed.one-pager-sheet-only-host .one-pager-sheet {
+    box-shadow: none !important;
+  }
+
+  html:has(.one-pager-sheet-only-host),
+  body:has(.one-pager-sheet-only-host) {
+    background-color: #ffffff !important;
+    margin: 0 !important;
+  }
+
+  #root:has(.one-pager-sheet-only-host) {
+    min-height: 0;
+  }
+}
+
+/* Cash one-pager: smoother scrolling when preview zoom overflows narrow viewports */
+@media screen {
+  .one-pager-root.one-pager-cash-preview-root > .one-pager-cash-preview {
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -265,6 +293,23 @@
 
   .one-pager-no-print {
     display: none !important;
+  }
+
+  /* Preview zoom affects screen only — layout must measure at 1× in print/PDF */
+  .one-pager-cash-zoom {
+    zoom: 1 !important;
+    transform: none !important;
+  }
+
+  .one-pager-cash-preview {
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex: 0 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-width: none !important;
+    width: 100% !important;
   }
 
   /* Tighter vertical rhythm in print without rewriting every Tailwind class */

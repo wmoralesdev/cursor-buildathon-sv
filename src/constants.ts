@@ -5,9 +5,13 @@ export const LUMA_URL = "https://luma.com/tm16k0kj";
 export const SPONSOR_MAILTO =
   "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Patrocinio";
 
-/** Cash sponsor outreach (mailto with subject) */
-export const CASH_SPONSOR_MAILTO =
-  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Cash%20Sponsorship";
+/** NIU sponsor outreach (mailto with subject) */
+export const NIU_SPONSOR_MAILTO =
+  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20NIU%20Sponsorship";
+
+/** Boxful sponsor outreach (mailto with subject) */
+export const BOXFUL_SPONSOR_MAILTO =
+  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Boxful%20Sponsorship";
 
 /** Ai /abs community */
 export const AILABS_URL = "https://ailabs.sv";
