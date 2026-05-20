@@ -36,3 +36,6 @@ scripts/mcp-*.json
 *.sln
 *.sw?
 .vercel
+
+# Local agent skills / scratch
+.agents
