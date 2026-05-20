@@ -10,7 +10,7 @@ import {
   WELCOME_CARD_SPONSOR_MARK_COMPONENTS,
   WELCOME_CARD_SPONSOR_MARK_KEYS,
 } from "./welcome-sponsor-marks";
-import { buildWelcomePostSponsorRowIndices } from "../lib/welcome-post-sponsor-wall";
+import { buildWelcomePostSponsorRowIndices, buildWelcomeStorySponsorDisplayIndices } from "../lib/welcome-post-sponsor-wall";
 
 type Props = {
   aspectFormat: AspectFormat;
@@ -95,6 +95,7 @@ export const WelcomeCardSponsorSlate = memo(
   };
 
   const postRowIndices = buildWelcomePostSponsorRowIndices(sponsorTotal);
+  const storyDisplayIndices = buildWelcomeStorySponsorDisplayIndices(sponsorTotal);
 
   return (
     <div
@@ -184,15 +185,18 @@ export const WelcomeCardSponsorSlate = memo(
             </div>
           ) : (
             <div style={storyWallStyle}>
-              {WELCOME_CARD_SPONSOR_MARK_COMPONENTS.map((Mark, index) => (
-                <Mark
-                  key={WELCOME_CARD_SPONSOR_MARK_KEYS[index]}
-                  index={index}
-                  total={sponsorTotal}
-                  slotWidth={layout.slotWidth}
-                  slotHeight={layout.slotHeight}
-                />
-              ))}
+              {storyDisplayIndices.map((sourceIndex, displayIndex) => {
+                const Mark = WELCOME_CARD_SPONSOR_MARK_COMPONENTS[sourceIndex];
+                return (
+                  <Mark
+                    key={WELCOME_CARD_SPONSOR_MARK_KEYS[sourceIndex]}
+                    index={displayIndex}
+                    total={sponsorTotal}
+                    slotWidth={layout.slotWidth}
+                    slotHeight={layout.slotHeight}
+                  />
+                );
+              })}
             </div>
           )}
         </div>

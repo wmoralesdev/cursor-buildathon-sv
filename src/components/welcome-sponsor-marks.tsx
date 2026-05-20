@@ -1,4 +1,24 @@
 import { memo, type CSSProperties, type ReactNode } from "react";
+import { staticFile } from "remotion";
+
+/** Remotion and Studio need `staticFile()` for `public/` assets; paths are relative to the project root. */
+const SPONSOR_SRC = {
+  n8n: staticFile("sponsors/n8n-logo-dark.svg"),
+  codex: staticFile("sponsors/codex-logo.svg"),
+  yonjob: staticFile("sponsors/yonjob-dark.svg"),
+  nubiwork: staticFile("sponsors/nubiwork-dark.svg"),
+  zavu: staticFile("sponsors/zavu-dark.svg"),
+  abaco: staticFile("sponsors/abaco-dark.svg"),
+  from021: staticFile("sponsors/from021.svg"),
+  elevenlabs: staticFile("sponsors/elevenlabs-dark.svg"),
+  simov: staticFile("sponsors/simov-dark.svg"),
+  kreali: staticFile("sponsors/kreali-dark.svg"),
+  weris: staticFile("sponsors/weris_dark.svg"),
+  boxful: staticFile("sponsors/boxful-dark.svg"),
+  gamesquad: staticFile("sponsors/gamesquad-dark.svg"),
+  drop: staticFile("sponsors/drop-dark.svg"),
+  searchyou: staticFile("sponsors/searchyou-dark.svg"),
+} as const;
 
 export type SponsorMarkProps = {
   index: number;
@@ -19,6 +39,10 @@ export const WELCOME_CARD_SPONSOR_MARK_KEYS = [
   "nubiwork",
   "kreali",
   "weris",
+  "boxful",
+  "gamesquad",
+  "searchyou",
+  "drop",
 ] as const;
 
 function slateLogoImgStyle(invert?: boolean, logoOpacity = 0.85): CSSProperties {
@@ -74,7 +98,7 @@ export function SponsorMarkN8n(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={1.65}>
       <img
-        src="/sponsors/n8n-logo-dark.svg"
+        src={SPONSOR_SRC.n8n}
         alt="n8n"
         draggable={false}
         style={{
@@ -90,7 +114,7 @@ export function SponsorMarkCodex(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={1.08}>
       <img
-        src="/sponsors/codex-logo.svg"
+        src={SPONSOR_SRC.codex}
         alt="Codex"
         draggable={false}
         style={slateLogoImgStyle(true)}
@@ -103,7 +127,7 @@ export function SponsorMarkYonjob(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.97}>
       <img
-        src="/sponsors/yonjob-dark.svg"
+        src={SPONSOR_SRC.yonjob}
         alt="Yonjob"
         draggable={false}
         style={slateLogoImgStyle()}
@@ -116,7 +140,7 @@ export function SponsorMarkNubiwork(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={1.16}>
       <img
-        src="/sponsors/nubiwork-dark.svg"
+        src={SPONSOR_SRC.nubiwork}
         alt="Nubiwork"
         draggable={false}
         style={slateLogoImgStyle()}
@@ -129,7 +153,7 @@ export function SponsorMarkZavu(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.86}>
       <img
-        src="/sponsors/zavu-dark.svg"
+        src={SPONSOR_SRC.zavu}
         alt="Zavu"
         draggable={false}
         style={slateLogoImgStyle()}
@@ -142,7 +166,7 @@ export function SponsorMarkAbaco(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.72}>
       <img
-        src="/sponsors/abaco-dark.svg"
+        src={SPONSOR_SRC.abaco}
         alt="Abaco"
         draggable={false}
         style={slateLogoImgStyle()}
@@ -155,7 +179,7 @@ export function SponsorMarkZeroTwoOne(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.72}>
       <img
-        src="/sponsors/from021.svg"
+        src={SPONSOR_SRC.from021}
         alt="Zero Two One"
         draggable={false}
         style={slateLogoImgStyle(true)}
@@ -168,7 +192,7 @@ export function SponsorMarkElevenLabs(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.92}>
       <img
-        src="/sponsors/elevenlabs-dark.svg"
+        src={SPONSOR_SRC.elevenlabs}
         alt="ElevenLabs"
         draggable={false}
         style={slateLogoImgStyle()}
@@ -181,7 +205,7 @@ export function SponsorMarkSimov(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.88}>
       <img
-        src="/sponsors/simov-dark.svg"
+        src={SPONSOR_SRC.simov}
         alt="Simov"
         draggable={false}
         style={slateLogoImgStyle()}
@@ -194,7 +218,7 @@ export function SponsorMarkKreali(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.85}>
       <img
-        src="/sponsors/kreali-dark.svg"
+        src={SPONSOR_SRC.kreali}
         alt="Kreali"
         draggable={false}
         style={slateLogoImgStyle()}
@@ -207,8 +231,60 @@ export function SponsorMarkWeris(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.85}>
       <img
-        src="/sponsors/weris_dark.svg"
+        src={SPONSOR_SRC.weris}
         alt="Weris"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkBoxful(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.boxful}
+        alt="Boxful"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkGamesquad(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={1.65}>
+      <img
+        src={SPONSOR_SRC.gamesquad}
+        alt="GameSquad"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkDrop(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.drop}
+        alt="Drop"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkSearchyou(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.searchyou}
+        alt="SearchYou"
         draggable={false}
         style={slateLogoImgStyle()}
       />
@@ -228,4 +304,8 @@ export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkNubiwork,
   SponsorMarkKreali,
   SponsorMarkWeris,
+  SponsorMarkBoxful,
+  SponsorMarkGamesquad,
+  SponsorMarkSearchyou,
+  SponsorMarkDrop,
 ] as const;

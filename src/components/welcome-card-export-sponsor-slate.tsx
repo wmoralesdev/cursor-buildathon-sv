@@ -1,4 +1,5 @@
 import { forwardRef, memo, type CSSProperties, type ReactNode } from "react";
+import { staticFile } from "remotion";
 
 import type { AspectFormat } from "../pages/buildathon-welcome-types";
 import {
@@ -10,6 +11,10 @@ import {
   SponsorMarkAbaco,
   SponsorMarkCodex,
   SponsorMarkElevenLabs,
+  SponsorMarkBoxful,
+  SponsorMarkGamesquad,
+  SponsorMarkSearchyou,
+  SponsorMarkDrop,
   SponsorMarkKreali,
   SponsorMarkWeris,
   SponsorMarkN8n,
@@ -20,7 +25,7 @@ import {
   WELCOME_CARD_SPONSOR_MARK_KEYS,
 } from "./welcome-sponsor-marks";
 import type { SponsorMarkProps } from "./welcome-sponsor-marks";
-import { buildWelcomePostSponsorRowIndices } from "../lib/welcome-post-sponsor-wall";
+import { buildWelcomePostSponsorRowIndices, buildWelcomeStorySponsorDisplayIndices } from "../lib/welcome-post-sponsor-wall";
 
 type Props = {
   aspectFormat: AspectFormat;
@@ -64,7 +69,7 @@ const FORMAT_LAYOUT: Record<
   },
 };
 
-const EXPORT_SPONSOR_MARK_COMPONENTS = [
+export const EXPORT_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkCodex,
   SponsorMarkN8n,
   SponsorMarkZavu,
@@ -76,6 +81,10 @@ const EXPORT_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkNubiwork,
   SponsorMarkKreali,
   SponsorMarkWeris,
+  SponsorMarkBoxful,
+  SponsorMarkGamesquad,
+  SponsorMarkSearchyou,
+  SponsorMarkDrop,
 ] as const;
 
 export const WelcomeCardExportSponsorSlate = memo(
@@ -116,6 +125,7 @@ export const WelcomeCardExportSponsorSlate = memo(
     };
 
     const postRowIndices = buildWelcomePostSponsorRowIndices(sponsorTotal);
+    const storyDisplayIndices = buildWelcomeStorySponsorDisplayIndices(sponsorTotal);
 
     return (
       <div
@@ -203,21 +213,27 @@ export const WelcomeCardExportSponsorSlate = memo(
               </div>
             ) : (
               <div style={storyWallStyle}>
-                {EXPORT_SPONSOR_MARK_COMPONENTS.map((Mark, index) => (
-                  <Mark
-                    key={WELCOME_CARD_SPONSOR_MARK_KEYS[index]}
-                    index={index}
-                    total={sponsorTotal}
-                    slotWidth={layout.slotWidth}
-                    slotHeight={layout.slotHeight}
-                  />
-                ))}
+                {storyDisplayIndices.map((sourceIndex, displayIndex) => {
+                  const Mark = EXPORT_SPONSOR_MARK_COMPONENTS[sourceIndex];
+                  return (
+                    <Mark
+                      key={WELCOME_CARD_SPONSOR_MARK_KEYS[sourceIndex]}
+                      index={displayIndex}
+                      total={sponsorTotal}
+                      slotWidth={layout.slotWidth}
+                      slotHeight={layout.slotHeight}
+                    />
+                  );
+                })}
               </div>
             )}
           </div>
 
           <div className="shrink-0">
-            <EventInfoBlock compact={aspectFormat === "post"} />
+            <EventInfoBlock
+              compact={aspectFormat === "post"}
+              poweredByLogoSrc={staticFile("sponsors/ailabs.svg")}
+            />
           </div>
         </div>
       </div>
@@ -225,7 +241,7 @@ export const WelcomeCardExportSponsorSlate = memo(
   }),
 );
 
-function SponsorMarkZeroTwoOneExport(props: SponsorMarkProps) {
+export function SponsorMarkZeroTwoOneExport(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.72}>
       <ExportZeroTwoOneLogo

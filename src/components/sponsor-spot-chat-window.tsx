@@ -17,6 +17,10 @@ const SPONSOR_DISPLAY_NAME: Record<SponsorSpotKey, string> = {
   nubiwork: "NubiWork",
   kreali: "Kreali",
   weris: "weris",
+  boxful: "boxful",
+  gamesquad: "gamesquad",
+  searchyou: "searchyou",
+  drop: "drop",
 };
 
 type Props = {

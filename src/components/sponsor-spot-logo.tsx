@@ -327,6 +327,50 @@ function renderSponsorMark(
           />
         </LogoWrap>
       );
+    case "boxful":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("boxful-dark.svg")}
+            alt="Boxful"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "gamesquad":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("gamesquad-dark.svg")}
+            alt="GameSquad"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "searchyou":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("searchyou-dark.svg")}
+            alt="SearchYou"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "drop":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("drop-dark.svg")}
+            alt="Drop"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
   }
 
   // Defensive fallback (should be unreachable thanks to the exhaustive switch).

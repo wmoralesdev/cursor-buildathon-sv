@@ -1,5 +1,6 @@
 import type { OnePagerSponsorLogoId } from "../data/sponsors";
 import { onePagerSponsors } from "../data/sponsors";
+import { useTranslation } from "../context/language-context";
 import { OnePagerBrandLogo } from "./sponsor-logos";
 
 /** Slightly taller + wider caps so wordmarks read clearly compared to SVG defaults. */
@@ -39,35 +40,36 @@ function SponsorCell({
   );
 }
 
-function OpenSlot() {
+function OpenSlot({ label }: { label: string }) {
   return (
     <div className="flex items-center justify-center rounded border border-dashed border-border-dim px-2.5 py-1.5">
       <span className="font-mono text-[0.42rem] font-semibold uppercase tracking-[0.1em] text-fg-4">
-        Slots available
+        {label}
       </span>
     </div>
   );
 }
 
 export function OnePagerSponsors() {
+  const { t } = useTranslation();
   return (
     <section
       className="one-pager-avoid-break mb-3 rounded-md border border-accent/30 bg-accent/[0.015] px-2.5 py-2"
-      aria-label="Confirmed sponsors"
+      aria-label={t("onePager.sponsors.ariaLabel")}
     >
       <div className="mb-1.5 flex items-baseline justify-between gap-2">
         <h2 className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.12em] text-accent">
-          Confirmed sponsors
+          {t("onePager.sponsors.title")}
         </h2>
         <span className="shrink-0 font-mono text-[0.42rem] uppercase tracking-[0.1em] text-fg-4">
-          {onePagerSponsors.length} confirmed · limited availability
+          {onePagerSponsors.length} {t("onePager.sponsors.confirmedTail")}
         </span>
       </div>
       <div className="flex flex-wrap items-stretch justify-start gap-2">
         {onePagerSponsors.map((s) => (
           <SponsorCell key={s.id} id={s.id} name={s.name} url={s.url} isHost={s.badge === "host"} />
         ))}
-        <OpenSlot />
+        <OpenSlot label={t("onePager.sponsors.slotsAvailable")} />
       </div>
     </section>
   );

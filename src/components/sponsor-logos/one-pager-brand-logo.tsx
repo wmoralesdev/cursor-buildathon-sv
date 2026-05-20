@@ -3,6 +3,10 @@ import { AbacoLogo } from "./abaco-logo";
 import { CodexLogo } from "./codex-logo";
 import { CursorLockup } from "./cursor-lockup";
 import { ElevenLabsLogo } from "./elevenlabs-logo";
+import { BoxfulLogo } from "./boxful-logo";
+import { DropLogo } from "./drop-logo";
+import { GamesquadLogo } from "./gamesquad-logo";
+import { SearchyouLogo } from "./searchyou-logo";
 import { KrealiLogo } from "./kreali-logo";
 import { SimovLogo } from "./simov-logo";
 import { WerisLogo } from "./weris-logo";
@@ -37,6 +41,14 @@ export function OnePagerBrandLogo({
       return <KrealiLogo {...props} />;
     case "weris":
       return <WerisLogo {...props} />;
+    case "boxful":
+      return <BoxfulLogo {...props} />;
+    case "drop":
+      return <DropLogo {...props} />;
+    case "gamesquad":
+      return <GamesquadLogo {...props} />;
+    case "searchyou":
+      return <SearchyouLogo {...props} />;
     default: {
       const _exhaustive: never = id;
       return _exhaustive;

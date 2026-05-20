@@ -29,7 +29,7 @@ export const SponsorSpotExportContent = memo(function SponsorSpotExportContent(
   );
 });
 
-function SponsorSpotCornerHeader({
+export function SponsorSpotCornerHeader({
   compact,
   eventName,
 }: {

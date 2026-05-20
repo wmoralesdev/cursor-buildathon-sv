@@ -69,6 +69,30 @@ export const sponsors: Sponsor[] = [
     url: "https://weris.app/en",
     tier: "product",
   },
+  {
+    id: "boxful",
+    name: "Boxful",
+    url: "https://goboxful.com/el-salvador/",
+    tier: "product",
+  },
+  {
+    id: "drop",
+    name: "Drop",
+    url: "https://drop.sv/",
+    tier: "product",
+  },
+  {
+    id: "gamesquad",
+    name: "GameSquad",
+    url: "https://www.gamesquad.online/",
+    tier: "product",
+  },
+  {
+    id: "searchyou",
+    name: "SearchYou",
+    url: "https://searchyou.lat/",
+    tier: "product",
+  },
 ];
 
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
@@ -98,6 +122,10 @@ const elevenlabsSponsor = sponsors.find((s) => s.id === "elevenlabs");
 const simovSponsor = sponsors.find((s) => s.id === "simov");
 const krealiSponsor = sponsors.find((s) => s.id === "kreali");
 const werisSponsor = sponsors.find((s) => s.id === "weris");
+const boxfulSponsor = sponsors.find((s) => s.id === "boxful");
+const dropSponsor = sponsors.find((s) => s.id === "drop");
+const gamesquadSponsor = sponsors.find((s) => s.id === "gamesquad");
+const searchyouSponsor = sponsors.find((s) => s.id === "searchyou");
 if (
   !codexSponsor ||
   !yonjobSponsor ||
@@ -106,10 +134,14 @@ if (
   !elevenlabsSponsor ||
   !simovSponsor ||
   !krealiSponsor ||
-  !werisSponsor
+  !werisSponsor ||
+  !boxfulSponsor ||
+  !dropSponsor ||
+  !gamesquadSponsor ||
+  !searchyouSponsor
 ) {
   throw new Error(
-    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris required for onePagerSponsors",
+    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris, boxful, drop, gamesquad, searchyou required for onePagerSponsors",
   );
 }
 
@@ -138,4 +170,8 @@ export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
   toOnePagerGold(simovSponsor),
   toOnePagerGold(krealiSponsor),
   toOnePagerGold(werisSponsor),
+  toOnePagerGold(boxfulSponsor),
+  toOnePagerGold(dropSponsor),
+  toOnePagerGold(gamesquadSponsor),
+  toOnePagerGold(searchyouSponsor),
 ];

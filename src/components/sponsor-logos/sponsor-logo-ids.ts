@@ -7,6 +7,10 @@ export type ProductSponsorId =
   | "elevenlabs"
   | "simov"
   | "kreali"
-  | "weris";
+  | "weris"
+  | "boxful"
+  | "drop"
+  | "gamesquad"
+  | "searchyou";
 
 export type OnePagerSponsorLogoId = ProductSponsorId | "cursor";
