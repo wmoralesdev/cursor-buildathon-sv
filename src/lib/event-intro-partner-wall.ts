@@ -41,6 +41,12 @@ function buildEventIntroPostRowIndices(markCount: number): number[][] {
       sponsorIndex("dma"),
       sponsorIndex("drop"),
     ],
+    [
+      sponsorIndex("netlify"),
+      sponsorIndex("wispr"),
+      sponsorIndex("fal"),
+      sponsorIndex("exa"),
+    ],
   ];
 }
 
@@ -98,6 +104,8 @@ function buildEventIntroStoryRowIndices(markCount: number): number[][] {
     [sponsorIndex("gamesquad")],
     [sponsorIndex("searchyou"), sponsorIndex("dma")],
     [sponsorIndex("drop")],
+    [sponsorIndex("netlify"), sponsorIndex("wispr")],
+    [sponsorIndex("fal"), sponsorIndex("exa")],
   ];
 }
 

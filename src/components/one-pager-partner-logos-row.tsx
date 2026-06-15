@@ -21,6 +21,10 @@ const PARTNER_LABELS: Record<SponsorSpotKey, string> = {
   gamesquad: "GameSquad",
   searchyou: "SearchYou",
   dma: "DMA",
+  netlify: "Netlify",
+  wispr: "Wispr",
+  fal: "Fal",
+  exa: "Exa",
   drop: "Drop",
 };
 
@@ -41,6 +45,10 @@ const ONE_PAGER_PARTNER_LOGO_CLASS: Record<SponsorSpotKey, string> = {
   gamesquad: "h-[1.36rem] w-auto max-w-[5.18rem] object-contain",
   searchyou: "h-[1.04rem] w-auto max-w-[4.26rem] object-contain",
   dma: "h-[1.01rem] w-auto max-w-[4.43rem] object-contain",
+  netlify: "h-[1.21rem] w-auto max-w-[5.18rem] object-contain",
+  wispr: "h-[1.04rem] w-auto max-w-[4.43rem] object-contain",
+  fal: "h-[1.15rem] w-auto max-w-[3.62rem] object-contain",
+  exa: "h-[1.04rem] w-auto max-w-[3.97rem] object-contain",
   drop: "h-[1.01rem] w-auto max-w-[3.62rem] object-contain",
 };
 

@@ -12,6 +12,10 @@ export type ProductSponsorId =
   | "drop"
   | "gamesquad"
   | "searchyou"
-  | "dma";
+  | "dma"
+  | "netlify"
+  | "wispr"
+  | "fal"
+  | "exa";
 
 export type OnePagerSponsorLogoId = ProductSponsorId | "cursor";

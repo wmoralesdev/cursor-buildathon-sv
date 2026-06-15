@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import { useMemo } from "react";
 
+import { OnePagerDeadlineBodyText } from "../components/one-pager-deadline-body-text";
 import { OnePagerPartnerLogosRow } from "../components/one-pager-partner-logos-row";
 import { OnePagerShell } from "../components/one-pager-shell";
 import { OnePagerSheetFrame } from "../components/one-pager-sheet-frame";
@@ -97,7 +98,9 @@ function renderMentorSheet(
             <p className="font-mono text-[0.48rem] font-bold uppercase tracking-[0.14em] text-white/80">
               {tm("deadlineKicker")}
             </p>
-            <p className="mt-1 text-[7.2pt] leading-relaxed text-white/92">{tm("deadlineBody")}</p>
+            <p className="mt-1 text-[7.2pt] leading-relaxed text-white/92">
+              <OnePagerDeadlineBodyText text={tm("deadlineBody")} />
+            </p>
           </div>
           <p className="one-pager-deadline-banner__date shrink-0 text-right font-display text-[1.55rem] font-bold leading-none tracking-tight">
             {tm("deadlineDate")}

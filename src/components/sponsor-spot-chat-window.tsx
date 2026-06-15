@@ -21,6 +21,10 @@ const SPONSOR_DISPLAY_NAME: Record<SponsorSpotKey, string> = {
   gamesquad: "gamesquad",
   searchyou: "searchyou",
   dma: "dma",
+  netlify: "netlify",
+  wispr: "wispr",
+  fal: "fal",
+  exa: "exa",
   drop: "drop",
 };
 

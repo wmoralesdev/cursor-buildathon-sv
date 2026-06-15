@@ -99,6 +99,30 @@ export const sponsors: Sponsor[] = [
     url: "https://www.dma.com.sv/",
     tier: "product",
   },
+  {
+    id: "netlify",
+    name: "Netlify",
+    url: "https://www.netlify.com/",
+    tier: "product",
+  },
+  {
+    id: "wispr",
+    name: "Wispr",
+    url: "https://wisprflow.ai/",
+    tier: "product",
+  },
+  {
+    id: "fal",
+    name: "Fal",
+    url: "https://fal.ai/",
+    tier: "product",
+  },
+  {
+    id: "exa",
+    name: "Exa",
+    url: "https://exa.ai/",
+    tier: "product",
+  },
 ];
 
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
@@ -133,6 +157,10 @@ const dropSponsor = sponsors.find((s) => s.id === "drop");
 const gamesquadSponsor = sponsors.find((s) => s.id === "gamesquad");
 const searchyouSponsor = sponsors.find((s) => s.id === "searchyou");
 const dmaSponsor = sponsors.find((s) => s.id === "dma");
+const netlifySponsor = sponsors.find((s) => s.id === "netlify");
+const wisprSponsor = sponsors.find((s) => s.id === "wispr");
+const falSponsor = sponsors.find((s) => s.id === "fal");
+const exaSponsor = sponsors.find((s) => s.id === "exa");
 if (
   !codexSponsor ||
   !yonjobSponsor ||
@@ -146,10 +174,14 @@ if (
   !dropSponsor ||
   !gamesquadSponsor ||
   !searchyouSponsor ||
-  !dmaSponsor
+  !dmaSponsor ||
+  !netlifySponsor ||
+  !wisprSponsor ||
+  !falSponsor ||
+  !exaSponsor
 ) {
   throw new Error(
-    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris, boxful, drop, gamesquad, searchyou, dma required for onePagerSponsors",
+    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris, boxful, drop, gamesquad, searchyou, dma, netlify, wispr, fal, exa required for onePagerSponsors",
   );
 }
 
@@ -183,4 +215,8 @@ export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
   toOnePagerGold(gamesquadSponsor),
   toOnePagerGold(searchyouSponsor),
   toOnePagerGold(dmaSponsor),
+  toOnePagerGold(netlifySponsor),
+  toOnePagerGold(wisprSponsor),
+  toOnePagerGold(falSponsor),
+  toOnePagerGold(exaSponsor),
 ];

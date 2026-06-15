@@ -14,6 +14,10 @@ import { N8nLogo } from "./n8n-logo";
 import { NubiworkLogo } from "./nubiwork-logo";
 import { YonjobLogo } from "./yonjob-logo";
 import { DmaLogo } from "./dma-logo";
+import { NetlifyLogo } from "./netlify-logo";
+import { WisprLogo } from "./wispr-logo";
+import { FalLogo } from "./fal-logo";
+import { ExaLogo } from "./exa-logo";
 import type { OnePagerSponsorLogoId } from "./sponsor-logo-ids";
 
 /** Single component for ESLint/static-components compliance (avoid dynamic component lookups). */
@@ -52,6 +56,14 @@ export function OnePagerBrandLogo({
       return <SearchyouLogo {...props} />;
     case "dma":
       return <DmaLogo {...props} />;
+    case "netlify":
+      return <NetlifyLogo {...props} />;
+    case "wispr":
+      return <WisprLogo {...props} />;
+    case "fal":
+      return <FalLogo {...props} />;
+    case "exa":
+      return <ExaLogo {...props} />;
     default: {
       const _exhaustive: never = id;
       return _exhaustive;

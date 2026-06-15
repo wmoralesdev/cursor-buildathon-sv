@@ -16,6 +16,10 @@ import {
   SponsorMarkGamesquad,
   SponsorMarkSearchyou,
   SponsorMarkDma,
+  SponsorMarkNetlify,
+  SponsorMarkWispr,
+  SponsorMarkFal,
+  SponsorMarkExa,
   SponsorMarkDrop,
   SponsorMarkKreali,
   SponsorMarkWeris,
@@ -87,6 +91,10 @@ export const EXPORT_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkGamesquad,
   SponsorMarkSearchyou,
   SponsorMarkDma,
+  SponsorMarkNetlify,
+  SponsorMarkWispr,
+  SponsorMarkFal,
+  SponsorMarkExa,
   SponsorMarkDrop,
 ] as const;
 

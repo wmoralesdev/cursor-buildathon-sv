@@ -19,6 +19,10 @@ const SPONSOR_SRC = {
   drop: staticFile("sponsors/drop-dark.svg"),
   searchyou: staticFile("sponsors/searchyou-dark.svg"),
   dma: staticFile("sponsors/dma-dark.svg"),
+  netlify: staticFile("sponsors/netlify-dark.svg"),
+  wispr: staticFile("sponsors/wispr-dark.svg"),
+  fal: staticFile("sponsors/fal-dark.svg"),
+  exa: staticFile("sponsors/exa-dark.svg"),
 } as const;
 
 export type SponsorMarkProps = {
@@ -44,6 +48,10 @@ export const WELCOME_CARD_SPONSOR_MARK_KEYS = [
   "gamesquad",
   "searchyou",
   "dma",
+  "netlify",
+  "wispr",
+  "fal",
+  "exa",
   "drop",
 ] as const;
 
@@ -307,6 +315,58 @@ export function SponsorMarkDma(props: SponsorMarkProps) {
   );
 }
 
+export function SponsorMarkNetlify(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.netlify}
+        alt="Netlify"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkWispr(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.wispr}
+        alt="Wispr"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkFal(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.72}>
+      <img
+        src={SPONSOR_SRC.fal}
+        alt="Fal"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkExa(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.exa}
+        alt="Exa"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
 export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkCodex,
   SponsorMarkN8n,
@@ -323,5 +383,9 @@ export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkGamesquad,
   SponsorMarkSearchyou,
   SponsorMarkDma,
+  SponsorMarkNetlify,
+  SponsorMarkWispr,
+  SponsorMarkFal,
+  SponsorMarkExa,
   SponsorMarkDrop,
 ] as const;

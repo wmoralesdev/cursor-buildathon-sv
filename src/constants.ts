@@ -1,17 +1,20 @@
 /** Registration (Luma) — optional; hidden during sponsor-first phase */
 export const LUMA_URL = "https://luma.com/tm16k0kj";
 
+/** Organizer contact */
+export const ORGANIZER_EMAIL = "hello@wmorales.dev";
+
 /** Sponsor outreach (mailto with subject) */
 export const SPONSOR_MAILTO =
-  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Patrocinio";
+  `mailto:${ORGANIZER_EMAIL}?subject=Cursor%20Buildathon%20SV%20-%20Patrocinio`;
 
 /** Mentor info submission (mailto with subject) */
 export const MENTOR_MAILTO =
-  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Mentor%20info";
+  `mailto:${ORGANIZER_EMAIL}?subject=Cursor%20Buildathon%20SV%20-%20Mentor%20info`;
 
 /** Judge info submission (mailto with subject) */
 export const JUDGE_MAILTO =
-  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Judge%20info";
+  `mailto:${ORGANIZER_EMAIL}?subject=Cursor%20Buildathon%20SV%20-%20Judge%20info`;
 
 /** Ai /abs community */
 export const AILABS_URL = "https://ailabs.sv";

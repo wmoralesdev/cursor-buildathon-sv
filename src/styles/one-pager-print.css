@@ -102,11 +102,51 @@
   /* Do not use overflow-x:hidden — Figma html-to-design clips text to the frame instead of wrapping */
 }
 
-@media screen {
-  .one-pager-root[data-onepager-joined-sponsors] .one-pager-sheet {
-    min-height: auto;
-    padding-bottom: 0.34in;
-  }
+/* Joined sponsors ops brief: fixed US Letter on screen so PDF matches preview */
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet {
+  height: 11in;
+  min-height: 11in;
+  max-height: 11in;
+  padding-bottom: 0.34in;
+  box-sizing: border-box;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet .mb-2\.5 {
+  margin-bottom: 0.3rem;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet .mt-2 {
+  margin-top: 0.3rem;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet .py-2 {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet .p-2\.5 {
+  padding: 0.45rem;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-bento-head {
+  padding: 0.28rem 0.4rem 0.22rem;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet header {
+  margin-bottom: 0.35rem;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet .one-pager-cta-bar {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-bento-tile {
+  padding: 0.28rem;
+}
+
+.one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet > div:last-child {
+  zoom: 0.975;
 }
 
 /* Joined sponsors: activation + coverage bento (12-col ops brief) */
@@ -394,6 +434,8 @@
   .one-pager-cash-zoom {
     zoom: 1 !important;
     transform: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .one-pager-cash-preview {
@@ -444,6 +486,43 @@
   .one-pager-footer-block {
     break-inside: auto;
     page-break-inside: auto;
+  }
+
+  /* Joined sponsors: sheet is the page — preserve preview padding and fit one letter sheet */
+  .one-pager-root[data-onepager-joined-sponsors] .one-pager-sheet {
+    width: 8.5in !important;
+    height: 11in !important;
+    min-height: 11in !important;
+    max-height: 11in !important;
+    padding: 0.5in 0.55in 0.34in !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    font-size: 7.5pt !important;
+    line-height: 1.18 !important;
+  }
+
+  .one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-bento {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    overflow: visible !important;
+  }
+
+  .one-pager-root[data-onepager-joined-sponsors] .one-pager-bento-tile {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    padding: 0.35rem !important;
+  }
+
+  .one-pager-root[data-onepager-joined-sponsors] .one-pager-bento-head {
+    padding: 0.3rem 0.4rem 0.25rem !important;
+  }
+
+  .one-pager-root[data-onepager-joined-sponsors] .one-pager-footer-block {
+    margin-top: 0.35rem !important;
+  }
+
+  .one-pager-root[data-onepager-joined-sponsors] .one-pager-joined-sponsors-sheet > div:last-child {
+    zoom: 0.975 !important;
   }
 
   * {

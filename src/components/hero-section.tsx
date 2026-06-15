@@ -13,6 +13,7 @@ import { motion, useAnimationFrame, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Calendar, MapPin, Users } from "lucide-react";
 
 import { CountdownTimer } from "./countdown-timer";
+import { HeroTldr } from "./hero-tldr";
 import type { BrandLogoProps, ProductSponsorId } from "./sponsor-logos";
 import {
   CursorLockup,
@@ -43,6 +44,10 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   gamesquad: "h-10 w-auto max-w-[12rem] object-contain object-left",
   searchyou: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
   dma: "h-6 w-auto max-w-[9.5rem] object-contain object-left",
+  netlify: "h-6 w-auto max-w-[9rem] object-contain object-left",
+  wispr: "h-6 w-auto max-w-[9rem] object-contain object-left",
+  fal: "h-7 w-auto max-w-[7rem] object-contain object-left",
+  exa: "h-6 w-auto max-w-[8rem] object-contain object-left",
 };
 
 const PARTNER_ORDER: readonly HeroPartnerId[] = [
@@ -60,6 +65,10 @@ const PARTNER_ORDER: readonly HeroPartnerId[] = [
   "gamesquad",
   "searchyou",
   "dma",
+  "netlify",
+  "wispr",
+  "fal",
+  "exa",
   "zavu",
 ] as const;
 
@@ -102,11 +111,36 @@ function requireSponsor(id: ProductSponsorId): Sponsor {
   return s;
 }
 
-const codexSponsorEntry = requireSponsor("codex");
-const elevenlabsSponsorEntry = requireSponsor("elevenlabs");
+type LeadPartnerId = "codex" | "elevenlabs" | "netlify" | "wispr" | "fal" | "exa";
 
-const CodexLogo = productSponsorLogoById.codex;
-const ElevenLabsLogo = productSponsorLogoById.elevenlabs;
+const LEAD_PARTNER_ORDER: readonly LeadPartnerId[] = [
+  "codex",
+  "elevenlabs",
+  "netlify",
+  "wispr",
+  "fal",
+  "exa",
+] as const;
+
+const LEAD_LOGO_CLASS: Record<LeadPartnerId, string> = {
+  codex: "h-11 w-auto max-w-[12rem] sm:h-[3.25rem] sm:max-w-[15rem] object-contain object-left",
+  elevenlabs: "h-7 w-auto max-w-[9rem] sm:h-9 sm:max-w-[10rem] object-contain object-left",
+  netlify: "h-9 w-auto max-w-[11.5rem] sm:h-[2.75rem] sm:max-w-[13.5rem] object-contain object-left",
+  wispr: "h-7 w-auto max-w-[9rem] sm:h-9 sm:max-w-[10rem] object-contain object-left",
+  fal: "h-8 w-auto max-w-[7rem] sm:h-10 sm:max-w-[8rem] object-contain object-left",
+  exa: "h-7 w-auto max-w-[8rem] sm:h-9 sm:max-w-[9rem] object-contain object-left",
+};
+
+const LEAD_PARTNERS = LEAD_PARTNER_ORDER.map((id) => {
+  const entry = requireSponsor(id);
+  return {
+    id,
+    href: entry.url,
+    label: entry.name,
+    Logo: productSponsorLogoById[id],
+    className: LEAD_LOGO_CLASS[id],
+  };
+});
 
 interface BriefRow {
   Icon: ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -174,32 +208,25 @@ export function HeroSection() {
                   {t("hero.tierPartners.label")}
                 </p>
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-3 sm:gap-x-8">
-                  <a
-                    href={codexSponsorEntry.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex min-h-11 items-center py-1 opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.02] active:scale-[0.98]"
-                    aria-label={`${codexSponsorEntry.name} — product partner`}
-                  >
-                    <CodexLogo
-                      alt={codexSponsorEntry.name}
-                      className="h-11 w-auto max-w-[12rem] sm:h-[3.25rem] sm:max-w-[15rem] object-contain object-left"
-                    />
-                  </a>
-                  <a
-                    href={elevenlabsSponsorEntry.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex min-h-11 items-center py-1 opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.02] active:scale-[0.98]"
-                    aria-label={`${elevenlabsSponsorEntry.name} — product partner`}
-                  >
-                    <ElevenLabsLogo
-                      alt={elevenlabsSponsorEntry.name}
-                      className="h-7 w-auto max-w-[9rem] sm:h-9 sm:max-w-[10rem] object-contain object-left"
-                    />
-                  </a>
+                  {LEAD_PARTNERS.map((partner) => {
+                    const Logo = partner.Logo;
+                    return (
+                      <a
+                        key={partner.id}
+                        href={partner.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex min-h-11 items-center py-1 opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.02] active:scale-[0.98]"
+                        aria-label={`${partner.label} — product partner`}
+                      >
+                        <Logo alt={partner.label} className={partner.className} />
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
+
+              <HeroTldr />
 
               <p className="mt-7 max-w-[58ch] font-display text-base sm:text-[1.05rem] text-fg-2 leading-[1.75]">
                 {t("hero.lede")}
@@ -382,6 +409,7 @@ function SponsorRail() {
 
   const handlePointerDown = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return;
+    if ((event.target as Element).closest("a[href]")) return;
     dragSessionRef.current = {
       active: true,
       startX: event.clientX,
@@ -477,7 +505,7 @@ function SponsorRail() {
           {/* Marquee viewport — padding lives on the clip container so the moving track stays uniform */}
           <div
             ref={viewportRef}
-            className={`relative overflow-hidden px-6 touch-pan-y motion-reduce:overflow-x-auto motion-reduce:px-0 ${
+            className={`relative overflow-hidden px-6 touch-pan-y motion-reduce:overflow-x-auto motion-reduce:px-0 [&_a]:cursor-pointer ${
               isDragging ? "cursor-grabbing select-none" : "cursor-grab"
             }`}
             onPointerDown={handlePointerDown}
@@ -541,7 +569,8 @@ function SponsorRailGroup({ ariaHidden = false, groupRef }: SponsorRailGroupProp
             role={ariaHidden ? undefined : "listitem"}
             aria-label={ariaHidden ? undefined : `${p.label} — product partner`}
             tabIndex={ariaHidden ? -1 : 0}
-            className="shrink-0 motion-reduce:snap-start opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.04] active:scale-[0.98]"
+            onPointerDown={(event) => event.stopPropagation()}
+            className="relative z-20 shrink-0 motion-reduce:snap-start opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.04] active:scale-[0.98]"
           >
             <Logo alt={ariaHidden ? "" : p.label} className={p.className} />
           </a>

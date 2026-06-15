@@ -386,6 +386,50 @@ function renderSponsorMark(
           />
         </LogoWrap>
       );
+    case "netlify":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("netlify-dark.svg")}
+            alt="Netlify"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "wispr":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("wispr-dark.svg")}
+            alt="Wispr"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "fal":
+      return (
+        <LogoWrap innerScale={0.52}>
+          <img
+            src={sponsorPublicAsset("fal-dark.svg")}
+            alt="Fal"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "exa":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("exa-dark.svg")}
+            alt="Exa"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
   }
 
   // Defensive fallback (should be unreachable thanks to the exhaustive switch).

@@ -1,5 +1,5 @@
 import type { ReactElement, ReactNode } from "react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 import { OnePagerShell } from "../components/one-pager-shell";
@@ -17,6 +17,7 @@ const ORGANIZER_MAILTO =
 const UFG_URL = "https://ufg.edu.sv/";
 
 const INFO_CARD_IDS = ["date", "venue", "format", "audience"] as const;
+const TLDR_ITEM_SUFFIXES = ["i0", "i1", "i2", "i3"] as const;
 const ACTION_STEP_IDS = ["01", "02", "03", "04"] as const;
 const STAND_ITEM_SUFFIXES = ["i0", "i1", "i2", "i3"] as const;
 const TIMELINE_BLOCK_IDS = ["before", "arrival", "during"] as const;
@@ -26,7 +27,7 @@ const TIMELINE_ITEM_COUNTS: Record<typeof TIMELINE_BLOCK_IDS[number], number> = 
   during: 3,
 };
 const ACTIVATION_ITEM_COUNTS = { opening: 3, content: 3, relations: 3 } as const;
-const COVERAGE_ITEM_COUNTS = { brand: 3, talent: 3, post: 3 } as const;
+const COVERAGE_ITEM_COUNTS = { brand: 3, talent: 3, post: 2 } as const;
 
 type BentoTileSpan =
   | "opening"
@@ -45,6 +46,17 @@ export function JoinedSponsorsOnePagerPage() {
     () => (suffix: string) => t(`onePager.joinedSponsors.${suffix}` as TranslationKey),
     [t],
   );
+
+  // Print/PDF: letter sheet carries its own inset — no extra @page margin (matches on-screen sheet).
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.setAttribute("data-onepager-joined-sponsors-page", "");
+    style.textContent = "@page { size: letter; margin: 0; }";
+    document.head.appendChild(style);
+    return () => {
+      style.remove();
+    };
+  }, []);
 
   return (
     <OnePagerShell
@@ -66,7 +78,7 @@ function renderJoinedSponsorsSheet(tj: (suffix: string) => string): ReactElement
   const eventDateDisplay = tj("eventDateDisplay");
 
   return (
-    <OnePagerSheetFrame sheetClassName="one-pager-joined-sponsors-sheet text-[8pt] leading-snug">
+    <OnePagerSheetFrame sheetClassName="one-pager-joined-sponsors-sheet text-[7.5pt] leading-snug">
         <header className="one-pager-avoid-break mb-2.5">
           <div className="one-pager-header-meta-bar flex items-center justify-between gap-4 border-b border-border pb-2">
             <div className="flex min-w-0 items-center gap-3">
@@ -90,7 +102,7 @@ function renderJoinedSponsorsSheet(tj: (suffix: string) => string): ReactElement
             </div>
           </div>
           <div className="mt-2 flex items-center justify-between gap-4">
-            <h1 className="min-w-0 font-display text-[1.45rem] font-bold uppercase leading-none tracking-tight">
+            <h1 className="min-w-0 font-display text-[1.32rem] font-bold uppercase leading-none tracking-tight">
               {tj("heroTitle")}
             </h1>
             <p className="shrink-0 font-mono text-[0.5rem] font-bold uppercase tracking-[0.16em] text-accent">
@@ -98,6 +110,26 @@ function renderJoinedSponsorsSheet(tj: (suffix: string) => string): ReactElement
             </p>
           </div>
         </header>
+
+      <section
+        className="one-pager-avoid-break mb-2.5 overflow-hidden rounded-md border border-border border-l-2 border-l-accent bg-bg-raised px-2.5 py-2"
+        aria-label={tj("tldr.aria")}
+      >
+        <p className="font-mono text-[0.5rem] font-bold uppercase tracking-[0.14em] text-accent">
+          {tj("tldr.label")}
+        </p>
+        <ul className="mt-1 grid gap-0.5">
+          {TLDR_ITEM_SUFFIXES.map((suffix) => (
+            <li
+              key={suffix}
+              className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-1.5 text-[6.8pt] leading-snug text-fg-2"
+            >
+              <span className="one-pager-proof-dot mt-[0.35em]" aria-hidden />
+              <span className="min-w-0">{tj(`tldr.${suffix}`)}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="one-pager-avoid-break mb-2.5 grid grid-cols-4 overflow-hidden rounded-md border border-border bg-bg-raised">
         {INFO_CARD_IDS.map((id) => (
@@ -117,7 +149,7 @@ function renderJoinedSponsorsSheet(tj: (suffix: string) => string): ReactElement
               <p className="font-mono text-[0.5rem] font-bold uppercase tracking-[0.14em] text-white/80">
                 {tj("action.kicker")}
               </p>
-              <h2 className="mt-1 font-display text-[1.08rem] font-bold uppercase leading-tight tracking-tight">
+              <h2 className="mt-1 font-display text-[0.98rem] font-bold uppercase leading-tight tracking-tight">
                 {tj("action.title")}
               </h2>
               <p className="mt-1.5 text-[7pt] leading-relaxed text-white/90">{tj("action.body")}</p>
@@ -168,7 +200,7 @@ function renderJoinedSponsorsSheet(tj: (suffix: string) => string): ReactElement
       </section>
 
       <section
-        className="one-pager-joined-bento one-pager-avoid-break mt-0 overflow-hidden rounded-md border border-border bg-bg-raised"
+        className="one-pager-joined-bento mt-0 overflow-hidden rounded-md border border-border bg-bg-raised"
         aria-label={`${tj("activation.title")} · ${tj("coverage.title")}`}
       >
         <div className="one-pager-joined-bento-grid">
@@ -409,7 +441,7 @@ function BentoTile({
 }) {
   return (
     <div
-      className={`one-pager-bento-tile one-pager-bento-tile-${span} one-pager-avoid-break min-w-0 p-2 ${
+      className={`one-pager-bento-tile one-pager-bento-tile-${span} min-w-0 p-2 ${
         featured ? "one-pager-bento-tile-featured" : warm ? "bg-[#fff5ef]" : ""
       }`}
     >

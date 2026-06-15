@@ -7,12 +7,12 @@ export function NumbersSection() {
 
   const stats = useMemo(
     () => [
-      { value: "~24h+", label: t("numbers.s1.label"), sub: t("numbers.s1.sub") },
-      { value: "2–4",   label: t("numbers.s2.label"), sub: t("numbers.s2.sub") },
-      { value: "UFG",   label: t("numbers.s3.label"), sub: t("numbers.s3.sub") },
-      { value: "CA",    label: t("numbers.s4.label"), sub: t("numbers.s4.sub") },
-      { value: t("hero.stat.editionValue"), label: t("numbers.s5.label"), sub: t("numbers.s5.sub") },
-      { value: "~200",  label: t("numbers.s6.label"), sub: t("numbers.s6.sub") },
+      { id: "s1", value: "~24h+", label: t("numbers.s1.label"), sub: t("numbers.s1.sub") },
+      { id: "s2", value: "2–4",   label: t("numbers.s2.label"), sub: t("numbers.s2.sub") },
+      { id: "s3", value: "UFG",   label: t("numbers.s3.label"), sub: t("numbers.s3.sub") },
+      { id: "s4", value: "CA",    label: t("numbers.s4.label"), sub: t("numbers.s4.sub") },
+      { id: "s5", value: t("hero.stat.editionValue"), label: t("numbers.s5.label"), sub: t("numbers.s5.sub") },
+      { id: "s6", value: "~200",  label: t("numbers.s6.label"), sub: t("numbers.s6.sub") },
     ],
     [t],
   );
@@ -20,7 +20,7 @@ export function NumbersSection() {
   return (
     <section
       id="numbers"
-      className="relative py-20 sm:py-28 bg-accent overflow-hidden"
+      className="relative py-20 sm:py-28 bg-accent"
     >
       <div
         aria-hidden
@@ -46,11 +46,11 @@ export function NumbersSection() {
         </header>
 
         {/* Cockpit-mode rule rows — no boxes, just lines */}
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-[#080808]/15 border-y border-[#080808]/15">
+        <ul className="reveal grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-[#080808]/15 border-y border-[#080808]/15">
           {stats.map((stat, i) => (
             <li
-              key={stat.label}
-              className="reveal flex flex-col gap-1 px-5 py-6"
+              key={stat.id}
+              className="flex flex-col gap-1 px-5 py-6"
               style={{ "--delay": `${i * 0.05}s` } as React.CSSProperties}
             >
               <div className="font-display text-[clamp(1.85rem,3.6vw,2.6rem)] font-bold text-[#080808] leading-none tracking-[-0.02em] tabular-nums">
