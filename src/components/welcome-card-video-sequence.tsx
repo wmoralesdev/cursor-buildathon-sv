@@ -16,10 +16,11 @@ import {
   introTranslateY,
 } from "./welcome-card-canvas-spec";
 import { WelcomeCardSponsorSlate } from "./welcome-card-sponsor-slate";
+import { EXPORT_CHALK_GLITCH } from "./export-chalk-accent";
 
-const PREVIEW_FRAME_BORDER = "1px solid rgba(255, 75, 0, 0.4)";
+const PREVIEW_FRAME_BORDER = "1px solid rgba(255, 255, 255, 0.4)";
 const PREVIEW_FRAME_SHADOW =
-  "0 0 0 1px rgba(255,75,0,0.2), 0 24px 80px -24px rgba(255,75,0,0.35)";
+  "0 0 0 1px rgba(255,255,255,0.2), 0 24px 80px -24px rgba(0,0,0,0.45)";
 
 type Phase = "default" | "glitchOut" | "sponsor" | "glitchBack" | "finalHold";
 
@@ -303,7 +304,7 @@ export const WelcomeCardVideoSequence = forwardRef<
           position: "absolute",
           inset: 0,
           zIndex: 30,
-          background: "rgba(255,75,0,0.18)",
+          background: EXPORT_CHALK_GLITCH,
           opacity: imperative
             ? 0
             : state!.jitter > 0

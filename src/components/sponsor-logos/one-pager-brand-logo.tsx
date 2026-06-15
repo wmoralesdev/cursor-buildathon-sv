@@ -13,6 +13,7 @@ import { WerisLogo } from "./weris-logo";
 import { N8nLogo } from "./n8n-logo";
 import { NubiworkLogo } from "./nubiwork-logo";
 import { YonjobLogo } from "./yonjob-logo";
+import { DmaLogo } from "./dma-logo";
 import type { OnePagerSponsorLogoId } from "./sponsor-logo-ids";
 
 /** Single component for ESLint/static-components compliance (avoid dynamic component lookups). */
@@ -49,6 +50,8 @@ export function OnePagerBrandLogo({
       return <GamesquadLogo {...props} />;
     case "searchyou":
       return <SearchyouLogo {...props} />;
+    case "dma":
+      return <DmaLogo {...props} />;
     default: {
       const _exhaustive: never = id;
       return _exhaustive;

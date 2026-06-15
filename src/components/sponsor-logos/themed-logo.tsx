@@ -4,7 +4,7 @@ import { createContext, useContext } from "react";
 
 import { buildThemedLogoSrc } from "./build-themed-logo-src";
 
-/** True under `/onepager-niu` / `/onepager-boxful` sponsor grid: page is forced light while next-themes may still be dark. */
+/** True on one-pager sheets that force light logo assets while next-themes may still be dark. */
 const OnePagerCashLightLogoAssetsContext = createContext(false);
 
 export function OnePagerCashLightLogoAssetsProvider({ children }: { children: ReactNode }) {

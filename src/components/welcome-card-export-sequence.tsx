@@ -4,11 +4,8 @@ import type { AspectFormat } from "../pages/buildathon-welcome-types";
 import { WelcomeCardExportContent } from "./welcome-card-export-content";
 import { WelcomeCardExportSponsorSlate } from "./welcome-card-export-sponsor-slate";
 import { WelcomeCardExportVideoBackground } from "./welcome-card-export-video-background";
+import { EXPORT_CHALK_GLITCH } from "./export-chalk-accent";
 import { DESIGN_DIMENSIONS, SEQUENCE_TIMELINE } from "./welcome-card-canvas-spec";
-
-const EXPORT_FRAME_BORDER = "1px solid rgba(255, 75, 0, 0.4)";
-const EXPORT_FRAME_SHADOW =
-  "0 0 0 1px rgba(255,75,0,0.2), 0 24px 80px -24px rgba(255,75,0,0.35)";
 
 type Phase = "default" | "glitchOut" | "sponsor" | "glitchBack" | "finalHold";
 
@@ -50,8 +47,6 @@ export function WelcomeCardExportSequence({
     height,
     transform: `scale(${scale})`,
     transformOrigin: "top left",
-    border: EXPORT_FRAME_BORDER,
-    boxShadow: EXPORT_FRAME_SHADOW,
     backgroundColor: "#14120b",
     position: "relative",
     overflow: "hidden",
@@ -60,10 +55,7 @@ export function WelcomeCardExportSequence({
 
   return (
     <div style={outerStyle}>
-      <WelcomeCardExportVideoBackground
-        aspectFormat={aspectFormat}
-        exportScale={scale}
-      />
+      <WelcomeCardExportVideoBackground aspectFormat={aspectFormat} />
 
       <div
         style={{
@@ -109,7 +101,7 @@ export function WelcomeCardExportSequence({
           position: "absolute",
           inset: 0,
           zIndex: 30,
-          background: "rgba(255,75,0,0.18)",
+          background: EXPORT_CHALK_GLITCH,
           opacity: state.jitter > 0 ? state.jitter * 0.6 : 0,
         }}
         aria-hidden

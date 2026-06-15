@@ -8,36 +8,31 @@ import {
   VIDEO_FPS,
 } from "../components/welcome-card-canvas-spec";
 import { WELCOME_CARD_SPONSOR_MARK_KEYS } from "../components/welcome-sponsor-marks";
-import type { AspectFormat } from "../pages/buildathon-welcome-types";
+import {
+  SPONSOR_SPOT_ASPECT_FORMATS,
+  sponsorSpotCompositionId,
+} from "./sponsor-spot-composition-ids";
 import {
   SponsorSpotComposition,
   type SponsorSpotCompositionProps,
 } from "./sponsor-spot-composition";
 
-const ASPECT_FORMATS: AspectFormat[] = ["post", "story"];
-
-function compositionId(
-  sponsorKey: (typeof WELCOME_CARD_SPONSOR_MARK_KEYS)[number],
-  aspectFormat: AspectFormat,
-): string {
-  return `sponsor-spot-${sponsorKey}-${aspectFormat}`;
-}
-
 export function SponsorSpotRoot() {
   return (
     <>
       {WELCOME_CARD_SPONSOR_MARK_KEYS.flatMap((sponsorKey) =>
-        ASPECT_FORMATS.map((aspectFormat) => {
+        SPONSOR_SPOT_ASPECT_FORMATS.map((aspectFormat) => {
           const dims = EXPORT_DIMENSIONS[aspectFormat];
           const defaultProps: SponsorSpotCompositionProps = {
             sponsorKey,
             aspectFormat,
           };
+          const id = sponsorSpotCompositionId(sponsorKey, aspectFormat);
 
           return (
             <Composition
-              key={compositionId(sponsorKey, aspectFormat)}
-              id={compositionId(sponsorKey, aspectFormat)}
+              key={id}
+              id={id}
               component={SponsorSpotComposition}
               durationInFrames={SPONSOR_SPOT_DURATION_FRAMES}
               fps={VIDEO_FPS}

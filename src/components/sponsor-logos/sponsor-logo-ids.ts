@@ -11,6 +11,7 @@ export type ProductSponsorId =
   | "boxful"
   | "drop"
   | "gamesquad"
-  | "searchyou";
+  | "searchyou"
+  | "dma";
 
 export type OnePagerSponsorLogoId = ProductSponsorId | "cursor";

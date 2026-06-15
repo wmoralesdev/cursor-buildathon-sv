@@ -93,6 +93,12 @@ export const sponsors: Sponsor[] = [
     url: "https://searchyou.lat/",
     tier: "product",
   },
+  {
+    id: "dma",
+    name: "DMA",
+    url: "https://www.dma.com.sv/",
+    tier: "product",
+  },
 ];
 
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
@@ -126,6 +132,7 @@ const boxfulSponsor = sponsors.find((s) => s.id === "boxful");
 const dropSponsor = sponsors.find((s) => s.id === "drop");
 const gamesquadSponsor = sponsors.find((s) => s.id === "gamesquad");
 const searchyouSponsor = sponsors.find((s) => s.id === "searchyou");
+const dmaSponsor = sponsors.find((s) => s.id === "dma");
 if (
   !codexSponsor ||
   !yonjobSponsor ||
@@ -138,10 +145,11 @@ if (
   !boxfulSponsor ||
   !dropSponsor ||
   !gamesquadSponsor ||
-  !searchyouSponsor
+  !searchyouSponsor ||
+  !dmaSponsor
 ) {
   throw new Error(
-    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris, boxful, drop, gamesquad, searchyou required for onePagerSponsors",
+    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris, boxful, drop, gamesquad, searchyou, dma required for onePagerSponsors",
   );
 }
 
@@ -174,4 +182,5 @@ export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
   toOnePagerGold(dropSponsor),
   toOnePagerGold(gamesquadSponsor),
   toOnePagerGold(searchyouSponsor),
+  toOnePagerGold(dmaSponsor),
 ];

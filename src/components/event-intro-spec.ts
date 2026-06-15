@@ -12,6 +12,8 @@ export const EVENT_INTRO_TIMELINE = {
   emptyStart: { startFrame: 0, endFrame: 6 },
   lockIn: { startFrame: 6, endFrame: 20 },
   lockHold: { startFrame: 20, endFrame: 60 },
+  /** Cursor holds solo centered; × AI Labs slides in from the right. */
+  ailabsJoin: { startFrame: 24, endFrame: 44 },
   lockOut: { startFrame: 60, endFrame: 74 },
   /** Header/footer chrome animates in place (final layout), overlaps end of lock out. */
   chromeIn: { startFrame: 62, endFrame: 78 },

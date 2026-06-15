@@ -3,7 +3,7 @@ import "../index.css";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 
 import type { AspectFormat } from "../pages/buildathon-welcome-types";
-import { ExportAnimatedPosterBackground } from "../components/export-animated-poster-background";
+import { WelcomeBackgroundLoopBackground } from "./welcome-background-loop-background";
 
 export type WelcomeBackgroundLoopCompositionProps = {
   aspectFormat: AspectFormat;
@@ -19,7 +19,7 @@ export function WelcomeBackgroundLoopComposition({
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#14120b" }}>
-      <ExportAnimatedPosterBackground progressSeconds={progressSeconds} />
+      <WelcomeBackgroundLoopBackground progressSeconds={progressSeconds} />
     </AbsoluteFill>
   );
 }

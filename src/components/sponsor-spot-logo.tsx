@@ -2,6 +2,10 @@ import type { CSSProperties, ReactNode } from "react";
 import { Easing, interpolate, staticFile, useCurrentFrame } from "remotion";
 
 import { ExportZeroTwoOneLogo } from "./export-logo-marks";
+import {
+  EXPORT_CHALK_GLOW_PRIMARY,
+  EXPORT_CHALK_GLOW_SECONDARY,
+} from "./export-chalk-accent";
 import { SPONSOR_SPOT_TIMELINE } from "./welcome-card-canvas-spec";
 import type { AspectFormat } from "../pages/buildathon-welcome-types";
 import { WELCOME_CARD_SPONSOR_MARK_KEYS } from "./welcome-sponsor-marks";
@@ -360,6 +364,17 @@ function renderSponsorMark(
           />
         </LogoWrap>
       );
+    case "dma":
+      return (
+        <LogoWrap innerScale={0.52}>
+          <img
+            src={sponsorPublicAsset("dma-dark.svg")}
+            alt="DMA"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
     case "drop":
       return (
         <LogoWrap innerScale={0.6}>
@@ -391,8 +406,7 @@ export function SponsorSpotLogo({ sponsorKey, format }: Props) {
           position: "absolute",
           inset: 0,
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(255, 75, 0, 1) 0%, transparent 65%)",
+          background: `radial-gradient(circle, ${EXPORT_CHALK_GLOW_PRIMARY} 0%, transparent 65%)`,
           opacity: reveal.glowOpacity,
           pointerEvents: "none",
           willChange: "opacity",
@@ -405,8 +419,7 @@ export function SponsorSpotLogo({ sponsorKey, format }: Props) {
           position: "absolute",
           inset: "-100%",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(255, 75, 0, 0.4) 0%, transparent 70%)",
+          background: `radial-gradient(circle, ${EXPORT_CHALK_GLOW_SECONDARY} 0%, transparent 70%)`,
           opacity: reveal.glowOpacity * 0.6,
           pointerEvents: "none",
           willChange: "opacity",

@@ -27,6 +27,11 @@ export function welcomeBackgroundAssetPath(
   return `welcome-bg/${format}-${scale}x.mp4`;
 }
 
+/** Pre-rendered loops for `remotion:studio` + `remotion:studio:sponsors` only. */
+export function remotionWelcomeBackgroundAssetPath(format: AspectFormat): string {
+  return `welcome-bg-remotion/${format}-2x.mp4`;
+}
+
 export function welcomeBackgroundScaleForExportScale(
   exportScale: number,
 ): WelcomeBackgroundScale {

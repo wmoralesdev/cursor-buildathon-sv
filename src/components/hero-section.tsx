@@ -42,6 +42,7 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   drop: "h-6 w-auto max-w-[7.5rem] object-contain object-left",
   gamesquad: "h-10 w-auto max-w-[12rem] object-contain object-left",
   searchyou: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
+  dma: "h-6 w-auto max-w-[9.5rem] object-contain object-left",
 };
 
 const PARTNER_ORDER: readonly HeroPartnerId[] = [
@@ -58,6 +59,7 @@ const PARTNER_ORDER: readonly HeroPartnerId[] = [
   "drop",
   "gamesquad",
   "searchyou",
+  "dma",
   "zavu",
 ] as const;
 

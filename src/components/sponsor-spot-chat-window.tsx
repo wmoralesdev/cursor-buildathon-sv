@@ -20,6 +20,7 @@ const SPONSOR_DISPLAY_NAME: Record<SponsorSpotKey, string> = {
   boxful: "boxful",
   gamesquad: "gamesquad",
   searchyou: "searchyou",
+  dma: "dma",
   drop: "drop",
 };
 

@@ -6,6 +6,7 @@ import {
   ACCEPTED_LABEL_CLASS,
   EventInfoBlock,
 } from "./accepted-card-shared";
+import { EXPORT_CHALK_RULE } from "./export-chalk-accent";
 import { ExportCursorLogo, ExportZeroTwoOneLogo } from "./export-logo-marks";
 import {
   SponsorMarkAbaco,
@@ -14,6 +15,7 @@ import {
   SponsorMarkBoxful,
   SponsorMarkGamesquad,
   SponsorMarkSearchyou,
+  SponsorMarkDma,
   SponsorMarkDrop,
   SponsorMarkKreali,
   SponsorMarkWeris,
@@ -84,6 +86,7 @@ export const EXPORT_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkBoxful,
   SponsorMarkGamesquad,
   SponsorMarkSearchyou,
+  SponsorMarkDma,
   SponsorMarkDrop,
 ] as const;
 
@@ -182,12 +185,12 @@ export const WelcomeCardExportSponsorSlate = memo(
               >
                 <span
                   className="h-px w-[clamp(1.25rem,6cqmin,8.5cqmin)]"
-                  style={{ backgroundColor: "rgba(255, 75, 0, 0.5)" }}
+                  style={{ backgroundColor: EXPORT_CHALK_RULE }}
                 />
                 <span>{countLabel} partners</span>
                 <span
                   className="h-px w-[clamp(1.25rem,6cqmin,8.5cqmin)]"
-                  style={{ backgroundColor: "rgba(255, 75, 0, 0.5)" }}
+                  style={{ backgroundColor: EXPORT_CHALK_RULE }}
                 />
               </div>
             </div>

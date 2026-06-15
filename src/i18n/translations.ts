@@ -9,6 +9,20 @@ export const translations = {
   "nav.dashboard": { en: "Dashboard", es: "Panel" },
   "nav.logout": { en: "Sign out", es: "Cerrar sesión" },
 
+  "notFound.documentTitle": {
+    en: "404 · Cursor Buildathon El Salvador",
+    es: "404 · Cursor Buildathon El Salvador",
+  },
+  "notFound.kicker": { en: "Page not found", es: "Página no encontrada" },
+  "notFound.title": { en: "This route does not exist", es: "Esta ruta no existe" },
+  "notFound.body": {
+    en: "The link may be outdated, mistyped, or only available in development. Head back to the event site or the welcome page.",
+    es: "El enlace puede estar desactualizado, mal escrito o disponible solo en desarrollo. Vuelve al sitio del evento o a la página de bienvenida.",
+  },
+  "notFound.pathLabel": { en: "Requested path", es: "Ruta solicitada" },
+  "notFound.home": { en: "Back to home →", es: "Volver al inicio →" },
+  "notFound.welcome": { en: "Welcome page", es: "Página de bienvenida" },
+
   "dashboard.title": { en: "Participant panel", es: "Panel de participante" },
   "dashboard.teamForm.title": { en: "Team details", es: "Detalles del equipo" },
   "dashboard.teamForm.teamName": { en: "Team name", es: "Nombre del equipo" },
@@ -879,6 +893,18 @@ export const translations = {
     es: "Puede tardar un minuto—deja esta pestaña abierta.",
   },
 
+  "onePager.nav.ariaLabel": { en: "One-pager pages", es: "Páginas one-pager" },
+  "onePager.nav.prizes": { en: "Prizes", es: "Premios" },
+  "onePager.nav.sponsors": { en: "Sponsors", es: "Sponsors" },
+  "onePager.nav.mentors": { en: "Mentors", es: "Mentores" },
+  "onePager.nav.judges": { en: "Judges", es: "Jurados" },
+  "onePager.nav.sobrecupo": { en: "Overflow", es: "Sobrecupo" },
+  "onePager.nav.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
+  "onePager.nav.previewScaleAria": {
+    en: "Preview zoom (screen only)",
+    es: "Zoom de vista previa (solo en pantalla)",
+  },
+
   "onePager.sponsors.ariaLabel": { en: "Confirmed sponsors", es: "Patrocinadores confirmados" },
   "onePager.sponsors.title": { en: "Confirmed sponsors", es: "Patrocinadores confirmados" },
   "onePager.sponsors.confirmedTail": {
@@ -886,6 +912,378 @@ export const translations = {
     es: "confirmados · cupos limitados",
   },
   "onePager.sponsors.slotsAvailable": { en: "Slots available", es: "Cupos disponibles" },
+
+  "onePager.prizes.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
+  "onePager.prizes.previewScaleAria": {
+    en: "Preview zoom (screen only)",
+    es: "Zoom de vista previa (solo en pantalla)",
+  },
+  "onePager.prizes.headerKicker": {
+    en: "Cursor Buildathon · 24H · San Salvador",
+    es: "Cursor Buildathon · 24H · San Salvador",
+  },
+  "onePager.prizes.heroLine1": { en: "Tracks, prizes", es: "Tracks, premios" },
+  "onePager.prizes.heroLine2": { en: "& credits", es: "y créditos" },
+  "onePager.prizes.bringTeam": { en: "Bring your team.", es: "Trae tu equipo." },
+  "onePager.prizes.totalsAria": { en: "Totals", es: "Totales" },
+  "onePager.prizes.creditsLabel": {
+    en: "In credits for every builder — day one",
+    es: "En créditos para cada builder — desde el día uno",
+  },
+  "onePager.prizes.prizesLabel": {
+    en: "Total prize value across tracks & podium",
+    es: "Valor total de premios en tracks y podio",
+  },
+  "onePager.prizes.allParticipants": { en: "All participants get", es: "Todos los participantes reciben" },
+  "onePager.prizes.perBuilderBadge": { en: "per builder", es: "por builder" },
+  "onePager.prizes.sponsorTracks": { en: "Sponsor tracks", es: "Tracks de sponsors" },
+  "onePager.prizes.perMemberBadge": { en: "Per team member", es: "Por miembro del equipo" },
+  "onePager.prizes.overallWinners": { en: "Overall winners", es: "Ganadores generales" },
+  "onePager.prizes.cashCreditsBadge": { en: "Cash + credits", es: "Efectivo + créditos" },
+  "onePager.prizes.place.1st": { en: "1st place", es: "1er lugar" },
+  "onePager.prizes.place.2nd": { en: "2nd place", es: "2do lugar" },
+  "onePager.prizes.place.3rd": { en: "3rd place", es: "3er lugar" },
+  "onePager.prizes.overall.combinedLabel": {
+    en: "projected @ 4 members",
+    es: "proyección @ 4 miembros",
+  },
+  "onePager.prizes.overall.cashLabel": {
+    en: "Cash for the team",
+    es: "Efectivo para el equipo",
+  },
+  "onePager.prizes.overall.creditMultiplier": {
+    en: "{count} × {perMember}",
+    es: "{count} × {perMember}",
+  },
+  "onePager.prizes.overall.projectionFootnote": {
+    en: "Teams are 2–5 members; projected totals use 4 as an example. Podium totals are rounded for display.",
+    es: "Equipos de 2–5 miembros; los totales proyectados usan 4 como ejemplo. Los totales del podio se muestran redondeados.",
+  },
+  "onePager.prizes.footerNote": {
+    en: "Per-member credits multiply by team size; cash prizes are per team.",
+    es: "Los créditos por miembro se multiplican por el tamaño del equipo; el efectivo es por equipo.",
+  },
+  "onePager.prizes.perk.cursor": { en: "1 month of Pro+", es: "1 mes de Pro+" },
+  "onePager.prizes.perk.codex": { en: "1 mo GPT Plus + $50 API", es: "1 mes GPT Plus + $50 API" },
+  "onePager.prizes.perk.elevenlabs": { en: "1 month of Creator", es: "1 mes de Creator" },
+  "onePager.prizes.perk.n8n": { en: "1 month of Pro", es: "1 mes de Pro" },
+  "onePager.prizes.perk.zavu": { en: "3 months of Hobby", es: "3 meses de Hobby" },
+  "onePager.prizes.perk.firecrawl": { en: "10K credits", es: "10K créditos" },
+  "onePager.prizes.perk.datamcp": { en: "2 months of Pro", es: "2 meses de Pro" },
+  "onePager.prizes.perk.devin": { en: "API credits", es: "Créditos API" },
+  "onePager.prizes.track.codex.title": {
+    en: "Best use of Codex · Top 3 teams",
+    es: "Mejor uso de Codex · Top 3 equipos",
+  },
+  "onePager.prizes.track.codex.prize": {
+    en: "1 year of GPT Pro for each team member",
+    es: "1 año de GPT Pro para cada miembro del equipo",
+  },
+  "onePager.prizes.track.elevenlabs.title": {
+    en: "Best project built with ElevenLabs",
+    es: "Mejor proyecto con ElevenLabs",
+  },
+  "onePager.prizes.track.elevenlabs.prize": {
+    en: "3 months of Scale tier for each team member",
+    es: "3 meses de Scale para cada miembro del equipo",
+  },
+  "onePager.prizes.track.n8n.title": { en: "Best use of n8n", es: "Mejor uso de n8n" },
+  "onePager.prizes.track.n8n.prize": {
+    en: "1 year of Pro for each team member",
+    es: "1 año de Pro para cada miembro del equipo",
+  },
+  "onePager.prizes.overall.1st.credit.cursor.label": {
+    en: "Cursor credits / member",
+    es: "Créditos Cursor / miembro",
+  },
+  "onePager.prizes.overall.1st.credit.elevenlabs.label": {
+    en: "3 mo ElevenLabs Pro / member",
+    es: "3 meses ElevenLabs Pro / miembro",
+  },
+  "onePager.prizes.overall.2nd.credit.cursor.label": {
+    en: "Cursor credits / member",
+    es: "Créditos Cursor / miembro",
+  },
+  "onePager.prizes.overall.3rd.credit.cursor.label": {
+    en: "Cursor credits / member",
+    es: "Créditos Cursor / miembro",
+  },
+
+  "onePager.joinedSponsors.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
+  "onePager.joinedSponsors.previewScaleAria": {
+    en: "Preview zoom (screen only)",
+    es: "Zoom de vista previa (solo en pantalla)",
+  },
+  "onePager.joinedSponsors.eventName": { en: "Cursor Buildathon", es: "Cursor Buildathon" },
+  "onePager.joinedSponsors.eventPlace": { en: "El Salvador 2026", es: "El Salvador 2026" },
+  "onePager.joinedSponsors.eventDateDisplay": {
+    en: "July 4–5, 2026",
+    es: "4–5 de julio 2026",
+  },
+  "onePager.joinedSponsors.kicker": { en: "Ops brief", es: "Brief operativo" },
+  "onePager.joinedSponsors.heroTitle": {
+    en: "Activation checklist",
+    es: "Checklist de activación",
+  },
+  "onePager.joinedSponsors.info.date.label": { en: "Date", es: "Fecha" },
+  "onePager.joinedSponsors.info.date.detail": {
+    en: "Official start: 8:00 a.m.",
+    es: "Inicio oficial: 8:00 a.m.",
+  },
+  "onePager.joinedSponsors.info.venue.label": { en: "Venue", es: "Sede" },
+  "onePager.joinedSponsors.info.venue.value": { en: "UFG", es: "UFG" },
+  "onePager.joinedSponsors.info.venue.detail": {
+    en: "Edificio de Bibliotecas y Laboratorios Especializados.",
+    es: "Edificio de Bibliotecas y Laboratorios Especializados.",
+  },
+  "onePager.joinedSponsors.info.format.label": { en: "Format", es: "Formato" },
+  "onePager.joinedSponsors.info.format.value": { en: "~24 h continuous", es: "~24 h continuas" },
+  "onePager.joinedSponsors.info.format.detail": {
+    en: "Build, mentoring, demos, and awards.",
+    es: "Construcción, mentorías, demos y premiación.",
+  },
+  "onePager.joinedSponsors.info.audience.label": { en: "Audience", es: "Audiencia" },
+  "onePager.joinedSponsors.info.audience.value": { en: "~200 builders", es: "~200 builders" },
+  "onePager.joinedSponsors.info.audience.detail": {
+    en: "Developers, product minds, early founders, and university talent ready to build.",
+    es: "Developers, producto, founders en crecimiento y talento universitario con ganas de construir.",
+  },
+  "onePager.joinedSponsors.action.kicker": { en: "Do this first", es: "Primero esto" },
+  "onePager.joinedSponsors.action.title": { en: "One email to close the plan", es: "Un correo para cerrar el plan" },
+  "onePager.joinedSponsors.action.body": {
+    en: "Send one reply with the four items on the right. Earlier replies help us hold stand space with UFG.",
+    es: "Envíen una respuesta con los cuatro puntos de la derecha. Mientras antes respondan, mejor apartamos stand con la UFG.",
+  },
+  "onePager.joinedSponsors.action.01.title": { en: "Stand: yes or no", es: "Stand: sí o no" },
+  "onePager.joinedSponsors.action.01.body": {
+    en: "Optional. Reply yes if you want a table.",
+    es: "Opcional. Respondan sí si quieren mesa.",
+  },
+  "onePager.joinedSponsors.action.02.title": { en: "July 4 arrival time", es: "Hora de llegada — 4 de julio" },
+  "onePager.joinedSponsors.action.02.body": {
+    en: "Your planned arrival time on Saturday, July 4 — especially if you bring a stand.",
+    es: "Su hora de llegada el sábado 4 de julio — sobre todo si traen stand.",
+  },
+  "onePager.joinedSponsors.action.03.title": {
+    en: "Opening: live or video",
+    es: "Apertura: en vivo o video",
+  },
+  "onePager.joinedSponsors.action.03.body": {
+    en: "5-minute live slot at opening, or a short pre-recorded video.",
+    es: "Espacio en vivo de 5 minutos en la apertura, o video corto pregrabado.",
+  },
+  "onePager.joinedSponsors.action.04.title": {
+    en: "Who is coming and what you'll do",
+    es: "Quién viene y qué harán",
+  },
+  "onePager.joinedSponsors.action.04.body": {
+    en: "Attendee names, on-site content crew (yes/no), and 1–2 mentor nominees if you have them. Judges are optional.",
+    es: "Nombres de asistentes, equipo de contenido en sitio (sí/no) y 1–2 mentores propuestos, si cuentan con ellos. Jueces opcionales.",
+  },
+  "onePager.joinedSponsors.stand.title": { en: "Stand / table (optional)", es: "Stand / mesa (opcional)" },
+  "onePager.joinedSponsors.stand.body": {
+    en: "UFG provides base furniture, power, and staff for setup and placement. You bring brand or product materials.",
+    es: "La UFG provee mobiliario base, electricidad y personal para montaje y ubicación. Ustedes traen materiales de marca o producto.",
+  },
+  "onePager.joinedSponsors.stand.i0": {
+    en: "Table approx. 1.5 m × 0.75 m.",
+    es: "Mesa aprox. 1.5 m × 0.75 m.",
+  },
+  "onePager.joinedSponsors.stand.i1": {
+    en: "2 chairs per stand.",
+    es: "2 sillas por stand.",
+  },
+  "onePager.joinedSponsors.stand.i2": {
+    en: "Power on site; staff help with setup.",
+    es: "Electricidad en sitio; apoyo del personal para montaje.",
+  },
+  "onePager.joinedSponsors.stand.i3": {
+    en: "You bring banners, swag, or product demo materials.",
+    es: "Ustedes traen banners, merchandising o material de demo.",
+  },
+  "onePager.joinedSponsors.timeline.title": { en: "Ops order", es: "Orden operativo" },
+  "onePager.joinedSponsors.timeline.before.title": { en: "Before the event", es: "Antes del evento" },
+  "onePager.joinedSponsors.timeline.before.body": {
+    en: "Prep so UFG and the program can reflect your brand and timing.",
+    es: "Preparen lo necesario para que la UFG y el programa reflejen su marca y tiempos.",
+  },
+  "onePager.joinedSponsors.timeline.before.i0": {
+    en: "Logo files and exact name spelling for site and slides.",
+    es: "Archivos de logo y nombre exacto para sitio y slides.",
+  },
+  "onePager.joinedSponsors.timeline.before.i1": {
+    en: "Pre-recorded opening video: send link or file before July 4.",
+    es: "Video de apertura pregrabado: envíen enlace o archivo antes del 4 de julio.",
+  },
+  "onePager.joinedSponsors.timeline.before.i2": {
+    en: "Content crew: share who is filming and your general coverage plan.",
+    es: "Equipo de contenido: indiquen quién graba y plan general de cobertura.",
+  },
+  "onePager.joinedSponsors.timeline.arrival.title": { en: "Arrival and setup", es: "Llegada y montaje" },
+  "onePager.joinedSponsors.timeline.arrival.body": {
+    en: "Event starts Saturday July 4 at 8:00 a.m. Stands must be ready by 9:00 a.m.",
+    es: "El evento arranca el sábado 4 de julio a las 8:00 a.m. Los stands deben estar listos a las 9:00 a.m.",
+  },
+  "onePager.joinedSponsors.timeline.arrival.i0": {
+    en: "Arrive with buffer time if you are setting up a stand or bringing a crew.",
+    es: "Lleguen con tiempo de margen si montan stand o traen equipo.",
+  },
+  "onePager.joinedSponsors.timeline.arrival.i1": {
+    en: "Find the organizing team for placement, power, and setup.",
+    es: "Busquen al equipo organizador para ubicación, electricidad y montaje.",
+  },
+  "onePager.joinedSponsors.timeline.arrival.i2": {
+    en: "Do not set up during presentations or peak traffic.",
+    es: "No monten durante presentaciones ni picos de circulación.",
+  },
+  "onePager.joinedSponsors.timeline.during.title": { en: "During the event", es: "Durante el evento" },
+  "onePager.joinedSponsors.timeline.during.body": {
+    en: "Best windows to talk with builders: breaks and meal times.",
+    es: "Mejores momentos para hablar con builders: pausas y horarios de comida.",
+  },
+  "onePager.joinedSponsors.timeline.during.i0": {
+    en: "Talk with teams before and after main sessions.",
+    es: "Conversen con equipos antes y después de las sesiones principales.",
+  },
+  "onePager.joinedSponsors.timeline.during.i1": {
+    en: "Use meal breaks for product, hiring, or community conversations.",
+    es: "Usen las pausas de comida para producto, hiring o comunidad.",
+  },
+  "onePager.joinedSponsors.timeline.during.i2": {
+    en: "Coordinate filming so it does not interrupt demos, mentoring, or judging.",
+    es: "Coordinen grabaciones para no interrumpir demos, mentorías ni evaluación.",
+  },
+  "onePager.joinedSponsors.activation.title": { en: "Activation options", es: "Opciones de activación" },
+  "onePager.joinedSponsors.activation.opening.title": { en: "Opening", es: "Apertura" },
+  "onePager.joinedSponsors.activation.opening.body": {
+    en: "Short slot to say why you are here and how teams can use your product or expertise.",
+    es: "Espacio breve para decir por qué participan y cómo los equipos pueden usar su producto o experiencia.",
+  },
+  "onePager.joinedSponsors.activation.opening.i0": {
+    en: "Up to 5 minutes live at the opening ceremony.",
+    es: "Hasta 5 minutos en vivo en la ceremonia de apertura.",
+  },
+  "onePager.joinedSponsors.activation.opening.i1": {
+    en: "Or send a short pre-recorded video we play at opening.",
+    es: "O envíen un video corto pregrabado que proyectemos en la apertura.",
+  },
+  "onePager.joinedSponsors.activation.opening.i2": {
+    en: "Cover what you offer, how to use it, or a challenge you want built.",
+    es: "Cubran qué aportan, cómo usarlo o qué reto quieren ver construido.",
+  },
+  "onePager.joinedSponsors.activation.content.title": { en: "Content", es: "Contenido" },
+  "onePager.joinedSponsors.activation.content.body": {
+    en: "Document the event from your brand's angle — we align timing with the program.",
+    es: "Documenten el evento con el enfoque de su marca — alineamos tiempos con el programa.",
+  },
+  "onePager.joinedSponsors.activation.content.i0": {
+    en: "Photos, video, interviews, BTS, and team stories.",
+    es: "Fotos, video, entrevistas, detrás de cámaras e historias con equipos.",
+  },
+  "onePager.joinedSponsors.activation.content.i1": {
+    en: "We assign shoot windows aligned with the program.",
+    es: "Asignamos ventanas de grabación alineadas al programa.",
+  },
+  "onePager.joinedSponsors.activation.content.i2": {
+    en: "Event channels can also post or mention your participation.",
+    es: "Los canales del evento también pueden publicar o mencionar su participación.",
+  },
+  "onePager.joinedSponsors.activation.relations.title": { en: "Relationships", es: "Relaciones" },
+  "onePager.joinedSponsors.activation.relations.body": {
+    en: "The main value is direct contact with builders while they are actively shipping.",
+    es: "El valor principal es el contacto directo con builders mientras están construyendo.",
+  },
+  "onePager.joinedSponsors.activation.relations.i0": {
+    en: "Lounge conversations and quick intros with teams.",
+    es: "Conversaciones en lounge e intros rápidas con equipos.",
+  },
+  "onePager.joinedSponsors.activation.relations.i1": {
+    en: "Product, hiring, or community talks during open windows.",
+    es: "Charlas de producto, hiring o comunidad en ventanas abiertas.",
+  },
+  "onePager.joinedSponsors.activation.relations.i2": {
+    en: "Post-event follow-up with attendees who agree to share contact info.",
+    es: "Seguimiento post-evento con asistentes que autoricen compartir contacto.",
+  },
+  "onePager.joinedSponsors.coverage.title": { en: "Included coverage", es: "Cobertura incluida" },
+  "onePager.joinedSponsors.coverage.brand.title": { en: "Brand", es: "Marca" },
+  "onePager.joinedSponsors.coverage.brand.body": {
+    en: "Visibility in official event materials, per your sponsorship level.",
+    es: "Visibilidad en materiales oficiales del evento, según su nivel de patrocinio.",
+  },
+  "onePager.joinedSponsors.coverage.brand.i0": {
+    en: "Logo on event site and official slides.",
+    es: "Logo en sitio del evento y slides oficiales.",
+  },
+  "onePager.joinedSponsors.coverage.brand.i1": {
+    en: "Mentions at opening, closing, or awards.",
+    es: "Menciones en apertura, cierre o premiación.",
+  },
+  "onePager.joinedSponsors.coverage.brand.i2": {
+    en: "Posts on event social channels.",
+    es: "Publicaciones en redes del evento.",
+  },
+  "onePager.joinedSponsors.coverage.talent.title": { en: "Talent and product", es: "Talento y producto" },
+  "onePager.joinedSponsors.coverage.talent.body": {
+    en: "Room to talk product, hiring, and challenges with teams on site.",
+    es: "Espacio para hablar producto, hiring y retos con equipos en sitio.",
+  },
+  "onePager.joinedSponsors.coverage.talent.i0": {
+    en: "Direct access to builders for product feedback and hiring talks.",
+    es: "Acceso directo a builders para feedback de producto y charlas de hiring.",
+  },
+  "onePager.joinedSponsors.coverage.talent.i1": {
+    en: "Option to propose a prompt, challenge, or special criteria for teams.",
+    es: "Opción de proponer un prompt, reto o criterio especial para equipos.",
+  },
+  "onePager.joinedSponsors.coverage.talent.i2": {
+    en: "Mentor slots available (1–2 suggested). Judges optional — see aside.",
+    es: "Cupos de mentores disponibles (1–2 sugeridos). Jueces opcionales — véase el recuadro.",
+  },
+  "onePager.joinedSponsors.coverage.post.title": { en: "Post-event", es: "Post-evento" },
+  "onePager.joinedSponsors.coverage.post.body": {
+    en: "Materials to follow up after the buildathon.",
+    es: "Material para dar seguimiento después del buildathon.",
+  },
+  "onePager.joinedSponsors.coverage.post.i0": {
+    en: "Thank-you in the post-event email.",
+    es: "Agradecimiento en el correo post-evento.",
+  },
+  "onePager.joinedSponsors.coverage.post.i1": {
+    en: "Contact list (email, phone, LinkedIn, X) for attendees who opt in.",
+    es: "Lista de contacto (correo, teléfono, LinkedIn, X) de quienes autoricen compartir datos.",
+  },
+  "onePager.joinedSponsors.coverage.post.i2": {
+    en: "Recap with talent highlights, demos, content, and standout winners.",
+    es: "Recap con talento destacado, demos, contenido y ganadores sobresalientes.",
+  },
+  "onePager.joinedSponsors.mentorsAside.title": {
+    en: "Mentors · judges optional",
+    es: "Mentores · jueces opcionales",
+  },
+  "onePager.joinedSponsors.mentorsAside.body": {
+    en: "Suggest 1–2 mentors in your reply. Judges are optional — if you nominate any, share the separate judge guide with role, schedule, and criteria.",
+    es: "Propongan 1–2 mentores en su respuesta. Los jueces son opcionales — si proponen alguno, compartan la guía aparte con rol, horario y criterios.",
+  },
+  "onePager.joinedSponsors.mentorsAside.judgeGuideLink": {
+    en: "Judge guide →",
+    es: "Guía para jurados →",
+  },
+  "onePager.joinedSponsors.coordinate.title": { en: "What to send in one email", es: "Qué mandar en un correo" },
+  "onePager.joinedSponsors.coordinate.body": {
+    en: "Stand · July 4 arrival · Attendees · Opening (live/video) · Content crew · Mentors (judges optional)",
+    es: "Stand · llegada 4 jul · Asistentes · Apertura (vivo/video) · Contenido · Mentores (jueces opc.)",
+  },
+  "onePager.joinedSponsors.cta.body": {
+    en: "One reply to hello@wmorales.dev locks your activation plan.",
+    es: "Una respuesta a hello@wmorales.dev cierra su plan de activación.",
+  },
+  "onePager.joinedSponsors.cta.badge": { en: "Confirmed sponsor", es: "Sponsor confirmado" },
+  "onePager.joinedSponsors.footer.organizedBy": { en: "Organized by", es: "Organizado por" },
+  "onePager.joinedSponsors.footer.organizersTail": {
+    en: "with UFG and Cursor Community support ·",
+    es: "con UFG y apoyo de Cursor ·",
+  },
 
   "onePager.niu.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
   "onePager.niu.previewScaleAria": {
@@ -1059,7 +1457,7 @@ export const translations = {
   },
   "onePager.niu.footer.organizersTail": {
     en: " and Cursor Community support.",
-    es: " y apoyo de Cursor Community.",
+    es: " y apoyo de Cursor.",
   },
   "onePager.niu.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
   "onePager.niu.footer.place2": {
@@ -1251,7 +1649,7 @@ export const translations = {
   },
   "onePager.boxful.footer.organizersTail": {
     en: " and Cursor Community support.",
-    es: " y apoyo de Cursor Community.",
+    es: " y apoyo de Cursor.",
   },
   "onePager.boxful.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
   "onePager.boxful.footer.place2": {
@@ -1264,6 +1662,502 @@ export const translations = {
   },
   "onePager.boxful.ctaBecomeSponsor": { en: "Become a sponsor →", es: "Ser patrocinador →" },
   "onePager.boxful.footerCopyright": {
+    en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
+    es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
+  },
+
+  "onePager.mentors.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
+  "onePager.mentors.previewScaleAria": {
+    en: "Preview zoom (screen only)",
+    es: "Zoom de vista previa (solo en pantalla)",
+  },
+  "onePager.mentors.fallbackSite": { en: "Event site", es: "Sitio del evento" },
+  "onePager.mentors.eventName": { en: "Cursor Buildathon", es: "Cursor Buildathon" },
+  "onePager.mentors.eventPlace": { en: "El Salvador 2026", es: "El Salvador 2026" },
+  "onePager.mentors.kicker": {
+    en: "Mentor onboarding",
+    es: "Onboarding de mentores",
+  },
+  "onePager.mentors.heroTitle": { en: "Mentor guide", es: "Guía para mentores" },
+  "onePager.mentors.headerWhenWhere": {
+    en: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+    es: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+  },
+  "onePager.mentors.ufgUniversity": {
+    en: " · Universidad Francisco Gavidia",
+    es: " · Universidad Francisco Gavidia",
+  },
+  "onePager.mentors.deadlineAria": { en: "Submission deadline", es: "Fecha límite de envío" },
+  "onePager.mentors.deadlineKicker": {
+    en: "Deadline",
+    es: "Fecha límite",
+  },
+  "onePager.mentors.deadlineDate": { en: "June 25, 2026", es: "25 de junio, 2026" },
+  "onePager.mentors.deadlineBody": {
+    en: "Send everything below to hello@wmorales.dev by this date so we can add you to slides, booking, and venue access.",
+    es: "Manda todo lo de abajo a hello@wmorales.dev antes de esta fecha para incluirte en slides, reservas y acceso al venue.",
+  },
+  "onePager.mentors.profileTitle": {
+    en: "Checklist — send all of this",
+    es: "Checklist — manda todo esto",
+  },
+  "onePager.mentors.profileIntro": {
+    en: "Include every item in your email. We use it for event slides and custom social art you can share.",
+    es: "Incluye cada punto en tu correo. Lo usamos para slides del evento y arte social personalizado que puedes compartir.",
+  },
+  "onePager.mentors.profile.i0": { en: "Full name", es: "Nombre completo" },
+  "onePager.mentors.profile.i1": { en: "Title / role", es: "Título / rol" },
+  "onePager.mentors.profile.i2": { en: "Short bio (2–3 sentences)", es: "Bio corta (2–3 oraciones)" },
+  "onePager.mentors.profile.i3": {
+    en: "Headshot (high-res; square or portrait crop works best)",
+    es: "Foto de perfil (alta resolución; cuadrada o retrato funciona mejor)",
+  },
+  "onePager.mentors.profile.i4": {
+    en: "Area",
+    es: "Área",
+  },
+  "onePager.mentors.deliverablesTitle": {
+    en: "What we prepare for you",
+    es: "Qué preparamos para ti",
+  },
+  "onePager.mentors.deliverablesBody": {
+    en: "With your profile, we add you to event slides and generate custom social art for before and during the buildathon.",
+    es: "Con tu perfil, te sumamos a slides del evento y generamos arte social personalizado para antes y durante el buildathon.",
+  },
+  "onePager.mentors.availabilityTitle": {
+    en: "How you'll mentor",
+    es: "Cómo vas a mentorar",
+  },
+  "onePager.mentors.irlTitle": { en: "In person (IRL)", es: "Presencial (IRL)" },
+  "onePager.mentors.irlIntro": {
+    en: "If you mentor on site at UFG, include in your email:",
+    es: "Si mentoras en sitio en la UFG, incluye en tu correo:",
+  },
+  "onePager.mentors.irl.i0": {
+    en: "Vehicle license plate number",
+    es: "Número de placa del vehículo",
+  },
+  "onePager.mentors.irl.i1": {
+    en: "Expected arrival time on July 4 or 5",
+    es: "Hora estimada de llegada el 4 o 5 de julio",
+  },
+  "onePager.mentors.irl.i2": {
+    en: "We pass this to building security so entry is smooth.",
+    es: "Lo pasamos a seguridad del edificio para que entres sin contratiempos.",
+  },
+  "onePager.mentors.remoteTitle": { en: "Remote", es: "Remoto" },
+  "onePager.mentors.remoteIntro": {
+    en: "If you mentor remotely, send a booking link in your email:",
+    es: "Si mentoras de forma remota, manda un link de reservas en tu correo:",
+  },
+  "onePager.mentors.remote.i0": {
+    en: "Calendly, Google Calendar appointment schedule, Cal.com, or equivalent",
+    es: "Calendly, Google Calendar appointment schedule, Cal.com o equivalente",
+  },
+  "onePager.mentors.remote.i1": {
+    en: "Open slots during the buildathon window (Jul 4 8:00 – Jul 5 9:00 CST)",
+    es: "Horarios abiertos durante la ventana del buildathon (4 jul 8:00 – 5 jul 9:00 CST)",
+  },
+  "onePager.mentors.remote.i2": {
+    en: "Brief note on topics you prefer to cover",
+    es: "Nota breve sobre los temas que prefieres cubrir",
+  },
+  "onePager.mentors.eventTitle": { en: "Event window", es: "Ventana del evento" },
+  "onePager.mentors.eventBody": {
+    en: "Jul 4–5, 8:00–9:00 (CST). Set your mentoring availability in that window.",
+    es: "4–5 jul, 8:00–9:00 (CST). Indica tu disponibilidad para mentoría.",
+  },
+  "onePager.mentors.footer.organizersLabel": { en: "Organizers", es: "Organizadores" },
+  "onePager.mentors.footer.organizersLine": { en: " with ", es: " con " },
+  "onePager.mentors.footer.organizersTail": {
+    en: ".",
+    es: ".",
+  },
+  "onePager.mentors.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
+  "onePager.mentors.footer.place2": {
+    en: "Mostly El Salvador, open to Central America.",
+    es: "Principalmente El Salvador, abierto a Centroamérica.",
+  },
+  "onePager.mentors.footer.partnersLabel": { en: "Partners", es: "Patrocinadores" },
+  "onePager.mentors.footer.partnersAria": {
+    en: "Event partners",
+    es: "Patrocinadores del evento",
+  },
+  "onePager.mentors.ctaEmailHint": {
+    en: "Subject: Mentor info. Attach your photo. Include IRL details (plate, arrival) or a remote booking link.",
+    es: "Asunto: Mentor info. Adjunta tu foto. Incluye datos presenciales (placa, llegada) o link de reservas remoto.",
+  },
+  "onePager.mentors.ctaSendInfo": { en: "Send by June 25 →", es: "Enviar antes del 25 jun →" },
+  "onePager.mentors.footerCopyright": {
+    en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
+    es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
+  },
+
+  "onePager.judges.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
+  "onePager.judges.previewScaleAria": {
+    en: "Preview zoom (screen only)",
+    es: "Zoom de vista previa (solo en pantalla)",
+  },
+  "onePager.judges.fallbackSite": { en: "Event site", es: "Sitio del evento" },
+  "onePager.judges.eventName": { en: "Cursor Buildathon", es: "Cursor Buildathon" },
+  "onePager.judges.eventPlace": { en: "El Salvador 2026", es: "El Salvador 2026" },
+  "onePager.judges.kicker": {
+    en: "Judge onboarding",
+    es: "Onboarding de jurados",
+  },
+  "onePager.judges.heroTitle": { en: "Judge guide", es: "Guía para jurados" },
+  "onePager.judges.headerWhenWhere": {
+    en: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+    es: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+  },
+  "onePager.judges.deadlineAria": { en: "Signup deadline", es: "Fecha límite de registro" },
+  "onePager.judges.deadlineKicker": {
+    en: "Signup deadline",
+    es: "Fecha límite",
+  },
+  "onePager.judges.deadlineDate": { en: "June 25, 2026", es: "25 de junio, 2026" },
+  "onePager.judges.deadlineBody": {
+    en: "Send everything below to hello@wmorales.dev by this date so we can add you to slides, scoring access, and venue coordination.",
+    es: "Manden todo lo de abajo a hello@wmorales.dev antes de esta fecha para incluirlos en slides, acceso de calificación y coordinación del venue.",
+  },
+  "onePager.judges.profileTitle": {
+    en: "Checklist — send all of this",
+    es: "Checklist — manden todo esto",
+  },
+  "onePager.judges.profileIntro": {
+    en: "Include every item in your email. We use it for event slides and custom social art you can share.",
+    es: "Incluyan cada punto en su correo. Lo usamos para slides del evento y arte social personalizado que pueden compartir.",
+  },
+  "onePager.judges.profile.i0": { en: "Full name", es: "Nombre completo" },
+  "onePager.judges.profile.i1": { en: "Title / role", es: "Título / rol" },
+  "onePager.judges.profile.i2": { en: "Short bio (2–3 sentences)", es: "Bio corta (2–3 oraciones)" },
+  "onePager.judges.profile.i3": {
+    en: "Headshot (high-res; square or portrait crop works best)",
+    es: "Foto de perfil (alta resolución; cuadrada o retrato funciona mejor)",
+  },
+  "onePager.judges.profile.i4": {
+    en: "Area",
+    es: "Área",
+  },
+  "onePager.judges.orgPreparesTitle": {
+    en: "What we prepare for you",
+    es: "Qué preparamos para ustedes",
+  },
+  "onePager.judges.orgPreparesBody": {
+    en: "Before the judging window, the org team sets up:",
+    es: "Antes de la ventana de calificación, el equipo organizador prepara:",
+  },
+  "onePager.judges.orgPrepares.i0": {
+    en: "Judge app access with your assigned projects",
+    es: "Acceso a la app de jurados con sus proyectos asignados",
+  },
+  "onePager.judges.orgPrepares.i1": {
+    en: "Project list with repo links and team context",
+    es: "Lista de proyectos con repos y contexto del equipo",
+  },
+  "onePager.judges.orgPrepares.i2": {
+    en: "Team pitch videos (3–5 min each), due 6:00 AM CST Jul 5",
+    es: "Videos de pitch por equipo (3–5 min c/u), entrega 6:00 AM CST 5 jul",
+  },
+  "onePager.judges.participationTitle": {
+    en: "How you'll judge",
+    es: "Cómo van a calificar",
+  },
+  "onePager.judges.irlTitle": { en: "In person (IRL)", es: "Presencial (IRL)" },
+  "onePager.judges.irlIntro": {
+    en: "If you judge on site at UFG, include in your email:",
+    es: "Si califican en sitio en la UFG, incluyan en su correo:",
+  },
+  "onePager.judges.irl.i0": {
+    en: "Vehicle license plate number",
+    es: "Número de placa del vehículo",
+  },
+  "onePager.judges.irl.i1": {
+    en: "Expected arrival time on Sunday, July 5 (before 6:00 AM CST)",
+    es: "Hora estimada de llegada el domingo 5 de julio (antes de 6:00 AM CST)",
+  },
+  "onePager.judges.irl.i2": {
+    en: "We pass this to building security so entry is smooth.",
+    es: "Lo pasamos a seguridad del edificio para que entren sin contratiempos.",
+  },
+  "onePager.judges.onlineTitle": { en: "Online", es: "En línea" },
+  "onePager.judges.onlineIntro": {
+    en: "If you judge remotely, note in your email:",
+    es: "Si califican de forma remota, indiquen en su correo:",
+  },
+  "onePager.judges.online.i0": {
+    en: "Preferred browser and device (laptop recommended)",
+    es: "Navegador y dispositivo preferidos (laptop recomendada)",
+  },
+  "onePager.judges.online.i1": {
+    en: "Your timezone and confirmation you can be online 6:00–9:00 AM CST Jul 5",
+    es: "Su zona horaria y confirmación de disponibilidad 6:00–9:00 AM CST 5 jul",
+  },
+  "onePager.judges.online.i2": {
+    en: "Stable connection for async video review and scoring in the app",
+    es: "Conexión estable para revisar videos y calificar en la app",
+  },
+  "onePager.judges.judgingTitle": {
+    en: "Judging window — Sun Jul 5, 6:00–9:00 AM CST",
+    es: "Ventana de calificación — dom 5 jul, 6:00–9:00 AM CST",
+  },
+  "onePager.judges.judgingIntro": {
+    en: "You score overall winners only (not sponsor tracks). Review is async — no live stage.",
+    es: "Califican solo ganadores generales (no tracks de sponsors). La revisión es asíncrona — sin escenario en vivo.",
+  },
+  "onePager.judges.judging.i0": {
+    en: "Each team submits a 3–5 min pre-recorded pitch video by 6:00 AM CST Jul 5",
+    es: "Cada equipo entrega un video de pitch pregrabado de 3–5 min antes de 6:00 AM CST 5 jul",
+  },
+  "onePager.judges.judging.i1": {
+    en: "Watch videos and try demos in the judge app during the window",
+    es: "Vean los videos y prueben demos en la app de jurados durante la ventana",
+  },
+  "onePager.judges.judging.i2": {
+    en: "Submit all scores before 9:00 AM CST — window closes at 9:00",
+    es: "Envíen todas las calificaciones antes de 9:00 AM CST — la ventana cierra a las 9:00",
+  },
+  "onePager.judges.judging.i3": {
+    en: "Suggested rubric below is guidance only — use your expert judgment",
+    es: "La rúbrica sugerida abajo es orientación — usen su criterio experto",
+  },
+  "onePager.judges.rubricTitle": {
+    en: "Suggested rubric (guidance only)",
+    es: "Rúbrica sugerida (solo orientación)",
+  },
+  "onePager.judges.rubricIntro": {
+    en: "Five lenses to compare projects. No fixed weights — score holistically in the app.",
+    es: "Cinco lentes para comparar proyectos. Sin pesos fijos — califiquen de forma holística en la app.",
+  },
+  "onePager.judges.rubric.i0.name": { en: "Problem & Impact", es: "Problema e impacto" },
+  "onePager.judges.rubric.i0.question": {
+    en: "Is there a real problem? Does the solution create meaningful impact?",
+    es: "¿Hay un problema real? ¿La solución genera impacto significativo?",
+  },
+  "onePager.judges.rubric.i1.name": { en: "Originality", es: "Originalidad" },
+  "onePager.judges.rubric.i1.question": {
+    en: "Is the approach creative and differentiated?",
+    es: "¿El enfoque es creativo y diferenciado?",
+  },
+  "onePager.judges.rubric.i2.name": { en: "AI Value & Productization", es: "Valor de IA y productización" },
+  "onePager.judges.rubric.i2.question": {
+    en: "Does AI add real value? Is it product-ready?",
+    es: "¿La IA aporta valor real? ¿Está listo como producto?",
+  },
+  "onePager.judges.rubric.i3.name": { en: "Execution & Demo", es: "Ejecución y demo" },
+  "onePager.judges.rubric.i3.question": {
+    en: "Does it work in the demo? How complete is it?",
+    es: "¿Funciona en la demo? ¿Qué tan completo está?",
+  },
+  "onePager.judges.rubric.i4.name": { en: "Pitch & Clarity", es: "Pitch y claridad" },
+  "onePager.judges.rubric.i4.question": {
+    en: "Was it communicated clearly and effectively?",
+    es: "¿Se comunicó con claridad y efectividad?",
+  },
+  "onePager.judges.eventTitle": { en: "Event window", es: "Ventana del evento" },
+  "onePager.judges.eventBody": {
+    en: "Buildathon Jul 4–5. Judging Sun Jul 5, 6:00–9:00 AM CST.",
+    es: "Buildathon 4–5 jul. Calificación dom 5 jul, 6:00–9:00 AM CST.",
+  },
+  "onePager.judges.footer.organizersLabel": { en: "Organizers", es: "Organizadores" },
+  "onePager.judges.footer.organizersLine": { en: " with ", es: " con " },
+  "onePager.judges.footer.organizersTail": {
+    en: ".",
+    es: ".",
+  },
+  "onePager.judges.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
+  "onePager.judges.footer.place2": {
+    en: "Mostly El Salvador, open to Central America.",
+    es: "Principalmente El Salvador, abierto a Centroamérica.",
+  },
+  "onePager.judges.footer.partnersLabel": { en: "Partners", es: "Patrocinadores" },
+  "onePager.judges.footer.partnersAria": {
+    en: "Event partners",
+    es: "Patrocinadores del evento",
+  },
+  "onePager.judges.ctaEmailHint": {
+    en: "Subject: Judge info. Attach your photo. Include IRL details (plate, arrival) or online availability.",
+    es: "Asunto: Judge info. Adjunten su foto. Incluyan datos presenciales (placa, llegada) o disponibilidad en línea.",
+  },
+  "onePager.judges.ctaSendInfo": { en: "Send by June 25 →", es: "Enviar antes del 25 jun →" },
+  "onePager.judges.footerCopyright": {
+    en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
+    es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
+  },
+
+  "onePager.sobrecupo.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
+  "onePager.sobrecupo.previewScaleAria": {
+    en: "Preview zoom (screen only)",
+    es: "Zoom de vista previa (solo en pantalla)",
+  },
+  "onePager.sobrecupo.fallbackSite": { en: "Event site", es: "Sitio del evento" },
+  "onePager.sobrecupo.eventName": { en: "Cursor Buildathon", es: "Cursor Buildathon" },
+  "onePager.sobrecupo.eventPlace": { en: "El Salvador 2026", es: "El Salvador 2026" },
+  "onePager.sobrecupo.kicker": {
+    en: "Participant guide",
+    es: "Guía para participantes",
+  },
+  "onePager.sobrecupo.heroTitle": { en: "Overflow", es: "Sobrecupo" },
+  "onePager.sobrecupo.headerWhenWhere": {
+    en: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+    es: "04 · 05 · JUL 2026 · 8:00 → 9:00",
+  },
+  "onePager.sobrecupo.summaryAria": { en: "Team capacity", es: "Capacidad de equipos" },
+  "onePager.sobrecupo.summaryKicker": {
+    en: "Confirmed team cap",
+    es: "Tope de equipos confirmados",
+  },
+  "onePager.sobrecupo.summaryHighlight": { en: "200", es: "200" },
+  "onePager.sobrecupo.summaryBody": {
+    en: "The event reserves 200 registered teams with full perks. If you didn't get a spot, you can still join as overflow — linked to a team that already has a slot.",
+    es: "El evento reserva 200 equipos registrados con beneficios completos. Si no alcanzaste cupo, igual puedes unirte como sobrecupo — ligado a un equipo que ya tiene lugar.",
+  },
+  "onePager.sobrecupo.whatTitle": {
+    en: "What overflow means",
+    es: "Qué significa sobrecupo",
+  },
+  "onePager.sobrecupo.whatIntro": {
+    en: "You're still part of the buildathon, but outside the 200-team cap. The rules are different from a confirmed team.",
+    es: "Sigues siendo parte del buildathon, pero fuera del tope de 200 equipos. Las reglas son distintas a las de un equipo confirmado.",
+  },
+  "onePager.sobrecupo.what.i0": {
+    en: "Overflow groups cannot exist on their own — every extra person must link to a host team that already has a confirmed slot.",
+    es: "Los grupos sobrecupo no existen solos — cada persona extra debe ligarse a un equipo anfitrión que ya tenga cupo confirmado.",
+  },
+  "onePager.sobrecupo.what.i1": {
+    en: "The host team leader adds you through their team link or dashboard — there is no separate overflow registration.",
+    es: "El líder del equipo anfitrión te agrega con su link de equipo o desde el dashboard — no hay registro aparte para sobrecupo.",
+  },
+  "onePager.sobrecupo.what.i2": {
+    en: "You build, demo, and pitch with that host team for the full event window.",
+    es: "Construyes, haces demo y pitch con ese equipo anfitrión durante toda la ventana del evento.",
+  },
+  "onePager.sobrecupo.what.i3": {
+    en: "Organizers track overflow headcount through the host team — coordinate names and roles with your captain early.",
+    es: "Los organizadores cuentan sobrecupo a través del equipo anfitrión — coordina nombres y roles con tu capitán desde temprano.",
+  },
+  "onePager.sobrecupo.howTitle": {
+    en: "How to join",
+    es: "Cómo unirte",
+  },
+  "onePager.sobrecupo.howIntro": {
+    en: "You need an invite from a confirmed team. Standalone overflow groups are not allowed.",
+    es: "Necesitas invitación de un equipo confirmado. Grupos sobrecupo independientes no están permitidos.",
+  },
+  "onePager.sobrecupo.how.i0": {
+    en: "Find a host team with a confirmed slot — a friend, coworker, or community team with space.",
+    es: "Busca un equipo anfitrión con cupo confirmado — un amigo, compañero de trabajo o equipo de la comunidad con espacio.",
+  },
+  "onePager.sobrecupo.how.i1": {
+    en: "Ask the team leader to add you via their registration link or participant dashboard.",
+    es: "Pídele al líder del equipo que te agregue con su link de registro o desde el panel de participante.",
+  },
+  "onePager.sobrecupo.how.i2": {
+    en: "Show up with that team at UFG on July 4–5. Bring your laptop and ID for venue access.",
+    es: "Preséntate con ese equipo en la UFG el 4–5 de julio. Trae tu laptop e identificación para acceso al venue.",
+  },
+  "onePager.sobrecupo.canTitle": {
+    en: "What you can do",
+    es: "Lo que sí puedes hacer",
+  },
+  "onePager.sobrecupo.canIntro": {
+    en: "Overflow participants are full builders for the weekend — with a few exceptions on perks.",
+    es: "Los participantes sobrecupo son builders de punta a punta — con algunas excepciones en beneficios.",
+  },
+  "onePager.sobrecupo.can.i0": {
+    en: "Build, ship, and demo your project with the host team during the full ~24 h window.",
+    es: "Construir, lanzar y hacer demo de tu proyecto con el equipo anfitrión durante la ventana completa de ~24 h.",
+  },
+  "onePager.sobrecupo.can.i1": {
+    en: "Compete for overall prizes — overflow teams are eligible for general winners, same as confirmed teams.",
+    es: "Competir por premios generales — los equipos con sobrecupo pueden ganar en la categoría general, igual que los confirmados.",
+  },
+  "onePager.sobrecupo.can.i2": {
+    en: "Access the venue, mentors, and the full on-site program while you stay with your host team.",
+    es: "Acceder al venue, mentores y programa presencial completo mientras te quedas con tu equipo anfitrión.",
+  },
+  "onePager.sobrecupo.cannotTitle": {
+    en: "What you don't get",
+    es: "Lo que no incluye",
+  },
+  "onePager.sobrecupo.cannotIntro": {
+    en: "Perks tied to the 200 confirmed slots don't extend automatically to overflow participants.",
+    es: "Los beneficios ligados a los 200 cupos confirmados no se extienden automáticamente a participantes sobrecupo.",
+  },
+  "onePager.sobrecupo.cannot.i0": {
+    en: "No sponsor credits by default — Cursor Pro+, ElevenLabs, n8n, Codex, and other partner perks are for confirmed members only, unless you're promoted off the waitlist.",
+    es: "Sin créditos de sponsors por defecto — Cursor Pro+, ElevenLabs, n8n, Codex y otros beneficios de partners son solo para miembros confirmados, a menos que te promovamos de la lista de espera.",
+  },
+  "onePager.sobrecupo.cannot.i1": {
+    en: "No catered event food — there's no on-site café at UFG. Order via Pedidos Ya or other delivery apps and plan meals ahead.",
+    es: "Sin comida del evento — no hay cafetería en sitio en la UFG. Pedí por Pedidos Ya u otras apps de delivery y planeá tus comidas con anticipación.",
+  },
+  "onePager.sobrecupo.cannot.i2": {
+    en: "No separate overflow badge or swag allocation — you're counted under the host team's headcount.",
+    es: "Sin badge ni swag aparte para sobrecupo — quedas contado bajo el headcount del equipo anfitrión.",
+  },
+  "onePager.sobrecupo.promotionAria": {
+    en: "Waitlist promotion",
+    es: "Promoción por lista de espera",
+  },
+  "onePager.sobrecupo.promotionTitle": {
+    en: "Waitlist promotion",
+    es: "Promoción por lista de espera",
+  },
+  "onePager.sobrecupo.promotionIntro": {
+    en: "Overflow participants are on a waitlist. If someone among the 200 registered teams or people releases their spot, we promote in registration order.",
+    es: "Los participantes en sobrecupo quedan en lista de espera. Si alguien de los 200 equipos o personas registradas libera su cupo, promovemos por orden de registro.",
+  },
+  "onePager.sobrecupo.promotion.i0": {
+    en: "Spots open only when a registered participant withdraws — there is no fixed promotion date.",
+    es: "Los cupos se abren solo cuando un participante registrado se baja — no hay fecha fija de promoción.",
+  },
+  "onePager.sobrecupo.promotion.i1": {
+    en: "First on the waitlist → first promoted. We follow registration order, not who asks first on the day.",
+    es: "Primero en la lista → primero promovido. Seguimos el orden de registro, no quién pide el día del evento.",
+  },
+  "onePager.sobrecupo.promotion.i2": {
+    en: "If promoted, you move into the confirmed group with full perks — sponsor credits and everything else confirmed participants get.",
+    es: "Si te promovemos, pasas al grupo confirmado con beneficios completos — créditos de sponsors y todo lo que reciben los participantes confirmados.",
+  },
+  "onePager.sobrecupo.sharingTitle": {
+    en: "Optional credit sharing",
+    es: "Compartir créditos (opcional)",
+  },
+  "onePager.sobrecupo.sharingBody": {
+    en: "If someone on the host team wants to share part of their sponsor credits with overflow members on the same group, that's allowed — the organizer doesn't block it. It's entirely between teammates; we don't redistribute credits centrally.",
+    es: "Si alguien del equipo anfitrión quiere compartir parte de sus créditos de sponsor con miembros sobrecupo del mismo grupo, está permitido — el organizador no lo bloquea. Queda entre ustedes; nosotros no redistribuimos créditos de forma centralizada.",
+  },
+  "onePager.sobrecupo.tipsTitle": {
+    en: "Practical tips",
+    es: "Tips prácticos",
+  },
+  "onePager.sobrecupo.tips.i0": {
+    en: "Plan meals ahead — no coffee shop on site. Use Pedidos Ya or delivery apps; bring snacks for between orders.",
+    es: "Planeá tus comidas — no hay cafetería en sitio. Usá Pedidos Ya u otras apps de delivery; trae snacks para el rato.",
+  },
+  "onePager.sobrecupo.tips.i1": {
+    en: "Coordinate arrival and vehicle plate with your host captain — security lists come from confirmed team rosters.",
+    es: "Coordina llegada y placa con tu capitán anfitrión — las listas de seguridad salen de los rosters de equipos confirmados.",
+  },
+  "onePager.sobrecupo.tips.i2": {
+    en: "Bring your own laptop, charger, and any tools you need — don't rely on event-issued credits.",
+    es: "Trae tu laptop, cargador y las herramientas que necesites — no cuentes con créditos emitidos por el evento.",
+  },
+  "onePager.sobrecupo.eventTitle": { en: "Event window", es: "Ventana del evento" },
+  "onePager.sobrecupo.eventBody": {
+    en: "Sat Jul 4, 8:00 AM → Sun Jul 5, 9:00 AM CST · continuous build",
+    es: "Sáb 4 jul, 8:00 AM → Dom 5 jul, 9:00 AM CST · build continuo",
+  },
+  "onePager.sobrecupo.footer.organizersLabel": { en: "Organizers", es: "Organizadores" },
+  "onePager.sobrecupo.footer.organizersLine": { en: " with ", es: " con " },
+  "onePager.sobrecupo.footer.organizersTail": { en: ".", es: "." },
+  "onePager.sobrecupo.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
+  "onePager.sobrecupo.footer.place2": {
+    en: "Mostly El Salvador, open to Central America.",
+    es: "Principalmente El Salvador, abierto a Centroamérica.",
+  },
+  "onePager.sobrecupo.footerCopyright": {
     en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
     es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
   },

@@ -11,9 +11,16 @@
     "preview": "vite preview",
     "remotion:studio": "remotion studio src/remotion/index.ts",
     "remotion:studio:sponsors": "remotion studio src/remotion/sponsor-spot-index.ts",
+    "remotion:studio:banner": "remotion studio src/remotion/banner-index.ts",
+    "remotion:studio:bg": "remotion studio src/remotion/background-loop-index.ts",
+    "remotion:assets:banner-preview": "ffmpeg -y -f lavfi -i color=c=0x14120B:s=360x394:d=4.366667:r=60 -i public/cursor-animated.mov -filter_complex \"[1:v]scale=360:-2,format=rgba[fg];[0:v][fg]overlay=(W-w)/2:(H-h)/2:shortest=1\" -c:v libx264 -pix_fmt yuv420p -crf 20 -movflags +faststart -an public/cursor-animated-preview.mp4",
     "remotion:render": "remotion render src/remotion/index.ts welcome-card-post out/welcome-card-post.mp4",
+    "remotion:render:bg": "remotion render src/remotion/background-loop-index.ts welcome-bg-post-2x public/welcome-bg-remotion/post-2x.mp4 && remotion render src/remotion/background-loop-index.ts welcome-bg-story-2x public/welcome-bg-remotion/story-2x.mp4",
+    "remotion:render:banner": "remotion render src/remotion/banner-index.ts cowork-banner-cowork out/cowork-banner-cowork.mp4",
     "remotion:render:sponsor": "remotion render src/remotion/sponsor-spot-index.ts sponsor-spot-codex-post out/sponsor-spot-codex-post.mp4",
-    "remotion:render:event-intro": "remotion render src/remotion/index.ts event-intro-post out/event-intro-post.mp4"
+    "remotion:render:sponsors": "bash scripts/render-all-sponsor-spots.sh",
+    "remotion:render:event-intro": "remotion render src/remotion/index.ts event-intro-post out/event-intro-post.mp4",
+    "remotion:render:mentor-callout": "remotion render src/remotion/index.ts mentor-callout-post out/mentor-callout-post.mp4 && remotion render src/remotion/index.ts mentor-callout-story out/mentor-callout-story.mp4"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.456",

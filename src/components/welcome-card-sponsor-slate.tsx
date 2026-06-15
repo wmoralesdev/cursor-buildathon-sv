@@ -6,6 +6,7 @@ import {
   CursorLogo,
   EventInfoBlock,
 } from "./accepted-card-shared";
+import { EXPORT_CHALK_RULE } from "./export-chalk-accent";
 import {
   WELCOME_CARD_SPONSOR_MARK_COMPONENTS,
   WELCOME_CARD_SPONSOR_MARK_KEYS,
@@ -154,12 +155,12 @@ export const WelcomeCardSponsorSlate = memo(
             >
               <span
                 className="h-px w-[clamp(1.25rem,6cqmin,8.5cqmin)]"
-                style={{ backgroundColor: "rgba(255, 75, 0, 0.5)" }}
+                style={{ backgroundColor: EXPORT_CHALK_RULE }}
               />
               <span>{countLabel} partners</span>
               <span
                 className="h-px w-[clamp(1.25rem,6cqmin,8.5cqmin)]"
-                style={{ backgroundColor: "rgba(255, 75, 0, 0.5)" }}
+                style={{ backgroundColor: EXPORT_CHALK_RULE }}
               />
             </div>
           </div>

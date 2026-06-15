@@ -14,6 +14,7 @@ import { SearchyouLogo } from "./searchyou-logo";
 import { KrealiLogo } from "./kreali-logo";
 import { WerisLogo } from "./weris-logo";
 import { YonjobLogo } from "./yonjob-logo";
+import { DmaLogo } from "./dma-logo";
 
 export type { BrandLogoProps } from "./logo-props";
 export type { OnePagerSponsorLogoId, ProductSponsorId } from "./sponsor-logo-ids";
@@ -35,6 +36,7 @@ export { SearchyouLogo } from "./searchyou-logo";
 export { KrealiLogo } from "./kreali-logo";
 export { WerisLogo } from "./weris-logo";
 export { YonjobLogo } from "./yonjob-logo";
+export { DmaLogo } from "./dma-logo";
 export { ZavuLogo } from "./zavu-logo";
 
 export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<BrandLogoProps>> = {
@@ -51,4 +53,5 @@ export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<Bran
   drop: DropLogo,
   gamesquad: GamesquadLogo,
   searchyou: SearchyouLogo,
+  dma: DmaLogo,
 };

@@ -5,13 +5,13 @@ export const LUMA_URL = "https://luma.com/tm16k0kj";
 export const SPONSOR_MAILTO =
   "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Patrocinio";
 
-/** NIU sponsor outreach (mailto with subject) */
-export const NIU_SPONSOR_MAILTO =
-  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20NIU%20Sponsorship";
+/** Mentor info submission (mailto with subject) */
+export const MENTOR_MAILTO =
+  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Mentor%20info";
 
-/** Boxful sponsor outreach (mailto with subject) */
-export const BOXFUL_SPONSOR_MAILTO =
-  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Boxful%20Sponsorship";
+/** Judge info submission (mailto with subject) */
+export const JUDGE_MAILTO =
+  "mailto:hello@wmorales.dev?subject=Cursor%20Buildathon%20SV%20-%20Judge%20info";
 
 /** Ai /abs community */
 export const AILABS_URL = "https://ailabs.sv";

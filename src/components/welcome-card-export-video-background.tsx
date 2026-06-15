@@ -5,21 +5,17 @@ import { Loop, staticFile } from "remotion";
 import type { AspectFormat } from "../pages/buildathon-welcome-types";
 import {
   WELCOME_BACKGROUND_LOOP_FRAMES,
-  welcomeBackgroundAssetPath,
-  welcomeBackgroundScaleForExportScale,
+  remotionWelcomeBackgroundAssetPath,
 } from "./welcome-background-video-spec";
 
 type Props = {
   aspectFormat: AspectFormat;
-  exportScale: number;
 };
 
 export function WelcomeCardExportVideoBackground({
   aspectFormat,
-  exportScale,
 }: Props) {
-  const assetScale = welcomeBackgroundScaleForExportScale(exportScale);
-  const src = staticFile(welcomeBackgroundAssetPath(aspectFormat, assetScale));
+  const src = staticFile(remotionWelcomeBackgroundAssetPath(aspectFormat));
 
   return (
     <div

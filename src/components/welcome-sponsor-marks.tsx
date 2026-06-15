@@ -18,6 +18,7 @@ const SPONSOR_SRC = {
   gamesquad: staticFile("sponsors/gamesquad-dark.svg"),
   drop: staticFile("sponsors/drop-dark.svg"),
   searchyou: staticFile("sponsors/searchyou-dark.svg"),
+  dma: staticFile("sponsors/dma-dark.svg"),
 } as const;
 
 export type SponsorMarkProps = {
@@ -42,6 +43,7 @@ export const WELCOME_CARD_SPONSOR_MARK_KEYS = [
   "boxful",
   "gamesquad",
   "searchyou",
+  "dma",
   "drop",
 ] as const;
 
@@ -292,6 +294,19 @@ export function SponsorMarkSearchyou(props: SponsorMarkProps) {
   );
 }
 
+export function SponsorMarkDma(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.72}>
+      <img
+        src={SPONSOR_SRC.dma}
+        alt="DMA"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
 export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkCodex,
   SponsorMarkN8n,
@@ -307,5 +322,6 @@ export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkBoxful,
   SponsorMarkGamesquad,
   SponsorMarkSearchyou,
+  SponsorMarkDma,
   SponsorMarkDrop,
 ] as const;

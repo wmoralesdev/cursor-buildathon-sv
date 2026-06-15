@@ -88,22 +88,22 @@ export const ExportAnimatedPosterBackground = memo(
         <div
           style={{
             ...absoluteLayer(1, "-40%"),
-            opacity: breathe(loopProgress(progressSeconds, 5), 0.48, 0.72),
+            opacity: breathe(loopProgress(progressSeconds, 5), 0.36, 0.56),
             background:
-              "radial-gradient(ellipse 22% 18% at 18% 14%, rgba(255,122,43,0.48) 0%, transparent 72%), radial-gradient(ellipse 24% 20% at 62% 36%, rgba(255,122,43,0.42) 0%, transparent 74%), radial-gradient(ellipse 24% 20% at 38% 64%, rgba(255,75,0,0.38) 0%, transparent 74%), radial-gradient(ellipse 22% 18% at 82% 86%, rgba(255,75,0,0.34) 0%, transparent 72%)",
+              "radial-gradient(ellipse 22% 18% at 18% 14%, rgba(255,255,255,0.17) 0%, transparent 72%), radial-gradient(ellipse 24% 20% at 62% 36%, rgba(248,246,242,0.14) 0%, transparent 74%), radial-gradient(ellipse 24% 20% at 38% 64%, rgba(235,232,226,0.12) 0%, transparent 74%), radial-gradient(ellipse 22% 18% at 82% 86%, rgba(220,216,210,0.11) 0%, transparent 72%)",
             mixBlendMode: "screen",
-            filter: `blur(${breathe(loopProgress(progressSeconds, 5), 22, 30)}px)`,
+            filter: `blur(${breathe(loopProgress(progressSeconds, 5), 24, 32)}px)`,
             transform: poseTransform(interpolatePose(BLOOM_STOPS, bloomProgress)),
           }}
         />
         <div
           style={{
             ...absoluteLayer(2, "-44%"),
-            opacity: breathe(glowBreatheProgress, 0.32, 0.5),
+            opacity: breathe(glowBreatheProgress, 0.24, 0.38),
             background:
-              "radial-gradient(ellipse 32% 24% at 20% 18%, rgba(255,75,0,0.28) 0%, transparent 76%), radial-gradient(ellipse 34% 26% at 62% 40%, rgba(255,122,43,0.24) 0%, transparent 78%), radial-gradient(ellipse 34% 26% at 40% 62%, rgba(255,122,43,0.22) 0%, transparent 78%), radial-gradient(ellipse 32% 24% at 80% 84%, rgba(255,75,0,0.2) 0%, transparent 76%)",
+              "radial-gradient(ellipse 32% 24% at 20% 18%, rgba(255,255,255,0.11) 0%, transparent 76%), radial-gradient(ellipse 34% 26% at 62% 40%, rgba(242,240,236,0.09) 0%, transparent 78%), radial-gradient(ellipse 34% 26% at 40% 62%, rgba(232,228,222,0.08) 0%, transparent 78%), radial-gradient(ellipse 32% 24% at 80% 84%, rgba(220,216,210,0.07) 0%, transparent 76%)",
             mixBlendMode: "screen",
-            filter: "blur(56px)",
+            filter: "blur(60px)",
             transform: poseTransform(interpolatePose(GLOW_STOPS, glowProgress)),
           }}
         />
@@ -120,9 +120,9 @@ export const ExportAnimatedPosterBackground = memo(
         <div
           style={{
             ...absoluteLayer(4, "-10%"),
-            opacity: 0.34,
+            opacity: 0.28,
             background:
-              "linear-gradient(112deg, transparent 30%, rgba(255,210,170,0.06) 46%, rgba(255,230,200,0.1) 52%, rgba(255,210,170,0.06) 58%, transparent 74%)",
+              "linear-gradient(112deg, transparent 30%, rgba(255,255,255,0.03) 46%, rgba(248,246,242,0.055) 52%, rgba(255,255,255,0.03) 58%, transparent 74%)",
             backgroundSize: "220% 100%",
             backgroundPosition: `${-60 + 220 * sweepProgress}% 0`,
             mixBlendMode: "soft-light",

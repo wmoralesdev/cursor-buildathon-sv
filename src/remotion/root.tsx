@@ -13,6 +13,8 @@ import {
 } from "./welcome-card-composition";
 import { EVENT_INTRO_DURATION_FRAMES } from "../components/event-intro-spec";
 import { EventIntroComposition } from "./event-intro-composition";
+import { MENTOR_CALLOUT_DURATION_FRAMES } from "../components/mentor-callout-spec";
+import { MentorCalloutComposition } from "./mentor-callout-composition";
 
 const DEFAULT_PROPS: WelcomeCardCompositionProps = {
   handle: "@yourhandle",
@@ -58,6 +60,24 @@ export function RemotionRoot() {
         id="event-intro-story"
         component={EventIntroComposition}
         durationInFrames={EVENT_INTRO_DURATION_FRAMES}
+        fps={VIDEO_FPS}
+        width={story.width}
+        height={story.height}
+        defaultProps={{ aspectFormat: "story" }}
+      />
+      <Composition
+        id="mentor-callout-post"
+        component={MentorCalloutComposition}
+        durationInFrames={MENTOR_CALLOUT_DURATION_FRAMES}
+        fps={VIDEO_FPS}
+        width={post.width}
+        height={post.height}
+        defaultProps={{ aspectFormat: "post" }}
+      />
+      <Composition
+        id="mentor-callout-story"
+        component={MentorCalloutComposition}
+        durationInFrames={MENTOR_CALLOUT_DURATION_FRAMES}
         fps={VIDEO_FPS}
         width={story.width}
         height={story.height}

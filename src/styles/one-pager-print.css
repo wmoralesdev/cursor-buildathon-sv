@@ -102,6 +102,96 @@
   /* Do not use overflow-x:hidden — Figma html-to-design clips text to the frame instead of wrapping */
 }
 
+@media screen {
+  .one-pager-root[data-onepager-joined-sponsors] .one-pager-sheet {
+    min-height: auto;
+    padding-bottom: 0.34in;
+  }
+}
+
+/* Joined sponsors: activation + coverage bento (12-col ops brief) */
+.one-pager-joined-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto;
+  grid-template-areas:
+    "act-head act-head act-head act-head act-head act-head cov-head cov-head cov-head cov-head cov-head cov-head"
+    "opening opening opening opening opening opening brand brand brand brand brand brand"
+    "content content content content relations relations relations relations post post post post"
+    "talent talent talent talent talent talent mentors mentors mentors mentors mentors mentors"
+    "email email email email email email email email email email email email";
+}
+
+.one-pager-bento-head {
+  border-bottom: 1px solid var(--border);
+  padding: 0.45rem 0.5rem 0.35rem;
+}
+
+.one-pager-bento-head-activation {
+  grid-area: act-head;
+  border-right: 1px solid var(--border);
+}
+
+.one-pager-bento-head-coverage {
+  grid-area: cov-head;
+}
+
+.one-pager-bento-head .font-mono {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.one-pager-bento-tile {
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.one-pager-bento-tile-opening {
+  grid-area: opening;
+}
+
+.one-pager-bento-tile-brand {
+  grid-area: brand;
+}
+
+.one-pager-bento-tile-content {
+  grid-area: content;
+}
+
+.one-pager-bento-tile-relations {
+  grid-area: relations;
+}
+
+.one-pager-bento-tile-post {
+  grid-area: post;
+}
+
+.one-pager-bento-tile-talent {
+  grid-area: talent;
+}
+
+.one-pager-bento-tile-mentors {
+  grid-area: mentors;
+  border-right: none;
+}
+
+.one-pager-bento-tile-featured {
+  box-shadow: inset 3px 0 0 rgba(255, 75, 0, 0.45);
+}
+
+.one-pager-bento-tile-brand,
+.one-pager-bento-tile-post {
+  border-right: none;
+}
+
+.one-pager-bento-tile-email {
+  grid-area: email;
+  border-bottom: none;
+  border-right: none;
+  border-top: 1px solid rgba(255, 75, 0, 0.22);
+}
+
 /* Grid/flex children default to min-width:auto and refuse to shrink — breaks Figma capture */
 .one-pager-sheet .one-pager-cols-main {
   min-width: 0;
@@ -118,14 +208,19 @@
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(140, 130, 120, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(140, 130, 120, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(140, 130, 120, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 130, 120, 0.11) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
 }
 
 .one-pager-white .one-pager-grid {
-  opacity: 0.45;
+  opacity: 0.65;
+}
+
+/* Top meta bar: logo + event name + date/venue */
+.one-pager-header-meta-bar {
+  min-height: 1.65rem;
 }
 
 /* Header: date / venue block on the right */
@@ -134,7 +229,7 @@
 }
 @media (min-width: 640px) {
   .one-pager-header-meta {
-    max-width: min(48%, 14rem);
+    max-width: min(48%, 16rem);
   }
 }
 
@@ -288,7 +383,7 @@
   }
 
   .one-pager-grid {
-    opacity: 0.35;
+    opacity: 0.5;
   }
 
   .one-pager-no-print {

@@ -1,17 +1,19 @@
 /* eslint-disable react-refresh/only-export-components -- Entry module defines dev-only route helpers and JSX route trees */
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "./context/language-context";
 import App from "./app";
 import "./index.css";
-import { OnePagerGate } from "./components/one-pager-gate";
 import { LandingPage } from "./pages/landing-page";
-import { OnePagerPage } from "./pages/one-pager";
-import { OnePagerBoxfulPage } from "./pages/one-pager-boxful";
-import { OnePagerNiuPage } from "./pages/one-pager-niu";
+import { PrizesOnePagerPage } from "./pages/prizes-one-pager";
+import { MentorOnePagerPage } from "./pages/mentor-one-pager";
+import { JudgesOnePagerPage } from "./pages/judges-one-pager";
+import { SobrecupoOnePagerPage } from "./pages/sobrecupo-one-pager";
+import { JoinedSponsorsOnePagerPage } from "./pages/joined-sponsors-one-pager";
 import { BuildathonWelcomePage } from "./pages/buildathon-welcome-page";
+import { NotFoundPage } from "./pages/not-found-page";
 import { SPONSOR_MAILTO } from "./constants";
 
 let sponsorBriefRedirectIssued = false;
@@ -26,41 +28,53 @@ function BriefToSponsorMail() {
   return null;
 }
 
-const onePagerTheme = (
+const onePagerPrizesTheme = (
   <LanguageProvider>
     <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
-      <OnePagerGate>
-        <OnePagerPage />
-      </OnePagerGate>
+      <PrizesOnePagerPage />
     </ThemeProvider>
   </LanguageProvider>
 );
 
-const onePagerNiuTheme = (
+const onePagerJoinedSponsorsTheme = (
   <LanguageProvider>
     <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
-      <OnePagerGate>
-        <OnePagerNiuPage />
-      </OnePagerGate>
+      <JoinedSponsorsOnePagerPage />
     </ThemeProvider>
   </LanguageProvider>
 );
 
-const onePagerBoxfulTheme = (
+const onePagerMentorsTheme = (
   <LanguageProvider>
     <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
-      <OnePagerGate>
-        <OnePagerBoxfulPage />
-      </OnePagerGate>
+      <MentorOnePagerPage />
+    </ThemeProvider>
+  </LanguageProvider>
+);
+
+const onePagerJudgesTheme = (
+  <LanguageProvider>
+    <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
+      <JudgesOnePagerPage />
+    </ThemeProvider>
+  </LanguageProvider>
+);
+
+const onePagerSobrecupoTheme = (
+  <LanguageProvider>
+    <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} forcedTheme="light" disableTransitionOnChange>
+      <SobrecupoOnePagerPage />
     </ThemeProvider>
   </LanguageProvider>
 );
 
 const devOnlyRoutes = import.meta.env.DEV
   ? [
-      { path: "/onepager", element: onePagerTheme },
-      { path: "/onepager-niu", element: onePagerNiuTheme },
-      { path: "/onepager-boxful", element: onePagerBoxfulTheme },
+      { path: "/onepager-prizes", element: onePagerPrizesTheme },
+      { path: "/onepager-sponsors", element: onePagerJoinedSponsorsTheme },
+      { path: "/onepager-mentors", element: onePagerMentorsTheme },
+      { path: "/onepager-judges", element: onePagerJudgesTheme },
+      { path: "/onepager-sobrecupo", element: onePagerSobrecupoTheme },
     ]
   : [];
 
@@ -70,7 +84,7 @@ const mainLayoutRoutes = [
   ...(import.meta.env.DEV
     ? [{ path: "/brief", element: <BriefToSponsorMail /> }]
     : []),
-  ...(import.meta.env.PROD ? [{ path: "*", element: <Navigate to="/" replace /> }] : []),
+  { path: "*", element: <NotFoundPage /> },
 ];
 
 const router = createBrowserRouter([

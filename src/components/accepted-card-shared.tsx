@@ -1,4 +1,5 @@
 import type { AspectFormat } from "../pages/buildathon-welcome-types";
+import { EXPORT_CHALK_FRAME_BORDER } from "./export-chalk-accent";
 
 export type AcceptedCardProps = {
   handle: string;
@@ -12,7 +13,7 @@ export type AcceptedCardProps = {
 export const CURSOR_DARK_LOGO = "/sponsors/cursor-dark.svg";
 
 export const ACCEPTED_LABEL_CLASS =
-  "font-mono font-medium uppercase leading-tight tracking-[0.04em] text-[#ff4b00]";
+  "font-mono font-medium uppercase leading-tight tracking-[0.04em] text-[#f4f2eb]";
 
 export function PhotoFrame({
   imageUrl,
@@ -29,8 +30,7 @@ export function PhotoFrame({
     ? "font-mono text-[clamp(0.75rem,2.85cqmin,4.05cqmin)] uppercase tracking-[0.18em] text-[#555]"
     : "font-mono text-[clamp(0.875rem,3.25cqmin,4.75cqmin)] uppercase tracking-[0.18em] text-[#555]";
 
-  const defaultFrameShadow =
-    "inset 0 0 0 1px rgba(255, 75, 0, 0.25), 0 8px 40px -12px rgba(0, 0, 0, 0.6)";
+  const defaultFrameShadow = `inset 0 0 0 1px ${EXPORT_CHALK_FRAME_BORDER}, 0 8px 40px -12px rgba(0, 0, 0, 0.6)`;
 
   return (
     <div
@@ -87,10 +87,13 @@ export function EventHeader({
 export function EventInfoBlock(
   {
     compact,
+    showVenue = true,
     poweredByLogoSrc = "/sponsors/ailabs.svg",
     poweredByLogoClassName = "h-[1.32em]",
   }: {
     compact?: boolean;
+    /** When false, footer shows date only (no venue label). */
+    showVenue?: boolean;
     /** Use `staticFile("sponsors/ailabs.svg")` in Remotion compositions. */
     poweredByLogoSrc?: string;
     /** Tailwind height/size classes for the powered-by mark (default sized for welcome card). */
@@ -104,7 +107,7 @@ export function EventInfoBlock(
 
   return (
     <div className={rowClass}>
-      <span>Jul 4th · UFG</span>
+      <span>{showVenue ? "Jul 4th · UFG" : "Jul 4th"}</span>
       <span className="select-none opacity-45" aria-hidden>
         ·
       </span>

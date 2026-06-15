@@ -4,6 +4,7 @@ import { staticFile } from "remotion";
 import type { AspectFormat } from "../pages/buildathon-welcome-types";
 import { ACCEPTED_LABEL_CLASS, EventInfoBlock } from "./accepted-card-shared";
 import { ExportCursorLogo } from "./export-logo-marks";
+import { EXPORT_CHALK_DIVIDER } from "./export-chalk-accent";
 import type { SponsorSpotKey } from "./sponsor-spot-logo";
 import { SponsorSpotChatWindow } from "./sponsor-spot-chat-window";
 
@@ -15,7 +16,7 @@ export type SponsorSpotExportContentProps = {
 
 const ACCENT_DIVIDER: CSSProperties = {
   height: 1,
-  background: "rgba(255, 75, 0, 0.32)",
+  background: EXPORT_CHALK_DIVIDER,
   width: "100%",
 };
 
@@ -32,9 +33,11 @@ export const SponsorSpotExportContent = memo(function SponsorSpotExportContent(
 export function SponsorSpotCornerHeader({
   compact,
   eventName,
+  sponsorEyebrow = "Official sponsor",
 }: {
   compact?: boolean;
   eventName: string;
+  sponsorEyebrow?: string;
 }) {
   const titleClamp = compact
     ? "text-[clamp(0.625rem,2.15cqmin,3.05cqmin)]"
@@ -51,7 +54,7 @@ export function SponsorSpotCornerHeader({
         Cursor {eventName}
       </p>
       <p className={`mt-0.5 ${ACCEPTED_LABEL_CLASS} ${sponsorEyebrowClamp}`}>
-        Official sponsor
+        {sponsorEyebrow}
       </p>
     </div>
   );
