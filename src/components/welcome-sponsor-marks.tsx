@@ -143,7 +143,7 @@ export function SponsorMarkNubiwork(props: SponsorMarkProps) {
     <SponsorMarkSlot {...props} innerScale={1.16}>
       <img
         src={SPONSOR_SRC.nubiwork}
-        alt="Nubiwork"
+        alt="Nub;Work"
         draggable={false}
         style={slateLogoImgStyle()}
       />

@@ -303,7 +303,7 @@ function renderSponsorMark(
         <LogoWrap innerScale={format === "story" ? 0.4 : 0.5}>
           <img
             src={sponsorPublicAsset("nubiwork-dark.svg")}
-            alt="Nubiwork"
+            alt="Nub;Work"
             draggable={false}
             style={logoStyle({ bloomProgress })}
           />

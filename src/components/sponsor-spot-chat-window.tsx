@@ -14,7 +14,7 @@ const SPONSOR_DISPLAY_NAME: Record<SponsorSpotKey, string> = {
   abaco: "Abaco",
   "021": "Zero Two One",
   yonjob: "Yonjob",
-  nubiwork: "NubiWork",
+  nubiwork: "Nub;Work",
   kreali: "Kreali",
   weris: "weris",
   boxful: "boxful",

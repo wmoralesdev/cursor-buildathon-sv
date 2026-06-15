@@ -14,7 +14,7 @@ const PARTNER_LABELS: Record<SponsorSpotKey, string> = {
   abaco: "Abaco",
   "021": "Zero Two One",
   yonjob: "Yonjob",
-  nubiwork: "Nubiwork",
+  nubiwork: "Nub;Work",
   kreali: "Kreali",
   weris: "Weris",
   boxful: "Boxful",

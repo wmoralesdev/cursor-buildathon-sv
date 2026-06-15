@@ -35,7 +35,7 @@ export const sponsors: Sponsor[] = [
   },
   {
     id: "nubiwork",
-    name: "NubiWork",
+    name: "Nub;Work",
     url: "https://nubi.work/",
     tier: "product",
   },
