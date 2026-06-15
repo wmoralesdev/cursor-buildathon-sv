@@ -1,7 +1,7 @@
 import { WELCOME_CARD_SPONSOR_MARK_KEYS } from "../components/welcome-sponsor-marks";
 
 /** GameSquad, SearchYou, DMA, Drop, Netlify, Wispr, Fal, and Exa share the final rows for breathing room. */
-export const WELCOME_POST_SPONSOR_ROW_LENGTHS = [4, 4, 4, 4, 4] as const;
+export const WELCOME_POST_SPONSOR_ROW_LENGTHS = [4, 4, 4, 4, 4, 4] as const;
 
 /** Story layout only — swap Drop into GameSquad's slot and vice versa. */
 export function buildWelcomeStorySponsorDisplayIndices(markCount: number): number[] {

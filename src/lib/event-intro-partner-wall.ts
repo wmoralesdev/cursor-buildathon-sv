@@ -47,6 +47,12 @@ function buildEventIntroPostRowIndices(markCount: number): number[][] {
       sponsorIndex("fal"),
       sponsorIndex("exa"),
     ],
+    [
+      sponsorIndex("svnet"),
+      sponsorIndex("firecrawl"),
+      sponsorIndex("datamcp"),
+      sponsorIndex("rcns"),
+    ],
   ];
 }
 
@@ -106,6 +112,8 @@ function buildEventIntroStoryRowIndices(markCount: number): number[][] {
     [sponsorIndex("drop")],
     [sponsorIndex("netlify"), sponsorIndex("wispr")],
     [sponsorIndex("fal"), sponsorIndex("exa")],
+    [sponsorIndex("svnet"), sponsorIndex("firecrawl")],
+    [sponsorIndex("datamcp"), sponsorIndex("rcns")],
   ];
 }
 

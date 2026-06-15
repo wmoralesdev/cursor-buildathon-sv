@@ -23,6 +23,10 @@ const SPONSOR_SRC = {
   wispr: staticFile("sponsors/wispr-dark.svg"),
   fal: staticFile("sponsors/fal-dark.svg"),
   exa: staticFile("sponsors/exa-dark.svg"),
+  svnet: staticFile("sponsors/svnet-dark.svg"),
+  firecrawl: staticFile("sponsors/firecrawl-dark.svg"),
+  datamcp: staticFile("sponsors/datamcp.svg"),
+  rcns: staticFile("sponsors/rcns-dark.svg"),
 } as const;
 
 export type SponsorMarkProps = {
@@ -52,6 +56,10 @@ export const WELCOME_CARD_SPONSOR_MARK_KEYS = [
   "wispr",
   "fal",
   "exa",
+  "svnet",
+  "firecrawl",
+  "datamcp",
+  "rcns",
   "drop",
 ] as const;
 
@@ -367,6 +375,58 @@ export function SponsorMarkExa(props: SponsorMarkProps) {
   );
 }
 
+export function SponsorMarkSvnet(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.svnet}
+        alt="SVNet"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkFirecrawl(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.firecrawl}
+        alt="Firecrawl"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkDatamcp(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.datamcp}
+        alt="DataMCP"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
+export function SponsorMarkRcns(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.rcns}
+        alt="RCNS"
+        draggable={false}
+        style={slateLogoImgStyle()}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
 export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkCodex,
   SponsorMarkN8n,
@@ -387,5 +447,9 @@ export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkWispr,
   SponsorMarkFal,
   SponsorMarkExa,
+  SponsorMarkSvnet,
+  SponsorMarkFirecrawl,
+  SponsorMarkDatamcp,
+  SponsorMarkRcns,
   SponsorMarkDrop,
 ] as const;

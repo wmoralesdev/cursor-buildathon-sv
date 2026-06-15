@@ -25,6 +25,10 @@ const SPONSOR_DISPLAY_NAME: Record<SponsorSpotKey, string> = {
   wispr: "wispr",
   fal: "fal",
   exa: "exa",
+  svnet: "svnet",
+  firecrawl: "firecrawl",
+  datamcp: "datamcp",
+  rcns: "rcns",
   drop: "drop",
 };
 

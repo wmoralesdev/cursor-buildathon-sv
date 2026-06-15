@@ -19,6 +19,10 @@ import { NetlifyLogo } from "./netlify-logo";
 import { WisprLogo } from "./wispr-logo";
 import { FalLogo } from "./fal-logo";
 import { ExaLogo } from "./exa-logo";
+import { SvnetLogo } from "./svnet-logo";
+import { FirecrawlLogo } from "./firecrawl-logo";
+import { DatamcpLogo } from "./datamcp-logo";
+import { RcnsLogo } from "./rcns-logo";
 
 export type { BrandLogoProps } from "./logo-props";
 export type { OnePagerSponsorLogoId, ProductSponsorId } from "./sponsor-logo-ids";
@@ -45,6 +49,10 @@ export { NetlifyLogo } from "./netlify-logo";
 export { WisprLogo } from "./wispr-logo";
 export { FalLogo } from "./fal-logo";
 export { ExaLogo } from "./exa-logo";
+export { SvnetLogo } from "./svnet-logo";
+export { FirecrawlLogo } from "./firecrawl-logo";
+export { DatamcpLogo } from "./datamcp-logo";
+export { RcnsLogo } from "./rcns-logo";
 export { ZavuLogo } from "./zavu-logo";
 
 export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<BrandLogoProps>> = {
@@ -66,4 +74,8 @@ export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<Bran
   wispr: WisprLogo,
   fal: FalLogo,
   exa: ExaLogo,
+  svnet: SvnetLogo,
+  firecrawl: FirecrawlLogo,
+  datamcp: DatamcpLogo,
+  rcns: RcnsLogo,
 };

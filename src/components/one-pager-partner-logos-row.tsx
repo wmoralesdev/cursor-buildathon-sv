@@ -25,6 +25,10 @@ const PARTNER_LABELS: Record<SponsorSpotKey, string> = {
   wispr: "Wispr",
   fal: "Fal",
   exa: "Exa",
+  svnet: "SVNet",
+  firecrawl: "Firecrawl",
+  datamcp: "DataMCP",
+  rcns: "RCNS",
   drop: "Drop",
 };
 
@@ -49,6 +53,10 @@ const ONE_PAGER_PARTNER_LOGO_CLASS: Record<SponsorSpotKey, string> = {
   wispr: "h-[1.04rem] w-auto max-w-[4.43rem] object-contain",
   fal: "h-[1.15rem] w-auto max-w-[3.62rem] object-contain",
   exa: "h-[1.04rem] w-auto max-w-[3.97rem] object-contain",
+  svnet: "h-[1.04rem] w-auto max-w-[4.08rem] object-contain",
+  firecrawl: "h-[1.04rem] w-auto max-w-[4.26rem] object-contain",
+  datamcp: "h-[1.04rem] w-auto max-w-[4.08rem] object-contain",
+  rcns: "h-[1.04rem] w-auto max-w-[4.08rem] object-contain",
   drop: "h-[1.01rem] w-auto max-w-[3.62rem] object-contain",
 };
 

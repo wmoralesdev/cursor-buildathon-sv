@@ -430,6 +430,50 @@ function renderSponsorMark(
           />
         </LogoWrap>
       );
+    case "svnet":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("svnet-dark.svg")}
+            alt="SVNet"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "firecrawl":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("firecrawl-dark.svg")}
+            alt="Firecrawl"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "datamcp":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("datamcp.svg")}
+            alt="DataMCP"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
+    case "rcns":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("rcns-dark.svg")}
+            alt="RCNS"
+            draggable={false}
+            style={logoStyle({ bloomProgress })}
+          />
+        </LogoWrap>
+      );
   }
 
   // Defensive fallback (should be unreachable thanks to the exhaustive switch).

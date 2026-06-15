@@ -1,152 +1,37 @@
-import {
-  type ComponentType,
-  type CSSProperties,
-  type PointerEvent as ReactPointerEvent,
-  type MouseEvent as ReactMouseEvent,
-  type Ref,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import { motion, useAnimationFrame, useReducedMotion } from "motion/react";
+import type { ComponentType } from "react";
+import { motion } from "motion/react";
 import { ArrowUpRight, Calendar, MapPin, Users } from "lucide-react";
 
 import { CountdownTimer } from "./countdown-timer";
-import { HeroTldr } from "./hero-tldr";
-import type { BrandLogoProps, ProductSponsorId } from "./sponsor-logos";
 import {
-  CursorLockup,
-  productSponsorLogoById,
-  ZavuLogo,
-} from "./sponsor-logos";
+  LEAD_PARTNERS,
+  LEAD_PARTNERS_ROW_1,
+  LEAD_PARTNERS_ROW_2,
+} from "./hero-section/hero-partner-config";
+import { LeadPartnerLink } from "./hero-section/lead-partner-link";
+import { SponsorRail } from "./hero-section/sponsor-rail";
 import { SPONSOR_MAILTO } from "../constants";
-import { sponsors, type Sponsor } from "../data/sponsors";
 import { useTranslation } from "../context/language-context";
 import type { TranslationKey } from "../i18n/translations";
-
-type HeroPartnerId = ProductSponsorId | "zavu";
-const ZAVU_URL = "https://zavu.dev";
-
-const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
-  zavu:     "h-[1.375rem] w-auto max-w-[6.5rem] object-contain object-left",
-  n8n:      "h-7 w-auto max-w-[8rem] object-contain object-left",
-  codex:    "h-9 w-auto max-w-[9rem] object-contain object-left",
-  yonjob:   "h-8 w-auto max-w-[9rem] object-contain object-left",
-  nubiwork: "h-11 w-auto max-w-[12rem] object-contain object-left",
-  abaco:    "h-6 w-auto max-w-[7.5rem] object-contain object-left",
-  elevenlabs: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
-  simov: "h-6 w-auto max-w-[8rem] object-contain object-left",
-  kreali: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
-  weris: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
-  boxful: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
-  drop: "h-6 w-auto max-w-[7.5rem] object-contain object-left",
-  gamesquad: "h-10 w-auto max-w-[12rem] object-contain object-left",
-  searchyou: "h-6 w-auto max-w-[8.5rem] object-contain object-left",
-  dma: "h-6 w-auto max-w-[9.5rem] object-contain object-left",
-  netlify: "h-6 w-auto max-w-[9rem] object-contain object-left",
-  wispr: "h-6 w-auto max-w-[9rem] object-contain object-left",
-  fal: "h-7 w-auto max-w-[7rem] object-contain object-left",
-  exa: "h-6 w-auto max-w-[8rem] object-contain object-left",
-};
-
-const PARTNER_ORDER: readonly HeroPartnerId[] = [
-  "n8n",
-  "codex",
-  "yonjob",
-  "nubiwork",
-  "abaco",
-  "elevenlabs",
-  "simov",
-  "kreali",
-  "weris",
-  "boxful",
-  "drop",
-  "gamesquad",
-  "searchyou",
-  "dma",
-  "netlify",
-  "wispr",
-  "fal",
-  "exa",
-  "zavu",
-] as const;
-
-interface RailEntry {
-  id: HeroPartnerId;
-  href: string;
-  label: string;
-  Logo: ComponentType<BrandLogoProps>;
-  className: string;
-}
-
-function buildRail(): RailEntry[] {
-  return PARTNER_ORDER.map((id) => {
-    if (id === "zavu") {
-      return {
-        id,
-        href: ZAVU_URL,
-        label: "Zavu",
-        Logo: ZavuLogo,
-        className: RAIL_LOGO_CLASS[id],
-      };
-    }
-    const s = sponsors.find((x) => x.id === id);
-    if (!s) throw new Error(`hero: sponsor "${id}" missing`);
-    return {
-      id,
-      href: s.url,
-      label: s.name,
-      Logo: productSponsorLogoById[id],
-      className: RAIL_LOGO_CLASS[id],
-    };
-  });
-}
-
-const PARTNER_RAIL = buildRail();
-
-function requireSponsor(id: ProductSponsorId): Sponsor {
-  const s = sponsors.find((x) => x.id === id);
-  if (!s) throw new Error(`hero: sponsor "${id}" missing`);
-  return s;
-}
-
-type LeadPartnerId = "codex" | "elevenlabs" | "netlify" | "wispr" | "fal" | "exa";
-
-const LEAD_PARTNER_ORDER: readonly LeadPartnerId[] = [
-  "codex",
-  "elevenlabs",
-  "netlify",
-  "wispr",
-  "fal",
-  "exa",
-] as const;
-
-const LEAD_LOGO_CLASS: Record<LeadPartnerId, string> = {
-  codex: "h-11 w-auto max-w-[12rem] sm:h-[3.25rem] sm:max-w-[15rem] object-contain object-left",
-  elevenlabs: "h-7 w-auto max-w-[9rem] sm:h-9 sm:max-w-[10rem] object-contain object-left",
-  netlify: "h-9 w-auto max-w-[11.5rem] sm:h-[2.75rem] sm:max-w-[13.5rem] object-contain object-left",
-  wispr: "h-7 w-auto max-w-[9rem] sm:h-9 sm:max-w-[10rem] object-contain object-left",
-  fal: "h-8 w-auto max-w-[7rem] sm:h-10 sm:max-w-[8rem] object-contain object-left",
-  exa: "h-7 w-auto max-w-[8rem] sm:h-9 sm:max-w-[9rem] object-contain object-left",
-};
-
-const LEAD_PARTNERS = LEAD_PARTNER_ORDER.map((id) => {
-  const entry = requireSponsor(id);
-  return {
-    id,
-    href: entry.url,
-    label: entry.name,
-    Logo: productSponsorLogoById[id],
-    className: LEAD_LOGO_CLASS[id],
-  };
-});
 
 interface BriefRow {
   Icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   labelKey: TranslationKey;
   valueKey: TranslationKey;
   subKey: TranslationKey;
+}
+
+function HeroCountdown() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="flex flex-col items-center">
+      <p className="font-mono text-[0.6rem] tracking-[0.2em] text-accent uppercase mb-2 text-center">
+        {t("hero.countdownLabel")}
+      </p>
+      <CountdownTimer />
+    </div>
+  );
 }
 
 const BRIEF_ROWS: BriefRow[] = [
@@ -181,11 +66,9 @@ export function HeroSection() {
       <div className="absolute inset-0 pointer-events-none bg-grid mask-radial-hero opacity-70" />
       <div className="absolute inset-x-0 top-0 h-[60vh] pointer-events-none glow-top-center opacity-80" />
 
-      {/* One block: grid + sponsor rail, centered in the viewport band below the in-flow nav */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center section-padding py-8 sm:py-10">
         <div className="mx-auto w-full max-w-[1400px]">
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-            {/* Left column — value proposition + CTAs */}
             <motion.div
               className="lg:col-span-7 flex flex-col"
               initial={{ opacity: 0, y: 20 }}
@@ -207,40 +90,31 @@ export function HeroSection() {
                 <p className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-fg-4 mb-3">
                   {t("hero.tierPartners.label")}
                 </p>
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-3 sm:gap-x-8">
-                  {LEAD_PARTNERS.map((partner) => {
-                    const Logo = partner.Logo;
-                    return (
-                      <a
-                        key={partner.id}
-                        href={partner.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex min-h-11 items-center py-1 opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.02] active:scale-[0.98]"
-                        aria-label={`${partner.label} — product partner`}
-                      >
-                        <Logo alt={partner.label} className={partner.className} />
-                      </a>
-                    );
-                  })}
+                <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 sm:gap-x-5 lg:hidden">
+                  {LEAD_PARTNERS.map((partner) => (
+                    <LeadPartnerLink key={partner.id} partner={partner} />
+                  ))}
+                </div>
+                <div className="hidden lg:flex lg:flex-col lg:gap-y-2">
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                    {LEAD_PARTNERS_ROW_1.map((partner) => (
+                      <LeadPartnerLink key={partner.id} partner={partner} />
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                    {LEAD_PARTNERS_ROW_2.map((partner) => (
+                      <LeadPartnerLink key={partner.id} partner={partner} />
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <HeroTldr />
-
-              <p className="mt-7 max-w-[58ch] font-display text-base sm:text-[1.05rem] text-fg-2 leading-[1.75]">
-                {t("hero.lede")}
-              </p>
-
-              <div className="mt-9 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-7">
-                <div>
-                  <p className="font-mono text-[0.6rem] tracking-[0.2em] text-accent uppercase mb-2">
-                    {t("hero.countdownLabel")}
-                  </p>
-                  <CountdownTimer />
+              <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row sm:items-center lg:flex-row lg:items-center gap-5 sm:gap-7 lg:gap-0">
+                <div className="lg:hidden">
+                  <HeroCountdown />
                 </div>
-                <div className="hidden sm:block h-12 w-px bg-border-faint" />
-                <div className="inline-flex flex-wrap gap-3">
+                <div className="hidden sm:block lg:hidden h-12 w-px bg-border-faint" />
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center lg:flex-row lg:flex-nowrap">
                   <a
                     href={SPONSOR_MAILTO}
                     className="btn-phosphor inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm py-2.5 px-5 no-underline"
@@ -257,14 +131,16 @@ export function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Right column — sponsor decision brief */}
             <motion.aside
-              className="lg:col-span-5 w-full"
+              className="lg:col-span-5 flex w-full flex-col gap-4"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               aria-labelledby="hero-brief-title"
             >
+              <div className="hidden lg:block">
+                <HeroCountdown />
+              </div>
               <div className="relative border border-border bg-bg-raised/80 backdrop-blur-sm">
                 <span className="pointer-events-none absolute -top-px left-6 right-6 h-px bg-linear-to-r from-transparent via-accent/50 to-transparent" />
 
@@ -323,259 +199,11 @@ export function HeroSection() {
             </motion.aside>
           </div>
 
-          {/* Sponsor logo rail — composed as part of the hero block */}
           <div className="mt-12 lg:mt-14">
             <SponsorRail />
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-const MARQUEE_PX_PER_SECOND = 40;
-const MARQUEE_DRAG_THRESHOLD_PX = 6;
-
-function wrapMarqueeOffset(offset: number, groupWidth: number): number {
-  if (groupWidth <= 0) return offset;
-  let wrapped = offset % groupWidth;
-  if (wrapped > 0) wrapped -= groupWidth;
-  return wrapped;
-}
-
-function SponsorRail() {
-  const { t } = useTranslation();
-  const prefersReducedMotion = useReducedMotion();
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const measureGroupRef = useRef<HTMLDivElement>(null);
-  const [groupWidth, setGroupWidth] = useState<number>(0);
-  const [copies, setCopies] = useState<number>(2);
-  const [isDragging, setIsDragging] = useState(false);
-  const offsetRef = useRef(0);
-  const lastFrameRef = useRef<number | null>(null);
-  const dragSessionRef = useRef({
-    active: false,
-    startX: 0,
-    startOffset: 0,
-    moved: false,
-  });
-
-  const applyTrackOffset = useCallback((offset: number) => {
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translate3d(${offset}px, 0, 0)`;
-    }
-  }, []);
-
-  useLayoutEffect(() => {
-    const viewport = viewportRef.current;
-    const group = measureGroupRef.current;
-    if (!viewport || !group) return;
-
-    const measure = () => {
-      const vw = viewport.clientWidth;
-      const gw = group.offsetWidth;
-      if (gw <= 0 || vw <= 0) return;
-
-      setGroupWidth(gw);
-      setCopies(Math.max(2, Math.ceil(vw / gw) + 1));
-      offsetRef.current = wrapMarqueeOffset(offsetRef.current, gw);
-      applyTrackOffset(offsetRef.current);
-    };
-
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(viewport);
-    ro.observe(group);
-    return () => ro.disconnect();
-  }, [applyTrackOffset]);
-
-  useAnimationFrame((time) => {
-    if (prefersReducedMotion || dragSessionRef.current.active || groupWidth <= 0) return;
-
-    if (lastFrameRef.current === null) {
-      lastFrameRef.current = time;
-      return;
-    }
-
-    const dt = (time - lastFrameRef.current) / 1000;
-    lastFrameRef.current = time;
-    offsetRef.current = wrapMarqueeOffset(
-      offsetRef.current - MARQUEE_PX_PER_SECOND * dt,
-      groupWidth,
-    );
-    applyTrackOffset(offsetRef.current);
-  });
-
-  const handlePointerDown = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.button !== 0) return;
-    if ((event.target as Element).closest("a[href]")) return;
-    dragSessionRef.current = {
-      active: true,
-      startX: event.clientX,
-      startOffset: offsetRef.current,
-      moved: false,
-    };
-    setIsDragging(true);
-    lastFrameRef.current = null;
-    event.currentTarget.setPointerCapture(event.pointerId);
-  }, []);
-
-  const handlePointerMove = useCallback(
-    (event: ReactPointerEvent<HTMLDivElement>) => {
-      if (!dragSessionRef.current.active || groupWidth <= 0) return;
-
-      const deltaX = event.clientX - dragSessionRef.current.startX;
-      if (Math.abs(deltaX) > MARQUEE_DRAG_THRESHOLD_PX) {
-        dragSessionRef.current.moved = true;
-      }
-
-      offsetRef.current = wrapMarqueeOffset(
-        dragSessionRef.current.startOffset + deltaX,
-        groupWidth,
-      );
-      applyTrackOffset(offsetRef.current);
-    },
-    [applyTrackOffset, groupWidth],
-  );
-
-  const endDrag = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!dragSessionRef.current.active) return;
-    dragSessionRef.current.active = false;
-    setIsDragging(false);
-    lastFrameRef.current = null;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-  }, []);
-
-  const handleClickCapture = useCallback((event: ReactMouseEvent<HTMLDivElement>) => {
-    if (dragSessionRef.current.moved) {
-      event.preventDefault();
-      event.stopPropagation();
-      dragSessionRef.current.moved = false;
-    }
-  }, []);
-
-  const trackStyle: CSSProperties = {
-    willChange: "transform",
-  };
-
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      aria-label="Event sponsors and product partners"
-    >
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
-        <div>
-          <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-accent">
-            {t("hero.partnersLabel")}
-          </p>
-          <p className="mt-1.5 font-display text-sm text-fg-3 leading-snug max-w-md">
-            {t("hero.partnersSubLabel")}
-          </p>
-        </div>
-        <div className="hidden sm:flex items-center gap-2 font-mono text-[0.6rem] tracking-[0.2em] uppercase text-fg-5">
-          <span className="h-1 w-1 rounded-full bg-accent shadow-[0_0_6px_rgba(255,75,0,0.7)]" />
-          <span>{PARTNER_RAIL.length + 1} confirmed</span>
-        </div>
-      </div>
-
-      <div className="relative border-y border-border bg-bg-deep/70">
-        {/* Host anchor — Cursor — sits as the prominent left wall */}
-        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr]">
-          <a
-            href="https://cursor.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-4 border-b md:border-b-0 md:border-r border-border px-6 py-6 md:py-7 transition-colors duration-200 hover:bg-accent/[0.04]"
-            aria-label="Cursor — host"
-          >
-            <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-fg-5">
-              Host
-            </span>
-            <CursorLockup
-              alt="Cursor"
-              className="h-7 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
-            />
-          </a>
-
-          {/* Marquee viewport — padding lives on the clip container so the moving track stays uniform */}
-          <div
-            ref={viewportRef}
-            className={`relative overflow-hidden px-6 touch-pan-y motion-reduce:overflow-x-auto motion-reduce:px-0 [&_a]:cursor-pointer ${
-              isDragging ? "cursor-grabbing select-none" : "cursor-grab"
-            }`}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={endDrag}
-            onPointerCancel={endDrag}
-          >
-            {/* Edge fades */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-0 w-12 z-10 bg-linear-to-r from-bg-deep/95 to-transparent"
-            />
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 right-0 w-12 z-10 bg-linear-to-l from-bg-deep/95 to-transparent"
-            />
-
-            {/* MOTION: marquee track — N copies, translates by exactly one group width */}
-            <div
-              ref={trackRef}
-              className="flex w-max items-stretch py-6 md:py-7 motion-reduce:overflow-x-auto motion-reduce:snap-x motion-reduce:snap-mandatory"
-              style={trackStyle}
-              role="list"
-              onClickCapture={handleClickCapture}
-            >
-              {Array.from({ length: copies }).map((_, idx) => (
-                <SponsorRailGroup
-                  key={idx}
-                  ariaHidden={idx !== 0}
-                  groupRef={idx === 0 ? measureGroupRef : undefined}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </motion.section>
-  );
-}
-
-interface SponsorRailGroupProps {
-  ariaHidden?: boolean;
-  groupRef?: Ref<HTMLDivElement>;
-}
-
-function SponsorRailGroup({ ariaHidden = false, groupRef }: SponsorRailGroupProps) {
-  return (
-    <div
-      ref={groupRef}
-      className="flex shrink-0 items-center gap-12 pr-12"
-      aria-hidden={ariaHidden || undefined}
-    >
-      {PARTNER_RAIL.map((p) => {
-        const Logo = p.Logo;
-        return (
-          <a
-            key={p.id}
-            href={p.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            role={ariaHidden ? undefined : "listitem"}
-            aria-label={ariaHidden ? undefined : `${p.label} — product partner`}
-            tabIndex={ariaHidden ? -1 : 0}
-            onPointerDown={(event) => event.stopPropagation()}
-            className="relative z-20 shrink-0 motion-reduce:snap-start opacity-90 transition-[opacity,transform] duration-300 hover:opacity-100 hover:scale-[1.04] active:scale-[0.98]"
-          >
-            <Logo alt={ariaHidden ? "" : p.label} className={p.className} />
-          </a>
-        );
-      })}
-    </div>
   );
 }

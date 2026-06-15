@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { AnchorHeading } from "./anchor-heading";
 import { CursorLockup } from "./sponsor-logos";
-import { SPONSOR_MAILTO } from "../constants";
+import { AI_LABS_LINKS_URL, PRESS_MAILTO } from "../constants";
 import { useTranslation } from "../context/language-context";
 import type { TranslationKey } from "../i18n/translations";
 
@@ -14,13 +14,15 @@ export function FooterCTA() {
     () =>
       [
         { href: "#about", labelKey: "footer.nav.audience" as const },
-        { href: "#benefits", labelKey: "footer.nav.benefits" as const },
+        { href: "#story", labelKey: "footer.nav.story" as const },
         { href: "#people", labelKey: "footer.nav.credibility" as const },
+        { href: "#sponsors", labelKey: "footer.nav.sponsors" as const },
+        { href: "#mentors", labelKey: "footer.nav.mentors" as const },
+        { href: "#judges", labelKey: "footer.nav.judges" as const },
         { href: "#numbers", labelKey: "footer.nav.numbers" as const },
         { href: "#details", labelKey: "footer.nav.details" as const },
         { href: "#schedule", labelKey: "footer.nav.schedule" as const },
         { href: "#faq", labelKey: "footer.nav.faq" as const },
-        { href: SPONSOR_MAILTO, labelKey: "footer.nav.contact" as const },
       ] satisfies { href: string; labelKey: TranslationKey }[],
     [],
   );
@@ -57,7 +59,9 @@ export function FooterCTA() {
 
           <div className="lg:col-span-5 flex flex-col gap-4">
             <a
-              href={SPONSOR_MAILTO}
+              href={AI_LABS_LINKS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-phosphor inline-flex items-center justify-center text-sm px-7 py-4 no-underline"
             >
               {t("footer.ctaPrimary")}
@@ -128,10 +132,10 @@ export function FooterCTA() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-border-dim pt-5">
             <span className="font-mono text-[0.65rem] text-fg-5 tracking-[0.08em]">{t("footer.copyright")}</span>
             <a
-              href={SPONSOR_MAILTO}
+              href={PRESS_MAILTO}
               className="font-mono text-[0.65rem] text-accent tracking-[0.12em] uppercase no-underline"
             >
-              {t("footer.toSponsor")}
+              {t("footer.pressLink")}
             </a>
           </div>
         </div>

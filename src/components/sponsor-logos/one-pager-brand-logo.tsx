@@ -18,6 +18,10 @@ import { NetlifyLogo } from "./netlify-logo";
 import { WisprLogo } from "./wispr-logo";
 import { FalLogo } from "./fal-logo";
 import { ExaLogo } from "./exa-logo";
+import { SvnetLogo } from "./svnet-logo";
+import { FirecrawlLogo } from "./firecrawl-logo";
+import { DatamcpLogo } from "./datamcp-logo";
+import { RcnsLogo } from "./rcns-logo";
 import type { OnePagerSponsorLogoId } from "./sponsor-logo-ids";
 
 /** Single component for ESLint/static-components compliance (avoid dynamic component lookups). */
@@ -64,6 +68,14 @@ export function OnePagerBrandLogo({
       return <FalLogo {...props} />;
     case "exa":
       return <ExaLogo {...props} />;
+    case "svnet":
+      return <SvnetLogo {...props} />;
+    case "firecrawl":
+      return <FirecrawlLogo {...props} />;
+    case "datamcp":
+      return <DatamcpLogo {...props} />;
+    case "rcns":
+      return <RcnsLogo {...props} />;
     default: {
       const _exhaustive: never = id;
       return _exhaustive;

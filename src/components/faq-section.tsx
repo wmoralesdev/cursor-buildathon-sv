@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { AnchorHeading } from "./anchor-heading";
-import { SPONSOR_MAILTO } from "../constants";
+import { PRESS_MAILTO } from "../constants";
 import { useTranslation } from "../context/language-context";
 import type { TranslationKey } from "../i18n/translations";
 
@@ -13,6 +13,9 @@ const FAQ_KEYS = [
   { q: "faq.q4", a: "faq.a4" },
   { q: "faq.q5", a: "faq.a5" },
   { q: "faq.q6", a: "faq.a6" },
+  { q: "faq.q7", a: "faq.a7" },
+  { q: "faq.q8", a: "faq.a8" },
+  { q: "faq.q9", a: "faq.a9" },
 ] as const satisfies { q: TranslationKey; a: TranslationKey }[];
 
 export function FAQSection() {
@@ -44,7 +47,7 @@ export function FAQSection() {
               {t("faq.subtitle")}
             </p>
             <a
-              href={SPONSOR_MAILTO}
+              href={PRESS_MAILTO}
               className="mt-6 inline-block font-mono text-[0.7rem] text-accent tracking-[0.16em] uppercase no-underline border-b border-accent/40 pb-1 transition-[border-color] duration-200 hover:border-accent"
             >
               {t("faq.toCta")}

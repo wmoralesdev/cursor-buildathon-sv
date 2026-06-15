@@ -123,6 +123,30 @@ export const sponsors: Sponsor[] = [
     url: "https://exa.ai/",
     tier: "product",
   },
+  {
+    id: "svnet",
+    name: "SVNet",
+    url: "https://svnet.sv/",
+    tier: "product",
+  },
+  {
+    id: "firecrawl",
+    name: "Firecrawl",
+    url: "https://www.firecrawl.dev/",
+    tier: "product",
+  },
+  {
+    id: "datamcp",
+    name: "DataMCP",
+    url: "https://datamcp.ai/",
+    tier: "product",
+  },
+  {
+    id: "rcns",
+    name: "RCNS",
+    url: "https://rcns.sv/",
+    tier: "product",
+  },
 ];
 
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
@@ -161,6 +185,10 @@ const netlifySponsor = sponsors.find((s) => s.id === "netlify");
 const wisprSponsor = sponsors.find((s) => s.id === "wispr");
 const falSponsor = sponsors.find((s) => s.id === "fal");
 const exaSponsor = sponsors.find((s) => s.id === "exa");
+const svnetSponsor = sponsors.find((s) => s.id === "svnet");
+const firecrawlSponsor = sponsors.find((s) => s.id === "firecrawl");
+const datamcpSponsor = sponsors.find((s) => s.id === "datamcp");
+const rcnsSponsor = sponsors.find((s) => s.id === "rcns");
 if (
   !codexSponsor ||
   !yonjobSponsor ||
@@ -178,10 +206,14 @@ if (
   !netlifySponsor ||
   !wisprSponsor ||
   !falSponsor ||
-  !exaSponsor
+  !exaSponsor ||
+  !svnetSponsor ||
+  !firecrawlSponsor ||
+  !datamcpSponsor ||
+  !rcnsSponsor
 ) {
   throw new Error(
-    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris, boxful, drop, gamesquad, searchyou, dma, netlify, wispr, fal, exa required for onePagerSponsors",
+    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris, boxful, drop, gamesquad, searchyou, dma, netlify, wispr, fal, exa, svnet, firecrawl, datamcp, rcns required for onePagerSponsors",
   );
 }
 
@@ -219,4 +251,8 @@ export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
   toOnePagerGold(wisprSponsor),
   toOnePagerGold(falSponsor),
   toOnePagerGold(exaSponsor),
+  toOnePagerGold(svnetSponsor),
+  toOnePagerGold(firecrawlSponsor),
+  toOnePagerGold(datamcpSponsor),
+  toOnePagerGold(rcnsSponsor),
 ];

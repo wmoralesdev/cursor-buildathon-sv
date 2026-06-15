@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
 import { CursorLockup } from "./sponsor-logos";
-import { SPONSOR_MAILTO } from "../constants";
+import { AI_LABS_LINKS_URL } from "../constants";
 import { useTranslation } from "../context/language-context";
 
 export function SiteNav() {
@@ -67,12 +67,14 @@ export function SiteNav() {
         </div>
 
         <a
-          href={SPONSOR_MAILTO}
+          href={AI_LABS_LINKS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="btn-phosphor shrink-0 text-xs px-3 py-2 sm:px-6 sm:py-2.5 no-underline"
         >
-          <span className="hidden sm:inline">{t("nav.sponsorCta")}</span>
+          <span className="hidden sm:inline">{t("nav.followCta")}</span>
           <span className="sm:hidden" aria-hidden="true">
-            Sponsor →
+            Follow →
           </span>
         </a>
       </div>

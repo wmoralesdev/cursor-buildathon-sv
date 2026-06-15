@@ -7,7 +7,9 @@ import { OnePagerSheetFrame } from "../components/one-pager-sheet-frame";
 import {
   CodexLogo,
   CursorLockup,
+  DatamcpLogo,
   ElevenLabsLogo,
+  FirecrawlLogo,
   N8nLogo,
   OnePagerCashLightLogoAssetsProvider,
   ZavuLogo,
@@ -25,7 +27,7 @@ const CREDITS_TOTAL = "$365";
 /** Solo-team baseline: cash $1,000 + Codex 10K×3 + n8n 720 + EL Scale 990 + EL Pro 297 + Cursor credits 500 */
 const PRIZES_TOTAL = "$33K+";
 
-type PerkLogo = "cursor" | "codex" | "elevenlabs" | "n8n" | "zavu" | null;
+type PerkLogo = "cursor" | "codex" | "elevenlabs" | "n8n" | "zavu" | "firecrawl" | "datamcp" | null;
 
 type ParticipantPerkId =
   | "cursor"
@@ -50,8 +52,8 @@ const PARTICIPANT_PERK_DEFS: ParticipantPerkDef[] = [
   { id: "elevenlabs", logo: "elevenlabs", sponsor: "ElevenLabs", value: "$22" },
   { id: "n8n", logo: "n8n", sponsor: "n8n", value: "$60" },
   { id: "zavu", logo: "zavu", sponsor: "Zavu", value: "$75" },
-  { id: "firecrawl", logo: null, sponsor: "Firecrawl", value: "~$20" },
-  { id: "datamcp", logo: null, sponsor: "DataMCP", value: "$38" },
+  { id: "firecrawl", logo: "firecrawl", sponsor: "Firecrawl", value: "~$20" },
+  { id: "datamcp", logo: "datamcp", sponsor: "DataMCP", value: "$38" },
   { id: "devin", logo: null, sponsor: "Devin", value: "$20" },
 ];
 
@@ -200,6 +202,10 @@ function PerkMark({ logo, sponsor }: { logo: PerkLogo; sponsor: string }) {
       return <N8nLogo alt={sponsor} className={cls} />;
     case "zavu":
       return <ZavuLogo alt={sponsor} className={cls} />;
+    case "firecrawl":
+      return <FirecrawlLogo alt={sponsor} className={cls} />;
+    case "datamcp":
+      return <DatamcpLogo alt={sponsor} className={cls} />;
     case null:
       return (
         <span className="font-display text-[8pt] font-bold uppercase leading-none tracking-tight text-fg">

@@ -16,6 +16,10 @@ export type ProductSponsorId =
   | "netlify"
   | "wispr"
   | "fal"
-  | "exa";
+  | "exa"
+  | "svnet"
+  | "firecrawl"
+  | "datamcp"
+  | "rcns";
 
 export type OnePagerSponsorLogoId = ProductSponsorId | "cursor";
