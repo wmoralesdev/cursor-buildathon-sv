@@ -4,6 +4,8 @@ import { Sun, Moon } from "lucide-react";
 
 import { CursorLockup } from "./sponsor-logos";
 import { AI_LABS_LINKS_URL } from "../constants";
+import { isConvexConfigured } from "../lib/convex-client";
+import { useBuilderTeam } from "../hooks/use-builder-team";
 import { useTranslation } from "../context/language-context";
 
 export function SiteNav() {
@@ -66,11 +68,23 @@ export function SiteNav() {
           </button>
         </div>
 
+        <Link
+          to="/builder"
+          className="shrink-0 rounded-none border border-border-faint px-3 py-2 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-fg-4 transition-colors hover:border-accent/50 hover:text-accent no-underline sm:px-4 sm:py-2.5"
+        >
+          <span className="hidden sm:inline">{t("nav.builder")}</span>
+          <span className="sm:hidden" aria-hidden="true">
+            Builders →
+          </span>
+        </Link>
+
+        {isConvexConfigured ? <NavSubmitLink /> : null}
+
         <a
           href={AI_LABS_LINKS_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-phosphor shrink-0 text-xs px-3 py-2 sm:px-6 sm:py-2.5 no-underline"
+          className="rounded-none border border-border-faint px-3 py-2 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-fg-4 transition-colors hover:border-accent/50 hover:text-accent no-underline sm:px-4 sm:py-2.5"
         >
           <span className="hidden sm:inline">{t("nav.followCta")}</span>
           <span className="sm:hidden" aria-hidden="true">
@@ -79,5 +93,25 @@ export function SiteNav() {
         </a>
       </div>
     </nav>
+  );
+}
+
+/** Only shown to a team leader with a complete roster that has not yet submitted. */
+function NavSubmitLink() {
+  const { t } = useTranslation();
+  const { canSubmit } = useBuilderTeam();
+
+  if (!canSubmit) return null;
+
+  return (
+    <Link
+      to="/submit"
+      className="btn-phosphor shrink-0 text-xs px-3 py-2 sm:px-6 sm:py-2.5 no-underline"
+    >
+      <span className="hidden sm:inline">{t("nav.submit")}</span>
+      <span className="sm:hidden" aria-hidden="true">
+        Submit →
+      </span>
+    </Link>
   );
 }

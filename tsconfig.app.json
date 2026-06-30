@@ -28,6 +28,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"],
-  "exclude": ["convex"]
+  "include": ["src", "convex/lib"],
+  "exclude": ["convex/_generated"]
 }

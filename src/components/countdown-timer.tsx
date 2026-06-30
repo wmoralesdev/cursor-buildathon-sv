@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { EVENT_START_ISO } from "../constants";
 import { useTranslation } from "../context/language-context";
@@ -7,11 +7,9 @@ function pad(n: number): string {
   return String(n).padStart(2, "0");
 }
 
-const EVENT_DATE = new Date(EVENT_START_ISO);
-
-function getTimeLeftValues(): number[] {
+function getTimeLeftValues(targetDate: Date): number[] {
   const now = new Date();
-  const diff = EVENT_DATE.getTime() - now.getTime();
+  const diff = targetDate.getTime() - now.getTime();
 
   if (diff <= 0) {
     return [0, 0, 0];
@@ -24,9 +22,16 @@ function getTimeLeftValues(): number[] {
   return [days, hours, minutes];
 }
 
-export function CountdownTimer() {
+interface CountdownTimerProps {
+  targetIso?: string;
+  /** Slightly larger unit labels for builder hub readability */
+  legible?: boolean;
+}
+
+export function CountdownTimer({ targetIso = EVENT_START_ISO, legible = false }: CountdownTimerProps) {
   const { t } = useTranslation();
-  const [values, setValues] = useState(getTimeLeftValues);
+  const targetDate = useMemo(() => new Date(targetIso), [targetIso]);
+  const [values, setValues] = useState(() => getTimeLeftValues(targetDate));
   const [tick, setTick] = useState(false);
 
   const labels = [
@@ -36,12 +41,13 @@ export function CountdownTimer() {
   ];
 
   useEffect(() => {
+    setValues(getTimeLeftValues(targetDate));
     const interval = setInterval(() => {
-      setValues(getTimeLeftValues());
+      setValues(getTimeLeftValues(targetDate));
       setTick((x) => !x);
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [targetDate]);
 
   return (
     <div className="flex items-center justify-center gap-1.5 sm:gap-2.5">
@@ -62,7 +68,7 @@ export function CountdownTimer() {
                 </motion.span>
               </AnimatePresence>
             </div>
-            <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-fg-3 mt-0.5">
+            <span className={`font-mono tracking-[0.18em] uppercase text-fg-3 mt-0.5 ${legible ? "text-[0.775rem]" : "text-[0.65rem]"}`}>
               {labels[i]}
             </span>
           </div>

@@ -1,9 +1,26 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { sponsorTrackValidator } from "./lib/sponsorTracks";
+import { competitionTrackValidator } from "./lib/competitionTracks";
 
 const memberValidator = v.object({
   name: v.string(),
   email: v.optional(v.string()),
+});
+
+const submissionMemberValidator = v.object({
+  name: v.string(),
+  xProfile: v.string(),
+  linkedInProfile: v.string(),
+});
+
+const eventTeamMemberValidator = v.object({
+  sessionId: v.string(),
+  name: v.string(),
+  xProfile: v.string(),
+  linkedInProfile: v.string(),
+  isLeader: v.boolean(),
+  joinedAt: v.number(),
 });
 
 export default defineSchema({
@@ -63,4 +80,39 @@ export default defineSchema({
     .index("by_project", ["projectId"])
     .index("by_user", ["userId"])
     .index("by_project_and_user", ["projectId", "userId"]),
+
+  event_teams: defineTable({
+    name: v.string(),
+    inviteCode: v.string(),
+    leaderSessionId: v.string(),
+    members: v.array(eventTeamMemberValidator),
+    sponsorTrack: v.optional(sponsorTrackValidator),
+    competitionTrack: v.optional(competitionTrackValidator),
+    submittedAt: v.optional(v.number()),
+    createdAt: v.number(),
+  })
+    .index("by_invite_code", ["inviteCode"])
+    .index("by_leader_session", ["leaderSessionId"]),
+
+  project_submissions: defineTable({
+    teamName: v.string(),
+    members: v.array(submissionMemberValidator),
+    repoUrl: v.string(),
+    description: v.string(),
+    videoStorageId: v.id("_storage"),
+    eventSocialPostUrl: v.string(),
+    competitionTrack: v.optional(competitionTrackValidator),
+    eventTeamId: v.optional(v.id("event_teams")),
+    submittedAt: v.number(),
+  })
+    .index("by_submitted_at", ["submittedAt"])
+    .index("by_event_team", ["eventTeamId"]),
+
+  announcements: defineTable({
+    message: v.string(),
+    priority: v.union(v.literal("info"), v.literal("urgent")),
+    locale: v.optional(v.union(v.literal("en"), v.literal("es"))),
+    createdAt: v.number(),
+    expiresAt: v.optional(v.number()),
+  }).index("by_created_at", ["createdAt"]),
 });

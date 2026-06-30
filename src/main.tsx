@@ -3,6 +3,7 @@ import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
+import { ConvexProvider } from "convex/react";
 import { LanguageProvider } from "./context/language-context";
 import App from "./app";
 import "./index.css";
@@ -13,8 +14,11 @@ import { JudgesOnePagerPage } from "./pages/judges-one-pager";
 import { SobrecupoOnePagerPage } from "./pages/sobrecupo-one-pager";
 import { JoinedSponsorsOnePagerPage } from "./pages/joined-sponsors-one-pager";
 import { BuildathonWelcomePage } from "./pages/buildathon-welcome-page";
+import { BuilderPage } from "./pages/builder-page";
+import { ProjectSubmitPage } from "./pages/project-submit-page";
 import { NotFoundPage } from "./pages/not-found-page";
 import { SPONSOR_MAILTO } from "./constants";
+import { convexClient, isConvexConfigured } from "./lib/convex-client";
 
 let sponsorBriefRedirectIssued = false;
 
@@ -81,6 +85,8 @@ const devOnlyRoutes = import.meta.env.DEV
 const mainLayoutRoutes = [
   { path: "/", element: <LandingPage /> },
   { path: "/welcome", element: <BuildathonWelcomePage /> },
+  { path: "/builder", element: <BuilderPage /> },
+  { path: "/submit", element: <ProjectSubmitPage /> },
   ...(import.meta.env.DEV
     ? [{ path: "/brief", element: <BriefToSponsorMail /> }]
     : []),
@@ -99,10 +105,18 @@ const router = createBrowserRouter([
   },
 ]);
 
-createRoot(document.getElementById("root")!).render(
+const appTree = (
   <StrictMode>
     <ThemeProvider attribute="data-theme" defaultTheme="dark" disableTransitionOnChange>
       <RouterProvider router={router} />
     </ThemeProvider>
-  </StrictMode>,
+  </StrictMode>
+);
+
+createRoot(document.getElementById("root")!).render(
+  isConvexConfigured && convexClient ? (
+    <ConvexProvider client={convexClient}>{appTree}</ConvexProvider>
+  ) : (
+    appTree
+  ),
 );

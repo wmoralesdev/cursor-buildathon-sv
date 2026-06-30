@@ -9,6 +9,174 @@ export const translations = {
   "nav.register": { en: "Register", es: "Regístrate" },
   "nav.dashboard": { en: "Dashboard", es: "Panel" },
   "nav.logout": { en: "Sign out", es: "Cerrar sesión" },
+  "nav.builder": { en: "Builder hub", es: "Hub builders" },
+  "nav.submit": { en: "Submit project →", es: "Enviar proyecto →" },
+
+  "submit.kicker": { en: "// Project submission", es: "// Envío de proyecto" },
+  "submit.title": { en: "Upload your project", es: "Sube tu proyecto" },
+  "submit.intro": {
+    en: "One submission per team. Fill in every field — your repository must be public.",
+    es: "Un envío por equipo. Completa todos los campos — tu repositorio debe ser público.",
+  },
+  "submit.cover.eyebrow": {
+    en: "// Showcase submission",
+    es: "// Envío para showcase",
+  },
+  "submit.cover.titleLine1": {
+    en: "Your build,",
+    es: "Lo que construyeron,",
+  },
+  "submit.cover.titleLine2": {
+    en: "on the record.",
+    es: "queda registrado.",
+  },
+  "submit.cover.subtitle": {
+    en: "One submission per team. A short walkthrough — repo, demo video, and your event post — so judges can review what you shipped at Cursor Buildathon El Salvador.",
+    es: "Un envío por equipo. Un recorrido breve — repo, video demo y su publicación del evento — para que el jurado revise lo que entregaron en Cursor Buildathon El Salvador.",
+  },
+  "submit.cover.cta": { en: "Start", es: "Comenzar" },
+  "submit.cover.hint": {
+    en: "Press Enter to advance · You can go back anytime",
+    es: "Enter para avanzar · Pueden volver atrás cuando quieran",
+  },
+  "submit.cover.metaAria": {
+    en: "Submission details",
+    es: "Detalles del envío",
+  },
+  "submit.cover.meta.time": { en: "~5 min", es: "~5 min" },
+  "submit.cover.meta.team": { en: "One per team", es: "Uno por equipo" },
+  "submit.cover.meta.public": {
+    en: "Public repo required",
+    es: "Repo público obligatorio",
+  },
+  "submit.flow.continue": { en: "Continue", es: "Continuar" },
+  "submit.flow.back": { en: "Back", es: "Atrás" },
+  "submit.flow.pressEnter": {
+    en: "press Enter ↵",
+    es: "Enter ↵",
+  },
+  "submit.flow.stepOf": {
+    en: "{current} / {total}",
+    es: "{current} / {total}",
+  },
+  "submit.flow.teamHint": {
+    en: "The name you'll present on stage.",
+    es: "El nombre con el que presentarán en escena.",
+  },
+  "submit.flow.validation": {
+    en: "Complete this step before continuing.",
+    es: "Completa este paso antes de continuar.",
+  },
+  "submit.review.title": {
+    en: "Ready to submit?",
+    es: "¿Listos para enviar?",
+  },
+  "submit.review.subtitle": {
+    en: "Double-check everything — you won't be able to edit after sending.",
+    es: "Revise todo — no podrán editar después de enviar.",
+  },
+  "submit.review.memberCount": {
+    en: "{count} members",
+    es: "{count} miembros",
+  },
+  "submit.review.noVideo": {
+    en: "No video selected",
+    es: "Sin video seleccionado",
+  },
+  "submit.team.title": { en: "Team", es: "Equipo" },
+  "submit.team.name": { en: "Team name", es: "Nombre del equipo" },
+  "submit.team.namePlaceholder": { en: "e.g. Hack Masters", es: "ej. Hack Masters" },
+  "submit.members.title": { en: "Members", es: "Miembros" },
+  "submit.members.countHint": { en: "4–5 members", es: "4–5 miembros" },
+  "submit.members.memberLabel": { en: "Member", es: "Miembro" },
+  "submit.members.name": { en: "Full name", es: "Nombre completo" },
+  "submit.members.namePlaceholder": { en: "Jane Doe", es: "María López" },
+  "submit.members.xProfile": { en: "X profile", es: "Perfil de X" },
+  "submit.members.xPlaceholder": { en: "@handle or https://x.com/handle", es: "@usuario o https://x.com/usuario" },
+  "submit.members.linkedInProfile": { en: "LinkedIn profile", es: "Perfil de LinkedIn" },
+  "submit.members.linkedInPlaceholder": {
+    en: "https://linkedin.com/in/your-profile",
+    es: "https://linkedin.com/in/tu-perfil",
+  },
+  "submit.members.addFifth": { en: "Add 5th member", es: "Agregar 5.º miembro" },
+  "submit.members.addFifthQuestion": {
+    en: "Does your team have a 5th member?",
+    es: "¿Su equipo tiene un 5.º miembro?",
+  },
+  "submit.members.addFifthHint": {
+    en: "Teams need 4 members minimum. Add one more only if a fifth person built with you.",
+    es: "Los equipos necesitan mínimo 4 miembros. Agreguen uno más solo si una quinta persona construyó con ustedes.",
+  },
+  "submit.members.addFifthYes": { en: "Yes — add member 5", es: "Sí — agregar miembro 5" },
+  "submit.members.addFifthYesHint": {
+    en: "You'll fill in their name and profiles next.",
+    es: "Luego completarán su nombre y perfiles.",
+  },
+  "submit.members.addFifthNo": { en: "No — we're four", es: "No — somos cuatro" },
+  "submit.members.addFifthNoHint": {
+    en: "Skip straight to the project details.",
+    es: "Ir directo a los detalles del proyecto.",
+  },
+  "submit.members.removeFifth": { en: "Remove 5th member", es: "Quitar 5.º miembro" },
+  "submit.project.title": { en: "Project", es: "Proyecto" },
+  "submit.project.repoUrl": { en: "Public repository URL", es: "URL del repositorio público" },
+  "submit.project.repoPlaceholder": { en: "https://github.com/team/project", es: "https://github.com/equipo/proyecto" },
+  "submit.project.repoHint": {
+    en: "GitHub, GitLab, or Bitbucket — must be publicly accessible.",
+    es: "GitHub, GitLab o Bitbucket — debe ser de acceso público.",
+  },
+  "submit.project.description": { en: "Brief description", es: "Descripción breve" },
+  "submit.project.descriptionPlaceholder": {
+    en: "What did you build and who is it for?",
+    es: "¿Qué construyeron y para quién es?",
+  },
+  "submit.project.video": { en: "Demo video", es: "Video demo" },
+  "submit.project.videoChoose": { en: "Choose video file", es: "Elegir archivo de video" },
+  "submit.project.videoReplace": { en: "Replace video file", es: "Reemplazar video" },
+  "submit.project.videoRemove": { en: "Remove video", es: "Quitar video" },
+  "submit.project.videoHint": {
+    en: "MP4, WebM, or MOV — max 100 MB. Short pitch or demo walkthrough.",
+    es: "MP4, WebM o MOV — máx. 100 MB. Pitch breve o demo del proyecto.",
+  },
+  "submit.project.videoRequired": {
+    en: "Please upload a demo video before submitting.",
+    es: "Sube un video demo antes de enviar.",
+  },
+  "submit.project.videoErrorType": {
+    en: "Please choose an MP4, WebM, or MOV file.",
+    es: "Elige un archivo MP4, WebM o MOV.",
+  },
+  "submit.project.videoErrorSize": {
+    en: "Video must be 100 MB or smaller.",
+    es: "El video debe ser de 100 MB o menos.",
+  },
+  "submit.uploadingVideo": { en: "Uploading video…", es: "Subiendo video…" },
+  "submit.uploadProgress": { en: "Upload {percent}%", es: "Subida {percent}%" },
+  "submit.social.title": { en: "Event social post", es: "Publicación sobre el evento" },
+  "submit.social.eventPostUrl": { en: "Post URL", es: "URL de la publicación" },
+  "submit.social.eventPostPlaceholder": { en: "https://x.com/... or https://linkedin.com/...", es: "https://x.com/... o https://linkedin.com/..." },
+  "submit.social.eventPostHint": {
+    en: "Link to your post about Cursor Buildathon El Salvador (X or LinkedIn).",
+    es: "Enlace a tu publicación sobre Cursor Buildathon El Salvador (X o LinkedIn).",
+  },
+  "submit.submit": { en: "Submit project", es: "Enviar proyecto" },
+  "submit.submitting": { en: "Submitting…", es: "Enviando…" },
+  "submit.error.generic": {
+    en: "Something went wrong. Check your entries and try again.",
+    es: "Algo salió mal. Revisa tus datos e inténtalo de nuevo.",
+  },
+  "submit.success.kicker": { en: "Received", es: "Recibido" },
+  "submit.success.title": { en: "Project submitted", es: "Proyecto enviado" },
+  "submit.success.body": {
+    en: "Thanks — we received the submission for {teamName}. Good luck at the showcase.",
+    es: "Gracias — recibimos el envío de {teamName}. Mucha suerte en la presentación.",
+  },
+  "submit.success.home": { en: "Back to home →", es: "Volver al inicio →" },
+  "submit.unavailable.title": { en: "Submissions unavailable", es: "Envíos no disponibles" },
+  "submit.unavailable.body": {
+    en: "Project submissions are not configured yet. Check back soon or contact the organizers.",
+    es: "Los envíos de proyecto aún no están configurados. Vuelve pronto o contacta a los organizadores.",
+  },
 
   "notFound.documentTitle": {
     en: "404 · Cursor Buildathon El Salvador",
@@ -28,7 +196,7 @@ export const translations = {
   "dashboard.teamForm.title": { en: "Team details", es: "Detalles del equipo" },
   "dashboard.teamForm.teamName": { en: "Team name", es: "Nombre del equipo" },
   "dashboard.teamForm.teamNamePlaceholder": { en: "e.g. Hack Masters", es: "ej. Hack Masters" },
-  "dashboard.teamForm.members": { en: "Members (2–4)", es: "Miembros (2–4)" },
+  "dashboard.teamForm.members": { en: "Members (4–5)", es: "Miembros (4–5)" },
   "dashboard.teamForm.memberName": { en: "Name", es: "Nombre" },
   "dashboard.teamForm.memberEmail": { en: "Email", es: "Correo" },
   "dashboard.teamForm.leader": { en: "Team leader", es: "Líder del equipo" },
@@ -95,7 +263,7 @@ export const translations = {
   },
   "about.stat.duration": { en: "~24h+", es: "~24h+" },
   "about.stat.duration.label": { en: "of building", es: "construyendo" },
-  "about.stat.teams": { en: "2–4", es: "2–4" },
+  "about.stat.teams": { en: "4–5", es: "4–5" },
   "about.stat.teams.label": { en: "per team", es: "por equipo" },
   "about.stat.experience": { en: "0", es: "0" },
   "about.stat.experience.label": { en: "coding experience required", es: "experiencia en código requerida" },
@@ -268,8 +436,8 @@ export const translations = {
     es: "Partners destacados",
   },
   "hero.pitch": {
-    en: "Fund an in-person meeting point for builders, future hires, and emerging founders from Central America. Second edition at UFG, targeting ~200 people on-site and a continuous ~24 h window to build, try tools, and connect with relevant brands.",
-    es: "Patrocina un punto de encuentro presencial para builders, futuros hires y fundadores emergentes de Centroamérica. Segunda edición en la UFG, con meta de ~200 personas en sala y una ventana continua de ~24 h para construir, probar herramientas y conectar con marcas relevantes.",
+    en: "Fund an in-person meeting point for builders, future hires, and emerging founders from Central America. At UFG, targeting ~200 people on-site and a continuous ~24 h window to build, try tools, and connect with relevant brands.",
+    es: "Patrocina un punto de encuentro presencial para builders, futuros hires y fundadores emergentes de Centroamérica. En la UFG, con meta de ~200 personas en sala y una ventana continua de ~24 h para construir, probar herramientas y conectar con marcas relevantes.",
   },
   "hero.partnersLabel": { en: "Backed by", es: "Con el respaldo de" },
   "hero.partnersSubLabel": {
@@ -296,20 +464,20 @@ export const translations = {
   "hero.stat.capacity": { en: "on-site target", es: "meta en sala" },
   "hero.stat.region": { en: "regional reach", es: "alcance regional" },
   "hero.stat.edition": { en: "edition in SV", es: "edicion en sv" },
-  "hero.stat.editionValue": { en: "2nd", es: "2da" },
+  "hero.stat.editionValue": { en: "1st", es: "1ra" },
 
   "about.tag": { en: "// 01 — the event", es: "// 01 — el evento" },
   "about.title1": { en: "What happens at", es: "Qué pasa en el" },
   "about.title2": { en: "the buildathon", es: "buildathon" },
   "about.p1": {
-    en: "Cursor Buildathon El Salvador is the second in-person edition at UFG, San Salvador: a continuous ~24 h window where ~200 registered builders from El Salvador and Central America ship projects with AI-assisted development.",
-    es: "Cursor Buildathon El Salvador es la segunda edición presencial en la UFG, San Salvador: una ventana continua de ~24 h donde ~200 builders registrados de El Salvador y Centroamérica construyen proyectos con desarrollo asistido por IA.",
+    en: "Cursor Buildathon El Salvador is an in-person event at UFG, San Salvador: a continuous ~24 h window where ~200 registered builders from El Salvador and Central America ship projects with AI-assisted development.",
+    es: "Cursor Buildathon El Salvador es un evento presencial en la UFG, San Salvador: una ventana continua de ~24 h donde ~200 builders registrados de El Salvador y Centroamérica construyen proyectos con desarrollo asistido por IA.",
   },
   "about.p2": {
     en: "Teams work through the night with Cursor as the main tool — opening remarks, a long build window with mentors, and a closing showcase of demos and projects.",
     es: "Los equipos trabajan de noche con Cursor como herramienta principal: apertura, una larga ventana de build con mentores, y un cierre con demos y proyectos.",
   },
-  "about.chip1": { en: "2nd edition", es: "2da edición" },
+  "about.chip1": { en: "1st edition", es: "1ra edición" },
   "about.chip2": { en: "200 registered", es: "200 registrados" },
   "about.chip3": { en: "In-person at UFG", es: "Presencial en UFG" },
   "about.profile1.title": { en: "Developers", es: "Developers" },
@@ -347,8 +515,8 @@ export const translations = {
   },
   "eventStory.b2.title": { en: "The build window", es: "La ventana de build" },
   "eventStory.b2.body": {
-    en: "A continuous ~24 h sprint with Cursor, teams of 2–4, mentors on call, and working demos taking shape through the night.",
-    es: "Un sprint continuo de ~24 h con Cursor, equipos de 2–4, mentores disponibles, y demos tomando forma durante la noche.",
+    en: "A continuous ~24 h sprint with Cursor, teams of 4–5, mentors on call, and working demos taking shape through the night.",
+    es: "Un sprint continuo de ~24 h con Cursor, equipos de 4–5, mentores disponibles, y demos tomando forma durante la noche.",
   },
   "eventStory.b3.title": { en: "The showcase", es: "El showcase" },
   "eventStory.b3.body": {
@@ -383,6 +551,12 @@ export const translations = {
     es: "El panel que evalúa proyectos en el cierre. Publicamos nombres aquí conforme confirmamos al jurado.",
   },
   "judges.placeholderName": { en: "Judge TBA", es: "Juez por confirmar" },
+
+  "roster.confirmed": { en: "Confirmed", es: "Confirmado" },
+  "roster.incoming": { en: "Incoming", es: "En camino" },
+  "roster.unconfirmedRole": { en: "Awaiting confirmation", es: "Por confirmar" },
+  "roster.readMore": { en: "Read more", es: "Ver más" },
+  "roster.readLess": { en: "Show less", es: "Ver menos" },
 
   "people.tag": { en: "// 03 — organizers", es: "// 03 — organizadores" },
   "people.title1": { en: "Who is", es: "Quién lo" },
@@ -569,8 +743,8 @@ export const translations = {
     es: "¿Qué es Cursor Buildathon El Salvador?",
   },
   "faq.a0": {
-    en: "An in-person AI buildathon at UFG in San Salvador — second edition in the country. ~200 registered builders work in teams through a continuous ~24 h window with Cursor, mentors, and a closing showcase.",
-    es: "Un buildathon presencial con IA en la UFG, San Salvador — segunda edición en el país. ~200 builders registrados trabajan en equipos en una ventana continua de ~24 h con Cursor, mentores, y un cierre con showcase.",
+    en: "An in-person AI buildathon at UFG in San Salvador. ~200 registered builders work in teams through a continuous ~24 h window with Cursor, mentors, and a closing showcase.",
+    es: "Un buildathon presencial con IA en la UFG, San Salvador. ~200 builders registrados trabajan en equipos en una ventana continua de ~24 h con Cursor, mentores, y un cierre con showcase.",
   },
   "faq.q1": {
     en: "When and where is it?",
@@ -649,8 +823,8 @@ export const translations = {
   "overview.title1": { en: "WHAT TO EXPECT", es: "QUÉ ESPERAR" },
   "overview.title2": { en: "FROM THE EVENT", es: "DEL EVENTO" },
   "overview.lead": {
-    en: "The Cursor Buildathon El Salvador is an in-person event at Universidad Francisco Gavidia (UFG) in San Salvador. This is the second edition in the country: AI-powered building in a continuous ~24 h window, community, demos, and real space to activate brand and product.",
-    es: "El Cursor Buildathon El Salvador es un evento presencial en la Universidad Francisco Gavidia (UFG) en San Salvador. Esta es la segunda edición en el país: construcción con IA en una ventana continua de ~24 h, comunidad, demos y espacio real para activar marca y producto.",
+    en: "The Cursor Buildathon El Salvador is an in-person event at Universidad Francisco Gavidia (UFG) in San Salvador: AI-powered building in a continuous ~24 h window, community, demos, and real space to activate brand and product.",
+    es: "El Cursor Buildathon El Salvador es un evento presencial en la Universidad Francisco Gavidia (UFG) en San Salvador: construcción con IA en una ventana continua de ~24 h, comunidad, demos y espacio real para activar marca y producto.",
   },
   "overview.h1.title": { en: "~24 h continuous", es: "~24 h continuas" },
   "overview.h1.body": {
@@ -755,8 +929,8 @@ export const translations = {
   "schedule.title1": { en: "Build window", es: "Ventana de build" },
   "schedule.title2": { en: "04–05 · 07", es: "04–05 · 07" },
   "schedule.intro": {
-    en: "Second edition in El Salvador. Public program outline for the continuous build window that crosses midnight.",
-    es: "Segunda edición en El Salvador. Programa público de la ventana continua de build que cruza medianoche.",
+    en: "Public program outline for the continuous build window that crosses midnight.",
+    es: "Programa público de la ventana continua de build que cruza medianoche.",
   },
   "schedule.durationLabel": { en: "approx. duration", es: "duración aproximada" },
   "schedule.item1.time": { en: "Jul 4", es: "4 jul" },
@@ -1375,387 +1549,6 @@ export const translations = {
     es: "con UFG y apoyo de Cursor ·",
   },
 
-  "onePager.niu.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
-  "onePager.niu.previewScaleAria": {
-    en: "Preview zoom (screen only)",
-    es: "Zoom de vista previa (solo en pantalla)",
-  },
-  "onePager.niu.fallbackSite": { en: "Event site", es: "Sitio del evento" },
-  "onePager.niu.imgAlt1": {
-    en: "Cursor Hackathon El Salvador — wide shot at AMPD Labs",
-    es: "Cursor Hackathon El Salvador — plano amplio en AMPD Labs",
-  },
-  "onePager.niu.imgAlt2": {
-    en: "Cursor Hackathon El Salvador — event photo",
-    es: "Cursor Hackathon El Salvador — foto del evento",
-  },
-  "onePager.niu.imgAlt3": {
-    en: "Cursor Hackathon El Salvador — participants",
-    es: "Cursor Hackathon El Salvador — participantes",
-  },
-  "onePager.niu.heroTitle": { en: "NIU x Cursor Buildathon", es: "NIU x Cursor Buildathon" },
-  "onePager.niu.heroSubtitle": {
-    en: "Put NIU inside the winner moment",
-    es: "Pon a NIU dentro del momento ganador",
-  },
-  "onePager.niu.headerWhenWhere": {
-    en: "04 · 05 · JUL 2026 · 8:00 → 9:00",
-    es: "04 · 05 · JUL 2026 · 8:00 → 9:00",
-  },
-  "onePager.niu.ufgUniversity": { en: " · Universidad Francisco Gavidia", es: " · Universidad Francisco Gavidia" },
-  "onePager.niu.statsAria": { en: "Key numbers", es: "Cifras clave" },
-  "onePager.niu.stat1.label": { en: "already committed", es: "ya comprometidos" },
-  "onePager.niu.stat1.sub": { en: "current sponsors", es: "sponsors actuales" },
-  "onePager.niu.stat2.label": { en: "suggested ask", es: "aporte sugerido" },
-  "onePager.niu.stat2.sub": { en: "can be more or less", es: "puede subir o bajar" },
-  "onePager.niu.stat3.label": { en: "young attendees", es: "jóvenes asistentes" },
-  "onePager.niu.stat3.sub": { en: "Gen Z + early career", es: "Gen Z + inicio carrera" },
-  "onePager.niu.stat4.label": { en: "attended Jan 31", es: "asistieron 31 ene" },
-  "onePager.niu.stat4.sub": { en: "previous event", es: "evento anterior" },
-  "onePager.niu.stat5.label": { en: "groups built", es: "equipos armados" },
-  "onePager.niu.stat5.sub": { en: "previous event", es: "evento anterior" },
-  "onePager.niu.decisionKicker": { en: "Executive decision", es: "Decisión ejecutiva" },
-  "onePager.niu.decisionTitle": {
-    en: "Let winners receive their buildathon award through NIU",
-    es: "Que los ganadores reciban su reconocimiento del buildathon vía NIU",
-  },
-  "onePager.niu.decisionBody": {
-    en: "A flexible cash contribution raises the stakes and gives NIU a useful brand moment with young Salvadorans already comfortable trying new financial products.",
-    es: "Un aporte flexible sube el nivel del evento y le da a NIU un momento de marca útil con jóvenes salvadoreños abiertos a probar productos financieros nuevos.",
-  },
-  "onePager.niu.decisionMini1.title": { en: "Payout", es: "Entrega" },
-  "onePager.niu.decisionMini1.body": {
-    en: "Winning teams receive funds through NIU, making the product part of the ceremony.",
-    es: "Los equipos ganadores reciben fondos vía NIU, haciendo el producto parte de la ceremonia.",
-  },
-  "onePager.niu.decisionMini2.title": { en: "Media", es: "Cobertura" },
-  "onePager.niu.decisionMini2.body": {
-    en: "NIU marketing can film, interview teams, and capture winners on site.",
-    es: "Marketing de NIU puede grabar, entrevistar equipos y capturar ganadores en sitio.",
-  },
-  "onePager.niu.decisionMini3.title": { en: "Audience", es: "Audiencia" },
-  "onePager.niu.decisionMini3.body": {
-    en: "Mostly Gen Z and early-career builders with mobile-first finance habits.",
-    es: "Mayormente Gen Z y talento joven con hábitos financieros mobile-first.",
-  },
-  "onePager.niu.fundingKicker": { en: "Already raised", es: "Ya recaudado" },
-  "onePager.niu.fundingBody": {
-    en: "committed by current sponsors.",
-    es: "comprometidos por sponsors actuales.",
-  },
-  "onePager.niu.fastDecisionLabel": { en: "Suggested NIU amount", es: "Aporte sugerido NIU" },
-  "onePager.niu.fastDecisionBody": {
-    en: "Starting point only. It can go lower, higher, or scale with the activation.",
-    es: "Solo punto de partida. Puede bajar, subir o escalar con la activación.",
-  },
-  "onePager.niu.packageTitle": { en: "Flexible NIU contribution", es: "Aporte flexible NIU" },
-  "onePager.niu.usd": { en: "USD", es: "USD" },
-  "onePager.niu.suggestedBadge": { en: "suggested USD", es: "USD sugeridos" },
-  "onePager.niu.flexTitle": {
-    en: "Start here, then tune",
-    es: "Empieza aquí, luego ajustamos",
-  },
-  "onePager.niu.flexBody": {
-    en: "$750 is a practical starting point, not a fixed price. NIU can contribute less, contribute more, or scale the activation around the winning teams.",
-    es: "$750 es un punto de partida práctico, no un precio fijo. NIU puede aportar menos, aportar más o escalar la activación alrededor de los equipos ganadores.",
-  },
-  "onePager.niu.benefit.talent.category": { en: "Talent + user access", es: "Talento + usuarios" },
-  "onePager.niu.benefit.talent.i0": {
-    en: "Opt-in attendee profiles for follow-up",
-    es: "Perfiles opt-in de asistentes para seguimiento",
-  },
-  "onePager.niu.benefit.talent.i1": { en: "4 on-site seats for NIU's team", es: "4 cupos en sitio para el equipo NIU" },
-  "onePager.niu.benefit.talent.i2": {
-    en: "30-min product conversations with builders",
-    es: "30 min de conversaciones de producto con builders",
-  },
-  "onePager.niu.benefit.presence.category": { en: "Awards activation", es: "Activación de premiación" },
-  "onePager.niu.benefit.presence.i0": {
-    en: "Opening + awards mention tied to NIU's contribution",
-    es: "Mención en apertura + premiación conectada al aporte de NIU",
-  },
-  "onePager.niu.benefit.presence.i1": {
-    en: "Winner payout flow can be routed through NIU",
-    es: "La ruta de pago a ganadores puede hacerse vía NIU",
-  },
-  "onePager.niu.benefit.presence.i2": {
-    en: "Optional fintech/product prompt for teams",
-    es: "Reto opcional fintech/producto para equipos",
-  },
-  "onePager.niu.benefit.brand.category": { en: "Brand visibility", es: "Visibilidad de marca" },
-  "onePager.niu.benefit.brand.i0": { en: "Logo on event site & slides", es: "Logo en sitio del evento y diapositivas" },
-  "onePager.niu.benefit.brand.i1": { en: "Posts on event social channels", es: "Publicaciones en redes del evento" },
-  "onePager.niu.benefit.brand.i2": {
-    en: "Pre-event spotlight with young builders",
-    es: "Destaque previo con builders jóvenes",
-  },
-  "onePager.niu.benefit.brand.i3": {
-    en: "On-site filming, interviews, and winner content for NIU's channels",
-    es: "Grabación, entrevistas y contenido de ganadores para canales de NIU",
-  },
-  "onePager.niu.benefit.post.category": { en: "Post-event", es: "Post-evento" },
-  "onePager.niu.benefit.post.i0": {
-    en: "Thank-you in post-event email",
-    es: "Agradecimiento en correo post-evento",
-  },
-  "onePager.niu.benefit.post.i1": { en: "Opt-in attendee contact list", es: "Lista de contacto opt-in de asistentes" },
-  "onePager.niu.benefit.post.i2": {
-    en: "Talent + content recap after demos",
-    es: "Recap de talento + contenido tras demos",
-  },
-  "onePager.niu.premiumTitle": { en: "Premium add-ons", es: "Complementos premium" },
-  "onePager.niu.extraCostBadge": { en: "extra cost", es: "costo extra" },
-  "onePager.niu.addon.i0": {
-    en: "Additional cash for larger or special awards",
-    es: "Aporte adicional para reconocimientos más grandes o especiales",
-  },
-  "onePager.niu.addon.i1": { en: "Additional on-site seats", es: "Cupos adicionales en sitio" },
-  "onePager.niu.addon.i2": {
-    en: "Longer product session or workshop (60 min)",
-    es: "Sesión de producto o workshop extendido (60 min)",
-  },
-  "onePager.niu.pricesNote": {
-    en: "Final amount, payout details, and coverage access can be scoped with NIU's team.",
-    es: "El monto final, la ruta de pago y el acceso de cobertura se definen con el equipo NIU.",
-  },
-  "onePager.niu.proofTitle": { en: "Proof this is real", es: "Pruebas de que es real" },
-  "onePager.niu.proofCollected": {
-    en: "$1.5K is already committed by sponsors; NIU can make the winner handoff more memorable.",
-    es: "$1.5K ya están comprometidos por sponsors; NIU puede hacer más memorable la entrega a ganadores.",
-  },
-  "onePager.niu.proof1": {
-    en: "Cursor Hackathon El Salvador on Jan 31 brought 145 attendees and 45 groups.",
-    es: "El Cursor Hackathon El Salvador del 31 de enero reunió 145 asistentes y 45 equipos.",
-  },
-  "onePager.niu.proof2": {
-    en: "Distribution runs through Cursor support, Ai /abs, UFG socials, WhatsApp groups, and local tech creators.",
-    es: "La difusión corre por apoyo de Cursor, Ai /abs, redes de la UFG, grupos de WhatsApp y creadores tech locales.",
-  },
-  "onePager.niu.proof3": {
-    en: "UFG gives the event a real university venue plus local ecosystem credibility.",
-    es: "La UFG aporta sede universitaria real y credibilidad en el ecosistema local.",
-  },
-  "onePager.niu.photosTitle": { en: "Event photos", es: "Fotos del evento" },
-  "onePager.niu.photosDisclaimer": {
-    en: "These images are documentary only and do not include sponsor logos or watermarks on the photos themselves.",
-    es: "Estas imágenes son solo documentales y no incluyen logos de patrocinadores ni marcas de agua en las fotos.",
-  },
-  "onePager.niu.footer.organizersLabel": { en: "Organizers", es: "Organizadores" },
-  "onePager.niu.footer.organizersLine": {
-    en: " with ",
-    es: " con ",
-  },
-  "onePager.niu.footer.organizersTail": {
-    en: " and Cursor Community support.",
-    es: " y apoyo de Cursor.",
-  },
-  "onePager.niu.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
-  "onePager.niu.footer.place2": {
-    en: "Mostly El Salvador, open to Central America.",
-    es: "Principalmente El Salvador, abierto a Centroamérica.",
-  },
-  "onePager.niu.ctaEmailHint": {
-    en: "Share the amount NIU wants to contribute and what your team wants to capture. We'll send a concrete plan within 48h.",
-    es: "Compártenos el monto que NIU quiere aportar y qué desea capturar su equipo. Respondemos con un plan concreto en 48 h.",
-  },
-  "onePager.niu.ctaBecomeSponsor": { en: "Become a sponsor →", es: "Ser patrocinador →" },
-  "onePager.niu.footerCopyright": {
-    en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
-    es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
-  },
-
-  "onePager.boxful.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
-  "onePager.boxful.previewScaleAria": {
-    en: "Preview zoom (screen only)",
-    es: "Zoom de vista previa (solo en pantalla)",
-  },
-  "onePager.boxful.fallbackSite": { en: "Event site", es: "Sitio del evento" },
-  "onePager.boxful.imgAlt1": {
-    en: "Cursor Hackathon El Salvador — wide shot at AMPD Labs",
-    es: "Cursor Hackathon El Salvador — plano amplio en AMPD Labs",
-  },
-  "onePager.boxful.imgAlt2": {
-    en: "Cursor Hackathon El Salvador — event photo",
-    es: "Cursor Hackathon El Salvador — foto del evento",
-  },
-  "onePager.boxful.imgAlt3": {
-    en: "Cursor Hackathon El Salvador — participants",
-    es: "Cursor Hackathon El Salvador — participantes",
-  },
-  "onePager.boxful.heroTitle": { en: "Boxful x Cursor Buildathon", es: "Boxful x Cursor Buildathon" },
-  "onePager.boxful.heroSubtitle": {
-    en: "Stand next to builders who ship overnight",
-    es: "Párate junto a builders que despachan overnight",
-  },
-  "onePager.boxful.headerWhenWhere": {
-    en: "04 · 05 · JUL 2026 · 8:00 → 9:00",
-    es: "04 · 05 · JUL 2026 · 8:00 → 9:00",
-  },
-  "onePager.boxful.ufgUniversity": { en: " · Universidad Francisco Gavidia", es: " · Universidad Francisco Gavidia" },
-  "onePager.boxful.statsAria": { en: "Key numbers", es: "Cifras clave" },
-  "onePager.boxful.stat1.label": { en: "already committed", es: "ya comprometidos" },
-  "onePager.boxful.stat1.sub": { en: "current sponsors", es: "sponsors actuales" },
-  "onePager.boxful.stat2.label": { en: "suggested ask", es: "aporte sugerido" },
-  "onePager.boxful.stat2.sub": { en: "can be more or less", es: "puede subir o bajar" },
-  "onePager.boxful.stat3.label": { en: "young attendees", es: "jóvenes asistentes" },
-  "onePager.boxful.stat3.sub": { en: "Gen Z + early career", es: "Gen Z + inicio carrera" },
-  "onePager.boxful.stat4.label": { en: "attended Jan 31", es: "asistieron 31 ene" },
-  "onePager.boxful.stat4.sub": { en: "previous event", es: "evento anterior" },
-  "onePager.boxful.stat5.label": { en: "groups built", es: "equipos armados" },
-  "onePager.boxful.stat5.sub": { en: "previous event", es: "evento anterior" },
-  "onePager.boxful.decisionKicker": { en: "Executive decision", es: "Decisión ejecutiva" },
-  "onePager.boxful.decisionTitle": {
-    en: "Put Boxful beside teams building commerce and ops",
-    es: "Ubica a Boxful junto a equipos que construyen comercio y operaciones",
-  },
-  "onePager.boxful.decisionBody": {
-    en: "Boxful helps SMBs ship nationwide with fulfillment and carrier tooling across Central America. This room prototypes storefronts, logistics UX, and ops dashboards overnight — the same muscle your customers exercise daily.",
-    es: "Boxful ayuda a PyMEs a despachar a nivel país con fulfillment y herramientas de carriers en Centroamérica. Aquí prototipan tiendas, UX logística y tableros de operaciones overnight — el mismo músculo que tus clientes ejercen día a día.",
-  },
-  "onePager.boxful.decisionMini1.title": { en: "Winner arc", es: "Arco ganadores" },
-  "onePager.boxful.decisionMini1.body": {
-    en: "Optional: pair prizes with Boxful credits or a scoped logistics story — tuned with your team.",
-    es: "Opcional: combinar premios con créditos Boxful o una historia logística acotada — lo afinamos con tu equipo.",
-  },
-  "onePager.boxful.decisionMini2.title": { en: "Media", es: "Cobertura" },
-  "onePager.boxful.decisionMini2.body": {
-    en: "Boxful marketing can film builders, demos, and winner moments on site.",
-    es: "Marketing de Boxful puede grabar builders, demos y momentos ganadores en sitio.",
-  },
-  "onePager.boxful.decisionMini3.title": { en: "Audience", es: "Audiencia" },
-  "onePager.boxful.decisionMini3.body": {
-    en: "Gen Z + early-career builders — many touching e‑commerce, SMB tools, or delivery journeys.",
-    es: "Gen Z y talento joven — muchos rozando e‑commerce, herramientas PyME o journeys de entrega.",
-  },
-  "onePager.boxful.fundingKicker": { en: "Already raised", es: "Ya recaudado" },
-  "onePager.boxful.fundingBody": {
-    en: "committed by current sponsors.",
-    es: "comprometidos por sponsors actuales.",
-  },
-  "onePager.boxful.fastDecisionLabel": { en: "Suggested Boxful amount", es: "Aporte sugerido Boxful" },
-  "onePager.boxful.fastDecisionBody": {
-    en: "Starting point only. It can go lower, higher, or scale with the activation.",
-    es: "Solo punto de partida. Puede bajar, subir o escalar con la activación.",
-  },
-  "onePager.boxful.packageTitle": { en: "Flexible Boxful contribution", es: "Aporte flexible Boxful" },
-  "onePager.boxful.usd": { en: "USD", es: "USD" },
-  "onePager.boxful.suggestedBadge": { en: "suggested USD", es: "USD sugeridos" },
-  "onePager.boxful.flexTitle": {
-    en: "Start here, then tune",
-    es: "Empieza aquí, luego ajustamos",
-  },
-  "onePager.boxful.flexBody": {
-    en: "$750 is a practical starting point, not a fixed price. Boxful can contribute less, contribute more, or scale perks around winning teams.",
-    es: "$750 es un punto de partida práctico, no un precio fijo. Boxful puede aportar menos, más o escalar beneficios alrededor de equipos ganadores.",
-  },
-  "onePager.boxful.benefit.talent.category": { en: "Talent + user access", es: "Talento + usuarios" },
-  "onePager.boxful.benefit.talent.i0": {
-    en: "Opt-in attendee profiles for follow-up",
-    es: "Perfiles opt-in de asistentes para seguimiento",
-  },
-  "onePager.boxful.benefit.talent.i1": {
-    en: "4 on-site seats for Boxful's team",
-    es: "4 cupos en sitio para el equipo Boxful",
-  },
-  "onePager.boxful.benefit.talent.i2": {
-    en: "30-min conversations with builders shipping demos",
-    es: "30 min de conversaciones con builders que despachan demos",
-  },
-  "onePager.boxful.benefit.presence.category": { en: "Awards activation", es: "Activación de premiación" },
-  "onePager.boxful.benefit.presence.i0": {
-    en: "Opening + awards mention tied to Boxful's contribution",
-    es: "Mención en apertura + premiación conectada al aporte de Boxful",
-  },
-  "onePager.boxful.benefit.presence.i1": {
-    en: "Optional commerce/logistics prompt or sponsored perk for winners",
-    es: "Reto opcional comercio/logística o beneficio patrocinado para ganadores",
-  },
-  "onePager.boxful.benefit.presence.i2": {
-    en: "Optional “ship-it” storytelling beat during demos",
-    es: "Opcional: momento \"ship-it\" durante demos",
-  },
-  "onePager.boxful.benefit.brand.category": { en: "Brand visibility", es: "Visibilidad de marca" },
-  "onePager.boxful.benefit.brand.i0": { en: "Logo on event site & slides", es: "Logo en sitio del evento y diapositivas" },
-  "onePager.boxful.benefit.brand.i1": { en: "Posts on event social channels", es: "Publicaciones en redes del evento" },
-  "onePager.boxful.benefit.brand.i2": {
-    en: "Pre-event spotlight with builders",
-    es: "Destaque previo con builders",
-  },
-  "onePager.boxful.benefit.brand.i3": {
-    en: "On-site filming, interviews, and winner content for Boxful's channels",
-    es: "Grabación, entrevistas y contenido de ganadores para canales de Boxful",
-  },
-  "onePager.boxful.benefit.post.category": { en: "Post-event", es: "Post-evento" },
-  "onePager.boxful.benefit.post.i0": {
-    en: "Thank-you in post-event email",
-    es: "Agradecimiento en correo post-evento",
-  },
-  "onePager.boxful.benefit.post.i1": { en: "Opt-in attendee contact list", es: "Lista de contacto opt-in de asistentes" },
-  "onePager.boxful.benefit.post.i2": {
-    en: "Talent + content recap after demos",
-    es: "Recap de talento + contenido tras demos",
-  },
-  "onePager.boxful.premiumTitle": { en: "Premium add-ons", es: "Complementos premium" },
-  "onePager.boxful.extraCostBadge": { en: "extra cost", es: "costo extra" },
-  "onePager.boxful.addon.i0": {
-    en: "Additional sponsorship for larger or special awards",
-    es: "Patrocinio adicional para reconocimientos más grandes o especiales",
-  },
-  "onePager.boxful.addon.i1": { en: "Additional on-site seats", es: "Cupos adicionales en sitio" },
-  "onePager.boxful.addon.i2": {
-    en: "Longer hands-on session or ops/product workshop (60 min)",
-    es: "Sesión hands-on u ops/producto extendida (60 min)",
-  },
-  "onePager.boxful.pricesNote": {
-    en: "Final amount, perk mix, and coverage access can be scoped with Boxful's team.",
-    es: "El monto final, la mezcla de beneficios y el acceso de cobertura se definen con el equipo Boxful.",
-  },
-  "onePager.boxful.proofTitle": { en: "Proof this is real", es: "Pruebas de que es real" },
-  "onePager.boxful.proofCollected": {
-    en: "$1.5K is already committed by sponsors; Boxful can make the winner beat louder.",
-    es: "$1.5K ya están comprometidos por sponsors; Boxful puede hacer más ruido el momento ganador.",
-  },
-  "onePager.boxful.proof1": {
-    en: "Cursor Hackathon El Salvador on Jan 31 brought 145 attendees and 45 groups.",
-    es: "El Cursor Hackathon El Salvador del 31 de enero reunió 145 asistentes y 45 equipos.",
-  },
-  "onePager.boxful.proof2": {
-    en: "Distribution runs through Cursor support, Ai /abs, UFG socials, WhatsApp groups, and local tech creators.",
-    es: "La difusión corre por apoyo de Cursor, Ai /abs, redes de la UFG, grupos de WhatsApp y creadores tech locales.",
-  },
-  "onePager.boxful.proof3": {
-    en: "UFG gives the event a real university venue plus local ecosystem credibility.",
-    es: "La UFG aporta sede universitaria real y credibilidad en el ecosistema local.",
-  },
-  "onePager.boxful.photosTitle": { en: "Event photos", es: "Fotos del evento" },
-  "onePager.boxful.photosDisclaimer": {
-    en: "These images are documentary only and do not include sponsor logos or watermarks on the photos themselves.",
-    es: "Estas imágenes son solo documentales y no incluyen logos de patrocinadores ni marcas de agua en las fotos.",
-  },
-  "onePager.boxful.footer.organizersLabel": { en: "Organizers", es: "Organizadores" },
-  "onePager.boxful.footer.organizersLine": {
-    en: " with ",
-    es: " con ",
-  },
-  "onePager.boxful.footer.organizersTail": {
-    en: " and Cursor Community support.",
-    es: " y apoyo de Cursor.",
-  },
-  "onePager.boxful.footer.place1": { en: "San Salvador, 2026.", es: "San Salvador, 2026." },
-  "onePager.boxful.footer.place2": {
-    en: "Mostly El Salvador, open to Central America.",
-    es: "Principalmente El Salvador, abierto a Centroamérica.",
-  },
-  "onePager.boxful.ctaEmailHint": {
-    en: "Share the amount Boxful wants to contribute and what your team wants to capture. We'll send a concrete plan within 48h.",
-    es: "Compártenos el monto que Boxful quiere aportar y qué desea capturar su equipo. Respondemos con un plan concreto en 48 h.",
-  },
-  "onePager.boxful.ctaBecomeSponsor": { en: "Become a sponsor →", es: "Ser patrocinador →" },
-  "onePager.boxful.footerCopyright": {
-    en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
-    es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
-  },
-
   "onePager.mentors.print": { en: "Print / Save PDF", es: "Imprimir / Guardar PDF" },
   "onePager.mentors.previewScaleAria": {
     en: "Preview zoom (screen only)",
@@ -2250,6 +2043,579 @@ export const translations = {
   "onePager.sobrecupo.footerCopyright": {
     en: " · © 2026 Cursor Buildathon El Salvador · Presented by Cursor Community",
     es: " · © 2026 Cursor Buildathon El Salvador · Presentado por Cursor Community",
+  },
+
+  // ── Builder hub (/builder) ─────────────────────────────────────────
+  "builder.hero.kicker": { en: "// Builder hub", es: "// Hub de builders" },
+  "builder.hero.title1": { en: "Everything you need", es: "Todo lo que necesitas" },
+  "builder.hero.title2": { en: "to build & ship", es: "para construir y entregar" },
+  "builder.hero.intro": {
+    en: "Mentors on call, submission rules, tracks, and prizes — your single reference for the build window.",
+    es: "Mentores disponibles, reglas de envío, tracks y premios — tu referencia única para la ventana de build.",
+  },
+  "builder.hero.countdownLabel": { en: "// Build window opens", es: "// Abre la ventana de build" },
+  "builder.hero.countdownWhen": {
+    en: "July 4 · 6:00 AM · San Salvador",
+    es: "4 jul · 6:00 AM · San Salvador",
+  },
+  "builder.nav.sponsors": { en: "Sponsors", es: "Sponsors" },
+  "builder.nav.team": { en: "Team", es: "Equipo" },
+  "builder.nav.mentors": { en: "Mentors", es: "Mentores" },
+  "builder.nav.submit": { en: "Submit", es: "Envío" },
+  "builder.nav.tracks": { en: "Tracks", es: "Tracks" },
+  "builder.nav.premios": { en: "Prizes", es: "Premios" },
+  "builder.nav.credits": { en: "Redeem credits", es: "Canjear créditos" },
+
+  "builder.sponsors.label": { en: "// Partners & sponsors", es: "// Partners y sponsors" },
+  "builder.sponsors.subtitle": {
+    en: "Every product partner backing the buildathon — tools, credits, and track prizes.",
+    es: "Cada partner de producto que respalda el buildathon — herramientas, créditos y premios de tracks.",
+  },
+  "builder.sponsors.count": { en: "{count} confirmed", es: "{count} confirmados" },
+  "builder.sponsors.ariaLabel": {
+    en: "Event sponsors and product partners",
+    es: "Sponsors del evento y partners de producto",
+  },
+
+  "builder.mentors.tag": { en: "// Mentors", es: "// Mentores" },
+  "builder.mentors.title1": { en: "Mentors on", es: "Mentores a tu" },
+  "builder.mentors.title2": { en: "your side", es: "lado" },
+  "builder.mentors.aside": {
+    en: "Pull in a mentor whenever you're stuck — on the floor or remote. They help you scope, debug, and land a demo that reads.",
+    es: "Llama a un mentor cuando te trabes — en sede o remoto. Te ayudan a delimitar, depurar y lograr un demo que se entienda.",
+  },
+  "builder.mentors.onsiteTitle": { en: "On-site", es: "En sede" },
+  "builder.mentors.onsiteHint": {
+    en: "Find them on the floor during the build window.",
+    es: "Encuéntralos en sede durante la ventana de build.",
+  },
+  "builder.mentors.remoteTitle": { en: "Remote", es: "Remoto" },
+  "builder.mentors.remoteHint": {
+    en: "Book a slot to connect online.",
+    es: "Reserva un espacio para conectar en línea.",
+  },
+  "builder.mentors.remoteEmpty": {
+    en: "Remote mentors are being confirmed. Check back soon.",
+    es: "Mentores remotos en confirmación. Vuelve pronto.",
+  },
+  "builder.mentors.bookSlot": { en: "Book a slot →", es: "Reservar espacio →" },
+
+  "builder.submit.tag": { en: "// Submission", es: "// Envío" },
+  "builder.submit.title1": { en: "How to submit", es: "Cómo enviar" },
+  "builder.submit.title2": { en: "your project", es: "tu proyecto" },
+  "builder.submit.aside": {
+    en: "Read the eligibility and delivery rules, prep your assets, then send everything through the submission form.",
+    es: "Lee las reglas de elegibilidad y entrega, prepara tus assets, y envía todo desde el formulario.",
+  },
+  "builder.submit.eligibilityTitle": { en: "Eligibility", es: "Elegibilidad" },
+  "builder.submit.eligibility.i0": {
+    en: "Teams of 4–5 people",
+    es: "Equipos de 4–5 personas",
+  },
+  "builder.submit.eligibility.i1": {
+    en: "Every member registers individually on Luma",
+    es: "Cada miembro se registra individualmente en Luma",
+  },
+  "builder.submit.eligibility.i2": {
+    en: "In-person attendance is required on event day",
+    es: "Asistencia presencial obligatoria el día del evento",
+  },
+  "builder.submit.eligibility.i3": {
+    en: "Open to all of Central America",
+    es: "Abierto a toda Centroamérica",
+  },
+  "builder.submit.eligibility.i4": {
+    en: "All experience levels are welcome",
+    es: "Bienvenidos todos los niveles de experiencia",
+  },
+  "builder.submit.rulesTitle": { en: "Participation rules", es: "Reglas de participación" },
+  "builder.submit.rules.i0": {
+    en: "No pre-written code — projects are built from scratch on event day",
+    es: "Sin código preescrito — los proyectos se construyen desde cero el día del evento",
+  },
+  "builder.submit.rules.i1": {
+    en: "Cursor is the required primary tool for building",
+    es: "Cursor es la herramienta principal requerida para construir",
+  },
+  "builder.submit.rules.i2": {
+    en: "One project per team",
+    es: "Un proyecto por equipo",
+  },
+  "builder.submit.rules.i3": {
+    en: "Code must be new; preexisting projects are not allowed",
+    es: "El código debe ser nuevo; no se permiten proyectos preexistentes",
+  },
+  "builder.submit.rules.i4": {
+    en: "Come with ideas and references, not with code",
+    es: "Llega con ideas y referencias, no con código",
+  },
+  "builder.submit.rules.i5": {
+    en: "A shared repository or link is required at the end",
+    es: "Repositorio o enlace compartido requerido al finalizar",
+  },
+  "builder.submit.checklistTitle": { en: "What to prepare", es: "Qué preparar" },
+  "builder.submit.checklist.i0": {
+    en: "Team name and 4–5 members (name + X / LinkedIn)",
+    es: "Nombre del equipo y 4–5 miembros (nombre + X / LinkedIn)",
+  },
+  "builder.submit.checklist.i1": {
+    en: "Public repository URL",
+    es: "URL del repositorio público",
+  },
+  "builder.submit.checklist.i2": {
+    en: "Short project description (max 500 characters)",
+    es: "Descripción breve del proyecto (máx. 500 caracteres)",
+  },
+  "builder.submit.checklist.i3": {
+    en: "Demo video (MP4, WebM, or MOV — up to 100 MB)",
+    es: "Video demo (MP4, WebM o MOV — hasta 100 MB)",
+  },
+  "builder.submit.checklist.i4": {
+    en: "Link to your event social post",
+    es: "Enlace a tu publicación sobre el evento",
+  },
+  "builder.submit.cta": { en: "Open submission form →", es: "Abrir formulario de envío →" },
+  "builder.submit.ctaHint": {
+    en: "One submission per team. Takes about 5 minutes.",
+    es: "Un envío por equipo. Toma unos 5 minutos.",
+  },
+
+  "builder.tracks.tag": { en: "// Tracks", es: "// Tracks" },
+  "builder.tracks.title1": { en: "Pick your", es: "Elige tu" },
+  "builder.tracks.title2": { en: "track", es: "track" },
+  "builder.tracks.aside": {
+    en: "Compete in a category and stack sponsor track prizes on top — your project can qualify for several at once.",
+    es: "Compite en una categoría y suma premios de tracks de sponsors — tu proyecto puede calificar a varios a la vez.",
+  },
+  "builder.tracks.competitionTitle": { en: "Competition categories", es: "Categorías de competencia" },
+  "builder.tracks.competitionHint": {
+    en: "Choose the category that fits your project.",
+    es: "Elige la categoría que encaje con tu proyecto.",
+  },
+  "builder.tracks.competition.ai_consumer.title": { en: "AI Consumer", es: "AI Consumer" },
+  "builder.tracks.competition.ai_consumer.description": {
+    en: "Consumer-facing products where AI is the core experience — assistants, content, search, and everyday tools.",
+    es: "Productos para el consumidor donde la IA es la experiencia central — asistentes, contenido, búsqueda y herramientas cotidianas.",
+  },
+  "builder.tracks.competition.fintech_web3.title": { en: "Fintech & Web3", es: "Fintech & Web3" },
+  "builder.tracks.competition.fintech_web3.description": {
+    en: "Payments, finance, and on-chain apps — wallets, remittances, DeFi, and financial tooling built with AI.",
+    es: "Pagos, finanzas y apps on-chain — wallets, remesas, DeFi y herramientas financieras construidas con IA.",
+  },
+  "builder.tracks.sponsorTitle": { en: "Sponsor tracks", es: "Tracks de sponsors" },
+  "builder.tracks.sponsorHint": {
+    en: "Extra prizes for the best use of each partner's product.",
+    es: "Premios extra por el mejor uso del producto de cada partner.",
+  },
+
+  "builder.premios.tag": { en: "// Prizes", es: "// Premios" },
+  "builder.premios.title1": { en: "Tracks, prizes", es: "Tracks, premios" },
+  "builder.premios.title2": { en: "& credits", es: "y créditos" },
+  "builder.premios.aside": {
+    en: "Every builder gets credits day one. Sponsor tracks and the overall podium add cash and bigger credit packs on top.",
+    es: "Cada builder recibe créditos desde el día uno. Los tracks de sponsors y el podio general suman efectivo y paquetes de créditos más grandes.",
+  },
+  "builder.premios.creditsLabel": {
+    en: "In credits for every builder — day one",
+    es: "En créditos para cada builder — desde el día uno",
+  },
+  "builder.premios.prizesLabel": {
+    en: "Total prize value across tracks & podium",
+    es: "Valor total de premios en tracks y podio",
+  },
+  "builder.premios.allParticipantsTitle": { en: "All participants get", es: "Todos los participantes reciben" },
+  "builder.premios.allParticipantsHint": {
+    en: "Credits and trials redeemable during the event.",
+    es: "Créditos y pruebas canjeables durante el evento.",
+  },
+  "builder.premios.sponsorTitle": { en: "Sponsor track awards", es: "Premios de tracks de sponsors" },
+  "builder.premios.sponsorHint": {
+    en: "Per team member, for the best use of each product.",
+    es: "Por miembro del equipo, por el mejor uso de cada producto.",
+  },
+  "builder.premios.overallTitle": { en: "Overall winners", es: "Ganadores generales" },
+  "builder.premios.overallHint": {
+    en: "Cash for the team plus credits per member.",
+    es: "Efectivo para el equipo más créditos por miembro.",
+  },
+
+  "builder.credits.tag": { en: "// Redeem credits", es: "// Canjear créditos" },
+  "builder.credits.title1": { en: "How to redeem", es: "Cómo canjear" },
+  "builder.credits.title2": { en: "your perks", es: "tus perks" },
+  "builder.credits.aside": {
+    en: "Every builder gets ~$365 in credits on day one. Follow the steps below at check-in or anytime during the event.",
+    es: "Cada builder recibe ~$365 en créditos desde el día uno. Sigue los pasos abajo al registrarte o en cualquier momento del evento.",
+  },
+  "builder.credits.intro": {
+    en: "Your builder pack includes a card or sheet with sponsor-specific codes and links. Redeem with the same email you used on Luma.",
+    es: "Tu pack de builder incluye una tarjeta o hoja con códigos y enlaces por sponsor. Canjea con el mismo correo que usaste en Luma.",
+  },
+  "builder.credits.general.i0.title": { en: "Check in", es: "Regístrate" },
+  "builder.credits.general.i0.body": {
+    en: "Pick up your builder pack at registration when doors open — it lists every perk and code.",
+    es: "Recoge tu pack de builder en registro cuando abran las puertas — lista cada perk y código.",
+  },
+  "builder.credits.general.i1.title": { en: "Redeem online", es: "Canjea en línea" },
+  "builder.credits.general.i1.body": {
+    en: "Most perks activate through a link or promo code on the sponsor's site. Work through the list at your pace.",
+    es: "La mayoría de perks se activan con un enlace o código promo en el sitio del sponsor. Avanza a tu ritmo.",
+  },
+  "builder.credits.general.i2.title": { en: "Need help?", es: "¿Necesitas ayuda?" },
+  "builder.credits.general.i2.body": {
+    en: "Visit the sponsor desk on the floor or flag staff — we'll walk you through any stuck redemption.",
+    es: "Visita el desk de sponsors en sede o avisa al staff — te guiamos si algún canje se traba.",
+  },
+  "builder.credits.footer": {
+    en: "Codes are single-use and tied to your registration email. Podium and track prizes are distributed after judging.",
+    es: "Los códigos son de un solo uso y van ligados a tu correo de registro. Premios de podio y tracks se entregan después del jurado.",
+  },
+  "builder.credits.redeem.cursor.s0": {
+    en: "Sign in at cursor.com with your registration email.",
+    es: "Inicia sesión en cursor.com con tu correo de registro.",
+  },
+  "builder.credits.redeem.cursor.s1": {
+    en: "Open Settings → Billing and enter the Pro+ promo code from your pack.",
+    es: "Abre Ajustes → Billing e ingresa el código promo Pro+ de tu pack.",
+  },
+  "builder.credits.redeem.cursor.s2": {
+    en: "Confirm the 1-month Pro+ trial shows as active before you start building.",
+    es: "Confirma que el trial de 1 mes Pro+ aparece activo antes de empezar a construir.",
+  },
+  "builder.credits.redeem.codex.s0": {
+    en: "Open the Codex redemption link printed on your builder card.",
+    es: "Abre el enlace de canje Codex impreso en tu tarjeta de builder.",
+  },
+  "builder.credits.redeem.codex.s1": {
+    en: "Connect your OpenAI account — GPT Plus and the $50 API credit bundle apply automatically.",
+    es: "Conecta tu cuenta OpenAI — GPT Plus y el paquete de $50 API se aplican automáticamente.",
+  },
+  "builder.credits.redeem.codex.s2": {
+    en: "Verify API billing shows the credit balance in the Codex dashboard.",
+    es: "Verifica que el billing API muestre el saldo de crédito en el dashboard de Codex.",
+  },
+  "builder.credits.redeem.elevenlabs.s0": {
+    en: "Create or sign in to elevenlabs.io with your event email.",
+    es: "Crea o inicia sesión en elevenlabs.io con tu correo del evento.",
+  },
+  "builder.credits.redeem.elevenlabs.s1": {
+    en: "Go to Subscription → Redeem code and paste the Creator plan code from your pack.",
+    es: "Ve a Subscription → Redeem code y pega el código del plan Creator de tu pack.",
+  },
+  "builder.credits.redeem.elevenlabs.s2": {
+    en: "Confirm Creator tier is active — you'll need it for voice demos during the build.",
+    es: "Confirma que el tier Creator está activo — lo necesitarás para demos de voz durante el build.",
+  },
+  "builder.credits.redeem.n8n.s0": {
+    en: "Register at n8n.io (or sign in) using your registration email.",
+    es: "Regístrate en n8n.io (o inicia sesión) con tu correo de registro.",
+  },
+  "builder.credits.redeem.n8n.s1": {
+    en: "In Account Settings, apply the 1-month Pro promo code from your builder pack.",
+    es: "En Account Settings, aplica el código promo Pro de 1 mes de tu pack de builder.",
+  },
+  "builder.credits.redeem.n8n.s2": {
+    en: "Spin up a cloud instance to confirm Pro features are unlocked.",
+    es: "Levanta una instancia cloud para confirmar que las funciones Pro están desbloqueadas.",
+  },
+  "builder.credits.redeem.zavu.s0": {
+    en: "Sign up at zavu.dev with the same email you used on Luma.",
+    es: "Regístrate en zavu.dev con el mismo correo que usaste en Luma.",
+  },
+  "builder.credits.redeem.zavu.s1": {
+    en: "Enter the 3-month Hobby code from your pack during onboarding or in billing.",
+    es: "Ingresa el código Hobby de 3 meses de tu pack durante el onboarding o en billing.",
+  },
+  "builder.credits.redeem.zavu.s2": {
+    en: "Confirm the Hobby workspace is active before wiring automations into your project.",
+    es: "Confirma que el workspace Hobby está activo antes de conectar automatizaciones a tu proyecto.",
+  },
+  "builder.credits.redeem.firecrawl.s0": {
+    en: "Create a Firecrawl account at firecrawl.dev with your event email.",
+    es: "Crea una cuenta Firecrawl en firecrawl.dev con tu correo del evento.",
+  },
+  "builder.credits.redeem.firecrawl.s1": {
+    en: "Paste the API key from your builder pack into the dashboard — 10K credits load instantly.",
+    es: "Pega la API key de tu pack de builder en el dashboard — 10K créditos cargan al instante.",
+  },
+  "builder.credits.redeem.firecrawl.s2": {
+    en: "Run a quick scrape test to confirm credits are deducting correctly.",
+    es: "Corre un scrape de prueba para confirmar que los créditos se descuentan bien.",
+  },
+  "builder.credits.redeem.datamcp.s0": {
+    en: "Sign up at the DataMCP link on your builder card.",
+    es: "Regístrate en el enlace DataMCP de tu tarjeta de builder.",
+  },
+  "builder.credits.redeem.datamcp.s1": {
+    en: "Apply the 2-month Pro promo code in account settings.",
+    es: "Aplica el código promo Pro de 2 meses en ajustes de cuenta.",
+  },
+  "builder.credits.redeem.datamcp.s2": {
+    en: "Verify Pro tier access before connecting MCP servers in Cursor.",
+    es: "Verifica acceso tier Pro antes de conectar servidores MCP en Cursor.",
+  },
+  "builder.credits.redeem.devin.s0": {
+    en: "Follow the Devin API credits link printed in your builder pack.",
+    es: "Sigue el enlace de créditos API Devin impreso en tu pack de builder.",
+  },
+  "builder.credits.redeem.devin.s1": {
+    en: "Sign in and claim the API credit bundle tied to your registration email.",
+    es: "Inicia sesión y reclama el paquete de créditos API ligado a tu correo de registro.",
+  },
+  "builder.credits.redeem.devin.s2": {
+    en: "Check the dashboard balance before calling Devin endpoints in your demo.",
+    es: "Revisa el saldo en el dashboard antes de llamar endpoints Devin en tu demo.",
+  },
+
+  // ── Team onboarding (/builder) ─────────────────────────────────────
+  "builder.team.tag": { en: "// Your team", es: "// Tu equipo" },
+  "builder.team.onboarding.title": { en: "Set up your team", es: "Arma tu equipo" },
+  "builder.team.onboarding.intro": {
+    en: "Teams are 4–5 builders. Register as the leader, or join your team with the code your leader shares.",
+    es: "Los equipos son de 4–5 builders. Regístrate como líder, o únete a tu equipo con el código que comparte tu líder.",
+  },
+  "builder.team.role.leader.title": { en: "I'm the leader", es: "Soy el líder" },
+  "builder.team.role.leader.body": {
+    en: "Register the team and get a code to share with your teammates.",
+    es: "Registra el equipo y obtén un código para compartir con tu equipo.",
+  },
+  "builder.team.role.member.title": { en: "I'm a team player", es: "Soy parte del equipo" },
+  "builder.team.role.member.body": {
+    en: "Have a code? Join your team and add your profile.",
+    es: "¿Tienes un código? Únete a tu equipo y agrega tu perfil.",
+  },
+  "builder.team.back": { en: "Back", es: "Atrás" },
+
+  "builder.team.leaderForm.title": { en: "Register your team", es: "Registra tu equipo" },
+  "builder.team.leaderForm.teamName": { en: "Team name", es: "Nombre del equipo" },
+  "builder.team.leaderForm.teamNamePlaceholder": { en: "e.g. Hack Masters", es: "ej. Hack Masters" },
+  "builder.team.leaderForm.yourProfile": { en: "Your profile", es: "Tu perfil" },
+  "builder.team.leaderForm.submit": { en: "Create team", es: "Crear equipo" },
+  "builder.team.leaderForm.submitting": { en: "Creating…", es: "Creando…" },
+
+  "builder.team.joinForm.title": { en: "Join your team", es: "Únete a tu equipo" },
+  "builder.team.joinForm.code": { en: "Invite code", es: "Código de invitación" },
+  "builder.team.joinForm.codePlaceholder": { en: "e.g. K7M2XP", es: "ej. K7M2XP" },
+  "builder.team.joinForm.codeHint": {
+    en: "Ask your team leader for the 6-character code.",
+    es: "Pide a tu líder el código de 6 caracteres.",
+  },
+  "builder.team.joinForm.foundTeam": { en: "Found team", es: "Equipo encontrado" },
+  "builder.team.joinForm.yourProfile": { en: "Your profile", es: "Tu perfil" },
+  "builder.team.joinForm.submit": { en: "Join team", es: "Unirme al equipo" },
+  "builder.team.joinForm.submitting": { en: "Joining…", es: "Uniéndome…" },
+
+  "builder.team.field.name": { en: "Full name", es: "Nombre completo" },
+  "builder.team.field.namePlaceholder": { en: "Jane Doe", es: "María López" },
+  "builder.team.field.xProfile": { en: "X profile", es: "Perfil de X" },
+  "builder.team.field.xPlaceholder": {
+    en: "@handle or https://x.com/handle",
+    es: "@usuario o https://x.com/usuario",
+  },
+  "builder.team.field.linkedIn": { en: "LinkedIn profile", es: "Perfil de LinkedIn" },
+  "builder.team.field.linkedInPlaceholder": {
+    en: "https://linkedin.com/in/you",
+    es: "https://linkedin.com/in/tu-perfil",
+  },
+  "builder.team.field.sponsorTrackLegend": {
+    en: "Sponsor track (optional)",
+    es: "Track de sponsor (opcional)",
+  },
+  "builder.team.field.sponsorTrackHint": {
+    en: "Are you building for one of these sponsor tracks? Pick one if yes — you can skip this.",
+    es: "¿Están construyendo para uno de estos tracks de sponsors? Elige uno si aplica — puedes omitirlo.",
+  },
+  "builder.team.field.sponsorTrackNone": {
+    en: "Not participating in a sponsor track",
+    es: "No participamos en un track de sponsor",
+  },
+
+  "builder.team.panel.leaderBadge": { en: "Team leader", es: "Líder del equipo" },
+  "builder.team.panel.memberBadge": { en: "Team member", es: "Miembro del equipo" },
+  "builder.team.panel.youBadge": { en: "You", es: "Tú" },
+  "builder.team.panel.inviteCodeLabel": { en: "Invite code", es: "Código de invitación" },
+  "builder.team.panel.shareHint": {
+    en: "Share this code with your team so they can join.",
+    es: "Comparte este código con tu equipo para que se unan.",
+  },
+  "builder.team.panel.copy": { en: "Copy code", es: "Copiar código" },
+  "builder.team.panel.copied": { en: "Copied", es: "Copiado" },
+  "builder.team.panel.rosterLabel": { en: "Roster", es: "Equipo" },
+  "builder.team.panel.sponsorTrackLabel": {
+    en: "Sponsor track",
+    es: "Track de sponsor",
+  },
+  "builder.team.panel.membersCount": {
+    en: "{count}/{max} members",
+    es: "{count}/{max} miembros",
+  },
+  "builder.team.panel.emptySlot": { en: "Open spot", es: "Lugar disponible" },
+  "builder.team.panel.needMore": {
+    en: "Add at least {count} members to unlock project submission.",
+    es: "Agrega al menos {count} miembros para habilitar el envío del proyecto.",
+  },
+  "builder.team.panel.readyLeader": {
+    en: "Your roster is ready. You can submit the team's project.",
+    es: "Tu equipo está listo. Puedes enviar el proyecto del equipo.",
+  },
+  "builder.team.panel.memberWait": {
+    en: "Only the team leader submits the project for the whole team.",
+    es: "Solo el líder del equipo envía el proyecto por todo el equipo.",
+  },
+  "builder.team.panel.submitted": {
+    en: "Your team's project has been submitted.",
+    es: "El proyecto de tu equipo ha sido enviado.",
+  },
+  "builder.team.panel.submitCta": { en: "Submit project →", es: "Enviar proyecto →" },
+
+  "builder.team.gate.title": { en: "Submission locked", es: "Envío bloqueado" },
+  "builder.team.gate.noTeam": {
+    en: "Register or join a team on the builder hub before submitting.",
+    es: "Regístrate o únete a un equipo en el hub de builders antes de enviar.",
+  },
+  "builder.team.gate.notLeader": {
+    en: "Only the team leader can submit the project. Ask your leader to submit.",
+    es: "Solo el líder del equipo puede enviar el proyecto. Pídele a tu líder que envíe.",
+  },
+  "builder.team.gate.needMore": {
+    en: "Your team needs at least {count} members before you can submit.",
+    es: "Tu equipo necesita al menos {count} miembros antes de poder enviar.",
+  },
+  "builder.team.gate.alreadySubmitted": {
+    en: "Your team has already submitted a project.",
+    es: "Tu equipo ya envió un proyecto.",
+  },
+  "builder.team.gate.backToHub": { en: "Back to builder hub", es: "Volver al hub de builders" },
+
+  // ── Progress checklist (/builder) ──────────────────────────────────
+  "builder.progress.title": { en: "Your progress", es: "Tu progreso" },
+  "builder.progress.subtitle": {
+    en: "What's done and what's next before you ship.",
+    es: "Lo que ya está y lo que sigue antes de entregar.",
+  },
+  "builder.progress.count": { en: "{done}/{total} done", es: "{done}/{total} listo" },
+  "builder.progress.team.title": { en: "Team registered", es: "Equipo registrado" },
+  "builder.progress.team.done": { en: "Your team is set up.", es: "Tu equipo está listo." },
+  "builder.progress.roster.title": { en: "Roster ready", es: "Equipo completo" },
+  "builder.progress.roster.done": {
+    en: "{count}/{max} members — enough to submit.",
+    es: "{count}/{max} miembros — suficiente para enviar.",
+  },
+  "builder.progress.roster.todo": {
+    en: "Add {count} more member(s) to unlock submission.",
+    es: "Agrega {count} miembro(s) más para habilitar el envío.",
+  },
+  "builder.progress.competition.title": { en: "Competition track chosen", es: "Track de competencia elegido" },
+  "builder.progress.competition.todoLeader": {
+    en: "Pick a category in your team panel below.",
+    es: "Elige una categoría en el panel de tu equipo abajo.",
+  },
+  "builder.progress.competition.todoMember": {
+    en: "Your team leader picks this.",
+    es: "Tu líder de equipo elige esto.",
+  },
+  "builder.progress.sponsor.title": { en: "Sponsor track (optional)", es: "Track de sponsor (opcional)" },
+  "builder.progress.sponsor.todo": {
+    en: "Optional — set when you create the team.",
+    es: "Opcional — se define al crear el equipo.",
+  },
+  "builder.progress.credits.title": { en: "Redeem your credits", es: "Canjea tus créditos" },
+  "builder.progress.credits.todo": {
+    en: "Activate your sponsor perks during the event.",
+    es: "Activa tus perks de sponsors durante el evento.",
+  },
+  "builder.progress.credits.done": {
+    en: "Marked as redeemed on this device.",
+    es: "Marcado como canjeado en este dispositivo.",
+  },
+  "builder.progress.credits.howTo": { en: "How to redeem →", es: "Cómo canjear →" },
+  "builder.progress.credits.markDone": { en: "Mark done", es: "Marcar listo" },
+  "builder.progress.credits.undo": { en: "Undo", es: "Deshacer" },
+  "builder.progress.submit.title": { en: "Project submitted", es: "Proyecto enviado" },
+  "builder.progress.submit.done": { en: "Your project is in.", es: "Tu proyecto fue enviado." },
+  "builder.progress.submit.ready": {
+    en: "Your roster is ready — submit when you're done building.",
+    es: "Tu equipo está listo — envía cuando termines de construir.",
+  },
+  "builder.progress.submit.todo": {
+    en: "Unlocks once your roster is ready.",
+    es: "Se habilita cuando tu equipo esté completo.",
+  },
+
+  // ── Logistics (/builder) ───────────────────────────────────────────
+  "builder.nav.logistics": { en: "Logistics", es: "Logística" },
+  "builder.logistics.tag": { en: "// Logistics", es: "// Logística" },
+  "builder.logistics.title1": { en: "Where, when", es: "Dónde, cuándo" },
+  "builder.logistics.title2": { en: "& the deadline", es: "y la fecha límite" },
+  "builder.logistics.aside": {
+    en: "The full run-of-show, the venue, and the one time that matters most — when submissions close.",
+    es: "El programa completo, la sede, y la hora que más importa — cuándo cierran los envíos.",
+  },
+  "builder.logistics.scheduleTitle": { en: "Event schedule", es: "Agenda del evento" },
+  "builder.logistics.scheduleHint": {
+    en: "Continuous build window across July 4–5.",
+    es: "Ventana continua de build entre el 4 y 5 de julio.",
+  },
+  "builder.logistics.deadlineLabel": { en: "// Submissions close", es: "// Cierran los envíos" },
+  "builder.logistics.deadlineWhen": {
+    en: "July 5 · 8:00 AM · San Salvador",
+    es: "5 jul · 8:00 AM · San Salvador",
+  },
+  "builder.logistics.deadlineHint": {
+    en: "Team leaders must submit before this time. Don't leave it to the last minute.",
+    es: "Los líderes de equipo deben enviar antes de esta hora. No lo dejes para el último minuto.",
+  },
+  "builder.logistics.venueTitle": { en: "Venue", es: "Sede" },
+
+  // ── Judges (/builder) ──────────────────────────────────────────────
+  "builder.nav.judges": { en: "Judges", es: "Jurado" },
+  "builder.judges.tag": { en: "// Judges", es: "// Jurado" },
+  "builder.judges.title1": { en: "Who scores", es: "Quién evalúa" },
+  "builder.judges.title2": { en: "your build", es: "tu proyecto" },
+  "builder.judges.aside": {
+    en: "Build for these people. They review every submission and pick the track and overall winners.",
+    es: "Construye pensando en ellos. Revisan cada envío y eligen a los ganadores de tracks y generales.",
+  },
+
+  // ── Announcement banner (/builder) ─────────────────────────────────
+  "builder.announcement.label": { en: "Update", es: "Aviso" },
+  "builder.announcement.dismiss": { en: "Dismiss", es: "Cerrar" },
+
+  // ── Submit CTA states (/builder) ───────────────────────────────────
+  "builder.submit.cta.noTeam": { en: "Set up your team →", es: "Arma tu equipo →" },
+  "builder.submit.cta.needMore": { en: "Invite your teammates →", es: "Invita a tu equipo →" },
+  "builder.submit.cta.notLeader": {
+    en: "Only your team leader can submit.",
+    es: "Solo el líder de tu equipo puede enviar.",
+  },
+  "builder.submit.cta.submitted": { en: "View your submission →", es: "Ver tu envío →" },
+
+  // ── Team panel: competition track + submission summary (/builder) ──
+  "builder.team.panel.competitionTrackLabel": {
+    en: "Competition track",
+    es: "Track de competencia",
+  },
+  "builder.team.panel.competitionTrackNone": { en: "Not chosen yet", es: "Aún sin elegir" },
+  "builder.team.panel.competitionTrackPrompt": {
+    en: "Which category does your project compete in?",
+    es: "¿En qué categoría compite tu proyecto?",
+  },
+  "builder.team.panel.competitionTrackSaving": { en: "Saving…", es: "Guardando…" },
+  "builder.team.panel.submission.title": { en: "Your submission", es: "Tu envío" },
+  "builder.team.panel.submission.repo": { en: "Repository", es: "Repositorio" },
+  "builder.team.panel.submission.post": { en: "Event post", es: "Publicación del evento" },
+  "builder.team.panel.submission.track": { en: "Track", es: "Track" },
+  "builder.team.panel.submission.view": { en: "Open →", es: "Abrir →" },
+  "builder.team.panel.memberX": { en: "X", es: "X" },
+  "builder.team.panel.memberLinkedIn": { en: "LinkedIn", es: "LinkedIn" },
+
+  // ── Join form: full / submitted states (/builder) ──────────────────
+  "builder.team.joinForm.full": {
+    en: "This team is already full.",
+    es: "Este equipo ya está lleno.",
+  },
+  "builder.team.joinForm.submitted": {
+    en: "This team has already submitted a project.",
+    es: "Este equipo ya envió un proyecto.",
   },
 } as const;
 

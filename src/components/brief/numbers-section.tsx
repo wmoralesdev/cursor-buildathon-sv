@@ -8,7 +8,7 @@ export function NumbersSection() {
   const stats = useMemo(
     () => [
       { id: "s1", value: "~24h+", label: t("numbers.s1.label"), sub: t("numbers.s1.sub") },
-      { id: "s2", value: "2–4",   label: t("numbers.s2.label"), sub: t("numbers.s2.sub") },
+      { id: "s2", value: "4–5",   label: t("numbers.s2.label"), sub: t("numbers.s2.sub") },
       { id: "s3", value: "UFG",   label: t("numbers.s3.label"), sub: t("numbers.s3.sub") },
       { id: "s4", value: "CA",    label: t("numbers.s4.label"), sub: t("numbers.s4.sub") },
       { id: "s5", value: t("hero.stat.editionValue"), label: t("numbers.s5.label"), sub: t("numbers.s5.sub") },

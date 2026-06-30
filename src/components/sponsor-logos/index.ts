@@ -23,6 +23,15 @@ import { SvnetLogo } from "./svnet-logo";
 import { FirecrawlLogo } from "./firecrawl-logo";
 import { DatamcpLogo } from "./datamcp-logo";
 import { RcnsLogo } from "./rcns-logo";
+import { MacaLogo } from "./maca-logo";
+import { CrafterLogo } from "./crafter-logo";
+import { EsroboticaLogo } from "./esrobotica-logo";
+import { From021Logo } from "./from021-logo";
+import { GadDevLogo } from "./gad-dev-logo";
+import { MistralLogo } from "./mistral-logo";
+import { SupabaseLogo } from "./supabase-logo";
+import { IeeeLogo } from "./ieee-logo";
+import { UfgLogo } from "./ufg-logo";
 
 export type { BrandLogoProps } from "./logo-props";
 export type { OnePagerSponsorLogoId, ProductSponsorId } from "./sponsor-logo-ids";
@@ -53,6 +62,16 @@ export { SvnetLogo } from "./svnet-logo";
 export { FirecrawlLogo } from "./firecrawl-logo";
 export { DatamcpLogo } from "./datamcp-logo";
 export { RcnsLogo } from "./rcns-logo";
+export { MacaLogo } from "./maca-logo";
+export { CrafterLogo } from "./crafter-logo";
+export { EsroboticaLogo } from "./esrobotica-logo";
+export { From021Logo } from "./from021-logo";
+export { GadDevLogo } from "./gad-dev-logo";
+export { MistralLogo } from "./mistral-logo";
+export { SupabaseLogo } from "./supabase-logo";
+export { IeeeLogo } from "./ieee-logo";
+export { UfgLogo } from "./ufg-logo";
+export { AilabsLogo } from "./ailabs-logo";
 export { ZavuLogo } from "./zavu-logo";
 
 export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<BrandLogoProps>> = {
@@ -64,8 +83,10 @@ export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<Bran
   elevenlabs: ElevenLabsLogo,
   simov: SimovLogo,
   kreali: KrealiLogo,
+  maca: MacaLogo,
   weris: WerisLogo,
   boxful: BoxfulLogo,
+  crafter: CrafterLogo,
   drop: DropLogo,
   gamesquad: GamesquadLogo,
   searchyou: SearchyouLogo,
@@ -76,6 +97,13 @@ export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<Bran
   exa: ExaLogo,
   svnet: SvnetLogo,
   firecrawl: FirecrawlLogo,
+  esrobotica: EsroboticaLogo,
   datamcp: DatamcpLogo,
   rcns: RcnsLogo,
+  from021: From021Logo,
+  "gad-dev": GadDevLogo,
+  mistral: MistralLogo,
+  supabase: SupabaseLogo,
+  ieee: IeeeLogo,
+  ufg: UfgLogo,
 };

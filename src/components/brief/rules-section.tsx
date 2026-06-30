@@ -1,5 +1,5 @@
 const eligibilityRules = [
-  "Equipos de 2–4 personas",
+  "Equipos de 4–5 personas",
   "Todos los miembros deben registrarse individualmente en Luma",
   "Asistencia presencial obligatoria el día del evento",
   "Abierto a toda Centroamérica",

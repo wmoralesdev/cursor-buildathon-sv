@@ -44,7 +44,6 @@ export const BANNER_COPY_VARIANTS: BannerCopyVariant[] = [
   { id: "cafe", headline: "Cafe Cursor" },
   { id: "lab", headline: "Cursor Lab" },
   { id: "buildathon", headline: "Cursor Buildathon" },
-  { id: "hackathon", headline: "Cursor Hackathon" },
   { id: "meetup", headline: "Cursor Meetup" },
   { id: "workshop", headline: "Cursor Workshop" },
 ];

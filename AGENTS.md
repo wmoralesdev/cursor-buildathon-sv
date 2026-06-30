@@ -9,7 +9,7 @@
 - For sponsor-spot Remotion clips, the fake typed CLI line should use the sponsor’s lowercase product id inside the quoted token (e.g. `weris`) when terminal-authentic copy is intended.
 - For event-intro Remotion story format, align chrome with sponsor-spot story (`SponsorSpotCornerHeader`, matching vertical band padding).
 - When tuning the event-intro center Cursor mark, prefer lengthening the full-opacity hold via `event-intro-spec.ts` timeline shifts rather than slowing lock-in/out ramps unless explicitly requested.
-- For light sponsor one-pagers (`/onepager-niu`, `/onepager-boxful`), favor executive-scan layout: clearly separate **funds already committed** from the **suggested new contribution**; tighten copy (no AI-flavored jargon, avoid repeating the same positioning hook); print/PDF should honor the selected **locale and preview scale** and open **sheet-only** content without extra chrome.
+- For light sponsor one-pagers, favor executive-scan layout: clearly separate **funds already committed** from the **suggested new contribution**; tighten copy (no AI-flavored jargon, avoid repeating the same positioning hook); print/PDF should honor the selected **locale and preview scale** and open **sheet-only** content without extra chrome.
 
 ## Learned Workspace Facts
 
@@ -18,4 +18,17 @@
 - Weris uses themed SVGs at `public/sponsors/weris_dark.svg` and `public/sponsors/weris_light.svg`.
 - `.agents` (local agent skills / scratch) is gitignored at the repo root.
 - Event-intro partner wall: global `.sponsor-slot` stays at `opacity: 0` until welcome-slate `[data-slate-active="true"]`; Remotion event-intro marks the wall with `data-event-intro-partner-wall="true"` and a scoped override in `src/index.css` so logos stay visible with frame-driven timing.
-- Light sponsor outreach uses `/onepager-niu` and `/onepager-boxful`, shared `src/pages/light-one-pager-sheet.tsx`, i18n `onePager.niu` / `onePager.boxful`, and `NIU_SPONSOR_MAILTO` / `BOXFUL_SPONSOR_MAILTO` in `src/constants.ts` (legacy `onepager-cash`, `onePager.cash`, and `CASH_SPONSOR_MAILTO` are retired).
+
+<!-- convex-ai-start -->
+
+This project uses [Convex](https://convex.dev) as its backend.
+
+When working on Convex code, **always read
+`convex/_generated/ai/guidelines.md` first** for important guidelines on
+how to correctly use Convex APIs and patterns. The file contains rules that
+override what you may have learned about Convex from training data.
+
+Convex agent skills for common tasks can be installed by running
+`npx convex ai-files install`.
+
+<!-- convex-ai-end -->

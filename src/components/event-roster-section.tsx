@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { AnchorHeading } from "./anchor-heading";
-import { PersonCard } from "./brief/person-card";
+import { EventRosterCard } from "./event-roster-card";
 import type { EventPersonRosterEntry } from "../types/event-person-roster";
 import { useTranslation } from "../context/language-context";
 import type { TranslationKey } from "../i18n/translations";
@@ -40,6 +40,10 @@ export function EventRosterSection({
         initials: entry.placeholder ? "—" : initialsFromName(entry.name),
         name: entry.placeholder ? t(placeholderNameKey) : entry.name,
         role: entry.title,
+        company: entry.company,
+        companyHref: entry.companyHref,
+        companyLogo: entry.companyLogo,
+        brief: entry.bio,
         photo: entry.photo,
         placeholder: entry.placeholder,
       })),
@@ -68,9 +72,17 @@ export function EventRosterSection({
           </p>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
           {cards.map((person, i) => (
-            <PersonCard key={`${id}-${person.name}-${i}`} {...person} size="sm" index={i} />
+            <EventRosterCard
+              key={`${id}-${person.name}-${i}`}
+              kind={id}
+              index={i}
+              confirmedLabel={t("roster.confirmed")}
+              incomingLabel={t("roster.incoming")}
+              unconfirmedRoleLabel={t("roster.unconfirmedRole")}
+              {...person}
+            />
           ))}
         </div>
       </div>

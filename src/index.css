@@ -264,6 +264,23 @@
   100% { transform: translate3d(var(--marquee-shift, -50%), 0, 0); }
 }
 
+/* Roster credential — portrait scan sweep for unconfirmed dossiers */
+@keyframes roster-scan {
+  0%   { transform: translateY(-130%); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateY(130%); opacity: 0; }
+}
+
+.roster-scan-line {
+  animation: roster-scan 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, opacity;
+}
+
+/* Roster credential — staggered scan delay so the wall feels like a live feed */
+.roster-card:nth-child(3n + 2) .roster-scan-line { animation-delay: 1.1s; }
+.roster-card:nth-child(3n + 3) .roster-scan-line { animation-delay: 2.2s; }
+
 .marquee-mask {
   mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
 }
@@ -474,6 +491,16 @@
 }
 
 .logo-img:hover {
+  opacity: 1;
+}
+
+/* IEEE mark is white-on-transparent — invert to black in light UI */
+[data-theme="light"] .sponsor-logo-ieee {
+  filter: brightness(0);
+  opacity: 0.72;
+}
+
+[data-theme="light"] .sponsor-logo-ieee:hover {
   opacity: 1;
 }
 
@@ -939,5 +966,222 @@
   }
   html:not([data-welcome-video-export]) .poster-bg__shadow {
     transform: translate3d(-2%, 3%, 0) rotate(-8deg) scale(1.02, 1);
+  }
+}
+
+/* Submit page — dark mode readability only (light mode uses default site tokens) */
+[data-theme="dark"] .submit-page .submit-section,
+[data-theme="dark"] .submit-page .submit-panel {
+  background: #151515;
+  border-color: #404040;
+}
+
+[data-theme="dark"] .submit-page .submit-panel--success {
+  background: #171310;
+  border-color: rgba(255, 75, 0, 0.45);
+}
+
+[data-theme="dark"] .submit-page .submit-member-fieldset,
+[data-theme="dark"] .submit-page .submit-video-file {
+  background: #121212;
+  border-color: #3a3a3a;
+}
+
+[data-theme="dark"] .submit-page .submit-input,
+[data-theme="dark"] .submit-page .submit-upload-btn {
+  background: #1e1e1e;
+  border-color: #505050;
+  color: #f5f0e8;
+}
+
+[data-theme="dark"] .submit-page .submit-input::placeholder {
+  color: #9a9690;
+}
+
+[data-theme="dark"] .submit-page .submit-label,
+[data-theme="dark"] .submit-page .submit-member-legend {
+  color: #ddd8d0;
+}
+
+[data-theme="dark"] .submit-page .submit-hint {
+  color: #c4c0b8;
+}
+
+[data-theme="dark"] .submit-page .submit-secondary-btn,
+[data-theme="dark"] .submit-page .submit-upload-btn {
+  color: #e8e4dc;
+}
+
+[data-theme="dark"] .submit-page .submit-secondary-btn {
+  background: #181818;
+  border-color: #484848;
+}
+
+[data-theme="dark"] .submit-page .submit-upload-btn {
+  border-style: dashed;
+}
+
+[data-theme="dark"] .submit-page .submit-video-remove {
+  border-color: #484848;
+  color: #c8c4bc;
+}
+
+[data-theme="dark"] .submit-page .submit-char-count {
+  color: #b8b4ac;
+}
+
+/* Typeform-style submit flow */
+[data-theme="light"] .submit-cover [data-poster-bg],
+[data-theme="light"] .submit-cover .submit-cover__dark-bg {
+  display: none;
+}
+
+[data-theme="dark"] .submit-cover__light-bg {
+  display: none;
+}
+
+.submit-cover__light-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 72% at 22% 18%, rgba(255, 75, 0, 0.11) 0%, transparent 58%),
+    radial-gradient(ellipse 75% 65% at 78% 82%, rgba(0, 204, 163, 0.07) 0%, transparent 52%),
+    linear-gradient(155deg, #faf6ef 0%, var(--bg) 42%, #e8e2d8 100%);
+}
+
+.submit-cover__light-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 95% 80% at 50% 42%, transparent 45%, rgba(28, 24, 20, 0.045) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 28%, transparent 72%, rgba(28, 24, 20, 0.04));
+}
+
+[data-theme="light"] .submit-cover__grid {
+  opacity: 0.55;
+}
+
+[data-theme="light"] .submit-cover__pill {
+  background: color-mix(in srgb, var(--bg-raised) 88%, white);
+  border-color: color-mix(in srgb, var(--border) 90%, transparent);
+  color: var(--fg-2);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+[data-theme="light"] .submit-cover__pill--muted {
+  color: var(--fg-3);
+}
+
+.submit-cover__grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--border) 35%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--border) 35%, transparent) 1px, transparent 1px);
+  background-size: 3.5rem 3.5rem;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 42%, black 20%, transparent 72%);
+}
+
+.submit-cover__title-accent {
+  color: var(--fg);
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-accent) 85%, transparent),
+    color-mix(in srgb, var(--color-accent-2) 55%, transparent)
+  );
+  background-size: 100% 0.12em;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+}
+
+[data-theme="light"] .submit-cover__title-accent {
+  background-size: 100% 0.1em;
+}
+
+.submit-cover__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: color-mix(in srgb, var(--bg-raised) 55%, transparent);
+  backdrop-filter: blur(8px);
+  padding: 0.55rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.submit-cover__pill--muted {
+  color: var(--fg-4);
+}
+
+.submit-flow-input {
+  border-width: 0 0 1px;
+  border-radius: 0;
+  background: transparent;
+  padding-inline: 0;
+  padding-block: 0.65rem;
+  box-shadow: none;
+}
+
+.submit-flow-input:focus {
+  border-color: color-mix(in srgb, var(--color-accent) 70%, transparent);
+  box-shadow: none;
+  outline: none;
+}
+
+.submit-flow-step .submit-upload-btn,
+.submit-flow-step .submit-video-file {
+  border-radius: 0;
+}
+
+.submit-review-list {
+  list-style: none;
+}
+
+.submit-add-fifth-choice:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit-cover__title-accent {
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent) 70%, transparent),
+      color-mix(in srgb, var(--color-accent-2) 45%, transparent)
+    );
+  }
+}
+
+/* Builder hub — slightly larger type for day-of readability */
+.builder-page .tag {
+  font-size: 0.725rem;
+}
+
+.builder-page .btn-phosphor,
+.builder-page .btn-ghost {
+  font-size: 0.925rem;
+}
+
+.builder-page .submit-input {
+  font-size: 1rem;
+}
+
+@media (min-width: 640px) {
+  .builder-page .submit-input {
+    font-size: 1.0625rem;
+  }
+}
+
+.builder-page .submit-label {
+  font-size: 0.725rem;
+}
+
+@media (min-width: 640px) {
+  .builder-page .submit-label {
+    font-size: 0.8125rem;
   }
 }

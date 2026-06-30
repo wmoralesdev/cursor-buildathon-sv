@@ -1,23 +1,7 @@
-import type { EventPersonRosterEntry } from "../types/event-person-roster";
+import { STAFF_ROSTER_MENTOR_PREVIEW } from "./staff-roster-preview";
 
-/** Drop in confirmed mentors — layout renders name, photo, and title only. */
-export const MENTORS: EventPersonRosterEntry[] = [
-  {
-    id: "mentor-tba-1",
-    name: "Mentor TBA",
-    title: "—",
-    placeholder: true,
-  },
-  {
-    id: "mentor-tba-2",
-    name: "Mentor TBA",
-    title: "—",
-    placeholder: true,
-  },
-  {
-    id: "mentor-tba-3",
-    name: "Mentor TBA",
-    title: "—",
-    placeholder: true,
-  },
-];
+/**
+ * Preview roster using staff headshots — see `staff-roster-preview.ts`.
+ * Replace with confirmed mentors before launch.
+ */
+export const MENTORS = STAFF_ROSTER_MENTOR_PREVIEW;

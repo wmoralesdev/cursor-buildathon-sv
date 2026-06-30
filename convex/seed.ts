@@ -20,14 +20,14 @@ export const seed = internalMutation({
     // 1. Get or create seed user (for createdBy on teams)
     let seedUser = await ctx.db
       .query("users")
-      .withIndex("by_token", (q) => q.eq("tokenIdentifier", "seed|seed@hackathon.local"))
+      .withIndex("by_token", (q) => q.eq("tokenIdentifier", "seed|seed@buildathon.local"))
       .unique();
 
     if (!seedUser) {
       const id = await ctx.db.insert("users", {
-        tokenIdentifier: "seed|seed@hackathon.local",
+        tokenIdentifier: "seed|seed@buildathon.local",
         name: "Seed User",
-        email: "seed@hackathon.local",
+        email: "seed@buildathon.local",
         createdAt: now,
       });
       seedUser = (await ctx.db.get(id))!;

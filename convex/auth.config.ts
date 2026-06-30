@@ -1,18 +1,13 @@
 import { AuthConfig } from "convex/server";
 
-const clerkIssuerDomain = process.env.CLERK_JWT_ISSUER_DOMAIN;
-if (!clerkIssuerDomain) {
-  throw new Error(
-    "Missing CLERK_JWT_ISSUER_DOMAIN. Set it in Convex Dashboard (Settings → Environment Variables). " +
-      "Get the value from Clerk Dashboard → JWT Templates → Convex template → Issuer URL."
-  );
-}
-
+/**
+ * Clerk auth is optional until the participant dashboard is wired up.
+ * Open project submissions use public mutations and do not require auth.
+ *
+ * When Clerk is ready, set CLERK_JWT_ISSUER_DOMAIN in the Convex dashboard and
+ * add the provider here. Do not reference process.env in this file until then —
+ * Convex requires every referenced env var to be set before deploy.
+ */
 export default {
-  providers: [
-    {
-      domain: clerkIssuerDomain,
-      applicationID: "convex",
-    },
-  ],
+  providers: [],
 } satisfies AuthConfig;

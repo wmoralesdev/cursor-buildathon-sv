@@ -147,6 +147,60 @@ export const sponsors: Sponsor[] = [
     url: "https://rcns.sv/",
     tier: "product",
   },
+  {
+    id: "maca",
+    name: "Maca",
+    url: "https://maca.sv/",
+    tier: "product",
+  },
+  {
+    id: "crafter",
+    name: "Crafter",
+    url: "https://crafter.studio/",
+    tier: "product",
+  },
+  {
+    id: "esrobotica",
+    name: "EsRobotica",
+    url: "https://esrobotica.com/",
+    tier: "product",
+  },
+  {
+    id: "from021",
+    name: "Zero Two One",
+    url: "https://from021.com/",
+    tier: "product",
+  },
+  {
+    id: "gad-dev",
+    name: "GAD Dev",
+    url: "https://gad.dev/",
+    tier: "product",
+  },
+  {
+    id: "mistral",
+    name: "Mistral",
+    url: "https://mistral.ai/",
+    tier: "product",
+  },
+  {
+    id: "supabase",
+    name: "Supabase",
+    url: "https://supabase.com/",
+    tier: "product",
+  },
+  {
+    id: "ieee",
+    name: "IEEE",
+    url: "https://www.computer.org/",
+    tier: "product",
+  },
+  {
+    id: "ufg",
+    name: "UFG",
+    url: "https://ufg.edu.sv/",
+    tier: "product",
+  },
 ];
 
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {

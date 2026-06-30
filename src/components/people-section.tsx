@@ -5,6 +5,7 @@ import type { PersonCardData } from "./brief/person-card";
 import { AnchorHeading } from "./anchor-heading";
 import { AILABS_URL } from "../constants";
 import { useTranslation } from "../context/language-context";
+import { staffPhoto } from "../data/staff-photos";
 
 export function PeopleSection() {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ export function PeopleSection() {
       {
         initials: "WM",
         name: "Walter Morales",
-        photo: "/staff/walter.png",
+        photo: staffPhoto("walter-morales"),
         role: t("people.walter.role"),
         company: t("people.walter.company"),
         companyHref: AILABS_URL,
@@ -24,7 +25,7 @@ export function PeopleSection() {
       {
         initials: "DH",
         name: "Daniela Huezo",
-        photo: "/staff/daniela.jpeg",
+        photo: staffPhoto("daniela-huezo"),
         role: t("people.daniela.role"),
         company: t("people.daniela.company"),
         companyHref: AILABS_URL,

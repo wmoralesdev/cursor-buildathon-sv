@@ -1,10 +1,11 @@
 import type { ComponentType } from "react";
 
 import type { BrandLogoProps, ProductSponsorId } from "../sponsor-logos";
-import { productSponsorLogoById, ZavuLogo } from "../sponsor-logos";
+import { AilabsLogo, productSponsorLogoById, ZavuLogo } from "../sponsor-logos";
 import { sponsors, type Sponsor } from "../../data/sponsors";
+import { AILABS_URL } from "../../constants";
 
-export type HeroPartnerId = ProductSponsorId | "zavu";
+export type HeroPartnerId = ProductSponsorId | "zavu" | "ailabs";
 
 const ZAVU_URL = "https://zavu.dev";
 
@@ -18,8 +19,10 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   elevenlabs: "h-6 w-auto max-w-36 object-contain object-left",
   simov: "h-6 w-auto max-w-32 object-contain object-left",
   kreali: "h-6 w-auto max-w-36 object-contain object-left",
+  maca: "h-6 w-auto max-w-36 object-contain object-left",
   weris: "h-6 w-auto max-w-36 object-contain object-left",
   boxful: "h-6 w-auto max-w-36 object-contain object-left",
+  crafter: "h-6 w-auto max-w-36 object-contain object-left",
   drop: "h-6 w-auto max-w-32 object-contain object-left",
   gamesquad: "h-10 w-auto max-w-48 object-contain object-left",
   searchyou: "h-6 w-auto max-w-36 object-contain object-left",
@@ -30,8 +33,16 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   exa: "h-6 w-auto max-w-32 object-contain object-left",
   svnet: "h-6 w-auto max-w-32 object-contain object-left",
   firecrawl: "h-6 w-auto max-w-36 object-contain object-left",
+  esrobotica: "h-6 w-auto max-w-36 object-contain object-left",
   datamcp: "h-6 w-auto max-w-32 object-contain object-left",
   rcns: "h-6 w-auto max-w-32 object-contain object-left",
+  from021: "h-6 w-auto max-w-28 object-contain object-left",
+  "gad-dev": "h-6 w-auto max-w-32 object-contain object-left",
+  mistral: "h-6 w-auto max-w-36 object-contain object-left",
+  supabase: "h-6 w-auto max-w-36 object-contain object-left",
+  ieee: "h-7 w-auto max-w-24 object-contain object-left",
+  ufg: "h-7 w-auto max-w-32 object-contain object-left",
+  ailabs: "h-6 w-auto max-w-36 object-contain object-left",
 };
 
 const PARTNER_ORDER: readonly HeroPartnerId[] = [
@@ -43,8 +54,10 @@ const PARTNER_ORDER: readonly HeroPartnerId[] = [
   "elevenlabs",
   "simov",
   "kreali",
+  "maca",
   "weris",
   "boxful",
+  "crafter",
   "drop",
   "gamesquad",
   "searchyou",
@@ -55,8 +68,16 @@ const PARTNER_ORDER: readonly HeroPartnerId[] = [
   "exa",
   "svnet",
   "firecrawl",
+  "esrobotica",
   "datamcp",
   "rcns",
+  "from021",
+  "gad-dev",
+  "mistral",
+  "supabase",
+  "ieee",
+  "ufg",
+  "ailabs",
   "zavu",
 ] as const;
 
@@ -76,6 +97,15 @@ function buildRail(): RailEntry[] {
         href: ZAVU_URL,
         label: "Zavu",
         Logo: ZavuLogo,
+        className: RAIL_LOGO_CLASS[id],
+      };
+    }
+    if (id === "ailabs") {
+      return {
+        id,
+        href: AILABS_URL,
+        label: "Ai /abs",
+        Logo: AilabsLogo,
         className: RAIL_LOGO_CLASS[id],
       };
     }

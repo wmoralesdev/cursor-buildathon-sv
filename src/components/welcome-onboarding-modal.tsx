@@ -1,5 +1,6 @@
 import { useEffect, useId, useMemo, useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 
 import { useTranslation } from "../context/language-context";
@@ -103,6 +104,14 @@ export function WelcomeOnboardingModal({ open, onDismiss }: Props) {
               <li>{t("welcome.onboarding.tagBulletLinkedIn")}</li>
               <li>{t("welcome.onboarding.tagBulletX")}</li>
             </ul>
+            <Link
+              to="/builder"
+              onClick={onDismiss}
+              className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-accent no-underline hover:underline sm:text-xs"
+            >
+              {t("nav.builder")}
+              <ArrowRight className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
+            </Link>
           </section>
         );
       default:

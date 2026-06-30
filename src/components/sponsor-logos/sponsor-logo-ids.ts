@@ -7,8 +7,10 @@ export type ProductSponsorId =
   | "elevenlabs"
   | "simov"
   | "kreali"
+  | "maca"
   | "weris"
   | "boxful"
+  | "crafter"
   | "drop"
   | "gamesquad"
   | "searchyou"
@@ -19,7 +21,14 @@ export type ProductSponsorId =
   | "exa"
   | "svnet"
   | "firecrawl"
+  | "esrobotica"
   | "datamcp"
-  | "rcns";
+  | "rcns"
+  | "from021"
+  | "gad-dev"
+  | "mistral"
+  | "supabase"
+  | "ieee"
+  | "ufg";
 
 export type OnePagerSponsorLogoId = ProductSponsorId | "cursor";
