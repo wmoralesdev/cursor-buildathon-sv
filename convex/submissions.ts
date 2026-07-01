@@ -1,22 +1,9 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { verifyVideoR2Key } from "./lib/r2";
 import { normalizeHttpUrl, trimOrThrow } from "./lib/profileValidation";
 
 const DESCRIPTION_MAX_LENGTH = 500;
-const VIDEO_MAX_BYTES = 100 * 1024 * 1024;
-const ALLOWED_VIDEO_MIME_TYPES = new Set([
-  "video/mp4",
-  "video/webm",
-  "video/quicktime",
-  "video/x-msvideo",
-]);
-
-export const generateUploadUrl = mutation({
-  args: {},
-  handler: async (ctx) => {
-    return await ctx.storage.generateUploadUrl();
-  },
-});
 
 export const submit = mutation({
   args: {
@@ -24,10 +11,11 @@ export const submit = mutation({
     leaderSessionId: v.string(),
     repoUrl: v.string(),
     description: v.string(),
-    videoStorageId: v.id("_storage"),
+    videoR2Key: v.string(),
     eventSocialPostUrl: v.string(),
     website: v.optional(v.string()),
   },
+  returns: v.id("project_submissions"),
   handler: async (ctx, args) => {
     if (args.website?.trim()) {
       throw new Error("Submission rejected");
@@ -57,16 +45,7 @@ export const submit = mutation({
     const repoUrl = normalizeHttpUrl(args.repoUrl, "Repository URL");
     const eventSocialPostUrl = normalizeHttpUrl(args.eventSocialPostUrl, "Event social post URL");
 
-    const videoMetadata = await ctx.storage.getMetadata(args.videoStorageId);
-    if (!videoMetadata) {
-      throw new Error("Demo video upload failed — please try again");
-    }
-    if (videoMetadata.size > VIDEO_MAX_BYTES) {
-      throw new Error("Demo video must be 100 MB or smaller");
-    }
-    if (videoMetadata.contentType && !ALLOWED_VIDEO_MIME_TYPES.has(videoMetadata.contentType)) {
-      throw new Error("Demo video must be MP4, WebM, or MOV");
-    }
+    await verifyVideoR2Key(args.videoR2Key, "submit");
 
     const teamName = trimOrThrow(team.name, "Team name");
     const members = team.members.map((member) => ({
@@ -80,7 +59,7 @@ export const submit = mutation({
       members,
       repoUrl,
       description,
-      videoStorageId: args.videoStorageId,
+      videoR2Key: args.videoR2Key,
       eventSocialPostUrl,
       ...(team.competitionTrack ? { competitionTrack: team.competitionTrack } : {}),
       eventTeamId: args.eventTeamId,
@@ -98,6 +77,16 @@ export const getSubmissionByTeam = query({
     eventTeamId: v.id("event_teams"),
     leaderSessionId: v.string(),
   },
+  returns: v.union(
+    v.object({
+      repoUrl: v.string(),
+      description: v.string(),
+      eventSocialPostUrl: v.string(),
+      competitionTrack: v.union(v.string(), v.null()),
+      submittedAt: v.number(),
+    }),
+    v.null(),
+  ),
   handler: async (ctx, args) => {
     const team = await ctx.db.get(args.eventTeamId);
     if (!team || team.leaderSessionId !== args.leaderSessionId.trim()) {

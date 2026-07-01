@@ -3,7 +3,6 @@ import { StrictMode, lazy, Suspense, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import { ConvexProvider } from "convex/react";
 import { LanguageProvider } from "./context/language-context";
 import App from "./app";
 import "./index.css";
@@ -15,8 +14,10 @@ import { SobrecupoOnePagerPage } from "./pages/sobrecupo-one-pager";
 import { JoinedSponsorsOnePagerPage } from "./pages/joined-sponsors-one-pager";
 import { BuildathonWelcomePage } from "./pages/buildathon-welcome-page";
 import { ProjectSubmitPage } from "./pages/project-submit-page";
+import { AdminPage } from "./pages/admin-page";
 import { NotFoundPage } from "./pages/not-found-page";
 import { SPONSOR_MAILTO } from "./constants";
+import { ConvexClerkProvider } from "./lib/convex-clerk-provider";
 import { convexClient, isConvexConfigured } from "./lib/convex-client";
 
 const BuilderPage = lazy(() =>
@@ -89,6 +90,7 @@ const mainLayoutRoutes = [
   { path: "/", element: <LandingPage /> },
   { path: "/welcome", element: <BuildathonWelcomePage /> },
   { path: "/builder", element: <Suspense fallback={null}><BuilderPage /></Suspense> },
+  { path: "/admin", element: <AdminPage /> },
   { path: "/submit", element: <ProjectSubmitPage /> },
   ...(import.meta.env.DEV
     ? [{ path: "/brief", element: <BriefToSponsorMail /> }]
@@ -118,7 +120,7 @@ const appTree = (
 
 createRoot(document.getElementById("root")!).render(
   isConvexConfigured && convexClient ? (
-    <ConvexProvider client={convexClient}>{appTree}</ConvexProvider>
+    <ConvexClerkProvider>{appTree}</ConvexClerkProvider>
   ) : (
     appTree
   ),
