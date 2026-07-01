@@ -2,6 +2,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -37,6 +38,8 @@ export function useMarqueeDrag({
   const offsetRef = useRef(0);
   const lastFrameRef = useRef<number | null>(null);
   const isHoveredRef = useRef(false);
+  const isScrollingRef = useRef(false);
+  const scrollEndTimerRef = useRef<number | null>(null);
   const dragSessionRef = useRef({
     active: false,
     startX: 0,
@@ -73,11 +76,34 @@ export function useMarqueeDrag({
     return () => ro.disconnect();
   }, [applyTrackOffset]);
 
+  useEffect(() => {
+    const onScroll = () => {
+      isScrollingRef.current = true;
+      if (scrollEndTimerRef.current !== null) {
+        window.clearTimeout(scrollEndTimerRef.current);
+      }
+      scrollEndTimerRef.current = window.setTimeout(() => {
+        isScrollingRef.current = false;
+        lastFrameRef.current = null;
+        scrollEndTimerRef.current = null;
+      }, 120);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (scrollEndTimerRef.current !== null) {
+        window.clearTimeout(scrollEndTimerRef.current);
+      }
+    };
+  }, []);
+
   useAnimationFrame((time) => {
     if (
       prefersReducedMotion ||
       dragSessionRef.current.active ||
       isHoveredRef.current ||
+      isScrollingRef.current ||
       groupWidth <= 0
     ) {
       return;

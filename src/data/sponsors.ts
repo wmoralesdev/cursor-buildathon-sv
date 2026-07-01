@@ -96,7 +96,7 @@ export const sponsors: Sponsor[] = [
   {
     id: "dma",
     name: "DMA",
-    url: "https://www.dma.com.sv/",
+    url: "https://www.dmaanalytics.com/",
     tier: "product",
   },
   {

@@ -10,7 +10,6 @@ export function scrollToBuilderSection(sectionId: string) {
     const el = document.getElementById(sectionId);
     if (!el) return false;
     el.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.dispatchEvent(new Event("scroll"));
     return true;
   };
 

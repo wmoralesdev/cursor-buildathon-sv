@@ -25,7 +25,7 @@ export function BuilderPageHero() {
   return (
     <header className="relative overflow-hidden bg-bg">
       <div
-        className="pointer-events-none absolute -top-24 left-1/2 h-72 w-[min(90vw,52rem)] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl"
+        className="pointer-events-none absolute -top-24 left-1/2 h-72 w-[min(90vw,52rem)] -translate-x-1/2 rounded-full bg-accent/8"
         aria-hidden
       />
       <div className="bg-grid mask-radial-hero pointer-events-none absolute inset-0 opacity-50" aria-hidden />
@@ -56,7 +56,7 @@ export function BuilderPageHero() {
 
       <nav
         aria-label={t("builder.hero.kicker")}
-        className="sticky top-0 z-30 border-y border-border-faint bg-bg/85 backdrop-blur-md"
+        className="sticky top-0 z-30 border-y border-border-faint bg-bg"
       >
         <ul className="mx-auto flex max-w-[1400px] snap-x gap-1 overflow-x-auto section-padding py-2.5 sm:gap-2 sm:py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {ANCHORS.map(({ id, labelKey }) => (

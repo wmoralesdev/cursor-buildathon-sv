@@ -11,7 +11,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-bg">
-      {location.pathname !== "/welcome" ? (
+      {location.pathname !== "/welcome" && location.pathname !== "/builder" ? (
         <div className="grain" aria-hidden="true" />
       ) : null}
 

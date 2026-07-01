@@ -13,6 +13,10 @@ function isRevealInView(el: Element): boolean {
   return rect.top < vh * 0.99 && rect.bottom > 8;
 }
 
+function countPendingReveals(): number {
+  return document.querySelectorAll(".reveal:not(.is-visible)").length;
+}
+
 function flushPendingReveals(observer: IntersectionObserver) {
   document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => {
     if (isRevealInView(el)) {
@@ -35,29 +39,66 @@ function bindRevealElements(observer: IntersectionObserver) {
 export function useScrollReveal() {
   const location = useLocation();
   const { language } = useTranslation();
+  const isBuilderHub = location.pathname === "/builder";
 
   useEffect(() => {
+    if (isBuilderHub) {
+      let raf = 0;
+      const revealAll = () => {
+        document.querySelectorAll(".reveal:not(.is-visible)").forEach(markVisible);
+      };
+      const scheduleRevealAll = () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(revealAll);
+      };
+
+      scheduleRevealAll();
+
+      const observer = new MutationObserver(scheduleRevealAll);
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      return () => {
+        cancelAnimationFrame(raf);
+        observer.disconnect();
+      };
+    }
+
+    let pendingReveals = countPendingReveals();
+    let bindRaf = 0;
+    let flushRaf = 0;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             markVisible(entry.target);
             observer.unobserve(entry.target);
+            pendingReveals = Math.max(0, pendingReveals - 1);
           }
         });
       },
       { threshold: 0, rootMargin: "0px 0px 8% 0px" },
     );
 
-    let raf = 0;
     const scheduleBind = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => bindRevealElements(observer));
+      cancelAnimationFrame(bindRaf);
+      bindRaf = requestAnimationFrame(() => {
+        bindRevealElements(observer);
+        pendingReveals = countPendingReveals();
+      });
+    };
+
+    const onScrollOrResize = () => {
+      if (pendingReveals <= 0) return;
+
+      cancelAnimationFrame(flushRaf);
+      flushRaf = requestAnimationFrame(() => {
+        flushPendingReveals(observer);
+        pendingReveals = countPendingReveals();
+      });
     };
 
     scheduleBind();
-
-    const onScrollOrResize = () => flushPendingReveals(observer);
 
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize, { passive: true });
@@ -66,12 +107,13 @@ export function useScrollReveal() {
     const t2 = window.setTimeout(onScrollOrResize, 400);
 
     return () => {
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(bindRaf);
+      cancelAnimationFrame(flushRaf);
       window.clearTimeout(t1);
       window.clearTimeout(t2);
       window.removeEventListener("scroll", onScrollOrResize);
       window.removeEventListener("resize", onScrollOrResize);
       observer.disconnect();
     };
-  }, [location.pathname, language]);
+  }, [isBuilderHub, language]);
 }

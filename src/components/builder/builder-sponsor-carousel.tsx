@@ -23,7 +23,7 @@ export function BuilderSponsorCarousel() {
     return (
       <footer
         id="sponsors"
-        className="fixed inset-x-0 bottom-0 z-30 h-[4.25rem] border-t border-border bg-bg-deep/95 sm:h-[4.75rem]"
+        className="fixed inset-x-0 bottom-0 z-30 h-[4.25rem] border-t border-border bg-bg-deep sm:h-[4.75rem]"
         aria-hidden
       />
     );
@@ -54,7 +54,7 @@ function BuilderSponsorCarouselActive({ ariaLabel }: { ariaLabel: string }) {
   return (
     <footer
       id="sponsors"
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-bg-deep/95 backdrop-blur-md supports-[backdrop-filter]:bg-bg-deep/85"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-bg-deep"
       aria-label={ariaLabel}
     >
       <div

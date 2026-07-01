@@ -1185,3 +1185,14 @@
     font-size: 0.8125rem;
   }
 }
+
+.builder-page section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+.builder-page .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
