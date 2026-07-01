@@ -1,4 +1,5 @@
 import { BUILDER_COUNTDOWN_ISO, BUILDER_TEAM_SECTION_ENABLED } from "../../constants";
+import { scrollToBuilderSection } from "../../lib/builder-section-scroll";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
 import { CountdownTimer } from "../countdown-timer";
@@ -62,6 +63,10 @@ export function BuilderPageHero() {
             <li key={id} className="shrink-0 snap-start">
               <a
                 href={`#${id}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  scrollToBuilderSection(id);
+                }}
                 className="inline-flex items-center rounded-none border border-transparent px-3 py-1.5 font-mono text-[0.725rem] uppercase tracking-[0.12em] text-fg-4 no-underline transition-colors hover:border-accent/40 hover:text-accent sm:px-4 sm:text-sm"
               >
                 {t(labelKey)}

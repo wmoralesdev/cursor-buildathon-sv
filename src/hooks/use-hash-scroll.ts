@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+import { scrollToBuilderSection } from "../lib/builder-section-scroll";
+
 export function useHashScroll() {
   const location = useLocation();
 
@@ -8,15 +10,12 @@ export function useHashScroll() {
     const hash = location.hash;
     if (!hash) return;
     const id = hash.slice(1);
+    if (!id) return;
+
     const timer = window.setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        window.setTimeout(() => {
-          window.dispatchEvent(new Event("scroll"));
-        }, 450);
-      }
-    }, 100);
+      scrollToBuilderSection(id);
+    }, 50);
+
     return () => window.clearTimeout(timer);
-  }, [location.hash]);
+  }, [location.hash, location.pathname]);
 }

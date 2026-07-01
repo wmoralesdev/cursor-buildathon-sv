@@ -15,7 +15,7 @@ function BuilderTeamSectionInner() {
   const { sessionId, team, isLoading, canSubmit, minSubmitMembers } = useBuilderTeam();
 
   return (
-    <section id="team" className="relative scroll-mt-20 section-padding pb-4 pt-12 sm:pt-16">
+    <section id="team" className="relative scroll-mt-24 section-padding pb-4 pt-12 sm:pt-16">
       <div className="mx-auto max-w-[1400px]">
         <span className="tag mb-5 inline-block">{t("builder.team.tag")}</span>
 

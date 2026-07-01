@@ -14,7 +14,7 @@ export function BuilderJudgesSection() {
   const { t } = useTranslation();
 
   return (
-    <section id="judges" className="relative scroll-mt-20 py-24 sm:py-32 lg:py-40 section-padding bg-bg">
+    <section id="judges" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg">
       <div className="max-w-[1400px] mx-auto">
         <BuilderSectionHeader
           id="judges"

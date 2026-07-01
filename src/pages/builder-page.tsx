@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 
 import { BuilderAnnouncementBanner } from "../components/builder/builder-announcement-banner";
-import { BuilderDeferredSection } from "../components/builder/builder-deferred-section";
 import { BuilderLogisticsSection } from "../components/builder/builder-logistics-section";
 import { BuilderPageHero } from "../components/builder/builder-page-hero";
 import { BuilderSubmitSection } from "../components/builder/builder-submit-section";
@@ -44,14 +43,21 @@ const BuilderTeamSectionLazy = lazy(() =>
   })),
 );
 
-function BuilderSectionSkeleton({ minHeight = "14rem" }: { minHeight?: string }) {
+function BuilderSectionSkeleton({
+  sectionId,
+  minHeight = "14rem",
+}: {
+  sectionId: string;
+  minHeight?: string;
+}) {
   return (
     <div
-      className="section-padding py-24 sm:py-32 lg:py-40"
+      id={sectionId}
+      className="scroll-mt-24 section-padding py-24 sm:py-32 lg:py-40"
       style={{ minHeight }}
       aria-hidden
     >
-      <div className="mx-auto max-w-[1400px] animate-pulse border border-border-faint bg-surface/40 h-32 sm:h-40" />
+      <div className="mx-auto h-32 max-w-[1400px] animate-pulse border border-border-faint bg-surface/40 sm:h-40" />
     </div>
   );
 }
@@ -67,47 +73,35 @@ export function BuilderPage() {
         <BuilderAnnouncementBanner />
         <BuilderPageHero />
         {BUILDER_TEAM_SECTION_ENABLED ? (
-          <Suspense fallback={<BuilderSectionSkeleton minHeight="12rem" />}>
+          <Suspense fallback={<BuilderSectionSkeleton sectionId="team" minHeight="12rem" />}>
             <BuilderTeamSectionLazy />
           </Suspense>
         ) : null}
         <BuilderLogisticsSection />
 
-        <BuilderDeferredSection sectionId="mentors" minHeight="28rem">
-          <Suspense fallback={<BuilderSectionSkeleton minHeight="28rem" />}>
-            <BuilderMentorsSection />
-          </Suspense>
-        </BuilderDeferredSection>
+        <Suspense fallback={<BuilderSectionSkeleton sectionId="mentors" minHeight="28rem" />}>
+          <BuilderMentorsSection />
+        </Suspense>
 
-        <BuilderDeferredSection sectionId="judges" minHeight="18rem">
-          <Suspense fallback={<BuilderSectionSkeleton minHeight="18rem" />}>
-            <BuilderJudgesSection />
-          </Suspense>
-        </BuilderDeferredSection>
+        <Suspense fallback={<BuilderSectionSkeleton sectionId="judges" minHeight="18rem" />}>
+          <BuilderJudgesSection />
+        </Suspense>
 
         <BuilderSubmitSection />
 
-        <BuilderDeferredSection sectionId="tracks" minHeight="16rem">
-          <BuilderTracksSection />
-        </BuilderDeferredSection>
+        <BuilderTracksSection />
 
-        <BuilderDeferredSection sectionId="premios" minHeight="20rem">
-          <Suspense fallback={<BuilderSectionSkeleton minHeight="20rem" />}>
-            <BuilderPrizesSection />
-          </Suspense>
-        </BuilderDeferredSection>
+        <Suspense fallback={<BuilderSectionSkeleton sectionId="premios" minHeight="20rem" />}>
+          <BuilderPrizesSection />
+        </Suspense>
 
-        <BuilderDeferredSection sectionId="credits" minHeight="22rem">
-          <Suspense fallback={<BuilderSectionSkeleton minHeight="22rem" />}>
-            <BuilderCreditsHelpSection />
-          </Suspense>
-        </BuilderDeferredSection>
+        <Suspense fallback={<BuilderSectionSkeleton sectionId="credits" minHeight="22rem" />}>
+          <BuilderCreditsHelpSection />
+        </Suspense>
 
-        <BuilderDeferredSection sectionId="faq" minHeight="12rem">
-          <Suspense fallback={<BuilderSectionSkeleton minHeight="12rem" />}>
-            <BuilderFaqSection />
-          </Suspense>
-        </BuilderDeferredSection>
+        <Suspense fallback={<BuilderSectionSkeleton sectionId="faq" minHeight="12rem" />}>
+          <BuilderFaqSection />
+        </Suspense>
       </main>
 
       <Suspense fallback={null}>

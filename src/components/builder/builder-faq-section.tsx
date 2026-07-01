@@ -14,7 +14,7 @@ export function BuilderFaqSection() {
   );
 
   return (
-    <section id="faq" className="relative scroll-mt-20 py-24 sm:py-32 lg:py-40 section-padding bg-bg-alt">
+    <section id="faq" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg-alt">
       <div className="mx-auto max-w-[1400px]">
         <BuilderSectionHeader
           id="faq"

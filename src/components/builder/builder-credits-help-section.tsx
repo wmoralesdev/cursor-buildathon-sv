@@ -48,7 +48,7 @@ export function BuilderCreditsHelpSection() {
   const { t } = useTranslation();
 
   return (
-    <section id="credits" className="relative scroll-mt-20 py-24 sm:py-32 lg:py-40 section-padding bg-bg">
+    <section id="credits" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg">
       <div className="mx-auto max-w-[1400px]">
         <BuilderSectionHeader
           id="credits"
