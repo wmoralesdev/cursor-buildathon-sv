@@ -49,7 +49,13 @@ export function CountdownTimer({
   useEffect(() => {
     setValues(getTimeLeftValues(targetDate));
     const interval = setInterval(() => {
-      setValues(getTimeLeftValues(targetDate));
+      const next = getTimeLeftValues(targetDate);
+      setValues((prev) => {
+        if (prev[0] === next[0] && prev[1] === next[1] && prev[2] === next[2]) {
+          return prev;
+        }
+        return next;
+      });
       if (animate) setTick((x) => !x);
     }, 1000);
     return () => clearInterval(interval);

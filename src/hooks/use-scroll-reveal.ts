@@ -42,26 +42,8 @@ export function useScrollReveal() {
   const isBuilderHub = location.pathname === "/builder";
 
   useEffect(() => {
-    if (isBuilderHub) {
-      let raf = 0;
-      const revealAll = () => {
-        document.querySelectorAll(".reveal:not(.is-visible)").forEach(markVisible);
-      };
-      const scheduleRevealAll = () => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(revealAll);
-      };
-
-      scheduleRevealAll();
-
-      const observer = new MutationObserver(scheduleRevealAll);
-      observer.observe(document.body, { childList: true, subtree: true });
-
-      return () => {
-        cancelAnimationFrame(raf);
-        observer.disconnect();
-      };
-    }
+    // Builder hub shows .reveal content via CSS; skip observers entirely.
+    if (isBuilderHub) return;
 
     let pendingReveals = countPendingReveals();
     let bindRaf = 0;

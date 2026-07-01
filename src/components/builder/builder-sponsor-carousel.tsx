@@ -45,11 +45,11 @@ function BuilderSponsorCarouselActive({ ariaLabel }: { ariaLabel: string }) {
     handleClickCapture,
     handleViewportPointerEnter,
     handleViewportPointerLeave,
-  } = useMarqueeDrag({ pxPerSecond: 36 });
+  } = useMarqueeDrag({ autoScroll: false, scrollPauseMs: 500 });
 
-  const trackStyle: CSSProperties = {
-    willChange: "transform",
-  };
+  const trackStyle: CSSProperties | undefined = isDragging
+    ? { willChange: "transform" }
+    : undefined;
 
   return (
     <footer

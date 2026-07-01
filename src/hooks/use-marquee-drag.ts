@@ -22,11 +22,17 @@ function wrapMarqueeOffset(offset: number, groupWidth: number): number {
 interface UseMarqueeDragOptions {
   pxPerSecond?: number;
   dragThresholdPx?: number;
+  /** Pause auto-scroll while the page is scrolling. */
+  scrollPauseMs?: number;
+  /** When false, logos stay draggable but do not auto-scroll. */
+  autoScroll?: boolean;
 }
 
 export function useMarqueeDrag({
   pxPerSecond = DEFAULT_PX_PER_SECOND,
   dragThresholdPx = DEFAULT_DRAG_THRESHOLD_PX,
+  scrollPauseMs = 120,
+  autoScroll = true,
 }: UseMarqueeDragOptions = {}) {
   const prefersReducedMotion = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -86,7 +92,7 @@ export function useMarqueeDrag({
         isScrollingRef.current = false;
         lastFrameRef.current = null;
         scrollEndTimerRef.current = null;
-      }, 120);
+      }, scrollPauseMs);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -96,10 +102,11 @@ export function useMarqueeDrag({
         window.clearTimeout(scrollEndTimerRef.current);
       }
     };
-  }, []);
+  }, [scrollPauseMs]);
 
   useAnimationFrame((time) => {
     if (
+      !autoScroll ||
       prefersReducedMotion ||
       dragSessionRef.current.active ||
       isHoveredRef.current ||
