@@ -26,9 +26,15 @@ interface CountdownTimerProps {
   targetIso?: string;
   /** Slightly larger unit labels for builder hub readability */
   legible?: boolean;
+  /** Flip-digit animation — off on builder hub to reduce main-thread work */
+  animate?: boolean;
 }
 
-export function CountdownTimer({ targetIso = EVENT_START_ISO, legible = false }: CountdownTimerProps) {
+export function CountdownTimer({
+  targetIso = EVENT_START_ISO,
+  legible = false,
+  animate = true,
+}: CountdownTimerProps) {
   const { t } = useTranslation();
   const targetDate = useMemo(() => new Date(targetIso), [targetIso]);
   const [values, setValues] = useState(() => getTimeLeftValues(targetDate));
@@ -44,10 +50,10 @@ export function CountdownTimer({ targetIso = EVENT_START_ISO, legible = false }:
     setValues(getTimeLeftValues(targetDate));
     const interval = setInterval(() => {
       setValues(getTimeLeftValues(targetDate));
-      setTick((x) => !x);
+      if (animate) setTick((x) => !x);
     }, 1000);
     return () => clearInterval(interval);
-  }, [targetDate]);
+  }, [targetDate, animate]);
 
   return (
     <div className="flex items-center justify-center gap-1.5 sm:gap-2.5">
@@ -55,32 +61,43 @@ export function CountdownTimer({ targetIso = EVENT_START_ISO, legible = false }:
         <div key={labels[i]} className="flex items-center gap-1.5 sm:gap-2.5">
           <div className="flex flex-col items-center">
             <div className="relative overflow-hidden font-mono text-[clamp(1.2rem,3.2vw,2.1rem)] font-bold text-fg leading-none tracking-[-0.02em] h-[1.2em]">
-              <AnimatePresence mode="popLayout">
-                <motion.span
-                  key={`${i}-${value}`}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: "-100%", opacity: 0 }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className={`block ${i === 0 && value <= 7 ? "text-accent" : ""}`}
-                >
+              {animate ? (
+                <AnimatePresence mode="popLayout">
+                  <motion.span
+                    key={`${i}-${value}`}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: "-100%", opacity: 0 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className={`block ${i === 0 && value <= 7 ? "text-accent" : ""}`}
+                  >
+                    {pad(value)}
+                  </motion.span>
+                </AnimatePresence>
+              ) : (
+                <span className={`block ${i === 0 && value <= 7 ? "text-accent" : ""}`}>
                   {pad(value)}
-                </motion.span>
-              </AnimatePresence>
+                </span>
+              )}
             </div>
             <span className={`font-mono tracking-[0.18em] uppercase text-fg-3 mt-0.5 ${legible ? "text-[0.775rem]" : "text-[0.65rem]"}`}>
               {labels[i]}
             </span>
           </div>
-          {i < values.length - 1 && (
-            <motion.span
-              animate={{ opacity: tick ? 1 : 0.3 }}
-              transition={{ duration: 0.5 }}
-              className="font-mono text-[clamp(1rem,2.4vw,1.5rem)] text-accent leading-none self-start mt-0.5"
-            >
-              :
-            </motion.span>
-          )}
+          {i < values.length - 1 &&
+            (animate ? (
+              <motion.span
+                animate={{ opacity: tick ? 1 : 0.3 }}
+                transition={{ duration: 0.5 }}
+                className="font-mono text-[clamp(1rem,2.4vw,1.5rem)] text-accent leading-none self-start mt-0.5"
+              >
+                :
+              </motion.span>
+            ) : (
+              <span className="font-mono text-[clamp(1rem,2.4vw,1.5rem)] text-accent/60 leading-none self-start mt-0.5">
+                :
+              </span>
+            ))}
         </div>
       ))}
     </div>

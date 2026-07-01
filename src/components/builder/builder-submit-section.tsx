@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { BuilderSectionHeader } from "./builder-section-header";
 import { useBuilderTeam } from "../../hooks/use-builder-team";
+import { BUILDER_TEAM_SECTION_ENABLED } from "../../constants";
 import { isConvexConfigured } from "../../lib/convex-client";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
@@ -91,6 +92,22 @@ export function BuilderSubmitSection() {
 }
 
 function SubmitCta() {
+  if (!BUILDER_TEAM_SECTION_ENABLED) {
+    return <SubmitCtaDisabled />;
+  }
+  return <SubmitCtaWithTeam />;
+}
+
+function SubmitCtaDisabled() {
+  const { t } = useTranslation();
+  return (
+    <span className="btn-phosphor inline-flex cursor-default justify-center opacity-60 pointer-events-none">
+      {t("builder.submit.cta")}
+    </span>
+  );
+}
+
+function SubmitCtaWithTeam() {
   const { t } = useTranslation();
   const { team, canSubmit, isLoading } = useBuilderTeam();
 

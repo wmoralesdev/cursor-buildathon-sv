@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { useEffect, useState } from "react";
 
 import { useMarqueeDrag } from "../../hooks/use-marquee-drag";
 import { useTranslation } from "../../context/language-context";
@@ -7,6 +8,31 @@ import { SponsorRailGroup } from "../hero-section/sponsor-rail-group";
 /** Fixed full-width sponsor rail pinned to the bottom of the builder page viewport. */
 export function BuilderSponsorCarousel() {
   const { t } = useTranslation();
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(() => setActive(true), { timeout: 1200 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = window.setTimeout(() => setActive(true), 400);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  if (!active) {
+    return (
+      <footer
+        id="sponsors"
+        className="fixed inset-x-0 bottom-0 z-30 h-[4.25rem] border-t border-border bg-bg-deep/95 sm:h-[4.75rem]"
+        aria-hidden
+      />
+    );
+  }
+
+  return <BuilderSponsorCarouselActive ariaLabel={t("builder.sponsors.ariaLabel")} />;
+}
+
+function BuilderSponsorCarouselActive({ ariaLabel }: { ariaLabel: string }) {
   const {
     viewportRef,
     trackRef,
@@ -29,7 +55,7 @@ export function BuilderSponsorCarousel() {
     <footer
       id="sponsors"
       className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-bg-deep/95 backdrop-blur-md supports-[backdrop-filter]:bg-bg-deep/85"
-      aria-label={t("builder.sponsors.ariaLabel")}
+      aria-label={ariaLabel}
     >
       <div
         ref={viewportRef}

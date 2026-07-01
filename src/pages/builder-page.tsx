@@ -1,18 +1,64 @@
+import { lazy, Suspense } from "react";
+
 import { BuilderAnnouncementBanner } from "../components/builder/builder-announcement-banner";
-import { BuilderCreditsHelpSection } from "../components/builder/builder-credits-help-section";
-import { BuilderJudgesSection } from "../components/builder/builder-judges-section";
+import { BuilderDeferredSection } from "../components/builder/builder-deferred-section";
 import { BuilderLogisticsSection } from "../components/builder/builder-logistics-section";
-import { BuilderMentorsSection } from "../components/builder/builder-mentors-section";
 import { BuilderPageHero } from "../components/builder/builder-page-hero";
-import { BuilderPrizesSection } from "../components/builder/builder-prizes-section";
-import { BuilderSponsorCarousel } from "../components/builder/builder-sponsor-carousel";
 import { BuilderSubmitSection } from "../components/builder/builder-submit-section";
-import { BuilderTeamSection } from "../components/builder/builder-team-section";
 import { BuilderTracksSection } from "../components/builder/builder-tracks-section";
+import { BUILDER_TEAM_SECTION_ENABLED } from "../constants";
+
+const BuilderMentorsSection = lazy(() =>
+  import("../components/builder/builder-mentors-section").then((m) => ({
+    default: m.BuilderMentorsSection,
+  })),
+);
+const BuilderJudgesSection = lazy(() =>
+  import("../components/builder/builder-judges-section").then((m) => ({
+    default: m.BuilderJudgesSection,
+  })),
+);
+const BuilderPrizesSection = lazy(() =>
+  import("../components/builder/builder-prizes-section").then((m) => ({
+    default: m.BuilderPrizesSection,
+  })),
+);
+const BuilderCreditsHelpSection = lazy(() =>
+  import("../components/builder/builder-credits-help-section").then((m) => ({
+    default: m.BuilderCreditsHelpSection,
+  })),
+);
+const BuilderFaqSection = lazy(() =>
+  import("../components/builder/builder-faq-section").then((m) => ({
+    default: m.BuilderFaqSection,
+  })),
+);
+const BuilderSponsorCarousel = lazy(() =>
+  import("../components/builder/builder-sponsor-carousel").then((m) => ({
+    default: m.BuilderSponsorCarousel,
+  })),
+);
+const BuilderTeamSectionLazy = lazy(() =>
+  import("../components/builder/builder-team-section").then((m) => ({
+    default: m.BuilderTeamSection,
+  })),
+);
+
+function BuilderSectionSkeleton({ minHeight = "14rem" }: { minHeight?: string }) {
+  return (
+    <div
+      className="section-padding py-24 sm:py-32 lg:py-40"
+      style={{ minHeight }}
+      aria-hidden
+    >
+      <div className="mx-auto max-w-[1400px] animate-pulse border border-border-faint bg-surface/40 h-32 sm:h-40" />
+    </div>
+  );
+}
 
 /**
  * Participant hub (/builder): countdown, sponsors, team progress, day-of logistics,
- * mentors, judges, submission instructions, tracks, prizes, and credit redemption.
+ * mentors, judges, submission instructions, tracks, prizes, credit redemption, and FAQ.
  */
 export function BuilderPage() {
   return (
@@ -20,16 +66,53 @@ export function BuilderPage() {
       <main className="builder-page pb-20 sm:pb-[4.75rem]">
         <BuilderAnnouncementBanner />
         <BuilderPageHero />
-        <BuilderTeamSection />
+        {BUILDER_TEAM_SECTION_ENABLED ? (
+          <Suspense fallback={<BuilderSectionSkeleton minHeight="12rem" />}>
+            <BuilderTeamSectionLazy />
+          </Suspense>
+        ) : null}
         <BuilderLogisticsSection />
-        <BuilderMentorsSection />
-        <BuilderJudgesSection />
+
+        <BuilderDeferredSection sectionId="mentors" minHeight="28rem">
+          <Suspense fallback={<BuilderSectionSkeleton minHeight="28rem" />}>
+            <BuilderMentorsSection />
+          </Suspense>
+        </BuilderDeferredSection>
+
+        <BuilderDeferredSection sectionId="judges" minHeight="18rem">
+          <Suspense fallback={<BuilderSectionSkeleton minHeight="18rem" />}>
+            <BuilderJudgesSection />
+          </Suspense>
+        </BuilderDeferredSection>
+
         <BuilderSubmitSection />
-        <BuilderTracksSection />
-        <BuilderPrizesSection />
-        <BuilderCreditsHelpSection />
+
+        <BuilderDeferredSection sectionId="tracks" minHeight="16rem">
+          <BuilderTracksSection />
+        </BuilderDeferredSection>
+
+        <BuilderDeferredSection sectionId="premios" minHeight="20rem">
+          <Suspense fallback={<BuilderSectionSkeleton minHeight="20rem" />}>
+            <BuilderPrizesSection />
+          </Suspense>
+        </BuilderDeferredSection>
+
+        <BuilderDeferredSection sectionId="credits" minHeight="22rem">
+          <Suspense fallback={<BuilderSectionSkeleton minHeight="22rem" />}>
+            <BuilderCreditsHelpSection />
+          </Suspense>
+        </BuilderDeferredSection>
+
+        <BuilderDeferredSection sectionId="faq" minHeight="12rem">
+          <Suspense fallback={<BuilderSectionSkeleton minHeight="12rem" />}>
+            <BuilderFaqSection />
+          </Suspense>
+        </BuilderDeferredSection>
       </main>
-      <BuilderSponsorCarousel />
+
+      <Suspense fallback={null}>
+        <BuilderSponsorCarousel />
+      </Suspense>
     </>
   );
 }

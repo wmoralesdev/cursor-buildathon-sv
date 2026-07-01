@@ -1,11 +1,13 @@
-import { BUILDER_COUNTDOWN_ISO } from "../../constants";
+import { BUILDER_COUNTDOWN_ISO, BUILDER_TEAM_SECTION_ENABLED } from "../../constants";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
 import { CountdownTimer } from "../countdown-timer";
 
 const ANCHORS: { id: string; labelKey: TranslationKey }[] = [
   { id: "sponsors", labelKey: "builder.nav.sponsors" },
-  { id: "team", labelKey: "builder.nav.team" },
+  ...(BUILDER_TEAM_SECTION_ENABLED
+    ? [{ id: "team", labelKey: "builder.nav.team" as TranslationKey }]
+    : []),
   { id: "logistics", labelKey: "builder.nav.logistics" },
   { id: "mentors", labelKey: "builder.nav.mentors" },
   { id: "judges", labelKey: "builder.nav.judges" },
@@ -13,6 +15,7 @@ const ANCHORS: { id: string; labelKey: TranslationKey }[] = [
   { id: "tracks", labelKey: "builder.nav.tracks" },
   { id: "premios", labelKey: "builder.nav.premios" },
   { id: "credits", labelKey: "builder.nav.credits" },
+  { id: "faq", labelKey: "builder.nav.faq" },
 ];
 
 export function BuilderPageHero() {
@@ -45,7 +48,7 @@ export function BuilderPageHero() {
             {t("builder.hero.countdownWhen")}
           </p>
           <div className="mt-3">
-            <CountdownTimer targetIso={BUILDER_COUNTDOWN_ISO} legible />
+            <CountdownTimer targetIso={BUILDER_COUNTDOWN_ISO} legible animate={false} />
           </div>
         </div>
       </div>

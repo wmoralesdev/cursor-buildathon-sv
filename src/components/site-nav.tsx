@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
 import { CursorLockup } from "./sponsor-logos";
-import { AI_LABS_LINKS_URL } from "../constants";
+import { AI_LABS_LINKS_URL, BUILDER_TEAM_SECTION_ENABLED } from "../constants";
 import { isConvexConfigured } from "../lib/convex-client";
 import { useBuilderTeam } from "../hooks/use-builder-team";
 import { useTranslation } from "../context/language-context";
@@ -78,7 +78,7 @@ export function SiteNav() {
           </span>
         </Link>
 
-        {isConvexConfigured ? <NavSubmitLink /> : null}
+        {isConvexConfigured && BUILDER_TEAM_SECTION_ENABLED ? <NavSubmitLink /> : null}
 
         <a
           href={AI_LABS_LINKS_URL}

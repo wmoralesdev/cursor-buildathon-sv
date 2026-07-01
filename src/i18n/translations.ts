@@ -2617,6 +2617,124 @@ export const translations = {
     en: "This team has already submitted a project.",
     es: "Este equipo ya envió un proyecto.",
   },
+
+  // ── FAQ (/builder) ─────────────────────────────────────────────────
+  "builder.nav.faq": { en: "FAQ", es: "FAQ" },
+  "builder.faq.tag": { en: "// FAQ", es: "// FAQ" },
+  "builder.faq.title1": { en: "Builder", es: "Preguntas" },
+  "builder.faq.title2": { en: "questions", es: "frecuentes" },
+  "builder.faq.aside": {
+    en: "Quick answers for participants — teams, submissions, tracks, and day-of logistics.",
+    es: "Respuestas rápidas para participantes — equipos, envíos, tracks y logística del día.",
+  },
+  "builder.faq.empty": {
+    en: "Answers are being added — check back soon.",
+    es: "Estamos agregando respuestas — vuelve pronto.",
+  },
+  "builder.faq.globalPodium.q": {
+    en: "To qualify for the global podium, do I need to use every technology?",
+    es: "¿Para entrar al podio global, es necesario usar todas las tecnologías?",
+  },
+  "builder.faq.globalPodium.a": {
+    en: "No. The global podium goes to the three best projects overall — using every tool isn't required. We'll share a rubric with the criteria judges use to pick the winners.",
+    es: "No. El podio global reconoce a los tres mejores proyectos en general; no es necesario usar todas las tecnologías. Publicaremos una rúbrica con los criterios de evaluación.",
+  },
+  "builder.faq.codexBestUse.q": {
+    en: "In the best use of Codex track, what counts as the best use of Codex?",
+    es: "En el track de mejor uso de Codex, ¿qué define el mejor uso de Codex?",
+  },
+  "builder.faq.codexBestUse.a": {
+    en: "On event day you'll get a mini dashboard to log your progress and explain how you used each tool — you don't have to use all of them. This track rewards smart, efficient use of the stack, not checkboxing every integration.",
+    es: "El día del evento tendrán un mini dashboard para registrar su progreso y explicar cómo usaron cada herramienta — no es obligatorio usarlas todas. Este track premia un uso inteligente y optimizado del stack, no marcar casillas.",
+  },
+  "builder.faq.ideaReplication.q": {
+    en: "Once we've defined our project, what if another team tries to copy our idea?",
+    es: "Una vez definido nuestro proyecto, ¿qué pasa si otro equipo quiere replicar nuestra idea?",
+  },
+  "builder.faq.ideaReplication.a": {
+    en: "The event dashboard where you document your build is private to your team — other groups can't see your progress, notes, or tool usage there.",
+    es: "El dashboard del evento donde documentan su avance es privado para su equipo: otros grupos no verán su progreso, notas ni cómo usaron las herramientas.",
+  },
+  "builder.faq.lumaRegistration.q": {
+    en: "A teammate didn't register on Luma — what happens?",
+    es: "Un miembro de mi equipo no se inscribió en Luma, ¿qué pasa?",
+  },
+  "builder.faq.lumaRegistration.a": {
+    en: "They count as an overflow spot and won't get credits, meals, or other perks until approved. Tell the staff as soon as possible — even overflow spots need our sign-off.",
+    es: "Cuenta como sobrecupo y no tendrá acceso a créditos, comida ni otros beneficios hasta ser aprobado. Avísenos al staff lo antes posible: incluso los sobrecupos requieren aprobación.",
+  },
+  "builder.faq.teamFormation.q": {
+    en: "What did you use to form the teams?",
+    es: "¿Qué se consideró para formar los equipos?",
+  },
+  "builder.faq.teamFormation.a": {
+    en: "We used your Luma registration answers to build multidisciplinary, balanced teams.",
+    es: "Usamos las respuestas de Luma para armar equipos multidisciplinarios y balanceados.",
+  },
+  "builder.faq.codeFreeze.q": {
+    en: "What time is code freeze?",
+    es: "¿A qué hora es el code freeze?",
+  },
+  "builder.faq.codeFreeze.a": {
+    en: "Around 6:00 AM on Sunday, July 5 — all coding stops and the judges start their review.",
+    es: "Aproximadamente a las 6:00 AM del domingo 5 de julio se detiene la programación y los jurados comienzan a evaluar.",
+  },
+  "builder.faq.twoTeams.q": {
+    en: "I'm on two teams — can I participate in both?",
+    es: "Estoy en dos equipos, ¿puedo participar en ambos?",
+  },
+  "builder.faq.twoTeams.a": {
+    en: "No — pick one team. You can't compete on two rosters. If you're listed twice, choose where you'll stay and tell the team you're leaving.",
+    es: "No — elige un solo equipo. No puedes participar en dos equipos a la vez. Si apareces en dos, decide con cuál te quedas y avísale al otro.",
+  },
+  "builder.faq.leaveVenue.q": {
+    en: "Can I leave the venue, or do I have to stay on-site for the full 24 hours?",
+    es: "¿Puedo salir de la universidad o debo permanecer las 24 horas en las instalaciones?",
+  },
+  "builder.faq.leaveVenue.a": {
+    en: "You can come and go freely — you don't need to stay on-site the whole time. Just check in with campus security when you leave and return.",
+    es: "Puedes entrar y salir libremente; no tienes que quedarte las 24 horas. Solo avisa a la vigilancia de la universidad al salir y al regresar.",
+  },
+  "builder.faq.githubMonitoring.q": {
+    en: "Will you monitor our GitHub repos?",
+    es: "¿Van a monitorear nuestros repos de GitHub?",
+  },
+  "builder.faq.githubMonitoring.a": {
+    en: "Yes, but not 24/7. We'll review at checkpoints throughout the event — that way we can spot last-minute code dumps and flag work that started before the build window.",
+    es: "Sí, pero no de forma continua. Revisaremos en checkpoints durante el evento, para detectar subidas masivas de último momento y proyectos que ya existían antes del buildathon.",
+  },
+  "builder.faq.socialMedia.q": {
+    en: "What should we post on social media?",
+    es: "¿Qué debemos publicar en redes sociales?",
+  },
+  "builder.faq.socialMedia.a": {
+    en: "You don't need to become an influencer — it's build in public. Share what you're making: a screenshot of your app, a photo with your team, anything that shows the hackathon in action. The goal is to get the event noticed.",
+    es: "No se trata de ser influencer: es build in public. Comparte lo que estás construyendo — una captura de pantalla, una foto con tu equipo, lo que muestre la hackathon en acción. La idea es generar visibilidad del evento.",
+  },
+  "builder.faq.socialPlatforms.q": {
+    en: "Are specific platforms required?",
+    es: "¿Hay redes sociales obligatorias para publicar?",
+  },
+  "builder.faq.socialPlatforms.a": {
+    en: "Preferably X (Twitter) and LinkedIn.",
+    es: "Preferiblemente X (Twitter) y LinkedIn.",
+  },
+  "builder.faq.plagiarismAndEmergency.q": {
+    en: "How do you prevent plagiarism between teams? What if a teammate has an emergency or needs to leave?",
+    es: "¿Cómo se evita el plagio entre equipos? ¿Qué pasa si un integrante tiene una emergencia o debe salir?",
+  },
+  "builder.faq.plagiarismAndEmergency.a": {
+    en: "Mentors watch for overlap between teams. If two projects look too similar, we'll investigate using checkpoints, idea history, and repo activity. If someone needs to leave, that's fine as long as at least one teammate stays — just keep staff informed.",
+    es: "Los mentores vigilan posibles solapamientos entre equipos. Si dos proyectos se parecen demasiado, investigaremos con checkpoints, historial de ideas y actividad en repos. Si alguien debe salir, no hay problema mientras quede al menos un integrante presente — solo mantengan informado al staff.",
+  },
+  "builder.faq.missingTeammates.q": {
+    en: "Teammates dropped out or stopped responding — what should we do?",
+    es: "Algunos miembros de mi equipo ya no participarán o no responden, ¿qué hacemos?",
+  },
+  "builder.faq.missingTeammates.a": {
+    en: "The minimum is two people per team — you can keep going if at least two of you are in. If you want more teammates, contact the staff and we'll help match you with other participants.",
+    es: "El mínimo es 2 personas por equipo — pueden continuar si al menos dos siguen activos. Si quieren sumar más integrantes, escriban al staff y les ayudamos a completar el equipo con otros participantes.",
+  },
 } as const;
 
 export type TranslationKey = keyof typeof translations;

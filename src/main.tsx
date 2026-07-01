@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components -- Entry module defines dev-only route helpers and JSX route trees */
-import { StrictMode, useEffect } from "react";
+import { StrictMode, lazy, Suspense, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
@@ -14,11 +14,14 @@ import { JudgesOnePagerPage } from "./pages/judges-one-pager";
 import { SobrecupoOnePagerPage } from "./pages/sobrecupo-one-pager";
 import { JoinedSponsorsOnePagerPage } from "./pages/joined-sponsors-one-pager";
 import { BuildathonWelcomePage } from "./pages/buildathon-welcome-page";
-import { BuilderPage } from "./pages/builder-page";
 import { ProjectSubmitPage } from "./pages/project-submit-page";
 import { NotFoundPage } from "./pages/not-found-page";
 import { SPONSOR_MAILTO } from "./constants";
 import { convexClient, isConvexConfigured } from "./lib/convex-client";
+
+const BuilderPage = lazy(() =>
+  import("./pages/builder-page").then((m) => ({ default: m.BuilderPage })),
+);
 
 let sponsorBriefRedirectIssued = false;
 
@@ -85,7 +88,7 @@ const devOnlyRoutes = import.meta.env.DEV
 const mainLayoutRoutes = [
   { path: "/", element: <LandingPage /> },
   { path: "/welcome", element: <BuildathonWelcomePage /> },
-  { path: "/builder", element: <BuilderPage /> },
+  { path: "/builder", element: <Suspense fallback={null}><BuilderPage /></Suspense> },
   { path: "/submit", element: <ProjectSubmitPage /> },
   ...(import.meta.env.DEV
     ? [{ path: "/brief", element: <BriefToSponsorMail /> }]

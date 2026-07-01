@@ -53,6 +53,8 @@ export function EventRosterCard({
   const hasRole = !placeholder && role !== "—" && role.trim().length > 0;
   const hasCompany = !placeholder && Boolean(company);
   const hasBrief = !placeholder && Boolean(brief && brief.trim().length > 0);
+  const bioLikelyTruncated =
+    hasBrief && Boolean(brief && (brief.length > 140 || brief.split(/\s+/).length > 22));
   const micro = legible ? "text-[0.675rem]" : "text-[0.6rem]";
   const nano = legible ? "text-[0.625rem]" : "text-[0.55rem]";
   const recordId = legible ? "text-[0.65rem]" : "text-[0.58rem]";
@@ -69,6 +71,7 @@ export function EventRosterCard({
   }, [brief]);
 
   useEffect(() => {
+    if (legible) return;
     const el = briefRef.current;
     if (!el || !hasBrief) {
       setBioTruncated(false);
@@ -84,9 +87,9 @@ export function EventRosterCard({
     const observer = new ResizeObserver(measure);
     observer.observe(el);
     return () => observer.disconnect();
-  }, [brief, hasBrief, bioExpanded]);
+  }, [brief, hasBrief, bioExpanded, legible]);
 
-  const showBioToggle = hasBrief && (bioTruncated || bioExpanded);
+  const showBioToggle = hasBrief && (legible ? bioLikelyTruncated || bioExpanded : bioTruncated || bioExpanded);
 
   return (
     <article
@@ -112,6 +115,8 @@ export function EventRosterCard({
             src={photo}
             alt={name}
             loading="lazy"
+            decoding="async"
+            fetchPriority="low"
             className="absolute inset-0 z-[1] h-full w-full object-contain object-bottom grayscale contrast-[1.05] drop-shadow-[0_12px_30px_rgba(0,0,0,0.45)] transition-[filter,transform] duration-700 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
           />
         ) : (

@@ -55,7 +55,7 @@ export function BuilderLogisticsSection() {
             </p>
           </div>
           <div className="shrink-0">
-            <CountdownTimer targetIso={SUBMISSION_DEADLINE_ISO} legible />
+            <CountdownTimer targetIso={SUBMISSION_DEADLINE_ISO} legible animate={false} />
           </div>
         </div>
 

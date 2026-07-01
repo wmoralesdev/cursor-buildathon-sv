@@ -27,6 +27,10 @@ export const PRESS_MAILTO =
   `mailto:${ORGANIZER_EMAIL}?subject=Cursor%20Buildathon%20SV%20-%20Media`;
 
 /** El Salvador (America/El_Salvador, UTC−6) */
+
+/** Builder hub team onboarding/panel — set true when roster flow is ready to ship. */
+export const BUILDER_TEAM_SECTION_ENABLED = false;
+
 /** Builder hub countdown — doors / credit pickup window opens */
 export const BUILDER_COUNTDOWN_ISO = "2026-07-04T06:00:00-06:00";
 export const EVENT_START_ISO = "2026-07-04T08:00:00-06:00";
