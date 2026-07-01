@@ -22,6 +22,15 @@ import { SvnetLogo } from "./svnet-logo";
 import { FirecrawlLogo } from "./firecrawl-logo";
 import { DatamcpLogo } from "./datamcp-logo";
 import { RcnsLogo } from "./rcns-logo";
+import { MacaLogo } from "./maca-logo";
+import { CrafterLogo } from "./crafter-logo";
+import { EsroboticaLogo } from "./esrobotica-logo";
+import { From021Logo } from "./from021-logo";
+import { GadDevLogo } from "./gad-dev-logo";
+import { MistralLogo } from "./mistral-logo";
+import { SupabaseLogo } from "./supabase-logo";
+import { IeeeLogo } from "./ieee-logo";
+import { UfgLogo } from "./ufg-logo";
 import type { OnePagerSponsorLogoId } from "./sponsor-logo-ids";
 
 /** Single component for ESLint/static-components compliance (avoid dynamic component lookups). */
@@ -76,6 +85,24 @@ export function OnePagerBrandLogo({
       return <DatamcpLogo {...props} />;
     case "rcns":
       return <RcnsLogo {...props} />;
+    case "maca":
+      return <MacaLogo {...props} />;
+    case "crafter":
+      return <CrafterLogo {...props} />;
+    case "esrobotica":
+      return <EsroboticaLogo {...props} />;
+    case "from021":
+      return <From021Logo {...props} />;
+    case "gad-dev":
+      return <GadDevLogo {...props} />;
+    case "mistral":
+      return <MistralLogo {...props} />;
+    case "supabase":
+      return <SupabaseLogo {...props} />;
+    case "ieee":
+      return <IeeeLogo {...props} />;
+    case "ufg":
+      return <UfgLogo {...props} />;
     default: {
       const _exhaustive: never = id;
       return _exhaustive;
