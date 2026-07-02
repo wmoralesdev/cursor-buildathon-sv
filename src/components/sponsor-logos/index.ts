@@ -24,6 +24,7 @@ import { SvnetLogo } from "./svnet-logo";
 import { FirecrawlLogo } from "./firecrawl-logo";
 import { DatamcpLogo } from "./datamcp-logo";
 import { RcnsLogo } from "./rcns-logo";
+import { CognitionLogo } from "./cognition-logo";
 import { MacaLogo } from "./maca-logo";
 import { CrafterLogo } from "./crafter-logo";
 import { EsroboticaLogo } from "./esrobotica-logo";
@@ -64,6 +65,7 @@ export { SvnetLogo } from "./svnet-logo";
 export { FirecrawlLogo } from "./firecrawl-logo";
 export { DatamcpLogo } from "./datamcp-logo";
 export { RcnsLogo } from "./rcns-logo";
+export { CognitionLogo } from "./cognition-logo";
 export { MacaLogo } from "./maca-logo";
 export { CrafterLogo } from "./crafter-logo";
 export { EsroboticaLogo } from "./esrobotica-logo";
@@ -103,6 +105,7 @@ export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<Bran
   esrobotica: EsroboticaLogo,
   datamcp: DatamcpLogo,
   rcns: RcnsLogo,
+  cognition: CognitionLogo,
   from021: From021Logo,
   "gad-dev": GadDevLogo,
   mistral: MistralLogo,

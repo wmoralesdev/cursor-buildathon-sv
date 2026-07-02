@@ -25,6 +25,7 @@ export type ProductSponsorId =
   | "esrobotica"
   | "datamcp"
   | "rcns"
+  | "cognition"
   | "from021"
   | "gad-dev"
   | "mistral"
