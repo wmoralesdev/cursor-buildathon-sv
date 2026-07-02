@@ -78,11 +78,11 @@ export const OVERALL_PRIZE_DEFS: OverallPrizeDef[] = [
     cash: "$500",
     credits: [
       {
-        labelKey: "onePager.prizes.overall.1st.credit.cursor.label",
+        labelKey: "prizes.overall.1st.credit.cursor.label",
         value: "$250",
       },
       {
-        labelKey: "onePager.prizes.overall.1st.credit.elevenlabs.label",
+        labelKey: "prizes.overall.1st.credit.elevenlabs.label",
         value: "$297",
       },
     ],
@@ -92,7 +92,7 @@ export const OVERALL_PRIZE_DEFS: OverallPrizeDef[] = [
     cash: "$300",
     credits: [
       {
-        labelKey: "onePager.prizes.overall.2nd.credit.cursor.label",
+        labelKey: "prizes.overall.2nd.credit.cursor.label",
         value: "$150",
       },
     ],
@@ -102,7 +102,7 @@ export const OVERALL_PRIZE_DEFS: OverallPrizeDef[] = [
     cash: "$200",
     credits: [
       {
-        labelKey: "onePager.prizes.overall.3rd.credit.cursor.label",
+        labelKey: "prizes.overall.3rd.credit.cursor.label",
         value: "$100",
       },
     ],

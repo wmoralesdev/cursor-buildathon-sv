@@ -42,7 +42,7 @@ export function BuilderSponsorTrackField({ value, onChange, idPrefix }: Props) {
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {TRACK_PRIZE_DEFS.map((track) => {
           const inputId = `${groupName}-${track.id}`;
-          const titleKey = `onePager.prizes.track.${track.id}.title` as TranslationKey;
+          const titleKey = `prizes.track.${track.id}.title` as TranslationKey;
           const checked = value === track.id;
 
           return (

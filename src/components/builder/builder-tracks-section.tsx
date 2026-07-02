@@ -76,10 +76,10 @@ export function BuilderTracksSection() {
                   </span>
                 </div>
                 <h4 className="mt-4 font-display text-[1rem] font-bold uppercase leading-[1.15] tracking-[-0.01em] text-fg">
-                  {t(`onePager.prizes.track.${track.id}.title` as TranslationKey)}
+                  {t(`prizes.track.${track.id}.title` as TranslationKey)}
                 </h4>
                 <p className="mt-2 font-display text-[0.925rem] leading-[1.55] text-fg-3">
-                  {t(`onePager.prizes.track.${track.id}.prize` as TranslationKey)}
+                  {t(`prizes.track.${track.id}.prize` as TranslationKey)}
                 </p>
               </article>
             ))}

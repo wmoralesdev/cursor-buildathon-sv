@@ -16,8 +16,6 @@ import { HubButton, HubCard } from "./hub-ui-primitives";
 
 export function HubDashboard() {
   const { t } = useTranslation();
-  const { isSignedIn } = useAuth();
-  const { role, isLoading } = useHubUser();
 
   if (!isConvexConfigured || !isClerkConfigured) {
     return (
@@ -31,6 +29,13 @@ export function HubDashboard() {
     );
   }
 
+  return <HubDashboardContent />;
+}
+
+function HubDashboardContent() {
+  const { t } = useTranslation();
+  const { isSignedIn } = useAuth();
+  const { role, isLoading } = useHubUser();
   return (
     <section id="hub" className="scroll-mt-24 section-padding py-16 sm:py-20">
       <div className="mx-auto max-w-[1400px]">

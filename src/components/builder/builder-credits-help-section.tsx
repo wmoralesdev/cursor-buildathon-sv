@@ -95,7 +95,7 @@ export function BuilderCreditsHelpSection() {
                   <div className="min-w-0">
                     <PerkMark logo={perk.logo} sponsor={perk.sponsor} />
                     <p className="mt-2 font-display text-[0.925rem] leading-[1.45] text-fg-3">
-                      {t(`onePager.prizes.perk.${perk.id}` as TranslationKey)}
+                      {t(`prizes.perk.${perk.id}` as TranslationKey)}
                     </p>
                   </div>
                   <span className="shrink-0 font-display text-[1.025rem] font-bold tabular-nums text-accent">

@@ -1,9 +1,9 @@
-import type { OnePagerSponsorLogoId, ProductSponsorId } from "../components/sponsor-logos";
+import type { ProductSponsorId } from "../components/sponsor-logos";
 import type { TranslationKey } from "../i18n/translations";
 
 export type SponsorTier = "gold" | "silver" | "bronze" | "product";
 
-export type { OnePagerSponsorLogoId, ProductSponsorId };
+export type { ProductSponsorId };
 
 export interface Sponsor {
   id: ProductSponsorId;
@@ -206,107 +206,3 @@ export const sponsors: Sponsor[] = [
 export function sponsorsByTier(tier: SponsorTier): Sponsor[] {
   return sponsors.filter((s) => s.tier === tier);
 }
-
-/** Print one-pagers only; does not change main site tier grouping. */
-export type OnePagerSponsorBadge = "host" | "gold";
-
-export interface OnePagerSponsorEntry {
-  id: OnePagerSponsorLogoId;
-  name: string;
-  url: string;
-  badge: OnePagerSponsorBadge;
-}
-
-const n8nSponsor = sponsors.find((s) => s.id === "n8n");
-if (!n8nSponsor) {
-  throw new Error("sponsors: n8n entry required for onePagerSponsors");
-}
-
-const codexSponsor = sponsors.find((s) => s.id === "codex");
-const yonjobSponsor = sponsors.find((s) => s.id === "yonjob");
-const nubiworkSponsor = sponsors.find((s) => s.id === "nubiwork");
-const abacoSponsor = sponsors.find((s) => s.id === "abaco");
-const elevenlabsSponsor = sponsors.find((s) => s.id === "elevenlabs");
-const simovSponsor = sponsors.find((s) => s.id === "simov");
-const krealiSponsor = sponsors.find((s) => s.id === "kreali");
-const werisSponsor = sponsors.find((s) => s.id === "weris");
-const boxfulSponsor = sponsors.find((s) => s.id === "boxful");
-const dropSponsor = sponsors.find((s) => s.id === "drop");
-const gamesquadSponsor = sponsors.find((s) => s.id === "gamesquad");
-const searchyouSponsor = sponsors.find((s) => s.id === "searchyou");
-const dmaSponsor = sponsors.find((s) => s.id === "dma");
-const netlifySponsor = sponsors.find((s) => s.id === "netlify");
-const wisprSponsor = sponsors.find((s) => s.id === "wispr");
-const falSponsor = sponsors.find((s) => s.id === "fal");
-const exaSponsor = sponsors.find((s) => s.id === "exa");
-const svnetSponsor = sponsors.find((s) => s.id === "svnet");
-const firecrawlSponsor = sponsors.find((s) => s.id === "firecrawl");
-const datamcpSponsor = sponsors.find((s) => s.id === "datamcp");
-const rcnsSponsor = sponsors.find((s) => s.id === "rcns");
-if (
-  !codexSponsor ||
-  !yonjobSponsor ||
-  !nubiworkSponsor ||
-  !abacoSponsor ||
-  !elevenlabsSponsor ||
-  !simovSponsor ||
-  !krealiSponsor ||
-  !werisSponsor ||
-  !boxfulSponsor ||
-  !dropSponsor ||
-  !gamesquadSponsor ||
-  !searchyouSponsor ||
-  !dmaSponsor ||
-  !netlifySponsor ||
-  !wisprSponsor ||
-  !falSponsor ||
-  !exaSponsor ||
-  !svnetSponsor ||
-  !firecrawlSponsor ||
-  !datamcpSponsor ||
-  !rcnsSponsor
-) {
-  throw new Error(
-    "sponsors: codex, yonjob, nubiwork, abaco, elevenlabs, simov, kreali, weris, boxful, drop, gamesquad, searchyou, dma, netlify, wispr, fal, exa, svnet, firecrawl, datamcp, rcns required for onePagerSponsors",
-  );
-}
-
-function toOnePagerGold(s: Sponsor): OnePagerSponsorEntry {
-  return {
-    id: s.id,
-    name: s.name,
-    url: s.url,
-    badge: "gold",
-  };
-}
-
-export const onePagerSponsors: readonly OnePagerSponsorEntry[] = [
-  {
-    id: "cursor",
-    name: "Cursor",
-    url: "https://cursor.com",
-    badge: "host",
-  },
-  toOnePagerGold(n8nSponsor),
-  toOnePagerGold(codexSponsor),
-  toOnePagerGold(yonjobSponsor),
-  toOnePagerGold(nubiworkSponsor),
-  toOnePagerGold(abacoSponsor),
-  toOnePagerGold(elevenlabsSponsor),
-  toOnePagerGold(simovSponsor),
-  toOnePagerGold(krealiSponsor),
-  toOnePagerGold(werisSponsor),
-  toOnePagerGold(boxfulSponsor),
-  toOnePagerGold(dropSponsor),
-  toOnePagerGold(gamesquadSponsor),
-  toOnePagerGold(searchyouSponsor),
-  toOnePagerGold(dmaSponsor),
-  toOnePagerGold(netlifySponsor),
-  toOnePagerGold(wisprSponsor),
-  toOnePagerGold(falSponsor),
-  toOnePagerGold(exaSponsor),
-  toOnePagerGold(svnetSponsor),
-  toOnePagerGold(firecrawlSponsor),
-  toOnePagerGold(datamcpSponsor),
-  toOnePagerGold(rcnsSponsor),
-];

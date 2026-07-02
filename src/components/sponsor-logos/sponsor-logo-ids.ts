@@ -31,5 +31,3 @@ export type ProductSponsorId =
   | "supabase"
   | "ieee"
   | "ufg";
-
-export type OnePagerSponsorLogoId = ProductSponsorId | "cursor";

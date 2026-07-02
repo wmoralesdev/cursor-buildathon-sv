@@ -35,10 +35,9 @@ import { IeeeLogo } from "./ieee-logo";
 import { UfgLogo } from "./ufg-logo";
 
 export type { BrandLogoProps } from "./logo-props";
-export type { OnePagerSponsorLogoId, ProductSponsorId } from "./sponsor-logo-ids";
-export { OnePagerBrandLogo } from "./one-pager-brand-logo";
+export type { ProductSponsorId } from "./sponsor-logo-ids";
 export { buildThemedLogoSrc } from "./build-themed-logo-src";
-export { OnePagerCashLightLogoAssetsProvider, ThemedLogoImg } from "./themed-logo";
+export { ThemedLogoImg } from "./themed-logo";
 export type { ThemedLogoImgProps } from "./themed-logo";
 export { CursorLockup } from "./cursor-lockup";
 export { AbacoLogo } from "./abaco-logo";
