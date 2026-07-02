@@ -25,6 +25,9 @@
     "remotion:render:mentor-callout": "remotion render src/remotion/index.ts mentor-callout-post out/mentor-callout-post.mp4 && remotion render src/remotion/index.ts mentor-callout-story out/mentor-callout-story.mp4"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1077.0",
+    "@aws-sdk/s3-request-presigner": "^3.1077.0",
+    "@clerk/react": "^6.11.3",
     "@remotion/bundler": "^4.0.456",
     "@remotion/cli": "^4.0.456",
     "@remotion/media": "4.0.456",
@@ -40,6 +43,7 @@
     "react-easy-crop": "^5.5.7",
     "react-hook-form": "^7.75.0",
     "react-router-dom": "^7.13.1",
+    "modern-screenshot": "^4.7.0",
     "remotion": "^4.0.456"
   },
   "devDependencies": {

@@ -1,5 +1,3 @@
-import type { Id } from "../../convex/_generated/dataModel";
-
 export type ProjectSubmitMember = {
   name: string;
   xProfile: string;
@@ -40,4 +38,4 @@ export type ProjectSubmitUploadProgress = {
   percent: number;
 };
 
-export type ProjectVideoStorageId = Id<"_storage">;
+export type ProjectVideoR2Key = string;
