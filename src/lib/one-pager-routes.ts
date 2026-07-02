@@ -1,4 +1,10 @@
-export type OnePagerId = "prizes" | "sponsors" | "mentors" | "judges" | "sobrecupo" | "credits";
+export type OnePagerId =
+  | "prizes"
+  | "sponsors"
+  | "mentors"
+  | "judges"
+  | "sobrecupo"
+  | "credits";
 
 export type OnePagerNavLabelKey =
   | "onePager.nav.prizes"

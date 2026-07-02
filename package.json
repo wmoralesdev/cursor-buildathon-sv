@@ -36,6 +36,7 @@
     "@remotion/web-renderer": "4.0.456",
     "convex": "^1.42.1",
     "lucide-react": "^0.575.0",
+    "modern-screenshot": "^4.7.0",
     "motion": "^12.34.3",
     "next-themes": "^0.4.6",
     "react": "^19.2.0",
@@ -43,7 +44,6 @@
     "react-easy-crop": "^5.5.7",
     "react-hook-form": "^7.75.0",
     "react-router-dom": "^7.13.1",
-    "modern-screenshot": "^4.7.0",
     "remotion": "^4.0.456"
   },
   "devDependencies": {
