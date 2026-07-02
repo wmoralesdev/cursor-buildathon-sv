@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import { useMutation } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 
@@ -49,7 +49,7 @@ export function ProjectSubmitFlow({ onSuccess, team, leaderSessionId }: ProjectS
   const { register, getValues, watch, control } = useFormContext<ProjectSubmitFormValues>();
   const { append, remove } = useFieldArray({ control, name: "members" });
   const submitMutation = useMutation(api.submissions.submit);
-  const generateUploadUrl = useMutation(api.submissions.generateUploadUrl);
+  const generateUploadUrl = useAction(api.uploads.generateUploadUrl);
 
   const members = watch("members");
   const repoUrl = watch("repoUrl");
@@ -164,9 +164,9 @@ export function ProjectSubmitFlow({ onSuccess, team, leaderSessionId }: ProjectS
     setUploadPercent(0);
 
     try {
-      const videoStorageId = await uploadProjectVideo(
+      const videoR2Key = await uploadProjectVideo(
         values.video,
-        () => generateUploadUrl(),
+        (request) => generateUploadUrl(request),
         setUploadPercent,
       );
 
@@ -176,7 +176,7 @@ export function ProjectSubmitFlow({ onSuccess, team, leaderSessionId }: ProjectS
         leaderSessionId,
         repoUrl: values.repoUrl,
         description: values.description,
-        videoStorageId,
+        videoR2Key,
         eventSocialPostUrl: values.eventSocialPostUrl,
         website: values.website,
       });

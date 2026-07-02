@@ -1,37 +1,24 @@
-import type { Id } from "../../convex/_generated/dataModel";
 import { PROJECT_SUBMIT_VIDEO_MAX_BYTES } from "../components/project-submit-form-fields";
+import type { R2UploadRequest, R2UploadTarget } from "./r2-upload";
+import { uploadToR2 } from "./r2-upload";
 
 export async function uploadProjectVideo(
   file: File,
-  generateUploadUrl: () => Promise<string>,
+  getUploadUrl: (request: R2UploadRequest) => Promise<R2UploadTarget>,
   onProgress?: (percent: number) => void,
-): Promise<Id<"_storage">> {
+): Promise<string> {
   if (file.size > PROJECT_SUBMIT_VIDEO_MAX_BYTES) {
     throw new Error("Demo video must be 100 MB or smaller");
   }
 
-  onProgress?.(5);
-  const uploadUrl = await generateUploadUrl();
-  onProgress?.(15);
+  const target = await uploadToR2(
+    file,
+    "submit",
+    getUploadUrl,
+    onProgress,
+  );
 
-  const response = await fetch(uploadUrl, {
-    method: "POST",
-    headers: { "Content-Type": file.type || "application/octet-stream" },
-    body: file,
-  });
-
-  if (!response.ok) {
-    throw new Error("Video upload failed — please try again");
-  }
-
-  onProgress?.(90);
-  const result = (await response.json()) as { storageId?: Id<"_storage"> };
-  if (!result.storageId) {
-    throw new Error("Video upload failed — please try again");
-  }
-
-  onProgress?.(100);
-  return result.storageId;
+  return target.objectKey;
 }
 
 export function formatVideoFileSize(bytes: number): string {

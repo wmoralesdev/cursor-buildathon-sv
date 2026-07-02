@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 
 import { BuilderAnnouncementBanner } from "../components/builder/builder-announcement-banner";
+import { HubDashboard } from "../components/hub/hub-dashboard";
 import { BuilderDeferredSection } from "../components/builder/builder-deferred-section";
 import { BuilderLogisticsSection } from "../components/builder/builder-logistics-section";
 import { BuilderPageHero } from "../components/builder/builder-page-hero";
@@ -72,6 +73,7 @@ export function BuilderPage() {
     <>
       <main className="builder-page pb-20 sm:pb-[4.75rem]">
         <BuilderAnnouncementBanner />
+        <HubDashboard />
         <BuilderPageHero />
         {BUILDER_TEAM_SECTION_ENABLED ? (
           <BuilderDeferredSection sectionId="team" minHeight="12rem">
