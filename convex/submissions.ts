@@ -33,7 +33,7 @@ export const submit = mutation({
       throw new Error("Submission rejected");
     }
 
-    const team = await ctx.db.get(args.eventTeamId);
+    const team = await ctx.db.get("event_teams", args.eventTeamId);
     if (!team) {
       throw new Error("Team not found");
     }
@@ -57,7 +57,7 @@ export const submit = mutation({
     const repoUrl = normalizeHttpUrl(args.repoUrl, "Repository URL");
     const eventSocialPostUrl = normalizeHttpUrl(args.eventSocialPostUrl, "Event social post URL");
 
-    const videoMetadata = await ctx.storage.getMetadata(args.videoStorageId);
+    const videoMetadata = await ctx.db.system.get("_storage", args.videoStorageId);
     if (!videoMetadata) {
       throw new Error("Demo video upload failed — please try again");
     }
@@ -87,7 +87,7 @@ export const submit = mutation({
       submittedAt: Date.now(),
     });
 
-    await ctx.db.patch(args.eventTeamId, { submittedAt: Date.now() });
+    await ctx.db.patch("event_teams", args.eventTeamId, { submittedAt: Date.now() });
 
     return submissionId;
   },
@@ -99,7 +99,7 @@ export const getSubmissionByTeam = query({
     leaderSessionId: v.string(),
   },
   handler: async (ctx, args) => {
-    const team = await ctx.db.get(args.eventTeamId);
+    const team = await ctx.db.get("event_teams", args.eventTeamId);
     if (!team || team.leaderSessionId !== args.leaderSessionId.trim()) {
       return null;
     }

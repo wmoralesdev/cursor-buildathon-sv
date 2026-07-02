@@ -30,7 +30,7 @@ export const seed = internalMutation({
         email: "seed@buildathon.local",
         createdAt: now,
       });
-      seedUser = (await ctx.db.get(id))!;
+      seedUser = (await ctx.db.get("users", id))!;
     }
 
     // 2. Create teams

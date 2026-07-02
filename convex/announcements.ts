@@ -10,10 +10,10 @@ import { v } from "convex/values";
  */
 export const listActiveAnnouncements = query({
   args: {
+    now: v.number(),
     locale: v.optional(v.union(v.literal("en"), v.literal("es"))),
   },
   handler: async (ctx, args) => {
-    const now = Date.now();
     const recent = await ctx.db
       .query("announcements")
       .withIndex("by_created_at")
@@ -21,7 +21,7 @@ export const listActiveAnnouncements = query({
       .take(20);
 
     return recent
-      .filter((a) => (a.expiresAt ?? Infinity) > now)
+      .filter((a) => (a.expiresAt ?? Infinity) > args.now)
       .filter((a) => !a.locale || !args.locale || a.locale === args.locale)
       .sort((a, b) => {
         if (a.priority !== b.priority) return a.priority === "urgent" ? -1 : 1;

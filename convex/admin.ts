@@ -33,7 +33,7 @@ export const listProjectsForAdmin = query({
 
     return await Promise.all(
       projects.map(async (project) => {
-        const team = await ctx.db.get(project.teamId);
+        const team = await ctx.db.get("teams", project.teamId);
         return { ...project, team };
       })
     );
@@ -83,7 +83,7 @@ export const submitScore = mutation({
       }
     }
 
-    const project = await ctx.db.get(args.projectId);
+    const project = await ctx.db.get("projects", args.projectId);
     if (!project) throw new Error("Project not found");
 
     const now = Date.now();
@@ -95,7 +95,7 @@ export const submitScore = mutation({
       .unique();
 
     if (existing) {
-      await ctx.db.patch(existing._id, {
+      await ctx.db.patch("project_scores", existing._id, {
         criterion1: args.criterion1,
         criterion2: args.criterion2,
         criterion3: args.criterion3,
@@ -151,7 +151,7 @@ export const getRankings = query({
 
     const rankings = await Promise.all(
       projects.map(async (project) => {
-        const team = await ctx.db.get(project.teamId);
+        const team = await ctx.db.get("teams", project.teamId);
         const scores = allScores.filter((s) => s.projectId === project._id);
 
         if (scores.length === 0) {

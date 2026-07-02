@@ -31,7 +31,7 @@ export const upsert = mutation({
       throw new Error("User not found");
     }
 
-    const team = await ctx.db.get(args.teamId);
+    const team = await ctx.db.get("teams", args.teamId);
     if (!team || team.createdBy !== user._id) {
       throw new Error("Team not found or access denied");
     }
@@ -56,7 +56,7 @@ export const upsert = mutation({
     };
 
     if (existing) {
-      await ctx.db.patch(existing._id, doc);
+      await ctx.db.patch("projects", existing._id, doc);
       return existing._id;
     }
 

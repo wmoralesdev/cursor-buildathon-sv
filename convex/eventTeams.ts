@@ -130,7 +130,7 @@ export const joinTeam = mutation({
     const member = normalizeProfile(args);
     const now = Date.now();
 
-    await ctx.db.patch(team._id, {
+    await ctx.db.patch("event_teams", team._id, {
       members: [
         ...team.members,
         {
@@ -209,7 +209,7 @@ export const setCompetitionTrack = mutation({
       throw new Error("This team has already submitted a project");
     }
 
-    await ctx.db.patch(team._id, { competitionTrack: args.competitionTrack });
+    await ctx.db.patch("event_teams", team._id, { competitionTrack: args.competitionTrack });
     return team._id;
   },
 });

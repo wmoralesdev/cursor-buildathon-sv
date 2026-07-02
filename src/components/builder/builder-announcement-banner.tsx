@@ -28,6 +28,7 @@ function BuilderAnnouncementBannerInner() {
 
   const announcements = useQuery(api.announcements.listActiveAnnouncements, {
     locale: language,
+    now: Date.now(),
   });
 
   const active = announcements?.find((a) => !dismissed.includes(a.id));

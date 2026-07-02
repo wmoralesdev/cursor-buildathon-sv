@@ -16,7 +16,7 @@ export const storeUser = mutation({
       .unique();
 
     if (existingUser) {
-      await ctx.db.patch(existingUser._id, {
+      await ctx.db.patch("users", existingUser._id, {
         name: identity.name ?? existingUser.name,
         email: identity.email ?? existingUser.email,
         pictureUrl: identity.pictureUrl ?? existingUser.pictureUrl,
