@@ -2,6 +2,10 @@ import { BuilderSectionHeader } from "./builder-section-header";
 import { EventRosterCard } from "../event-roster-card";
 import { JUDGES } from "../../data/judges";
 import { useTranslation } from "../../context/language-context";
+import {
+  builderSectionSurfaceClass,
+  type BuilderSectionLayout,
+} from "../../lib/builder-section-layout";
 
 function initialsFromName(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -10,12 +14,12 @@ function initialsFromName(name: string): string {
   return `${parts[0]![0] ?? ""}${parts[parts.length - 1]![0] ?? ""}`.toUpperCase();
 }
 
-export function BuilderJudgesSection() {
+export function BuilderJudgesSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
   const { t } = useTranslation();
 
   return (
-    <section id="judges" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg">
-      <div className="max-w-[1400px] mx-auto">
+    <section id="judges" className={builderSectionSurfaceClass(layout, "bg-bg")}>
+      <div className={layout === "page" ? "max-w-[1400px] mx-auto" : undefined}>
         <BuilderSectionHeader
           id="judges"
           tagKey="builder.judges.tag"

@@ -1,23 +1,6 @@
-import { BUILDER_COUNTDOWN_ISO, BUILDER_TEAM_SECTION_ENABLED } from "../../constants";
-import { scrollToBuilderSection } from "../../lib/builder-section-scroll";
+import { BUILDER_COUNTDOWN_ISO } from "../../constants";
 import { useTranslation } from "../../context/language-context";
-import type { TranslationKey } from "../../i18n/translations";
 import { CountdownTimer } from "../countdown-timer";
-
-const ANCHORS: { id: string; labelKey: TranslationKey }[] = [
-  { id: "sponsors", labelKey: "builder.nav.sponsors" },
-  ...(BUILDER_TEAM_SECTION_ENABLED
-    ? [{ id: "team", labelKey: "builder.nav.team" as TranslationKey }]
-    : []),
-  { id: "logistics", labelKey: "builder.nav.logistics" },
-  { id: "mentors", labelKey: "builder.nav.mentors" },
-  { id: "judges", labelKey: "builder.nav.judges" },
-  { id: "submit", labelKey: "builder.nav.submit" },
-  { id: "tracks", labelKey: "builder.nav.tracks" },
-  { id: "premios", labelKey: "builder.nav.premios" },
-  { id: "credits", labelKey: "builder.nav.credits" },
-  { id: "faq", labelKey: "builder.nav.faq" },
-];
 
 export function BuilderPageHero() {
   const { t } = useTranslation();
@@ -53,28 +36,6 @@ export function BuilderPageHero() {
           </div>
         </div>
       </div>
-
-      <nav
-        aria-label={t("builder.hero.kicker")}
-        className="sticky top-0 z-30 border-y border-border-faint bg-bg"
-      >
-        <ul className="mx-auto flex max-w-[1400px] snap-x gap-1 overflow-x-auto section-padding py-2.5 sm:gap-2 sm:py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {ANCHORS.map(({ id, labelKey }) => (
-            <li key={id} className="shrink-0 snap-start">
-              <a
-                href={`#${id}`}
-                onClick={(event) => {
-                  event.preventDefault();
-                  scrollToBuilderSection(id);
-                }}
-                className="inline-flex items-center rounded-none border border-transparent px-3 py-1.5 font-mono text-[0.725rem] uppercase tracking-[0.12em] text-fg-4 no-underline transition-colors hover:border-accent/40 hover:text-accent sm:px-4 sm:text-sm"
-              >
-                {t(labelKey)}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </header>
   );
 }

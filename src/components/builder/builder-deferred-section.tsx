@@ -19,21 +19,29 @@ function BuilderSectionPlaceholder({
   );
 }
 
-/** Mount heavy lazy sections only when near the viewport or targeted by hash. */
+/** Mount heavy lazy sections when near the viewport, targeted by hash, or tab is active. */
 export function BuilderDeferredSection({
   sectionId,
   minHeight = "14rem",
+  active = false,
   children,
 }: {
   sectionId: string;
   minHeight?: string;
+  active?: boolean;
   children: ReactNode;
 }) {
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [shouldMount, setShouldMount] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.location.hash === `#${sectionId}`;
+    if (typeof window === "undefined") return active;
+    return active || window.location.hash === `#${sectionId}`;
   });
+
+  useEffect(() => {
+    if (active) {
+      setShouldMount(true);
+    }
+  }, [active]);
 
   useEffect(() => {
     if (shouldMount) return;
@@ -67,7 +75,7 @@ export function BuilderDeferredSection({
       window.removeEventListener("hashchange", onHashChange);
       observer.disconnect();
     };
-  }, [sectionId, shouldMount]);
+  }, [sectionId, shouldMount, active]);
 
   if (shouldMount) {
     return children;

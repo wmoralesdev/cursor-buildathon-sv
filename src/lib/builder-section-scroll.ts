@@ -1,10 +1,17 @@
+import { resolveBuilderHubTarget } from "./builder-hub-tabs";
+
 /** Scroll to a builder hub section, retrying while lazy chunks mount. */
 export function scrollToBuilderSection(sectionId: string) {
+  const { tabId } = resolveBuilderHubTarget(sectionId);
   const hash = `#${sectionId}`;
   if (window.location.hash !== hash) {
     window.history.pushState(null, "", hash);
     window.dispatchEvent(new HashChangeEvent("hashchange"));
   }
+
+  window.dispatchEvent(
+    new CustomEvent("builder-hub:focus-tab", { detail: { tabId, sectionId } }),
+  );
 
   const scroll = () => {
     const el = document.getElementById(sectionId);

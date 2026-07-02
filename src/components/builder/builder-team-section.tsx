@@ -4,19 +4,30 @@ import { BuilderTeamPanel } from "./builder-team-panel";
 import { useBuilderTeam } from "../../hooks/use-builder-team";
 import { isConvexConfigured } from "../../lib/convex-client";
 import { useTranslation } from "../../context/language-context";
+import {
+  builderSectionSurfaceClass,
+  type BuilderSectionLayout,
+} from "../../lib/builder-section-layout";
 
-export function BuilderTeamSection() {
+export function BuilderTeamSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
   if (!isConvexConfigured) return null;
-  return <BuilderTeamSectionInner />;
+  return <BuilderTeamSectionInner layout={layout} />;
 }
 
-function BuilderTeamSectionInner() {
+function BuilderTeamSectionInner({ layout }: { layout: BuilderSectionLayout }) {
   const { t } = useTranslation();
   const { sessionId, team, isLoading, canSubmit, minSubmitMembers } = useBuilderTeam();
 
   return (
-    <section id="team" className="relative scroll-mt-24 section-padding pb-4 pt-12 sm:pt-16">
-      <div className="mx-auto max-w-[1400px]">
+    <section
+      id="team"
+      className={
+        layout === "tab"
+          ? builderSectionSurfaceClass("tab", "")
+          : "relative scroll-mt-24 section-padding pb-4 pt-12 sm:pt-16"
+      }
+    >
+      <div className={layout === "page" ? "mx-auto max-w-[1400px]" : undefined}>
         <span className="tag mb-5 inline-block">{t("builder.team.tag")}</span>
 
         {isLoading || !sessionId ? (
