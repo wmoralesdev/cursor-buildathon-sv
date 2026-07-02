@@ -25,7 +25,7 @@ export const add = mutation({
       throw new Error("User not found");
     }
 
-    const team = await ctx.db.get(args.teamId);
+    const team = await ctx.db.get("teams", args.teamId);
     if (!team || team.createdBy !== user._id) {
       throw new Error("Access denied");
     }
@@ -62,7 +62,7 @@ export const listByTeam = query({
       return [];
     }
 
-    const team = await ctx.db.get(args.teamId);
+    const team = await ctx.db.get("teams", args.teamId);
     if (!team || team.createdBy !== user._id) {
       return [];
     }
@@ -92,16 +92,16 @@ export const remove = mutation({
       throw new Error("User not found");
     }
 
-    const post = await ctx.db.get(args.id);
+    const post = await ctx.db.get("social_posts", args.id);
     if (!post) {
       throw new Error("Post not found");
     }
 
-    const team = await ctx.db.get(post.teamId);
+    const team = await ctx.db.get("teams", post.teamId);
     if (!team || team.createdBy !== user._id) {
       throw new Error("Access denied");
     }
 
-    await ctx.db.delete(args.id);
+    await ctx.db.delete("social_posts", args.id);
   },
 });

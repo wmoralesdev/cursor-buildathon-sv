@@ -53,7 +53,7 @@ export const upsert = mutation({
     };
 
     if (existing) {
-      await ctx.db.patch(existing._id, doc);
+      await ctx.db.patch("teams", existing._id, doc);
       return existing._id;
     }
 
