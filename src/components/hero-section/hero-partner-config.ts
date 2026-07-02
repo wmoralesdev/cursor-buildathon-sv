@@ -36,6 +36,7 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   esrobotica: "h-6 w-auto max-w-36 object-contain object-left",
   datamcp: "h-6 w-auto max-w-32 object-contain object-left",
   rcns: "h-6 w-auto max-w-32 object-contain object-left",
+  cognition: "h-6 w-auto max-w-36 object-contain object-left",
   from021: "h-6 w-auto max-w-28 object-contain object-left",
   "gad-dev": "h-6 w-auto max-w-32 object-contain object-left",
   mistral: "h-6 w-auto max-w-36 object-contain object-left",

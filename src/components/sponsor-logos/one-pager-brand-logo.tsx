@@ -22,6 +22,7 @@ import { SvnetLogo } from "./svnet-logo";
 import { FirecrawlLogo } from "./firecrawl-logo";
 import { DatamcpLogo } from "./datamcp-logo";
 import { RcnsLogo } from "./rcns-logo";
+import { CognitionLogo } from "./cognition-logo";
 import { MacaLogo } from "./maca-logo";
 import { CrafterLogo } from "./crafter-logo";
 import { EsroboticaLogo } from "./esrobotica-logo";
@@ -85,6 +86,8 @@ export function OnePagerBrandLogo({
       return <DatamcpLogo {...props} />;
     case "rcns":
       return <RcnsLogo {...props} />;
+    case "cognition":
+      return <CognitionLogo {...props} />;
     case "maca":
       return <MacaLogo {...props} />;
     case "crafter":
