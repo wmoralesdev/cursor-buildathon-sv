@@ -1,6 +1,7 @@
 export type ProductSponsorId =
   | "n8n"
   | "codex"
+  | "cognition"
   | "yonjob"
   | "nubiwork"
   | "abaco"

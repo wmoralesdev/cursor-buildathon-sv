@@ -1,6 +1,7 @@
 import type { BrandLogoProps } from "./logo-props";
 import { AbacoLogo } from "./abaco-logo";
 import { CodexLogo } from "./codex-logo";
+import { CognitionLogo } from "./cognition-logo";
 import { CursorLockup } from "./cursor-lockup";
 import { ElevenLabsLogo } from "./elevenlabs-logo";
 import { BoxfulLogo } from "./boxful-logo";
@@ -45,6 +46,8 @@ export function OnePagerBrandLogo({
       return <N8nLogo {...props} />;
     case "codex":
       return <CodexLogo {...props} />;
+    case "cognition":
+      return <CognitionLogo {...props} />;
     case "yonjob":
       return <YonjobLogo {...props} />;
     case "nubiwork":

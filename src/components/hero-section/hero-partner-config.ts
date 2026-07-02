@@ -13,6 +13,7 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   zavu: "h-5.5 w-auto max-w-28 object-contain object-left",
   n8n: "h-7 w-auto max-w-32 object-contain object-left",
   codex: "h-9 w-auto max-w-36 object-contain object-left",
+  cognition: "h-6 w-auto max-w-36 object-contain object-left",
   yonjob: "h-8 w-auto max-w-36 object-contain object-left",
   nubiwork: "h-11 w-auto max-w-48 object-contain object-left",
   abaco: "h-6 w-auto max-w-32 object-contain object-left",
@@ -48,6 +49,7 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
 const PARTNER_ORDER: readonly HeroPartnerId[] = [
   "n8n",
   "codex",
+  "cognition",
   "yonjob",
   "nubiwork",
   "abaco",
@@ -131,6 +133,7 @@ function requireSponsor(id: ProductSponsorId): Sponsor {
 
 export type LeadPartnerId =
   | "codex"
+  | "cognition"
   | "elevenlabs"
   | "netlify"
   | "wispr"
@@ -139,6 +142,7 @@ export type LeadPartnerId =
 
 const LEAD_PARTNER_ROW_1: readonly LeadPartnerId[] = [
   "codex",
+  "cognition",
   "elevenlabs",
   "netlify",
 ] as const;
@@ -152,6 +156,7 @@ const LEAD_PARTNER_ORDER: readonly LeadPartnerId[] = [
 
 const LEAD_LOGO_CLASS: Record<LeadPartnerId, string> = {
   codex: "h-10 w-auto max-w-44 sm:h-12 sm:max-w-52 object-contain object-left",
+  cognition: "h-6 w-auto max-w-32 sm:h-8 sm:max-w-40 object-contain object-left",
   elevenlabs: "h-6 w-auto max-w-32 sm:h-8 sm:max-w-36 object-contain object-left",
   netlify: "h-9 w-auto max-w-48 sm:h-12 sm:max-w-56 object-contain object-left",
   wispr: "h-4 w-auto max-w-20 sm:h-5 sm:max-w-24 object-contain object-left",

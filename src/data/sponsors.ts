@@ -28,6 +28,12 @@ export const sponsors: Sponsor[] = [
     tier: "product",
   },
   {
+    id: "cognition",
+    name: "Cognition",
+    url: "https://cognition.ai/",
+    tier: "product",
+  },
+  {
     id: "yonjob",
     name: "Yonjob",
     url: "https://yonjobsv.com/",
