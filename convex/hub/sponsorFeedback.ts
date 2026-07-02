@@ -1,6 +1,6 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import { ensureHubUser, requireHubUser, requireTeamMembership } from "../lib/hubAuth";
 import { hubSponsorIdValidator } from "../lib/hubSponsorIds";
 
 const pendingItemValidator = v.object({
@@ -17,7 +17,10 @@ export const getMyPendingFeedback = query({
     allComplete: v.boolean(),
   }),
   handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) {
+      return { pending: [], allComplete: true };
+    }
     const membership = await ctx.db
       .query("hub_team_members")
       .withIndex("by_user", (q) => q.eq("userId", user._id))
@@ -71,7 +74,7 @@ export const submitFeedback = mutation({
   },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
 
     const project = await ctx.db
@@ -135,8 +138,15 @@ export const getTeamFeedbackStatus = query({
     v.null(),
   ),
   handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
-    const { team } = await requireTeamMembership(ctx, user._id);
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) return null;
+
+    let team;
+    try {
+      ({ team } = await requireTeamMembership(ctx, user._id));
+    } catch {
+      return null;
+    }
 
     const project = await ctx.db
       .query("hub_projects")

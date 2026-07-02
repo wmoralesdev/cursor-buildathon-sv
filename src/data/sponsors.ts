@@ -15,6 +15,12 @@ export interface Sponsor {
 
 export const sponsors: Sponsor[] = [
   {
+    id: "cursor",
+    name: "Cursor",
+    url: "https://cursor.com",
+    tier: "product",
+  },
+  {
     id: "n8n",
     name: "n8n",
     url: "https://n8n.io",
@@ -25,6 +31,12 @@ export const sponsors: Sponsor[] = [
     id: "codex",
     name: "Codex",
     url: "https://openai.com/codex",
+    tier: "product",
+  },
+  {
+    id: "zavu",
+    name: "Zavu",
+    url: "https://zavu.dev",
     tier: "product",
   },
   {
@@ -78,7 +90,7 @@ export const sponsors: Sponsor[] = [
   {
     id: "drop",
     name: "Drop",
-    url: "https://drop.sv/",
+    url: "https://soydrop.com/",
     tier: "product",
   },
   {
@@ -168,7 +180,7 @@ export const sponsors: Sponsor[] = [
   {
     id: "from021",
     name: "Zero Two One",
-    url: "https://from021.com/",
+    url: "https://from021.io/",
     tier: "product",
   },
   {

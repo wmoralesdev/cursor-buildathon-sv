@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { BuilderSectionHeader } from "./builder-section-header";
 import { useBuilderTeam } from "../../hooks/use-builder-team";
+import { scrollToBuilderSection } from "../../lib/builder-section-scroll";
 import { BUILDER_TEAM_SECTION_ENABLED } from "../../constants";
 import { isConvexConfigured } from "../../lib/convex-client";
 import { useTranslation } from "../../context/language-context";
@@ -101,9 +102,16 @@ function SubmitCta() {
 function SubmitCtaDisabled() {
   const { t } = useTranslation();
   return (
-    <span className="btn-phosphor inline-flex cursor-default justify-center opacity-60 pointer-events-none">
-      {t("builder.submit.cta")}
-    </span>
+    <a
+      href="#hub"
+      onClick={(event) => {
+        event.preventDefault();
+        scrollToBuilderSection("hub");
+      }}
+      className="btn-phosphor inline-flex justify-center no-underline"
+    >
+      {t("builder.submit.cta.goToHub")}
+    </a>
   );
 }
 

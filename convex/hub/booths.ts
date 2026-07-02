@@ -1,6 +1,6 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubRole, requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import { ensureHubUser, requireHubRole, requireHubUser, requireTeamMembership } from "../lib/hubAuth";
 
 const slotValidator = v.object({
   _id: v.id("hub_booth_slots"),
@@ -84,7 +84,7 @@ export const reserveSlot = mutation({
   args: { slotId: v.id("hub_booth_slots") },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
 
     const slot = await ctx.db.get(args.slotId);
@@ -123,7 +123,7 @@ export const cancelReservation = mutation({
   args: { slotId: v.id("hub_booth_slots") },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
 
     const reservation = await ctx.db

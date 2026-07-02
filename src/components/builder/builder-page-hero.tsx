@@ -5,6 +5,7 @@ import type { TranslationKey } from "../../i18n/translations";
 import { CountdownTimer } from "../countdown-timer";
 
 const ANCHORS: { id: string; labelKey: TranslationKey }[] = [
+  { id: "hub", labelKey: "builder.nav.hub" },
   { id: "sponsors", labelKey: "builder.nav.sponsors" },
   ...(BUILDER_TEAM_SECTION_ENABLED
     ? [{ id: "team", labelKey: "builder.nav.team" as TranslationKey }]
@@ -13,7 +14,6 @@ const ANCHORS: { id: string; labelKey: TranslationKey }[] = [
   { id: "mentors", labelKey: "builder.nav.mentors" },
   { id: "judges", labelKey: "builder.nav.judges" },
   { id: "submit", labelKey: "builder.nav.submit" },
-  { id: "tracks", labelKey: "builder.nav.tracks" },
   { id: "premios", labelKey: "builder.nav.premios" },
   { id: "credits", labelKey: "builder.nav.credits" },
   { id: "faq", labelKey: "builder.nav.faq" },

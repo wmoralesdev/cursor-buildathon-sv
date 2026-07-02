@@ -1,6 +1,6 @@
 export const HUB_PROGRESS_STEPS = [
   { id: "team_formed", labelKey: "hub.progress.teamFormed", auto: true },
-  { id: "track_selected", labelKey: "hub.progress.trackSelected", auto: true },
+  { id: "repo_linked", labelKey: "hub.progress.repoLinked", auto: true },
   { id: "project_started", labelKey: "hub.progress.projectStarted", auto: true },
   { id: "social_posted", labelKey: "hub.progress.socialPosted", auto: true },
   { id: "checkpoint_midday", labelKey: "hub.progress.checkpointMidday", auto: false },

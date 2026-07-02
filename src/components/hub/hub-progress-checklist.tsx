@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { HUB_CHECKPOINTS } from "../../data/hub-progress-steps";
+import { useHubQueryReady } from "../../hooks/use-hub-query-ready";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
 import { HubButton, HubCard, HubError, HubField, HubTextarea } from "./hub-ui-primitives";
 
 export function HubProgressChecklist() {
   const { t } = useTranslation();
-  const progress = useQuery(api.hub.progress.getProgress, isConvexConfigured ? {} : "skip");
+  const hubReady = useHubQueryReady();
+  const progress = useQuery(api.hub.progress.getProgress, hubReady ? {} : "skip");
   const submitCheckpoint = useMutation(api.hub.progress.submitCheckpoint);
 
   const [activeCheckpoint, setActiveCheckpoint] = useState<string | null>(null);

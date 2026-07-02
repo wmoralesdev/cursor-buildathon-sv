@@ -1,7 +1,38 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubRole } from "../lib/hub-auth";
+import { requireHubRole } from "../lib/hubAuth";
 import { hubRoleValidator } from "../lib/hubRoles";
+import { EVENT_START_MS } from "../lib/eventDates";
+
+const snapshotSummaryValidator = v.object({
+  syncedAt: v.number(),
+  lastPushAt: v.union(v.string(), v.null()),
+  commitCountInEventWindow: v.number(),
+  commitCountBeforeEvent: v.number(),
+  contributors: v.array(v.string()),
+  checkpointSummaries: v.array(
+    v.object({
+      checkpointId: v.string(),
+      commitCount: v.number(),
+      commits: v.array(
+        v.object({
+          sha: v.string(),
+          message: v.string(),
+          author: v.string(),
+          date: v.string(),
+        }),
+      ),
+      contributors: v.array(v.string()),
+    }),
+  ),
+});
+
+const complianceStatusValidator = v.union(
+  v.literal("ok"),
+  v.literal("review"),
+  v.literal("violation"),
+  v.literal("unknown"),
+);
 
 export const listRoleAssignments = query({
   args: {},
@@ -103,6 +134,174 @@ export const listTeamsOverview = query({
         };
       }),
     );
+  },
+});
+
+export const listTeamsRepoCompliance = query({
+  args: {},
+  returns: v.array(
+    v.object({
+      _id: v.id("hub_teams"),
+      name: v.string(),
+      repoUrl: v.union(v.string(), v.null()),
+      repoLinkedAt: v.union(v.number(), v.null()),
+      repoUrlChangeCount: v.number(),
+      complianceStatus: complianceStatusValidator,
+      complianceFlags: v.array(v.string()),
+      snapshot: v.union(snapshotSummaryValidator, v.null()),
+      lastSyncAt: v.union(v.number(), v.null()),
+      lastSyncStatus: v.union(v.literal("ok"), v.literal("error"), v.null()),
+      lastSyncError: v.union(v.string(), v.null()),
+    }),
+  ),
+  handler: async (ctx) => {
+    await requireHubRole(ctx, "logistics");
+    const teams = await ctx.db.query("hub_teams").collect();
+    const now = Date.now();
+
+    return await Promise.all(
+      teams.map(async (team) => {
+        const project = await ctx.db
+          .query("hub_projects")
+          .withIndex("by_team", (q) => q.eq("teamId", team._id))
+          .unique();
+
+        const snapshot = await ctx.db
+          .query("hub_repo_sync_snapshots")
+          .withIndex("by_hub_team", (q) => q.eq("hubTeamId", team._id))
+          .order("desc")
+          .first();
+
+        const syncJob = await ctx.db
+          .query("hub_repo_sync_jobs")
+          .withIndex("by_hub_team", (q) => q.eq("hubTeamId", team._id))
+          .first();
+
+        const flags = team.repoComplianceFlags ?? snapshot?.flags ?? [];
+        const repoNotLinked =
+          !project?.repoUrl && now > EVENT_START_MS + 2 * 60 * 60 * 1000
+            ? ["repo_not_linked"]
+            : [];
+
+        return {
+          _id: team._id,
+          name: team.name,
+          repoUrl: project?.repoUrl ?? null,
+          repoLinkedAt: team.repoLinkedAt ?? null,
+          repoUrlChangeCount: team.repoUrlChangeCount ?? 0,
+          complianceStatus: team.repoComplianceStatus ?? "unknown",
+          complianceFlags: [...flags, ...repoNotLinked],
+          snapshot: snapshot
+            ? {
+                syncedAt: snapshot.syncedAt,
+                lastPushAt: snapshot.lastPushAt ?? null,
+                commitCountInEventWindow: snapshot.commitCountInEventWindow,
+                commitCountBeforeEvent: snapshot.commitCountBeforeEvent,
+                contributors: snapshot.contributors,
+                checkpointSummaries: snapshot.checkpointSummaries,
+              }
+            : null,
+          lastSyncAt: syncJob?.lastSyncAt ?? null,
+          lastSyncStatus: syncJob?.lastSyncStatus ?? null,
+          lastSyncError: syncJob?.lastError ?? null,
+        };
+      }),
+    );
+  },
+});
+
+export const getTeamRepoSnapshots = query({
+  args: { hubTeamId: v.id("hub_teams") },
+  returns: v.union(
+    v.null(),
+    v.object({
+      team: v.object({
+        name: v.string(),
+        repoUrl: v.union(v.string(), v.null()),
+        repoUrlChangeCount: v.number(),
+        repoUrlHistory: v.array(
+          v.object({
+            url: v.string(),
+            owner: v.string(),
+            repo: v.string(),
+            changedAt: v.number(),
+          }),
+        ),
+        complianceStatus: complianceStatusValidator,
+        complianceFlags: v.array(v.string()),
+      }),
+      snapshots: v.array(
+        v.object({
+          syncedAt: v.number(),
+          commitCountInEventWindow: v.number(),
+          commitCountBeforeEvent: v.number(),
+          contributors: v.array(v.string()),
+          recentCommits: v.array(
+            v.object({
+              sha: v.string(),
+              message: v.string(),
+              author: v.string(),
+              date: v.string(),
+            }),
+          ),
+          checkpointSummaries: v.array(
+            v.object({
+              checkpointId: v.string(),
+              commitCount: v.number(),
+              commits: v.array(
+                v.object({
+                  sha: v.string(),
+                  message: v.string(),
+                  author: v.string(),
+                  date: v.string(),
+                }),
+              ),
+              contributors: v.array(v.string()),
+            }),
+          ),
+          flags: v.array(v.string()),
+          isBaseline: v.optional(v.boolean()),
+        }),
+      ),
+    }),
+  ),
+  handler: async (ctx, args) => {
+    await requireHubRole(ctx, "logistics");
+
+    const team = await ctx.db.get(args.hubTeamId);
+    if (!team) return null;
+
+    const project = await ctx.db
+      .query("hub_projects")
+      .withIndex("by_team", (q) => q.eq("teamId", team._id))
+      .unique();
+
+    const snapshots = await ctx.db
+      .query("hub_repo_sync_snapshots")
+      .withIndex("by_hub_team", (q) => q.eq("hubTeamId", args.hubTeamId))
+      .order("desc")
+      .take(20);
+
+    return {
+      team: {
+        name: team.name,
+        repoUrl: project?.repoUrl ?? null,
+        repoUrlChangeCount: team.repoUrlChangeCount ?? 0,
+        repoUrlHistory: team.repoUrlHistory ?? [],
+        complianceStatus: team.repoComplianceStatus ?? "unknown",
+        complianceFlags: team.repoComplianceFlags ?? [],
+      },
+      snapshots: snapshots.map((snapshot) => ({
+        syncedAt: snapshot.syncedAt,
+        commitCountInEventWindow: snapshot.commitCountInEventWindow,
+        commitCountBeforeEvent: snapshot.commitCountBeforeEvent,
+        contributors: snapshot.contributors,
+        recentCommits: snapshot.recentCommits,
+        checkpointSummaries: snapshot.checkpointSummaries,
+        flags: snapshot.flags,
+        isBaseline: snapshot.isBaseline,
+      })),
+    };
   },
 });
 

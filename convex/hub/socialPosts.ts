@@ -1,7 +1,7 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubUser, requireTeamMembership } from "../lib/hub-auth";
-import { normalizeHttpUrl } from "../lib/profileValidation";
+import { ensureHubUser, requireHubUser, requireTeamMembership } from "../lib/hubAuth";
+import { validateSocialPostUrl } from "../lib/socialPostValidation";
 
 const postValidator = v.object({
   _id: v.id("hub_social_posts"),
@@ -10,21 +10,6 @@ const postValidator = v.object({
   createdAt: v.number(),
   authorName: v.string(),
 });
-
-function validateSocialUrl(platform: "x" | "linkedin", url: string): string {
-  const normalized = normalizeHttpUrl(url, "Post URL");
-  const hostname = new URL(normalized).hostname.replace(/^www\./, "");
-
-  if (platform === "x") {
-    if (!["x.com", "twitter.com"].includes(hostname)) {
-      throw new Error("X posts must use x.com or twitter.com URLs");
-    }
-  } else if (!["linkedin.com", "lnkd.in"].includes(hostname)) {
-    throw new Error("LinkedIn posts must use linkedin.com URLs");
-  }
-
-  return normalized;
-}
 
 export const listByTeam = query({
   args: {},
@@ -66,9 +51,9 @@ export const addPost = mutation({
   },
   returns: v.id("hub_social_posts"),
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
-    const url = validateSocialUrl(args.platform, args.url);
+    const url = validateSocialPostUrl(args.platform, args.url);
 
     return await ctx.db.insert("hub_social_posts", {
       teamId: team._id,
@@ -84,7 +69,7 @@ export const removePost = mutation({
   args: { postId: v.id("hub_social_posts") },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const post = await ctx.db.get(args.postId);
     if (!post) throw new Error("Post not found");
 

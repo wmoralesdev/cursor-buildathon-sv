@@ -3,17 +3,18 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { HubSponsorId } from "../../../convex/lib/hubSponsorIds";
 import { sponsors } from "../../data/sponsors";
+import { useHubQueryReady } from "../../hooks/use-hub-query-ready";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
 import { HubButton, HubCard, HubError, HubField, HubTextarea } from "./hub-ui-primitives";
 
 const sponsorNameById = Object.fromEntries(sponsors.map((s) => [s.id, s.name]));
 
 export function HubSponsorFeedback() {
   const { t } = useTranslation();
+  const hubReady = useHubQueryReady();
   const pending = useQuery(
     api.hub.sponsorFeedback.getMyPendingFeedback,
-    isConvexConfigured ? {} : "skip",
+    hubReady ? {} : "skip",
   );
   const submitFeedback = useMutation(api.hub.sponsorFeedback.submitFeedback);
 
@@ -23,17 +24,21 @@ export function HubSponsorFeedback() {
 
   if (pending === undefined) {
     return (
+      <div id="hub-feedback" className="scroll-mt-24">
       <HubCard title={t("hub.feedback.title")} tag={t("hub.feedback.tag")}>
         <div className="h-16 animate-pulse bg-border-faint" />
       </HubCard>
+      </div>
     );
   }
 
   if (pending.pending.length === 0) {
     return (
+      <div id="hub-feedback" className="scroll-mt-24">
       <HubCard title={t("hub.feedback.title")} tag={t("hub.feedback.tag")}>
         <p className="font-display text-[0.925rem] text-fg-2">{t("hub.feedback.noneRequired")}</p>
       </HubCard>
+      </div>
     );
   }
 
@@ -53,6 +58,7 @@ export function HubSponsorFeedback() {
   }
 
   return (
+    <div id="hub-feedback" className="scroll-mt-24">
     <HubCard title={t("hub.feedback.title")} tag={t("hub.feedback.tag")}>
       <p className="mb-5 font-display text-[0.925rem] text-fg-2">{t("hub.feedback.intro")}</p>
       <div className="space-y-5">
@@ -85,5 +91,6 @@ export function HubSponsorFeedback() {
       </div>
       <HubError message={error} />
     </HubCard>
+    </div>
   );
 }

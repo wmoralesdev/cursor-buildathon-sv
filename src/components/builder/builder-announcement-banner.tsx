@@ -26,9 +26,10 @@ function BuilderAnnouncementBannerInner() {
   const { t, language } = useTranslation();
   const [dismissed, setDismissed] = useState<string[]>(readDismissed);
 
-  const announcements = useQuery(api.announcements.listActiveAnnouncements, {
-    locale: language,
-  });
+  const announcements = useQuery(
+    api.announcements.listActiveAnnouncements,
+    isConvexConfigured ? { locale: language } : "skip",
+  );
 
   const active = announcements?.find((a) => !dismissed.includes(a.id));
   if (!active) return null;

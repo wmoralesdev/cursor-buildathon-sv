@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useHubQueryReady } from "../../hooks/use-hub-query-ready";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
+import { formatHubMutationError } from "../../lib/hub-mutation-error";
+import { validateSocialPostUrlClient } from "../../lib/validate-social-post-url";
 import { HubButton, HubCard, HubError, HubField, HubInput } from "./hub-ui-primitives";
+
+const PLATFORM_PLACEHOLDERS = {
+  x: "https://x.com/user/status/1234567890",
+  linkedin: "https://www.linkedin.com/posts/...",
+} as const;
 
 export function HubSocialPosts() {
   const { t } = useTranslation();
-  const posts = useQuery(api.hub.socialPosts.listByTeam, isConvexConfigured ? {} : "skip");
+  const hubReady = useHubQueryReady();
+  const posts = useQuery(api.hub.socialPosts.listByTeam, hubReady ? {} : "skip");
   const addPost = useMutation(api.hub.socialPosts.addPost);
   const removePost = useMutation(api.hub.socialPosts.removePost);
 
@@ -17,13 +25,19 @@ export function HubSocialPosts() {
   const [busy, setBusy] = useState(false);
 
   async function handleAdd() {
+    const validation = validateSocialPostUrlClient(platform, url);
+    if (!validation.ok) {
+      setError(t(validation.messageKey));
+      return;
+    }
+
     setBusy(true);
     setError(null);
     try {
-      await addPost({ platform, url });
+      await addPost({ platform, url: validation.normalized });
       setUrl("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : t("hub.error.generic"));
+      setError(formatHubMutationError(err, "hub.error.generic", t));
     } finally {
       setBusy(false);
     }
@@ -51,7 +65,17 @@ export function HubSocialPosts() {
         ))}
       </div>
       <HubField label={t("hub.social.url")}>
-        <HubInput value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://" />
+        <HubInput
+          value={url}
+          onChange={(e) => {
+            setUrl(e.target.value);
+            if (error) setError(null);
+          }}
+          placeholder={PLATFORM_PLACEHOLDERS[platform]}
+        />
+        <p className="mt-1.5 font-display text-[0.75rem] text-fg-4">
+          {platform === "x" ? t("hub.social.hint.x") : t("hub.social.hint.linkedin")}
+        </p>
       </HubField>
       <HubButton disabled={busy || !url.trim()} onClick={handleAdd}>
         {t("hub.social.add")}

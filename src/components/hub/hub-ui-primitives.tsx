@@ -79,5 +79,26 @@ export function HubButton({
 
 export function HubError({ message }: { message?: string | null }) {
   if (!message) return null;
-  return <p className="mt-3 font-display text-[0.875rem] text-red-400">{message}</p>;
+  return (
+    <p
+      role="alert"
+      aria-live="assertive"
+      className="mt-3 font-display text-[0.875rem] text-red-400"
+    >
+      {message}
+    </p>
+  );
+}
+
+export function HubSuccess({ message }: { message?: string | null }) {
+  if (!message) return null;
+  return (
+    <p
+      role="status"
+      aria-live="polite"
+      className="mt-3 font-display text-[0.875rem] text-accent"
+    >
+      {message}
+    </p>
+  );
 }

@@ -2,7 +2,7 @@ import type { Id } from "../_generated/dataModel";
 import type { MutationCtx, QueryCtx } from "../_generated/server";
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import { ensureHubUser, requireHubUser, requireTeamMembership } from "../lib/hubAuth";
 
 const progressStepValidator = v.object({
   id: v.string(),
@@ -20,7 +20,7 @@ const checkpointValidator = v.object({
 
 export const HUB_PROGRESS_STEP_IDS = [
   "team_formed",
-  "track_selected",
+  "repo_linked",
   "project_started",
   "social_posted",
   "checkpoint_midday",
@@ -105,7 +105,7 @@ async function deriveAutoSteps(
 
   return {
     team_formed: members.length >= 2,
-    track_selected: Boolean(team.track),
+    repo_linked: Boolean(team.repoOwner && team.repoName),
     project_started: Boolean(project?.name && project.description),
     social_posted: socialPosts.length > 0,
     checkpoint_midday: hasMiddayCheckpoint,
@@ -122,7 +122,23 @@ export const getProgress = query({
     checkpoints: v.array(checkpointValidator),
   }),
   handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) {
+      return {
+        steps: HUB_PROGRESS_STEP_IDS.map((id) => ({
+          id,
+          completed: false,
+          manual: id === "checkpoint_midday",
+        })),
+        checkpoints: HUB_CHECKPOINT_IDS.map((id) => ({
+          id,
+          label: id.replace("cp_", "").replace("am", " AM").replace("pm", " PM"),
+          note: undefined,
+          submittedAt: undefined,
+        })),
+      };
+    }
+
     const membership = await ctx.db
       .query("hub_team_members")
       .withIndex("by_user", (q) => q.eq("userId", user._id))
@@ -201,7 +217,7 @@ export const toggleStep = mutation({
   args: { stepId: v.string() },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
 
     if (args.stepId !== "checkpoint_midday") {
@@ -236,7 +252,7 @@ export const submitCheckpoint = mutation({
   },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
 
     if (!HUB_CHECKPOINT_IDS.includes(args.checkpointId as (typeof HUB_CHECKPOINT_IDS)[number])) {

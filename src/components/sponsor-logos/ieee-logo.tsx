@@ -8,8 +8,9 @@ export function IeeeLogo({ className, alt = "IEEE" }: BrandLogoProps) {
     <ThemedLogoImg
       lightSrc={SRC}
       darkSrc={SRC}
+      invertInLightMode
       alt={alt}
-      className={className ? `sponsor-logo-ieee ${className}` : "sponsor-logo-ieee"}
+      className={className}
     />
   );
 }

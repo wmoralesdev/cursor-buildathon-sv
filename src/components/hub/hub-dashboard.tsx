@@ -1,35 +1,52 @@
 import { SignInButton, useAuth } from "@clerk/react";
 import { Link } from "react-router-dom";
+import { useHubQueryReady } from "../../hooks/use-hub-query-ready";
 import { useHubUser } from "../../hooks/use-hub-user";
 import { isClerkConfigured } from "../../lib/convex-clerk-provider";
 import { isConvexConfigured } from "../../lib/convex-client";
 import { useTranslation } from "../../context/language-context";
+import { HubAuthSessionBar } from "./hub-auth-session-bar";
+import { HubGettingStarted } from "./hub-getting-started";
 import { HubBoothScheduler } from "./hub-booth-scheduler";
 import { HubDeliverablesCard } from "./hub-deliverables-card";
 import { HubMentorsGrid } from "./hub-mentors-grid";
 import { HubProgressChecklist } from "./hub-progress-checklist";
 import { HubProjectCard } from "./hub-project-card";
+import { HubRepoDashboard } from "./hub-repo-dashboard";
 import { HubSocialPosts } from "./hub-social-posts";
 import { HubSponsorFeedback } from "./hub-sponsor-feedback";
 import { HubTeamCard } from "./hub-team-card";
 import { HubButton, HubCard } from "./hub-ui-primitives";
 
 export function HubDashboard() {
-  const { t } = useTranslation();
-  const { isSignedIn } = useAuth();
-  const { role, isLoading } = useHubUser();
-
   if (!isConvexConfigured || !isClerkConfigured) {
-    return (
-      <section id="hub" className="scroll-mt-24 section-padding py-16 sm:py-20">
-        <div className="mx-auto max-w-[1400px]">
-          <HubCard title={t("hub.title")} tag={t("hub.tag")}>
-            <p className="font-display text-[0.925rem] text-fg-2">{t("hub.setupRequired")}</p>
-          </HubCard>
-        </div>
-      </section>
-    );
+    return <HubDashboardSetupRequired />;
   }
+
+  return <HubDashboardInner />;
+}
+
+function HubDashboardSetupRequired() {
+  const { t } = useTranslation();
+
+  return (
+    <section id="hub" className="scroll-mt-24 section-padding py-16 sm:py-20">
+      <div className="mx-auto max-w-[1400px]">
+        <HubCard title={t("hub.title")} tag={t("hub.tag")}>
+          <p className="font-display text-[0.925rem] text-fg-2">{t("hub.setupRequired")}</p>
+        </HubCard>
+      </div>
+    </section>
+  );
+}
+
+function HubDashboardInner() {
+  const { t } = useTranslation();
+  const { isSignedIn, isLoaded } = useAuth();
+  const hubReady = useHubQueryReady();
+  const { role, isLoading, provisionFailed } = useHubUser();
+
+  const showWorkspace = hubReady && !isLoading && !provisionFailed;
 
   return (
     <section id="hub" className="scroll-mt-24 section-padding py-16 sm:py-20">
@@ -51,26 +68,41 @@ export function HubDashboard() {
           ) : null}
         </div>
 
-        {!isSignedIn ? (
+        {!isSignedIn || !isLoaded ? (
           <HubCard title={t("hub.signInTitle")}>
             <p className="mb-5 font-display text-[0.925rem] text-fg-2">{t("hub.signInIntro")}</p>
             <SignInButton mode="modal">
               <HubButton>{t("hub.signInCta")}</HubButton>
             </SignInButton>
           </HubCard>
-        ) : isLoading ? (
-          <div className="h-40 animate-pulse border border-border bg-surface" />
         ) : (
-          <div className="grid gap-5 xl:grid-cols-2">
-            <HubTeamCard />
-            <HubProgressChecklist />
-            <HubProjectCard />
-            <HubDeliverablesCard />
-            <HubSponsorFeedback />
-            <HubSocialPosts />
-            <HubMentorsGrid />
-            <HubBoothScheduler />
-          </div>
+          <>
+            <HubAuthSessionBar />
+            {provisionFailed ? (
+              <HubCard title={t("hub.title")} tag={t("hub.tag")}>
+                <p className="font-display text-[0.925rem] text-fg-2">
+                  {t("hub.profileSyncFailed")}
+                </p>
+              </HubCard>
+            ) : !showWorkspace ? (
+              <div className="h-40 animate-pulse border border-border bg-surface" />
+            ) : (
+              <>
+                <HubGettingStarted />
+                <div className="grid gap-5 xl:grid-cols-2">
+                  <HubTeamCard />
+                  <HubRepoDashboard />
+                  <HubProgressChecklist />
+                  <HubProjectCard />
+                  <HubDeliverablesCard />
+                  <HubSponsorFeedback />
+                  <HubSocialPosts />
+                  <HubMentorsGrid />
+                  <HubBoothScheduler />
+                </div>
+              </>
+            )}
+          </>
         )}
       </div>
     </section>

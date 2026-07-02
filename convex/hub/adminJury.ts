@@ -1,6 +1,6 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubRole } from "../lib/hub-auth";
+import { requireHubRole } from "../lib/hubAuth";
 import { hubSponsorIdValidator } from "../lib/hubSponsorIds";
 import { getPublicUrl } from "../lib/r2";
 

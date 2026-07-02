@@ -6,7 +6,6 @@ import { BuilderDeferredSection } from "../components/builder/builder-deferred-s
 import { BuilderLogisticsSection } from "../components/builder/builder-logistics-section";
 import { BuilderPageHero } from "../components/builder/builder-page-hero";
 import { BuilderSubmitSection } from "../components/builder/builder-submit-section";
-import { BuilderTracksSection } from "../components/builder/builder-tracks-section";
 import { BUILDER_TEAM_SECTION_ENABLED } from "../constants";
 
 const BuilderMentorsSection = lazy(() =>
@@ -97,8 +96,6 @@ export function BuilderPage() {
         </BuilderDeferredSection>
 
         <BuilderSubmitSection />
-
-        <BuilderTracksSection />
 
         <BuilderDeferredSection sectionId="premios" minHeight="20rem">
           <Suspense fallback={<BuilderSectionSkeleton sectionId="premios" minHeight="20rem" />}>

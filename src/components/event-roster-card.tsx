@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
+import { resolveThemedLogoPair, ThemedLogoImg } from "./sponsor-logos";
 import { useTranslation } from "../context/language-context";
 
 export interface RosterCardProps {
@@ -258,11 +259,7 @@ function CompanyMark({
   companySize: string;
 }) {
   const inner = companyLogo ? (
-    <img
-      src={companyLogo}
-      alt={company}
-      className="logo-img block h-5 w-auto max-w-[7rem] shrink-0 object-contain"
-    />
+    <ThemedCompanyLogo company={company} companyLogo={companyLogo} />
   ) : (
     <span className={`truncate font-display font-semibold uppercase leading-none tracking-tight text-fg-2 transition-colors group-hover:text-fg ${companySize}`}>
       {company}
@@ -283,4 +280,24 @@ function CompanyMark({
     );
   }
   return <div className="flex min-w-0 items-center">{inner}</div>;
+}
+
+function ThemedCompanyLogo({
+  company,
+  companyLogo,
+}: {
+  company: string;
+  companyLogo: string;
+}) {
+  const { lightSrc, darkSrc, invertInLightMode } = resolveThemedLogoPair(companyLogo);
+
+  return (
+    <ThemedLogoImg
+      lightSrc={lightSrc}
+      darkSrc={darkSrc}
+      invertInLightMode={invertInLightMode}
+      alt={company}
+      className="block h-5 w-auto max-w-[7rem] shrink-0 object-contain opacity-70 transition-opacity hover:opacity-100"
+    />
+  );
 }

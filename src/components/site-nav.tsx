@@ -1,16 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { UserButton } from "@clerk/react";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
 import { CursorLockup } from "./sponsor-logos";
 import { AI_LABS_LINKS_URL, BUILDER_TEAM_SECTION_ENABLED } from "../constants";
+import { isClerkConfigured } from "../lib/convex-clerk-provider";
 import { isConvexConfigured } from "../lib/convex-client";
 import { useBuilderTeam } from "../hooks/use-builder-team";
 import { useTranslation } from "../context/language-context";
 
 export function SiteNav() {
+  const location = useLocation();
   const { resolvedTheme, setTheme } = useTheme();
   const { language, setLanguage, t } = useTranslation();
+  const showAccount =
+    isClerkConfigured &&
+    (location.pathname === "/builder" || location.pathname === "/admin");
 
   return (
     <nav className="relative z-20 mx-auto flex w-full max-w-[1400px] flex-col gap-4 py-4 section-padding sm:flex-row sm:items-center sm:justify-between sm:gap-y-0 sm:py-6">
@@ -67,6 +73,18 @@ export function SiteNav() {
             )}
           </button>
         </div>
+
+        {showAccount ? (
+          <UserButton
+            afterSignOutUrl={location.pathname}
+            appearance={{
+              elements: {
+                avatarBox: "size-8 rounded-none border border-border-faint",
+                userButtonPopoverCard: "rounded-none border border-border shadow-none",
+              },
+            }}
+          />
+        ) : null}
 
         <Link
           to="/builder"

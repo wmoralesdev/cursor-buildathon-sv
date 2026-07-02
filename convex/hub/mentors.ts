@@ -1,6 +1,6 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubRole } from "../lib/hub-auth";
+import { requireHubRole } from "../lib/hubAuth";
 
 const mentorValidator = v.object({
   _id: v.id("hub_mentors"),

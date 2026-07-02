@@ -39,5 +39,11 @@ export const EVENT_END_ISO = "2026-07-05T09:00:00-06:00";
 /** Project submission closes before closing remarks — adjust as the run-of-show firms up. */
 export const SUBMISSION_DEADLINE_ISO = "2026-07-05T08:00:00-06:00";
 
+/** Teams may link or change repo until two hours after kickoff. */
+export const REPO_LINK_DEADLINE_ISO = "2026-07-04T10:00:00-06:00";
+
+/** Cooldown between manual GitHub sync refreshes (matches convex/hub/repoTracking.ts). */
+export const REPO_SYNC_COOLDOWN_MS = 60_000;
+
 export const EVENT_VENUE_FULL = "Universidad Francisco Gavidia (UFG)";
 export const EVENT_VENUE_SHORT = "UFG";

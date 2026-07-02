@@ -25,6 +25,34 @@ const eventTeamMemberValidator = v.object({
   joinedAt: v.number(),
 });
 
+const repoComplianceStatusValidator = v.union(
+  v.literal("ok"),
+  v.literal("review"),
+  v.literal("violation"),
+  v.literal("unknown"),
+);
+
+const repoUrlHistoryEntryValidator = v.object({
+  url: v.string(),
+  owner: v.string(),
+  repo: v.string(),
+  changedAt: v.number(),
+});
+
+const recentCommitValidator = v.object({
+  sha: v.string(),
+  message: v.string(),
+  author: v.string(),
+  date: v.string(),
+});
+
+const checkpointSummaryValidator = v.object({
+  checkpointId: v.string(),
+  commitCount: v.number(),
+  commits: v.array(recentCommitValidator),
+  contributors: v.array(v.string()),
+});
+
 export default defineSchema({
   users: defineTable({
     tokenIdentifier: v.string(),
@@ -91,7 +119,18 @@ export default defineSchema({
     sponsorTrack: v.optional(sponsorTrackValidator),
     competitionTrack: v.optional(competitionTrackValidator),
     submittedAt: v.optional(v.number()),
+    buildingStartedAt: v.optional(v.number()),
     createdAt: v.number(),
+    repoUrl: v.optional(v.string()),
+    repoOwner: v.optional(v.string()),
+    repoName: v.optional(v.string()),
+    repoLinkedAt: v.optional(v.number()),
+    repoComplianceStatus: v.optional(repoComplianceStatusValidator),
+    repoComplianceFlags: v.optional(v.array(v.string())),
+    repoBaselineFirstCommitAt: v.optional(v.string()),
+    repoBaselineCommitCountBeforeEvent: v.optional(v.number()),
+    repoUrlChangeCount: v.optional(v.number()),
+    repoUrlHistory: v.optional(v.array(repoUrlHistoryEntryValidator)),
   })
     .index("by_invite_code", ["inviteCode"])
     .index("by_leader_session", ["leaderSessionId"]),
@@ -143,6 +182,15 @@ export default defineSchema({
     captainId: v.id("hub_users"),
     createdAt: v.number(),
     updatedAt: v.optional(v.number()),
+    repoOwner: v.optional(v.string()),
+    repoName: v.optional(v.string()),
+    repoLinkedAt: v.optional(v.number()),
+    repoComplianceStatus: v.optional(repoComplianceStatusValidator),
+    repoComplianceFlags: v.optional(v.array(v.string())),
+    repoBaselineFirstCommitAt: v.optional(v.string()),
+    repoBaselineCommitCountBeforeEvent: v.optional(v.number()),
+    repoUrlChangeCount: v.optional(v.number()),
+    repoUrlHistory: v.optional(v.array(repoUrlHistoryEntryValidator)),
   })
     .index("by_invite_code", ["inviteCode"])
     .index("by_captain", ["captainId"]),
@@ -250,6 +298,28 @@ export default defineSchema({
   })
     .index("by_slot", ["slotId"])
     .index("by_team", ["teamId"]),
+
+  hub_repo_sync_snapshots: defineTable({
+    hubTeamId: v.id("hub_teams"),
+    syncedAt: v.number(),
+    repoCreatedAt: v.string(),
+    firstCommitAt: v.optional(v.string()),
+    lastPushAt: v.optional(v.string()),
+    commitCountInEventWindow: v.number(),
+    commitCountBeforeEvent: v.number(),
+    contributors: v.array(v.string()),
+    recentCommits: v.array(recentCommitValidator),
+    checkpointSummaries: v.array(checkpointSummaryValidator),
+    flags: v.array(v.string()),
+    isBaseline: v.optional(v.boolean()),
+  }).index("by_hub_team", ["hubTeamId"]),
+
+  hub_repo_sync_jobs: defineTable({
+    hubTeamId: v.id("hub_teams"),
+    lastSyncAt: v.number(),
+    lastSyncStatus: v.union(v.literal("ok"), v.literal("error")),
+    lastError: v.optional(v.string()),
+  }).index("by_hub_team", ["hubTeamId"]),
 
   hub_scores: defineTable({
     teamId: v.id("hub_teams"),

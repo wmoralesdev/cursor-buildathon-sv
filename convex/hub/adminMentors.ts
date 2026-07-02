@@ -1,6 +1,6 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubRole, requireHubUser } from "../lib/hub-auth";
+import { requireHubRole, requireHubUser } from "../lib/hubAuth";
 
 export const getMyMentorProfile = query({
   args: {},

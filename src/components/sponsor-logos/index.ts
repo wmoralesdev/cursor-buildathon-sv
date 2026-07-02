@@ -32,11 +32,14 @@ import { MistralLogo } from "./mistral-logo";
 import { SupabaseLogo } from "./supabase-logo";
 import { IeeeLogo } from "./ieee-logo";
 import { UfgLogo } from "./ufg-logo";
+import { CursorLockup } from "./cursor-lockup";
+import { ZavuLogo } from "./zavu-logo";
 
 export type { BrandLogoProps } from "./logo-props";
 export type { OnePagerSponsorLogoId, ProductSponsorId } from "./sponsor-logo-ids";
 export { OnePagerBrandLogo } from "./one-pager-brand-logo";
-export { buildThemedLogoSrc } from "./build-themed-logo-src";
+export { buildThemedLogoSrc, resolveThemedLogoPair } from "./build-themed-logo-src";
+export type { ThemedLogoPair } from "./build-themed-logo-src";
 export { OnePagerCashLightLogoAssetsProvider, ThemedLogoImg } from "./themed-logo";
 export type { ThemedLogoImgProps } from "./themed-logo";
 export { CursorLockup } from "./cursor-lockup";
@@ -75,6 +78,8 @@ export { AilabsLogo } from "./ailabs-logo";
 export { ZavuLogo } from "./zavu-logo";
 
 export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<BrandLogoProps>> = {
+  cursor: CursorLockup,
+  zavu: ZavuLogo,
   n8n: N8nLogo,
   codex: CodexLogo,
   yonjob: YonjobLogo,

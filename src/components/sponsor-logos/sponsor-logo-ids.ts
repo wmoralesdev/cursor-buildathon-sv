@@ -1,4 +1,6 @@
 export type ProductSponsorId =
+  | "cursor"
+  | "zavu"
   | "n8n"
   | "codex"
   | "yonjob"

@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
+import { useHubQueryReady } from "../../hooks/use-hub-query-ready";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
 import { HubButton, HubCard } from "./hub-ui-primitives";
 
 function formatSlotTime(timestamp: number) {
@@ -14,7 +14,8 @@ function formatSlotTime(timestamp: number) {
 
 export function HubBoothScheduler() {
   const { t } = useTranslation();
-  const booths = useQuery(api.hub.booths.listBoothsWithSlots, isConvexConfigured ? {} : "skip");
+  const hubReady = useHubQueryReady();
+  const booths = useQuery(api.hub.booths.listBoothsWithSlots, hubReady ? {} : "skip");
   const reserveSlot = useMutation(api.hub.booths.reserveSlot);
   const cancelReservation = useMutation(api.hub.booths.cancelReservation);
 

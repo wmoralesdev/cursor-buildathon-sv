@@ -2,8 +2,14 @@ import type { Id } from "../_generated/dataModel";
 import type { MutationCtx, QueryCtx } from "../_generated/server";
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { generateInviteCode, requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import {
+  ensureHubUser,
+  generateInviteCode,
+  requireHubUser,
+  requireTeamMembership,
+} from "../lib/hubAuth";
 import { competitionTrackValidator } from "../lib/competitionTracks";
+import { hubProfileArgsValidator, hubProfileFromArgs } from "../lib/hubProfile";
 
 const memberValidator = v.object({
   userId: v.id("hub_users"),
@@ -23,6 +29,33 @@ const teamValidator = v.object({
   members: v.array(memberValidator),
   createdAt: v.number(),
 });
+
+function toTeamPublic(team: {
+  _id: Id<"hub_teams">;
+  name: string;
+  inviteCode: string;
+  track?: "ai_consumer" | "fintech_web3";
+  captainId: Id<"hub_users">;
+  createdAt: number;
+  members: Array<{
+    userId: Id<"hub_users">;
+    name: string;
+    email: string;
+    avatarUrl?: string;
+    isCaptain: boolean;
+    joinedAt: number;
+  }>;
+}) {
+  return {
+    _id: team._id,
+    name: team.name,
+    inviteCode: team.inviteCode,
+    track: team.track,
+    captainId: team.captainId,
+    members: team.members,
+    createdAt: team.createdAt,
+  };
+}
 
 async function buildTeamWithMembers(
   ctx: QueryCtx | MutationCtx,
@@ -50,17 +83,18 @@ async function buildTeamWithMembers(
     }),
   );
 
-  return { ...team, members };
+  return toTeamPublic({ ...team, members });
 }
 
 export const createTeam = mutation({
   args: {
     name: v.string(),
     track: v.optional(competitionTrackValidator),
+    ...hubProfileArgsValidator,
   },
   returns: teamValidator,
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx, hubProfileFromArgs(args));
     const existingMembership = await ctx.db
       .query("hub_team_members")
       .withIndex("by_user", (q) => q.eq("userId", user._id))
@@ -106,10 +140,13 @@ export const createTeam = mutation({
 });
 
 export const joinByCode = mutation({
-  args: { inviteCode: v.string() },
+  args: {
+    inviteCode: v.string(),
+    ...hubProfileArgsValidator,
+  },
   returns: teamValidator,
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx, hubProfileFromArgs(args));
     const existingMembership = await ctx.db
       .query("hub_team_members")
       .withIndex("by_user", (q) => q.eq("userId", user._id))
@@ -151,7 +188,7 @@ export const leaveTeam = mutation({
   args: {},
   returns: v.null(),
   handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team, membership } = await requireTeamMembership(ctx, user._id);
 
     if (team.captainId === user._id) {
@@ -176,7 +213,7 @@ export const setTrack = mutation({
   args: { track: competitionTrackValidator },
   returns: teamValidator,
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
     if (team.captainId !== user._id) {
       throw new Error("Only the team captain can set the track");

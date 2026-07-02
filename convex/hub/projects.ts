@@ -1,9 +1,15 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubUser, requireTeamMembership } from "../lib/hub-auth";
-import { hubSponsorIdValidator } from "../lib/hubSponsorIds";
+import type { Doc } from "../_generated/dataModel";
+import { ensureHubUser, requireHubUser, requireTeamMembership } from "../lib/hubAuth";
+import { hubSponsorIdValidator, isHubCreditSponsorId } from "../lib/hubSponsorIds";
 import { getPublicUrl, verifyVideoR2Key } from "../lib/r2";
 import { normalizeHttpUrl, trimOrThrow } from "../lib/profileValidation";
+import {
+  canonicalTeamRepoUrl,
+  prepareTeamRepoLink,
+  scheduleTeamRepoSync,
+} from "./linkTeamRepo";
 
 const DESCRIPTION_MAX = 1000;
 
@@ -38,12 +44,41 @@ function deliverablesWithPlayback<T extends { videoR2Key?: string; videoUrl?: st
   return { ...deliverables, videoPlaybackUrl };
 }
 
+function toProjectPublic(project: Doc<"hub_projects">) {
+  return {
+    _id: project._id,
+    teamId: project.teamId,
+    name: project.name,
+    description: project.description ?? "",
+    url: project.url,
+    repoUrl: project.repoUrl,
+    sponsorsUsed: project.sponsorsUsed.filter(isHubCreditSponsorId),
+    createdAt: project.createdAt ?? project._creationTime,
+  };
+}
+
+function toDeliverablesPublic(
+  deliverables: Doc<"hub_deliverables"> & { videoPlaybackUrl?: string },
+) {
+  return {
+    _id: deliverables._id,
+    teamId: deliverables.teamId,
+    slidesUrl: deliverables.slidesUrl,
+    videoR2Key: deliverables.videoR2Key,
+    videoUrl: deliverables.videoUrl,
+    videoPlaybackUrl: deliverables.videoPlaybackUrl,
+    testUsers: deliverables.testUsers,
+    submittedAt: deliverables.submittedAt,
+  };
+}
+
 export const getMyProject = query({
   args: {},
   returns: v.union(
     v.object({
-      project: projectValidator,
+      project: v.union(projectValidator, v.null()),
       deliverables: v.union(deliverablesValidator, v.null()),
+      linkedRepoUrl: v.union(v.string(), v.null()),
     }),
     v.null(),
   ),
@@ -57,11 +92,18 @@ export const getMyProject = query({
       .unique();
     if (!membership) return null;
 
+    const team = await ctx.db.get(membership.teamId);
+    if (!team) return null;
+
+    const linkedRepoUrl = canonicalTeamRepoUrl(team);
+
     const project = await ctx.db
       .query("hub_projects")
       .withIndex("by_team", (q) => q.eq("teamId", membership.teamId))
       .unique();
-    if (!project) return null;
+    if (!project) {
+      return { project: null, deliverables: null, linkedRepoUrl };
+    }
 
     const deliverables = await ctx.db
       .query("hub_deliverables")
@@ -69,8 +111,11 @@ export const getMyProject = query({
       .unique();
 
     return {
-      project,
-      deliverables: deliverables ? deliverablesWithPlayback(deliverables) : null,
+      project: toProjectPublic(project),
+      deliverables: deliverables
+        ? toDeliverablesPublic(deliverablesWithPlayback(deliverables))
+        : null,
+      linkedRepoUrl,
     };
   },
 });
@@ -85,7 +130,7 @@ export const upsertProject = mutation({
   },
   returns: projectValidator,
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
 
     const name = trimOrThrow(args.name, "Project name");
@@ -95,7 +140,6 @@ export const upsertProject = mutation({
     }
 
     const url = normalizeHttpUrl(args.url, "Project URL");
-    const repoUrl = normalizeHttpUrl(args.repoUrl, "Repository URL");
     const now = Date.now();
 
     const existing = await ctx.db
@@ -103,18 +147,37 @@ export const upsertProject = mutation({
       .withIndex("by_team", (q) => q.eq("teamId", team._id))
       .unique();
 
+    const deliverables = await ctx.db
+      .query("hub_deliverables")
+      .withIndex("by_team", (q) => q.eq("teamId", team._id))
+      .unique();
+
+    const link = await prepareTeamRepoLink(ctx, {
+      team,
+      captainId: team.captainId,
+      actorId: user._id,
+      repoUrlInput: args.repoUrl,
+      currentProjectRepoUrl: existing?.repoUrl,
+      blockChangesAfterFinalSubmit: Boolean(deliverables?.submittedAt),
+    });
+    const repoUrl = link.canonicalUrl;
+    const sponsorsUsed = args.sponsorsUsed.filter(isHubCreditSponsorId);
+
     if (existing) {
       await ctx.db.patch(existing._id, {
         name,
         description,
         url,
         repoUrl,
-        sponsorsUsed: args.sponsorsUsed,
+        sponsorsUsed,
         updatedAt: now,
       });
       const updated = await ctx.db.get(existing._id);
       if (!updated) throw new Error("Project update failed");
-      return updated;
+      if (link.shouldSync) {
+        await scheduleTeamRepoSync(ctx, team._id, link.isBaseline);
+      }
+      return toProjectPublic(updated);
     }
 
     const projectId = await ctx.db.insert("hub_projects", {
@@ -123,13 +186,16 @@ export const upsertProject = mutation({
       description,
       url,
       repoUrl,
-      sponsorsUsed: args.sponsorsUsed,
+      sponsorsUsed,
       createdAt: now,
     });
 
     const created = await ctx.db.get(projectId);
     if (!created) throw new Error("Project creation failed");
-    return created;
+    if (link.shouldSync) {
+      await scheduleTeamRepoSync(ctx, team._id, link.isBaseline);
+    }
+    return toProjectPublic(created);
   },
 });
 
@@ -143,7 +209,7 @@ export const upsertDeliverables = mutation({
   },
   returns: deliverablesValidator,
   handler: async (ctx, args) => {
-    const user = await requireHubUser(ctx);
+    const user = await ensureHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
 
     const project = await ctx.db
@@ -213,7 +279,7 @@ export const upsertDeliverables = mutation({
       await ctx.db.patch(existing._id, payload);
       const updated = await ctx.db.get(existing._id);
       if (!updated) throw new Error("Deliverables update failed");
-      return deliverablesWithPlayback(updated);
+      return toDeliverablesPublic(deliverablesWithPlayback(updated));
     }
 
     const deliverableId = await ctx.db.insert("hub_deliverables", {
@@ -222,6 +288,6 @@ export const upsertDeliverables = mutation({
     });
     const created = await ctx.db.get(deliverableId);
     if (!created) throw new Error("Deliverables creation failed");
-    return deliverablesWithPlayback(created);
+    return toDeliverablesPublic(deliverablesWithPlayback(created));
   },
 });
