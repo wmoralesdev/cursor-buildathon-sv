@@ -83,7 +83,7 @@ export function BuilderPrizesSection() {
           <GroupHeading
             titleKey="builder.premios.allParticipantsTitle"
             hintKey="builder.premios.allParticipantsHint"
-            badge={t("onePager.prizes.perBuilderBadge")}
+            badge={t("prizes.perBuilderBadge")}
           />
           <div className="grid grid-cols-1 gap-x-8 gap-y-1 sm:grid-cols-2">
             {PARTICIPANT_PERK_DEFS.map((perk) => (
@@ -94,7 +94,7 @@ export function BuilderPrizesSection() {
                 <div className="flex min-w-0 items-center gap-3">
                   <PerkMark logo={perk.logo} sponsor={perk.sponsor} />
                   <span className="min-w-0 truncate font-display text-[0.925rem] text-fg-3">
-                    {t(`onePager.prizes.perk.${perk.id}` as TranslationKey)}
+                    {t(`prizes.perk.${perk.id}` as TranslationKey)}
                   </span>
                 </div>
                 <span className="shrink-0 font-display text-[1.025rem] font-bold tabular-nums text-accent">
@@ -109,7 +109,7 @@ export function BuilderPrizesSection() {
           <GroupHeading
             titleKey="builder.premios.sponsorTitle"
             hintKey="builder.premios.sponsorHint"
-            badge={t("onePager.prizes.perMemberBadge")}
+            badge={t("prizes.perMemberBadge")}
           />
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {TRACK_PRIZE_DEFS.map((track) => (
@@ -118,10 +118,10 @@ export function BuilderPrizesSection() {
                   {track.value}
                 </p>
                 <p className="mt-3 font-display text-[0.975rem] font-bold uppercase leading-[1.2] tracking-[-0.01em] text-fg">
-                  {t(`onePager.prizes.track.${track.id}.title` as TranslationKey)}
+                  {t(`prizes.track.${track.id}.title` as TranslationKey)}
                 </p>
                 <p className="mt-2 font-display text-[0.9rem] leading-[1.5] text-fg-3">
-                  {t(`onePager.prizes.track.${track.id}.prize` as TranslationKey)}
+                  {t(`prizes.track.${track.id}.prize` as TranslationKey)}
                 </p>
               </div>
             ))}
@@ -147,7 +147,7 @@ export function BuilderPrizesSection() {
                         isFirst ? "text-bg/75" : "text-fg-3"
                       }`}
                     >
-                      {t(`onePager.prizes.place.${prize.placeId}` as TranslationKey)}
+                      {t(`prizes.place.${prize.placeId}` as TranslationKey)}
                     </p>
                     <p
                       className={`font-display text-[1.8rem] font-bold leading-none tracking-tight ${
@@ -162,7 +162,7 @@ export function BuilderPrizesSection() {
                       isFirst ? "text-bg/70" : "text-fg-4"
                     }`}
                   >
-                    {t("onePager.prizes.overall.cashLabel")}
+                    {t("prizes.overall.cashLabel")}
                   </p>
                   <ul
                     className={`mt-5 space-y-2.5 border-t pt-4 ${
@@ -193,7 +193,7 @@ export function BuilderPrizesSection() {
             })}
           </div>
           <p className="mt-4 font-mono text-[0.675rem] leading-relaxed text-fg-4">
-            {t("onePager.prizes.footerNote")}
+            {t("prizes.footerNote")}
           </p>
         </div>
       </div>

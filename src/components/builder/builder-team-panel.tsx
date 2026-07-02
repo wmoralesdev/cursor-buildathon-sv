@@ -89,7 +89,7 @@ export function BuilderTeamPanel({ team, sessionId, canSubmit, minSubmitMembers 
             {t("builder.team.panel.sponsorTrackLabel")}
           </p>
           <p className="mt-1.5 font-display text-[0.975rem] font-bold uppercase leading-[1.2] tracking-[-0.01em] text-fg">
-            {t(`onePager.prizes.track.${team.sponsorTrack}.title` as TranslationKey)}
+            {t(`prizes.track.${team.sponsorTrack}.title` as TranslationKey)}
           </p>
         </div>
       ) : null}

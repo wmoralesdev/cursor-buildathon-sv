@@ -76,7 +76,6 @@ export function SiteNav() {
 
         {showAccount ? (
           <UserButton
-            afterSignOutUrl={location.pathname}
             appearance={{
               elements: {
                 avatarBox: "size-8 rounded-none border border-border-faint",

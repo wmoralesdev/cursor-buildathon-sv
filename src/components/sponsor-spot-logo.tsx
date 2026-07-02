@@ -474,6 +474,17 @@ function renderSponsorMark(
           />
         </LogoWrap>
       );
+    case "cognition":
+      return (
+        <LogoWrap innerScale={0.6}>
+          <img
+            src={sponsorPublicAsset("cognition-dark.svg")}
+            alt="Cognition"
+            draggable={false}
+            style={logoStyle({ bloomProgress, invert: true })}
+          />
+        </LogoWrap>
+      );
   }
 
   // Defensive fallback (should be unreachable thanks to the exhaustive switch).

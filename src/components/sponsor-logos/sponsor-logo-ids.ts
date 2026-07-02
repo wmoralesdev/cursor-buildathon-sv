@@ -26,11 +26,10 @@ export type ProductSponsorId =
   | "esrobotica"
   | "datamcp"
   | "rcns"
+  | "cognition"
   | "from021"
   | "gad-dev"
   | "mistral"
   | "supabase"
   | "ieee"
   | "ufg";
-
-export type OnePagerSponsorLogoId = ProductSponsorId | "cursor";

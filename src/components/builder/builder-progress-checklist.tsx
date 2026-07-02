@@ -78,7 +78,7 @@ export function BuilderProgressChecklist({ team, canSubmit, minSubmitMembers }: 
       done: Boolean(team.sponsorTrack),
       titleKey: "builder.progress.sponsor.title",
       detail: team.sponsorTrack
-        ? t(`onePager.prizes.track.${team.sponsorTrack}.title` as TranslationKey)
+        ? t(`prizes.track.${team.sponsorTrack}.title` as TranslationKey)
         : t("builder.progress.sponsor.todo"),
     },
     {

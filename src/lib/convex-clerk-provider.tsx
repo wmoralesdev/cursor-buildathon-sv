@@ -9,19 +9,22 @@ const clerkPublishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 export const isClerkConfigured = Boolean(clerkPublishableKey);
 
 export function ConvexClerkProvider({ children }: { children: ReactNode }) {
-  if (!convexClient) {
-    return <>{children}</>;
+  let tree: ReactNode = children;
+
+  if (convexClient) {
+    tree =
+      isClerkConfigured ? (
+        <ConvexProviderWithClerk client={convexClient} useAuth={useAuth}>
+          {tree}
+        </ConvexProviderWithClerk>
+      ) : (
+        <ConvexProvider client={convexClient}>{tree}</ConvexProvider>
+      );
   }
 
   if (!isClerkConfigured) {
-    return <ConvexProvider client={convexClient}>{children}</ConvexProvider>;
+    return <>{tree}</>;
   }
 
-  return (
-    <ClerkProvider publishableKey={clerkPublishableKey!}>
-      <ConvexProviderWithClerk client={convexClient} useAuth={useAuth}>
-        {children}
-      </ConvexProviderWithClerk>
-    </ClerkProvider>
-  );
+  return <ClerkProvider publishableKey={clerkPublishableKey!}>{tree}</ClerkProvider>;
 }

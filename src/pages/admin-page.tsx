@@ -8,10 +8,6 @@ import { AdminMentorPanel } from "../components/admin/admin-mentor-panel";
 import { HubButton, HubCard } from "../components/hub/hub-ui-primitives";
 
 export function AdminPage() {
-  const { isSignedIn } = useAuth();
-  const { role, isLoading } = useHubUser();
-  const activeRole = role?.role ?? null;
-
   if (!isClerkConfigured) {
     return (
       <main className="section-padding py-16">
@@ -23,6 +19,14 @@ export function AdminPage() {
       </main>
     );
   }
+
+  return <AdminPageContent />;
+}
+
+function AdminPageContent() {
+  const { isSignedIn } = useAuth();
+  const { role, isLoading } = useHubUser();
+  const activeRole = role?.role ?? null;
 
   return (
     <main className="section-padding py-16 sm:py-20">

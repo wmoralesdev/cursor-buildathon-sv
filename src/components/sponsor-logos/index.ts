@@ -23,6 +23,7 @@ import { SvnetLogo } from "./svnet-logo";
 import { FirecrawlLogo } from "./firecrawl-logo";
 import { DatamcpLogo } from "./datamcp-logo";
 import { RcnsLogo } from "./rcns-logo";
+import { CognitionLogo } from "./cognition-logo";
 import { MacaLogo } from "./maca-logo";
 import { CrafterLogo } from "./crafter-logo";
 import { EsroboticaLogo } from "./esrobotica-logo";
@@ -36,11 +37,10 @@ import { CursorLockup } from "./cursor-lockup";
 import { ZavuLogo } from "./zavu-logo";
 
 export type { BrandLogoProps } from "./logo-props";
-export type { OnePagerSponsorLogoId, ProductSponsorId } from "./sponsor-logo-ids";
-export { OnePagerBrandLogo } from "./one-pager-brand-logo";
+export type { ProductSponsorId } from "./sponsor-logo-ids";
 export { buildThemedLogoSrc, resolveThemedLogoPair } from "./build-themed-logo-src";
 export type { ThemedLogoPair } from "./build-themed-logo-src";
-export { OnePagerCashLightLogoAssetsProvider, ThemedLogoImg } from "./themed-logo";
+export { ThemedLogoImg } from "./themed-logo";
 export type { ThemedLogoImgProps } from "./themed-logo";
 export { CursorLockup } from "./cursor-lockup";
 export { AbacoLogo } from "./abaco-logo";
@@ -65,6 +65,7 @@ export { SvnetLogo } from "./svnet-logo";
 export { FirecrawlLogo } from "./firecrawl-logo";
 export { DatamcpLogo } from "./datamcp-logo";
 export { RcnsLogo } from "./rcns-logo";
+export { CognitionLogo } from "./cognition-logo";
 export { MacaLogo } from "./maca-logo";
 export { CrafterLogo } from "./crafter-logo";
 export { EsroboticaLogo } from "./esrobotica-logo";
@@ -105,6 +106,7 @@ export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<Bran
   esrobotica: EsroboticaLogo,
   datamcp: DatamcpLogo,
   rcns: RcnsLogo,
+  cognition: CognitionLogo,
   from021: From021Logo,
   "gad-dev": GadDevLogo,
   mistral: MistralLogo,
