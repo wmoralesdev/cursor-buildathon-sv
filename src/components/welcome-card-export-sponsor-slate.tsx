@@ -24,6 +24,7 @@ import {
   SponsorMarkFirecrawl,
   SponsorMarkDatamcp,
   SponsorMarkRcns,
+  SponsorMarkCognition,
   SponsorMarkDrop,
   SponsorMarkKreali,
   SponsorMarkWeris,
@@ -103,6 +104,7 @@ export const EXPORT_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkFirecrawl,
   SponsorMarkDatamcp,
   SponsorMarkRcns,
+  SponsorMarkCognition,
   SponsorMarkDrop,
 ] as const;
 

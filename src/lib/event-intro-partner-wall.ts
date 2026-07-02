@@ -52,6 +52,7 @@ function buildEventIntroPostRowIndices(markCount: number): number[][] {
       sponsorIndex("firecrawl"),
       sponsorIndex("datamcp"),
       sponsorIndex("rcns"),
+      sponsorIndex("cognition"),
     ],
   ];
 }
@@ -113,7 +114,7 @@ function buildEventIntroStoryRowIndices(markCount: number): number[][] {
     [sponsorIndex("netlify"), sponsorIndex("wispr")],
     [sponsorIndex("fal"), sponsorIndex("exa")],
     [sponsorIndex("svnet"), sponsorIndex("firecrawl")],
-    [sponsorIndex("datamcp"), sponsorIndex("rcns")],
+    [sponsorIndex("datamcp"), sponsorIndex("rcns"), sponsorIndex("cognition")],
   ];
 }
 

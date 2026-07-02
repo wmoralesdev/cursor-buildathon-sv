@@ -29,6 +29,7 @@ const SPONSOR_DISPLAY_NAME: Record<SponsorSpotKey, string> = {
   firecrawl: "firecrawl",
   datamcp: "datamcp",
   rcns: "rcns",
+  cognition: "cognition",
   drop: "drop",
 };
 

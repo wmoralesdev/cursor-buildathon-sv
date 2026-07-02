@@ -27,6 +27,7 @@ const SPONSOR_SRC = {
   firecrawl: staticFile("sponsors/firecrawl-dark.svg"),
   datamcp: staticFile("sponsors/datamcp.svg"),
   rcns: staticFile("sponsors/rcns-dark.svg"),
+  cognition: staticFile("sponsors/cognition-dark.svg"),
 } as const;
 
 export type SponsorMarkProps = {
@@ -60,6 +61,7 @@ export const WELCOME_CARD_SPONSOR_MARK_KEYS = [
   "firecrawl",
   "datamcp",
   "rcns",
+  "cognition",
   "drop",
 ] as const;
 
@@ -284,6 +286,19 @@ export function SponsorMarkGamesquad(props: SponsorMarkProps) {
   );
 }
 
+export function SponsorMarkCognition(props: SponsorMarkProps) {
+  return (
+    <SponsorMarkSlot {...props} innerScale={0.85}>
+      <img
+        src={SPONSOR_SRC.cognition}
+        alt="Cognition"
+        draggable={false}
+        style={slateLogoImgStyle(true)}
+      />
+    </SponsorMarkSlot>
+  );
+}
+
 export function SponsorMarkDrop(props: SponsorMarkProps) {
   return (
     <SponsorMarkSlot {...props} innerScale={0.85}>
@@ -451,5 +466,6 @@ export const WELCOME_CARD_SPONSOR_MARK_COMPONENTS = [
   SponsorMarkFirecrawl,
   SponsorMarkDatamcp,
   SponsorMarkRcns,
+  SponsorMarkCognition,
   SponsorMarkDrop,
 ] as const;

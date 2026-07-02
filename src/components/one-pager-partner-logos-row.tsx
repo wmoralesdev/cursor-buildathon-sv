@@ -29,6 +29,7 @@ const PARTNER_LABELS: Record<SponsorSpotKey, string> = {
   firecrawl: "Firecrawl",
   datamcp: "DataMCP",
   rcns: "RCNS",
+  cognition: "Cognition",
   drop: "Drop",
 };
 
@@ -57,6 +58,7 @@ const ONE_PAGER_PARTNER_LOGO_CLASS: Record<SponsorSpotKey, string> = {
   firecrawl: "h-[1.04rem] w-auto max-w-[4.26rem] object-contain",
   datamcp: "h-[1.04rem] w-auto max-w-[4.08rem] object-contain",
   rcns: "h-[1.04rem] w-auto max-w-[4.08rem] object-contain",
+  cognition: "h-[1.04rem] w-auto max-w-[4.43rem] object-contain",
   drop: "h-[1.01rem] w-auto max-w-[3.62rem] object-contain",
 };
 
