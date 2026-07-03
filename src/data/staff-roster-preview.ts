@@ -1,10 +1,24 @@
 import type { EventPersonRosterEntry } from "../types/event-person-roster";
+import { isIrlMentor } from "../lib/mentor-irl-filter";
 import { resolveMentorCompanySponsor } from "./sponsor-assets";
 import {
   STAFF_PHOTO_SLUGS,
   staffPhoto,
   type StaffPhotoSlug,
 } from "./staff-photos";
+
+/** Calendly / Cal.com / Google Calendar links for remote mentors. */
+const REMOTE_MENTOR_BOOKING_BY_SLUG: Partial<Record<StaffPhotoSlug, string>> = {
+  "bruno-calderon": "https://cal.com/bruno-calderon/cursor-buildathon-sv",
+  "carlos-amador": "https://cal.com/carlos-amador/cursor-buildathon-sv",
+  "eduardo-amador": "https://cal.com/eduardo-amador/cursor-buildathon-sv",
+  "jennifer-villalobos": "https://cal.com/jennifer-villalobos/cursor-buildathon-sv",
+  "karla-perez-alonzo": "https://cal.com/karla-perez-alonzo/cursor-buildathon-sv",
+  reno: "https://cal.com/reno/cursor-buildathon-sv",
+  "sho-villalba": "https://cal.com/sho-villalba/cursor-buildathon-sv",
+  "sofia-rocher": "https://cal.com/sofia-rocher/cursor-buildathon-sv",
+  "victor-villalobos": "https://cal.com/victor-villalobos/cursor-buildathon-sv",
+};
 
 /** Strip Notion markdown / HTML to plain card copy. */
 function cleanNotionText(value: string | undefined): string | undefined {
@@ -185,8 +199,7 @@ function buildMentorEntry(slug: StaffPhotoSlug): EventPersonRosterEntry {
   const sponsor = company ? resolveMentorCompanySponsor(company) : undefined;
   const companyHref = notion.companyHref ?? sponsor?.href;
   const companyLogo = notion.companyLogo ?? sponsor?.logo;
-
-  return {
+  const draft: EventPersonRosterEntry = {
     id: `mentor-${slug}`,
     name: notion.name,
     title: cleanNotionText(notion.role) ?? notion.role,
@@ -198,6 +211,13 @@ function buildMentorEntry(slug: StaffPhotoSlug): EventPersonRosterEntry {
     ...(companyLogo ? { companyLogo } : {}),
     ...(notion.bookingUrl ? { bookingUrl: notion.bookingUrl } : {}),
   };
+
+  if (!isIrlMentor(draft)) {
+    draft.presence = "remote";
+    draft.bookingUrl = notion.bookingUrl ?? REMOTE_MENTOR_BOOKING_BY_SLUG[slug];
+  }
+
+  return draft;
 }
 
 const otherMentorSlugs = STAFF_PHOTO_SLUGS.filter(

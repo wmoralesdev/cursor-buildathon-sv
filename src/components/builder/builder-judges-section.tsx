@@ -18,9 +18,8 @@ export function BuilderJudgesSection({ layout = "page" }: { layout?: BuilderSect
   const { t } = useTranslation();
 
   return (
-    <section id="judges" className={builderSectionSurfaceClass(layout, "bg-bg")}>
-      <div className={layout === "page" ? "max-w-[1400px] mx-auto" : undefined}>
-        <BuilderSectionHeader
+    <section id="judges" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 bg-bg">
+      <BuilderSectionHeader
           id="judges"
           tagKey="builder.judges.tag"
           title1Key="builder.judges.title1"
@@ -50,7 +49,6 @@ export function BuilderJudgesSection({ layout = "page" }: { layout?: BuilderSect
             />
           ))}
         </div>
-      </div>
     </section>
   );
 }

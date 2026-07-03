@@ -20,7 +20,6 @@ const checkpointValidator = v.object({
 
 export const HUB_PROGRESS_STEP_IDS = [
   "team_formed",
-  "track_selected",
   "project_started",
   "social_posted",
   "checkpoint_midday",
@@ -105,7 +104,6 @@ async function deriveAutoSteps(
 
   return {
     team_formed: members.length >= 2,
-    track_selected: Boolean(team.track),
     project_started: Boolean(project?.name && project.description),
     social_posted: socialPosts.length > 0,
     checkpoint_midday: hasMiddayCheckpoint,
@@ -122,7 +120,23 @@ export const getProgress = query({
     checkpoints: v.array(checkpointValidator),
   }),
   handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) {
+      return {
+        steps: HUB_PROGRESS_STEP_IDS.map((id) => ({
+          id,
+          completed: false,
+          manual: id === "checkpoint_midday",
+        })),
+        checkpoints: HUB_CHECKPOINT_IDS.map((id) => ({
+          id,
+          label: id.replace("cp_", "").replace("am", " AM").replace("pm", " PM"),
+          note: undefined,
+          submittedAt: undefined,
+        })),
+      };
+    }
+
     const membership = await ctx.db
       .query("hub_team_members")
       .withIndex("by_user", (q) => q.eq("userId", user._id))

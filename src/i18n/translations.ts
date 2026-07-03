@@ -418,7 +418,7 @@ export const translations = {
   "admin.nextPending": { en: "Next pending", es: "Siguiente pendiente" },
   "admin.rankings.allTracks": { en: "All tracks", es: "Todos los tracks" },
 
-  "nav.admin": { en: "Jury", es: "Jurado" },
+  "nav.admin": { en: "Admin", es: "Admin" },
 
   "hero.sponsorTagline": {
     en: "04 · 05 · JUL 2026 · 8:00 → 9:00 ·",
@@ -2047,22 +2047,24 @@ export const translations = {
 
   // ── Builder hub (/builder) ─────────────────────────────────────────
   "builder.hero.kicker": { en: "// Builder hub", es: "// Hub de builders" },
-  "builder.hero.title1": { en: "Everything you need", es: "Todo lo que necesitas" },
-  "builder.hero.title2": { en: "to build & ship", es: "para construir y entregar" },
+  "builder.hero.title1": { en: "Welcome, builder.", es: "Bienvenido, builder." },
+  "builder.hero.title2": { en: "Let's build & ship.", es: "A construir y entregar." },
   "builder.hero.intro": {
-    en: "Mentors on call, submission rules, tracks, and prizes — your single reference for the build window.",
-    es: "Mentores disponibles, reglas de envío, tracks y premios — tu referencia única para la ventana de build.",
+    en: "Mentors, submission, tracks, and prizes — all in one place.",
+    es: "Mentores, envío, tracks y premios — todo en un solo lugar.",
   },
+  "builder.hero.ctaLogin": { en: "Sign in", es: "Iniciar sesión" },
+  "builder.hero.ctaSubmit": { en: "Submit your project", es: "Envía tu proyecto" },
   "builder.hero.countdownLabel": { en: "// Build window opens", es: "// Abre la ventana de build" },
   "builder.hero.countdownWhen": {
-    en: "July 4 · 6:00 AM · San Salvador",
-    es: "4 jul · 6:00 AM · San Salvador",
+    en: "Saturday · Jul 4 · 10:30 AM · San Salvador",
+    es: "Sábado · 4 jul · 10:30 AM · San Salvador",
   },
-  "builder.nav.sponsors": { en: "Sponsors", es: "Sponsors" },
+  "builder.nav.hub": { en: "Hub", es: "Hub" },
   "builder.nav.team": { en: "Team", es: "Equipo" },
   "builder.nav.mentors": { en: "Mentors", es: "Mentores" },
   "builder.nav.submit": { en: "Submit", es: "Envío" },
-  "builder.nav.tracks": { en: "Tracks", es: "Tracks" },
+  "builder.nav.tracks": { en: "Sponsor tracks", es: "Tracks de sponsors" },
   "builder.nav.premios": { en: "Prizes", es: "Premios" },
   "builder.nav.credits": { en: "Redeem credits", es: "Canjear créditos" },
 
@@ -2097,6 +2099,14 @@ export const translations = {
   "builder.mentors.remoteEmpty": {
     en: "Remote mentors are being confirmed. Check back soon.",
     es: "Mentores remotos en confirmación. Vuelve pronto.",
+  },
+  "builder.mentors.onsiteEmpty": {
+    en: "On-site mentors are being confirmed. Check back soon.",
+    es: "Mentores en sede en confirmación. Vuelve pronto.",
+  },
+  "builder.mentors.subtabNav": {
+    en: "Mentor availability",
+    es: "Disponibilidad de mentores",
   },
   "builder.mentors.bookSlot": { en: "Book a slot →", es: "Reservar espacio →" },
 
@@ -2180,32 +2190,12 @@ export const translations = {
     es: "Un envío por equipo. Toma unos 5 minutos.",
   },
 
-  "builder.tracks.tag": { en: "// Tracks", es: "// Tracks" },
-  "builder.tracks.title1": { en: "Pick your", es: "Elige tu" },
-  "builder.tracks.title2": { en: "track", es: "track" },
+  "builder.tracks.tag": { en: "// Sponsor tracks", es: "// Tracks de sponsors" },
+  "builder.tracks.title1": { en: "Sponsor", es: "Tracks de" },
+  "builder.tracks.title2": { en: "tracks", es: "sponsors" },
   "builder.tracks.aside": {
-    en: "Compete in a category and stack sponsor track prizes on top — your project can qualify for several at once.",
-    es: "Compite en una categoría y suma premios de tracks de sponsors — tu proyecto puede calificar a varios a la vez.",
-  },
-  "builder.tracks.competitionTitle": { en: "Competition categories", es: "Categorías de competencia" },
-  "builder.tracks.competitionHint": {
-    en: "Choose the category that fits your project.",
-    es: "Elige la categoría que encaje con tu proyecto.",
-  },
-  "builder.tracks.competition.ai_consumer.title": { en: "AI Consumer", es: "AI Consumer" },
-  "builder.tracks.competition.ai_consumer.description": {
-    en: "Consumer-facing products where AI is the core experience — assistants, content, search, and everyday tools.",
-    es: "Productos para el consumidor donde la IA es la experiencia central — asistentes, contenido, búsqueda y herramientas cotidianas.",
-  },
-  "builder.tracks.competition.fintech_web3.title": { en: "Fintech & Web3", es: "Fintech & Web3" },
-  "builder.tracks.competition.fintech_web3.description": {
-    en: "Payments, finance, and on-chain apps — wallets, remittances, DeFi, and financial tooling built with AI.",
-    es: "Pagos, finanzas y apps on-chain — wallets, remesas, DeFi y herramientas financieras construidas con IA.",
-  },
-  "builder.tracks.sponsorTitle": { en: "Sponsor tracks", es: "Tracks de sponsors" },
-  "builder.tracks.sponsorHint": {
-    en: "Extra prizes for the best use of each partner's product.",
-    es: "Premios extra por el mejor uso del producto de cada partner.",
+    en: "Extra prizes for the best use of each partner's product — your project can qualify for several at once.",
+    es: "Premios extra por el mejor uso del producto de cada partner — tu proyecto puede calificar a varios a la vez.",
   },
 
   "builder.premios.tag": { en: "// Prizes", es: "// Premios" },
@@ -2243,8 +2233,8 @@ export const translations = {
   "builder.credits.title1": { en: "How to redeem", es: "Cómo canjear" },
   "builder.credits.title2": { en: "your perks", es: "tus perks" },
   "builder.credits.aside": {
-    en: "Every builder gets ~$365 in credits on day one. Follow the steps below at check-in or anytime during the event.",
-    es: "Cada builder recibe ~$365 en créditos desde el día uno. Sigue los pasos abajo al registrarte o en cualquier momento del evento.",
+    en: "Every builder gets ~$385 in credits on day one. Follow the steps below at check-in or anytime during the event.",
+    es: "Cada builder recibe ~$385 en créditos desde el día uno. Sigue los pasos abajo al registrarte o en cualquier momento del evento.",
   },
   "builder.credits.intro": {
     en: "Your builder pack includes a card or sheet with sponsor-specific codes and links. Redeem with the same email you used on Luma.",
@@ -2504,15 +2494,6 @@ export const translations = {
     en: "Add {count} more member(s) to unlock submission.",
     es: "Agrega {count} miembro(s) más para habilitar el envío.",
   },
-  "builder.progress.competition.title": { en: "Competition track chosen", es: "Track de competencia elegido" },
-  "builder.progress.competition.todoLeader": {
-    en: "Pick a category in your team panel below.",
-    es: "Elige una categoría en el panel de tu equipo abajo.",
-  },
-  "builder.progress.competition.todoMember": {
-    en: "Your team leader picks this.",
-    es: "Tu líder de equipo elige esto.",
-  },
   "builder.progress.sponsor.title": { en: "Sponsor track (optional)", es: "Track de sponsor (opcional)" },
   "builder.progress.sponsor.todo": {
     en: "Optional — set when you create the team.",
@@ -2572,8 +2553,8 @@ export const translations = {
   "builder.judges.title1": { en: "Who scores", es: "Quién evalúa" },
   "builder.judges.title2": { en: "your build", es: "tu proyecto" },
   "builder.judges.aside": {
-    en: "Build for these people. They review every submission and pick the track and overall winners.",
-    es: "Construye pensando en ellos. Revisan cada envío y eligen a los ganadores de tracks y generales.",
+    en: "Build for these people. They review every submission and pick the sponsor track and overall winners.",
+    es: "Construye pensando en ellos. Revisan cada envío y eligen a los ganadores de tracks de sponsors y generales.",
   },
 
   // ── Announcement banner (/builder) ─────────────────────────────────
@@ -2590,20 +2571,9 @@ export const translations = {
   "builder.submit.cta.submitted": { en: "View your submission →", es: "Ver tu envío →" },
 
   // ── Team panel: competition track + submission summary (/builder) ──
-  "builder.team.panel.competitionTrackLabel": {
-    en: "Competition track",
-    es: "Track de competencia",
-  },
-  "builder.team.panel.competitionTrackNone": { en: "Not chosen yet", es: "Aún sin elegir" },
-  "builder.team.panel.competitionTrackPrompt": {
-    en: "Which category does your project compete in?",
-    es: "¿En qué categoría compite tu proyecto?",
-  },
-  "builder.team.panel.competitionTrackSaving": { en: "Saving…", es: "Guardando…" },
   "builder.team.panel.submission.title": { en: "Your submission", es: "Tu envío" },
   "builder.team.panel.submission.repo": { en: "Repository", es: "Repositorio" },
   "builder.team.panel.submission.post": { en: "Event post", es: "Publicación del evento" },
-  "builder.team.panel.submission.track": { en: "Track", es: "Track" },
   "builder.team.panel.submission.view": { en: "Open →", es: "Abrir →" },
   "builder.team.panel.memberX": { en: "X", es: "X" },
   "builder.team.panel.memberLinkedIn": { en: "LinkedIn", es: "LinkedIn" },
@@ -2774,6 +2744,10 @@ export const translations = {
     es: "Usa tu cuenta de Google para acceder a herramientas de equipo, progreso y envíos.",
   },
   "hub.signInCta": { en: "Sign in with Google", es: "Iniciar sesión con Google" },
+  "hub.connecting": {
+    en: "Connecting your workspace…",
+    es: "Conectando tu espacio de trabajo…",
+  },
   "hub.openAdmin": { en: "Open admin", es: "Abrir admin" },
   "hub.error.generic": { en: "Something went wrong. Try again.", es: "Algo salió mal. Intenta de nuevo." },
 
@@ -2789,9 +2763,6 @@ export const translations = {
   "hub.team.captain": { en: "Captain", es: "Capitán" },
   "hub.team.leave": { en: "Leave team", es: "Salir del equipo" },
 
-  "hub.track.ai_consumer": { en: "AI consumer", es: "AI consumer" },
-  "hub.track.fintech_web3": { en: "Fintech / Web3", es: "Fintech / Web3" },
-
   "hub.progress.tag": { en: "// Progress", es: "// Progreso" },
   "hub.progress.title": { en: "Progress & checkpoints", es: "Progreso y checkpoints" },
   "hub.progress.milestones": { en: "Milestones", es: "Hitos" },
@@ -2803,7 +2774,6 @@ export const translations = {
   "hub.progress.checkpointNote": { en: "Status note", es: "Nota de estado" },
   "hub.progress.saveCheckpoint": { en: "Save checkpoint", es: "Guardar checkpoint" },
   "hub.progress.step.team_formed": { en: "Team formed", es: "Equipo formado" },
-  "hub.progress.step.track_selected": { en: "Track selected", es: "Track seleccionado" },
   "hub.progress.step.project_started": { en: "Project started", es: "Proyecto iniciado" },
   "hub.progress.step.social_posted": { en: "Social post added", es: "Publicación social agregada" },
   "hub.progress.step.checkpoint_midday": { en: "Midday checkpoint", es: "Checkpoint del mediodía" },

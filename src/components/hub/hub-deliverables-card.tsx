@@ -2,17 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { useAction, useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
+import { useHubUser } from "../../hooks/use-hub-user";
 import { uploadVideoToR2 } from "../../lib/r2-upload";
 import { HubButton, HubCard, HubError, HubField, HubInput, HubTextarea } from "./hub-ui-primitives";
 
 export function HubDeliverablesCard() {
   const { t } = useTranslation();
-  const data = useQuery(api.hub.projects.getMyProject, isConvexConfigured ? {} : "skip");
-  const feedbackStatus = useQuery(
-    api.hub.sponsorFeedback.getTeamFeedbackStatus,
-    isConvexConfigured ? {} : "skip",
-  );
+  const { hubQueryArgs } = useHubUser();
+  const data = useQuery(api.hub.projects.getMyProject, hubQueryArgs);
+  const feedbackStatus = useQuery(api.hub.sponsorFeedback.getTeamFeedbackStatus, hubQueryArgs);
   const upsertDeliverables = useMutation(api.hub.projects.upsertDeliverables);
   const generateUploadUrl = useAction(api.uploads.generateUploadUrl);
 

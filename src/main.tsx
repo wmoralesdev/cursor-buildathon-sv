@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components -- Entry module defines dev-only route helpers and JSX route trees */
 import { StrictMode, lazy, Suspense, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "./context/language-context";
 import App from "./app";
@@ -90,6 +90,7 @@ const mainLayoutRoutes = [
   { path: "/", element: <LandingPage /> },
   { path: "/welcome", element: <BuildathonWelcomePage /> },
   { path: "/builder", element: <Suspense fallback={null}><BuilderPage /></Suspense> },
+  { path: "/builders", element: <Navigate to="/builder" replace /> },
   { path: "/admin", element: <AdminPage /> },
   { path: "/submit", element: <ProjectSubmitPage /> },
   ...(import.meta.env.DEV

@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
+import { useHubUser } from "../../hooks/use-hub-user";
 import { HubButton, HubCard, HubError, HubField, HubInput } from "./hub-ui-primitives";
 
 export function HubSocialPosts() {
   const { t } = useTranslation();
-  const posts = useQuery(api.hub.socialPosts.listByTeam, isConvexConfigured ? {} : "skip");
+  const { hubQueryArgs } = useHubUser();
+  const posts = useQuery(api.hub.socialPosts.listByTeam, hubQueryArgs);
   const addPost = useMutation(api.hub.socialPosts.addPost);
   const removePost = useMutation(api.hub.socialPosts.removePost);
 

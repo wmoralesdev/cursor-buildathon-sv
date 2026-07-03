@@ -6,7 +6,6 @@ import { isConvexConfigured } from "../lib/convex-client";
 import { getOrCreateSessionId } from "../lib/builder-team-session";
 
 import type { TrackPrizeId } from "../data/prizes";
-import type { CompetitionTrackId } from "../data/competition-tracks";
 
 export type BuilderTeamMember = {
   name: string;
@@ -21,7 +20,6 @@ export type BuilderTeam = {
   name: string;
   inviteCode: string | null;
   sponsorTrack: TrackPrizeId | null;
-  competitionTrack: CompetitionTrackId | null;
   isLeader: boolean;
   submitted: boolean;
   memberCount: number;

@@ -18,9 +18,8 @@ export function BuilderFaqSection({ layout = "page" }: { layout?: BuilderSection
   );
 
   return (
-    <section id="faq" className={builderSectionSurfaceClass(layout, "bg-bg-alt")}>
-      <div className={layout === "page" ? "mx-auto max-w-[1400px]" : undefined}>
-        <BuilderSectionHeader
+    <section id="faq" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 bg-bg-alt">
+      <BuilderSectionHeader
           id="faq"
           tagKey="builder.faq.tag"
           title1Key="builder.faq.title1"
@@ -75,7 +74,6 @@ export function BuilderFaqSection({ layout = "page" }: { layout?: BuilderSection
             ))}
           </div>
         )}
-      </div>
     </section>
   );
 }

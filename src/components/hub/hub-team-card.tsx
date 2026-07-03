@@ -1,23 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { COMPETITION_TRACK_IDS } from "../../../convex/lib/competitionTracks";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
+import { useHubUser } from "../../hooks/use-hub-user";
 import { HubButton, HubCard, HubError, HubField, HubInput } from "./hub-ui-primitives";
 
 export function HubTeamCard() {
   const { t } = useTranslation();
-  const team = useQuery(api.hub.teams.getMyTeam, isConvexConfigured ? {} : "skip");
+  const { hubQueryArgs } = useHubUser();
+  const team = useQuery(api.hub.teams.getMyTeam, hubQueryArgs);
   const createTeam = useMutation(api.hub.teams.createTeam);
   const joinByCode = useMutation(api.hub.teams.joinByCode);
   const leaveTeam = useMutation(api.hub.teams.leaveTeam);
-  const setTrack = useMutation(api.hub.teams.setTrack);
 
   const [teamName, setTeamName] = useState("");
   const [inviteCode, setInviteCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  // #region agent log
+  useEffect(() => {
+    fetch("http://127.0.0.1:7524/ingest/ae7e5f7a-7927-4023-a554-d1b0cfb79922", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "73c77a" },
+      body: JSON.stringify({
+        sessionId: "73c77a",
+        runId: "post-fix",
+        hypothesisId: "B,D",
+        location: "hub-team-card.tsx:team-query",
+        message: "Team query state",
+        data: {
+          teamStatus: team === undefined ? "loading" : team === null ? "no-team" : "has-team",
+          memberCount: team?.members.length ?? null,
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
+  }, [team]);
+  // #endregion
 
   async function run(action: () => Promise<unknown>) {
     setBusy(true);
@@ -105,21 +125,6 @@ export function HubTeamCard() {
           </li>
         ))}
       </ul>
-
-      {team.members.find((m) => m.isCaptain)?.userId ? (
-        <div className="mb-5 flex flex-wrap gap-2">
-          {COMPETITION_TRACK_IDS.map((track) => (
-            <HubButton
-              key={track}
-              variant={team.track === track ? "primary" : "ghost"}
-              disabled={busy}
-              onClick={() => run(() => setTrack({ track }))}
-            >
-              {t(`hub.track.${track}` as never)}
-            </HubButton>
-          ))}
-        </div>
-      ) : null}
 
       <HubButton variant="ghost" disabled={busy} onClick={() => run(() => leaveTeam({}))}>
         {t("hub.team.leave")}

@@ -2,15 +2,13 @@ import { useQuery } from "convex/react";
 import { ExternalLink } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
+import { useHubUser } from "../../hooks/use-hub-user";
 import { HubCard } from "./hub-ui-primitives";
 
 export function HubMentorsGrid() {
   const { t } = useTranslation();
-  const mentors = useQuery(
-    api.hub.mentors.listMentors,
-    isConvexConfigured ? { remoteOnly: true } : "skip",
-  );
+  const { hubQueryArgs } = useHubUser();
+  const mentors = useQuery(api.hub.mentors.listMentors, hubQueryArgs === "skip" ? "skip" : { remoteOnly: true });
 
   if (mentors === undefined) {
     return (

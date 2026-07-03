@@ -17,7 +17,11 @@ export const getMyPendingFeedback = query({
     allComplete: v.boolean(),
   }),
   handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) {
+      return { pending: [], allComplete: true };
+    }
+
     const membership = await ctx.db
       .query("hub_team_members")
       .withIndex("by_user", (q) => q.eq("userId", user._id))

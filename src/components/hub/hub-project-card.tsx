@@ -4,14 +4,15 @@ import { api } from "../../../convex/_generated/api";
 import type { HubSponsorId } from "../../../convex/lib/hubSponsorIds";
 import { sponsors } from "../../data/sponsors";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
+import { useHubUser } from "../../hooks/use-hub-user";
 import { HubButton, HubCard, HubError, HubField, HubInput, HubTextarea } from "./hub-ui-primitives";
 
 const PRODUCT_SPONSORS = sponsors.filter((s) => s.tier === "product");
 
 export function HubProjectCard() {
   const { t } = useTranslation();
-  const data = useQuery(api.hub.projects.getMyProject, isConvexConfigured ? {} : "skip");
+  const { hubQueryArgs } = useHubUser();
+  const data = useQuery(api.hub.projects.getMyProject, hubQueryArgs);
   const upsertProject = useMutation(api.hub.projects.upsertProject);
 
   const [name, setName] = useState("");
@@ -21,6 +22,26 @@ export function HubProjectCard() {
   const [sponsorsUsed, setSponsorsUsed] = useState<HubSponsorId[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  // #region agent log
+  useEffect(() => {
+    fetch("http://127.0.0.1:7524/ingest/ae7e5f7a-7927-4023-a554-d1b0cfb79922", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "73c77a" },
+      body: JSON.stringify({
+        sessionId: "73c77a",
+        runId: "post-fix",
+        hypothesisId: "B,D",
+        location: "hub-project-card.tsx:project-query",
+        message: "Project query state",
+        data: {
+          dataStatus: data === undefined ? "loading" : data === null ? "no-team" : "has-project",
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
+  }, [data]);
+  // #endregion
 
   useEffect(() => {
     if (!data?.project) return;

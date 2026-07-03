@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
 
 import type { BuilderTeam } from "../../hooks/use-builder-team";
-import { COMPETITION_TRACK_DEFS } from "../../data/competition-tracks";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
 
@@ -42,10 +41,6 @@ export function BuilderProgressChecklist({ team, canSubmit, minSubmitMembers }: 
   const rosterReady = team.memberCount >= minSubmitMembers;
   const needCount = Math.max(minSubmitMembers - team.memberCount, 0);
 
-  const competitionTrackDef = team.competitionTrack
-    ? COMPETITION_TRACK_DEFS.find((def) => def.id === team.competitionTrack)
-    : undefined;
-
   const steps: StepProps[] = [
     {
       id: "team",
@@ -62,16 +57,6 @@ export function BuilderProgressChecklist({ team, canSubmit, minSubmitMembers }: 
             .replace("{count}", String(team.memberCount))
             .replace("{max}", String(team.maxMembers))
         : t("builder.progress.roster.todo").replace("{count}", String(needCount)),
-    },
-    {
-      id: "competition",
-      done: Boolean(team.competitionTrack),
-      titleKey: "builder.progress.competition.title",
-      detail: competitionTrackDef
-        ? t(competitionTrackDef.titleKey)
-        : team.isLeader
-          ? t("builder.progress.competition.todoLeader")
-          : t("builder.progress.competition.todoMember"),
     },
     {
       id: "sponsor",

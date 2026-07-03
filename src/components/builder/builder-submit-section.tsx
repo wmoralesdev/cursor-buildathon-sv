@@ -40,9 +40,8 @@ export function BuilderSubmitSection({ layout = "page" }: { layout?: BuilderSect
   const { t } = useTranslation();
 
   return (
-    <section id="submit" className={builderSectionSurfaceClass(layout, "bg-bg-alt")}>
-      <div className={layout === "page" ? "max-w-[1400px] mx-auto" : undefined}>
-        <BuilderSectionHeader
+    <section id="submit" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 bg-bg-alt">
+      <BuilderSectionHeader
           id="submit"
           tagKey="builder.submit.tag"
           title1Key="builder.submit.title1"
@@ -90,7 +89,6 @@ export function BuilderSubmitSection({ layout = "page" }: { layout?: BuilderSect
             <SubmitCta />
           </div>
         </div>
-      </div>
     </section>
   );
 }

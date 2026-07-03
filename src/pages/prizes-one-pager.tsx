@@ -6,6 +6,7 @@ import { OnePagerShell } from "../components/one-pager-shell";
 import { OnePagerSheetFrame } from "../components/one-pager-sheet-frame";
 import {
   CodexLogo,
+  CognitionLogo,
   CursorLockup,
   DatamcpLogo,
   ElevenLabsLogo,
@@ -115,6 +116,8 @@ function PerkMark({ logo, sponsor }: { logo: PrizeLogo; sponsor: string }) {
       return <FirecrawlLogo alt={sponsor} className={cls} />;
     case "datamcp":
       return <DatamcpLogo alt={sponsor} className={cls} />;
+    case "cognition":
+      return <CognitionLogo alt={sponsor} className={cls} />;
     case null:
       return (
         <span className="font-display text-[8pt] font-bold uppercase leading-none tracking-tight text-fg">

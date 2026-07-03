@@ -1,5 +1,6 @@
 import {
   CodexLogo,
+  CognitionLogo,
   CursorLockup,
   DatamcpLogo,
   ElevenLabsLogo,
@@ -35,6 +36,8 @@ function PerkMark({ logo, sponsor }: { logo: PrizeLogo; sponsor: string }) {
       return <FirecrawlLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
     case "datamcp":
       return <DatamcpLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
+    case "cognition":
+      return <CognitionLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
     case null:
       return (
         <span className="font-display text-[0.925rem] font-bold uppercase leading-none tracking-tight text-fg">
@@ -52,9 +55,8 @@ export function BuilderCreditsHelpSection({ layout = "page" }: { layout?: Builde
   const { t } = useTranslation();
 
   return (
-    <section id="credits" className={builderSectionSurfaceClass(layout, "bg-bg")}>
-      <div className={layout === "page" ? "mx-auto max-w-[1400px]" : undefined}>
-        <BuilderSectionHeader
+    <section id="credits" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 bg-bg">
+      <BuilderSectionHeader
           id="credits"
           tagKey="builder.credits.tag"
           title1Key="builder.credits.title1"
@@ -128,7 +130,6 @@ export function BuilderCreditsHelpSection({ layout = "page" }: { layout?: Builde
         <p className="reveal mt-6 font-mono text-[0.675rem] leading-relaxed text-fg-4">
           {t("builder.credits.footer")}
         </p>
-      </div>
     </section>
   );
 }

@@ -32,7 +32,7 @@ export const PRESS_MAILTO =
 export const BUILDER_TEAM_SECTION_ENABLED = false;
 
 /** Builder hub countdown — doors / credit pickup window opens */
-export const BUILDER_COUNTDOWN_ISO = "2026-07-04T06:00:00-06:00";
+export const BUILDER_COUNTDOWN_ISO = "2026-07-04T10:30:00-06:00";
 export const EVENT_START_ISO = "2026-07-04T08:00:00-06:00";
 export const EVENT_END_ISO = "2026-07-05T09:00:00-06:00";
 
