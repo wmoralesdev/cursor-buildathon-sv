@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useMutation, useQuery } from "convex/react";
+import { useQuery } from "convex/react";
 import { Check, Copy } from "lucide-react";
 
 import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
 import type { BuilderTeam } from "../../hooks/use-builder-team";
-import { COMPETITION_TRACK_DEFS } from "../../data/competition-tracks";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
 
@@ -93,8 +92,6 @@ export function BuilderTeamPanel({ team, sessionId, canSubmit, minSubmitMembers 
           </p>
         </div>
       ) : null}
-
-      <CompetitionTrackBlock team={team} sessionId={sessionId} />
 
       <div className="mt-5">
         <p className="mb-3 font-mono text-[0.675rem] uppercase tracking-[0.14em] text-fg-4">
@@ -210,83 +207,6 @@ function MemberLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-function CompetitionTrackBlock({ team, sessionId }: { team: BuilderTeam; sessionId: string }) {
-  const { t } = useTranslation();
-  const setCompetitionTrack = useMutation(api.eventTeams.setCompetitionTrack);
-  const [saving, setSaving] = useState(false);
-
-  const selectedDef = team.competitionTrack
-    ? COMPETITION_TRACK_DEFS.find((def) => def.id === team.competitionTrack)
-    : undefined;
-
-  // Members only see the chosen track; the leader owns the selection.
-  if (!team.isLeader || team.submitted) {
-    return (
-      <div className="mt-5 border border-border-faint bg-bg-raised/40 p-4">
-        <p className="font-mono text-[0.675rem] uppercase tracking-[0.14em] text-fg-4">
-          {t("builder.team.panel.competitionTrackLabel")}
-        </p>
-        <p className="mt-1.5 font-display text-[0.975rem] font-bold uppercase leading-[1.2] tracking-[-0.01em] text-fg">
-          {selectedDef ? t(selectedDef.titleKey) : t("builder.team.panel.competitionTrackNone")}
-        </p>
-      </div>
-    );
-  }
-
-  async function choose(id: BuilderTeam["competitionTrack"]) {
-    if (saving || !id || id === team.competitionTrack) return;
-    setSaving(true);
-    try {
-      await setCompetitionTrack({ leaderSessionId: sessionId, competitionTrack: id });
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  return (
-    <div className="mt-5 border border-border-faint bg-bg-raised/40 p-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <p className="font-mono text-[0.675rem] uppercase tracking-[0.14em] text-fg-4">
-          {t("builder.team.panel.competitionTrackLabel")}
-        </p>
-        {saving ? (
-          <span className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-accent">
-            {t("builder.team.panel.competitionTrackSaving")}
-          </span>
-        ) : null}
-      </div>
-      <p className="mt-1.5 font-display text-[0.9rem] leading-[1.5] text-fg-3">
-        {t("builder.team.panel.competitionTrackPrompt")}
-      </p>
-      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-        {COMPETITION_TRACK_DEFS.map((def) => {
-          const checked = team.competitionTrack === def.id;
-          return (
-            <button
-              key={def.id}
-              type="button"
-              onClick={() => void choose(def.id)}
-              disabled={saving}
-              className={`flex flex-col gap-1 border p-3 text-left transition-colors disabled:opacity-60 ${
-                checked
-                  ? "border-accent/60 bg-accent/10"
-                  : "border-border bg-surface hover:border-accent/30"
-              }`}
-            >
-              <span className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-accent">
-                {def.code}
-              </span>
-              <span className="font-display text-[0.925rem] font-bold uppercase leading-[1.15] tracking-[-0.01em] text-fg">
-                {t(def.titleKey)}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 function SubmissionSummary({ teamId, sessionId }: { teamId: string; sessionId: string }) {
   const { t } = useTranslation();
   const submission = useQuery(api.submissions.getSubmissionByTeam, {
@@ -295,10 +215,6 @@ function SubmissionSummary({ teamId, sessionId }: { teamId: string; sessionId: s
   });
 
   if (!submission) return null;
-
-  const trackDef = submission.competitionTrack
-    ? COMPETITION_TRACK_DEFS.find((def) => def.id === submission.competitionTrack)
-    : undefined;
 
   return (
     <div className="border border-border-faint bg-bg-raised/40 p-4">
@@ -312,11 +228,6 @@ function SubmissionSummary({ teamId, sessionId }: { teamId: string; sessionId: s
         <SummaryRow label={t("builder.team.panel.submission.post")}>
           <SummaryLink href={submission.eventSocialPostUrl} />
         </SummaryRow>
-        {trackDef ? (
-          <SummaryRow label={t("builder.team.panel.submission.track")}>
-            <span className="font-display text-[0.9rem] text-fg-2">{t(trackDef.titleKey)}</span>
-          </SummaryRow>
-        ) : null}
       </dl>
     </div>
   );

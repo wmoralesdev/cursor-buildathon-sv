@@ -20,7 +20,6 @@ const checkpointValidator = v.object({
 
 export const HUB_PROGRESS_STEP_IDS = [
   "team_formed",
-  "track_selected",
   "project_started",
   "social_posted",
   "checkpoint_midday",
@@ -105,7 +104,6 @@ async function deriveAutoSteps(
 
   return {
     team_formed: members.length >= 2,
-    track_selected: Boolean(team.track),
     project_started: Boolean(project?.name && project.description),
     social_posted: socialPosts.length > 0,
     checkpoint_midday: hasMiddayCheckpoint,
