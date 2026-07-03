@@ -2047,22 +2047,23 @@ export const translations = {
 
   // ── Builder hub (/builder) ─────────────────────────────────────────
   "builder.hero.kicker": { en: "// Builder hub", es: "// Hub de builders" },
-  "builder.hero.title1": { en: "Everything you need", es: "Todo lo que necesitas" },
-  "builder.hero.title2": { en: "to build & ship", es: "para construir y entregar" },
+  "builder.hero.title1": { en: "Welcome, builder.", es: "Bienvenido, builder." },
+  "builder.hero.title2": { en: "Let's build & ship.", es: "A construir y entregar." },
   "builder.hero.intro": {
-    en: "Mentors on call, submission rules, tracks, and prizes — your single reference for the build window.",
-    es: "Mentores disponibles, reglas de envío, tracks y premios — tu referencia única para la ventana de build.",
+    en: "Everything for the build window lives here — mentors on call, submission steps, sponsor tracks, and prizes. Jump in whenever you're ready.",
+    es: "Todo para la ventana de build está aquí — mentores disponibles, pasos de envío, tracks de sponsors y premios. Empieza cuando estés listo.",
   },
+  "builder.hero.ctaTeam": { en: "Create or join a team", es: "Crea o únete a un equipo" },
+  "builder.hero.ctaSubmit": { en: "Submit your project", es: "Envía tu proyecto" },
   "builder.hero.countdownLabel": { en: "// Build window opens", es: "// Abre la ventana de build" },
   "builder.hero.countdownWhen": {
     en: "July 4 · 6:00 AM · San Salvador",
     es: "4 jul · 6:00 AM · San Salvador",
   },
-  "builder.nav.sponsors": { en: "Sponsors", es: "Sponsors" },
   "builder.nav.team": { en: "Team", es: "Equipo" },
   "builder.nav.mentors": { en: "Mentors", es: "Mentores" },
   "builder.nav.submit": { en: "Submit", es: "Envío" },
-  "builder.nav.tracks": { en: "Tracks", es: "Tracks" },
+  "builder.nav.tracks": { en: "Sponsor tracks", es: "Tracks de sponsors" },
   "builder.nav.premios": { en: "Prizes", es: "Premios" },
   "builder.nav.credits": { en: "Redeem credits", es: "Canjear créditos" },
 
