@@ -5,6 +5,10 @@ import { CountdownTimer } from "../countdown-timer";
 import { EVENT_VENUE_FULL, SUBMISSION_DEADLINE_ISO } from "../../constants";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
+import {
+  builderSectionSurfaceClass,
+  type BuilderSectionLayout,
+} from "../../lib/builder-section-layout";
 
 const SCHEDULE_ITEMS: {
   timeKey: TranslationKey;
@@ -28,12 +32,15 @@ const SCHEDULE_ITEMS: {
   },
 ];
 
-export function BuilderLogisticsSection() {
+export function BuilderLogisticsSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
   const { t } = useTranslation();
 
   return (
-    <section id="logistics" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg-alt">
-      <div className="max-w-[1400px] mx-auto">
+    <section
+      id="logistics"
+      className={builderSectionSurfaceClass(layout, "bg-bg-alt")}
+    >
+      <div className={layout === "page" ? "max-w-[1400px] mx-auto" : undefined}>
         <BuilderSectionHeader
           id="logistics"
           tagKey="builder.logistics.tag"

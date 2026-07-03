@@ -2620,6 +2620,28 @@ export const translations = {
 
   // ── FAQ (/builder) ─────────────────────────────────────────────────
   "builder.nav.faq": { en: "FAQ", es: "FAQ" },
+  "builder.tabs.event": { en: "Event", es: "Evento" },
+  "builder.tabs.build": { en: "Build", es: "Construir" },
+  "builder.tabs.compete": { en: "Compete", es: "Competir" },
+  "builder.tabs.help": { en: "Help", es: "Ayuda" },
+  "builder.tabs.eventDesc": {
+    en: "Schedule, venue, and submission deadlines — everything you need before doors open.",
+    es: "Agenda, sede y plazos de envío — todo lo que necesitas antes de que abran las puertas.",
+  },
+  "builder.tabs.buildDesc": {
+    en: "Mentors, submission steps, and sponsor credits — your toolkit while you ship.",
+    es: "Mentores, pasos de envío y créditos de sponsors — tu kit mientras construyes.",
+  },
+  "builder.tabs.competeDesc": {
+    en: "Tracks, judges, and prizes — how projects are evaluated and what you can win.",
+    es: "Tracks, jurado y premios — cómo se evalúan los proyectos y qué puedes ganar.",
+  },
+  "builder.tabs.helpDesc": {
+    en: "Common questions about teams, submissions, tracks, and day-of logistics.",
+    es: "Preguntas frecuentes sobre equipos, envíos, tracks y logística del día.",
+  },
+  "builder.tabs.listLabel": { en: "Builder hub", es: "Hub de builders" },
+  "builder.tabs.sectionsLabel": { en: "Jump to section", es: "Ir a sección" },
   "builder.faq.tag": { en: "// FAQ", es: "// FAQ" },
   "builder.faq.title1": { en: "Builder", es: "Preguntas" },
   "builder.faq.title2": { en: "questions", es: "frecuentes" },

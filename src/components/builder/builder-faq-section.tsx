@@ -2,9 +2,13 @@ import { useMemo, useState } from "react";
 
 import { BUILDER_FAQ_KEYS } from "../../data/builder-faq";
 import { useTranslation } from "../../context/language-context";
+import {
+  builderSectionSurfaceClass,
+  type BuilderSectionLayout,
+} from "../../lib/builder-section-layout";
 import { BuilderSectionHeader } from "./builder-section-header";
 
-export function BuilderFaqSection() {
+export function BuilderFaqSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState<number | null>(null);
 
@@ -14,8 +18,8 @@ export function BuilderFaqSection() {
   );
 
   return (
-    <section id="faq" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg-alt">
-      <div className="mx-auto max-w-[1400px]">
+    <section id="faq" className={builderSectionSurfaceClass(layout, "bg-bg-alt")}>
+      <div className={layout === "page" ? "mx-auto max-w-[1400px]" : undefined}>
         <BuilderSectionHeader
           id="faq"
           tagKey="builder.faq.tag"

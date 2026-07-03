@@ -4,6 +4,10 @@ import { COMPETITION_TRACK_DEFS } from "../../data/competition-tracks";
 import { TRACK_PRIZE_DEFS, type TrackPrizeId } from "../../data/prizes";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
+import {
+  builderSectionSurfaceClass,
+  type BuilderSectionLayout,
+} from "../../lib/builder-section-layout";
 
 const TRACK_LOGO_CLASS = "h-5 w-auto max-w-[7rem] shrink-0 object-contain";
 
@@ -22,12 +26,12 @@ function TrackSponsorMark({ id, sponsor }: { id: TrackPrizeId; sponsor: string }
   }
 }
 
-export function BuilderTracksSection() {
+export function BuilderTracksSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
   const { t } = useTranslation();
 
   return (
-    <section id="tracks" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg">
-      <div className="max-w-[1400px] mx-auto">
+    <section id="tracks" className={builderSectionSurfaceClass(layout, "bg-bg")}>
+      <div className={layout === "page" ? "max-w-[1400px] mx-auto" : undefined}>
         <BuilderSectionHeader
           id="tracks"
           tagKey="builder.tracks.tag"

@@ -11,6 +11,10 @@ import { CREDIT_REDEMPTION_GUIDES } from "../../data/credit-redemption";
 import { PARTICIPANT_PERK_DEFS, type PrizeLogo } from "../../data/prizes";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
+import {
+  builderSectionSurfaceClass,
+  type BuilderSectionLayout,
+} from "../../lib/builder-section-layout";
 import { BuilderSectionHeader } from "./builder-section-header";
 
 const PERK_LOGO_CLASS = "h-4 w-auto max-w-[6rem] shrink-0 object-contain";
@@ -44,12 +48,12 @@ function PerkMark({ logo, sponsor }: { logo: PrizeLogo; sponsor: string }) {
   }
 }
 
-export function BuilderCreditsHelpSection() {
+export function BuilderCreditsHelpSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
   const { t } = useTranslation();
 
   return (
-    <section id="credits" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg">
-      <div className="mx-auto max-w-[1400px]">
+    <section id="credits" className={builderSectionSurfaceClass(layout, "bg-bg")}>
+      <div className={layout === "page" ? "mx-auto max-w-[1400px]" : undefined}>
         <BuilderSectionHeader
           id="credits"
           tagKey="builder.credits.tag"

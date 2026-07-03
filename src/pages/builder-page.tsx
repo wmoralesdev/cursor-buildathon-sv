@@ -3,11 +3,14 @@ import { lazy, Suspense } from "react";
 import { BuilderAnnouncementBanner } from "../components/builder/builder-announcement-banner";
 import { HubDashboard } from "../components/hub/hub-dashboard";
 import { BuilderDeferredSection } from "../components/builder/builder-deferred-section";
+import { BuilderHubTabNav } from "../components/builder/builder-hub-tab-nav";
+import { BuilderHubTabPanel } from "../components/builder/builder-hub-tab-panel";
 import { BuilderLogisticsSection } from "../components/builder/builder-logistics-section";
 import { BuilderPageHero } from "../components/builder/builder-page-hero";
 import { BuilderSubmitSection } from "../components/builder/builder-submit-section";
 import { BuilderTracksSection } from "../components/builder/builder-tracks-section";
 import { BUILDER_TEAM_SECTION_ENABLED } from "../constants";
+import { useBuilderHubTab } from "../hooks/use-builder-hub-tab";
 
 const BuilderMentorsSection = lazy(() =>
   import("../components/builder/builder-mentors-section").then((m) => ({
@@ -55,11 +58,11 @@ function BuilderSectionSkeleton({
   return (
     <div
       id={sectionId}
-      className="scroll-mt-24 section-padding py-24 sm:py-32 lg:py-40"
+      className="scroll-mt-32 py-14 sm:py-16 lg:py-20"
       style={{ minHeight }}
       aria-hidden
     >
-      <div className="mx-auto h-32 max-w-[1400px] border border-border-faint bg-surface/40 sm:h-40" />
+      <div className="h-32 border border-border-faint bg-surface/40 sm:h-40" />
     </div>
   );
 }
@@ -69,54 +72,71 @@ function BuilderSectionSkeleton({
  * mentors, judges, submission instructions, tracks, prizes, credit redemption, and FAQ.
  */
 export function BuilderPage() {
+  const { activeTabId, selectTab, selectSection } = useBuilderHubTab();
+  const tabActive = (tab: typeof activeTabId) => activeTabId === tab;
+
   return (
     <>
       <main className="builder-page pb-20 sm:pb-[4.75rem]">
         <BuilderAnnouncementBanner />
         <HubDashboard />
         <BuilderPageHero />
-        {BUILDER_TEAM_SECTION_ENABLED ? (
-          <BuilderDeferredSection sectionId="team" minHeight="12rem">
-            <Suspense fallback={<BuilderSectionSkeleton sectionId="team" minHeight="12rem" />}>
-              <BuilderTeamSectionLazy />
+        <BuilderHubTabNav
+          activeTabId={activeTabId}
+          onSelectTab={selectTab}
+          onSelectSection={selectSection}
+        />
+
+        <BuilderHubTabPanel tabId="event" activeTabId={activeTabId}>
+          <BuilderLogisticsSection layout="tab" />
+          {BUILDER_TEAM_SECTION_ENABLED ? (
+            <BuilderDeferredSection sectionId="team" minHeight="12rem" active={tabActive("event")}>
+              <Suspense fallback={<BuilderSectionSkeleton sectionId="team" minHeight="12rem" />}>
+                <BuilderTeamSectionLazy layout="tab" />
+              </Suspense>
+            </BuilderDeferredSection>
+          ) : null}
+        </BuilderHubTabPanel>
+
+        <BuilderHubTabPanel tabId="build" activeTabId={activeTabId}>
+          <BuilderDeferredSection sectionId="mentors" minHeight="28rem" active={tabActive("build")}>
+            <Suspense fallback={<BuilderSectionSkeleton sectionId="mentors" minHeight="28rem" />}>
+              <BuilderMentorsSection layout="tab" />
             </Suspense>
           </BuilderDeferredSection>
-        ) : null}
-        <BuilderLogisticsSection />
 
-        <BuilderDeferredSection sectionId="mentors" minHeight="28rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="mentors" minHeight="28rem" />}>
-            <BuilderMentorsSection />
-          </Suspense>
-        </BuilderDeferredSection>
+          <BuilderSubmitSection layout="tab" />
 
-        <BuilderDeferredSection sectionId="judges" minHeight="18rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="judges" minHeight="18rem" />}>
-            <BuilderJudgesSection />
-          </Suspense>
-        </BuilderDeferredSection>
+          <BuilderDeferredSection sectionId="credits" minHeight="22rem" active={tabActive("build")}>
+            <Suspense fallback={<BuilderSectionSkeleton sectionId="credits" minHeight="22rem" />}>
+              <BuilderCreditsHelpSection layout="tab" />
+            </Suspense>
+          </BuilderDeferredSection>
+        </BuilderHubTabPanel>
 
-        <BuilderSubmitSection />
+        <BuilderHubTabPanel tabId="compete" activeTabId={activeTabId}>
+          <BuilderTracksSection layout="tab" />
 
-        <BuilderTracksSection />
+          <BuilderDeferredSection sectionId="judges" minHeight="18rem" active={tabActive("compete")}>
+            <Suspense fallback={<BuilderSectionSkeleton sectionId="judges" minHeight="18rem" />}>
+              <BuilderJudgesSection layout="tab" />
+            </Suspense>
+          </BuilderDeferredSection>
 
-        <BuilderDeferredSection sectionId="premios" minHeight="20rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="premios" minHeight="20rem" />}>
-            <BuilderPrizesSection />
-          </Suspense>
-        </BuilderDeferredSection>
+          <BuilderDeferredSection sectionId="premios" minHeight="20rem" active={tabActive("compete")}>
+            <Suspense fallback={<BuilderSectionSkeleton sectionId="premios" minHeight="20rem" />}>
+              <BuilderPrizesSection layout="tab" />
+            </Suspense>
+          </BuilderDeferredSection>
+        </BuilderHubTabPanel>
 
-        <BuilderDeferredSection sectionId="credits" minHeight="22rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="credits" minHeight="22rem" />}>
-            <BuilderCreditsHelpSection />
-          </Suspense>
-        </BuilderDeferredSection>
-
-        <BuilderDeferredSection sectionId="faq" minHeight="12rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="faq" minHeight="12rem" />}>
-            <BuilderFaqSection />
-          </Suspense>
-        </BuilderDeferredSection>
+        <BuilderHubTabPanel tabId="help" activeTabId={activeTabId}>
+          <BuilderDeferredSection sectionId="faq" minHeight="12rem" active={tabActive("help")}>
+            <Suspense fallback={<BuilderSectionSkeleton sectionId="faq" minHeight="12rem" />}>
+              <BuilderFaqSection layout="tab" />
+            </Suspense>
+          </BuilderDeferredSection>
+        </BuilderHubTabPanel>
       </main>
 
       <Suspense fallback={null}>

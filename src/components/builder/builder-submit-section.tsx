@@ -6,6 +6,10 @@ import { BUILDER_TEAM_SECTION_ENABLED } from "../../constants";
 import { isConvexConfigured } from "../../lib/convex-client";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
+import {
+  builderSectionSurfaceClass,
+  type BuilderSectionLayout,
+} from "../../lib/builder-section-layout";
 
 const ELIGIBILITY_KEYS: TranslationKey[] = [
   "builder.submit.eligibility.i0",
@@ -32,12 +36,12 @@ const CHECKLIST_KEYS: TranslationKey[] = [
   "builder.submit.checklist.i4",
 ];
 
-export function BuilderSubmitSection() {
+export function BuilderSubmitSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
   const { t } = useTranslation();
 
   return (
-    <section id="submit" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg-alt">
-      <div className="max-w-[1400px] mx-auto">
+    <section id="submit" className={builderSectionSurfaceClass(layout, "bg-bg-alt")}>
+      <div className={layout === "page" ? "max-w-[1400px] mx-auto" : undefined}>
         <BuilderSectionHeader
           id="submit"
           tagKey="builder.submit.tag"
