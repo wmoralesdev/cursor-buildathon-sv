@@ -1,6 +1,7 @@
 import { BuilderSectionHeader } from "./builder-section-header";
 import {
   CodexLogo,
+  CognitionLogo,
   CursorLockup,
   DatamcpLogo,
   ElevenLabsLogo,
@@ -37,6 +38,8 @@ function PerkMark({ logo, sponsor }: { logo: PrizeLogo; sponsor: string }) {
       return <FirecrawlLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
     case "datamcp":
       return <DatamcpLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
+    case "cognition":
+      return <CognitionLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
     case null:
       return (
         <span className="font-display text-[0.875rem] font-bold uppercase leading-none tracking-tight text-fg">
@@ -54,9 +57,8 @@ export function BuilderPrizesSection() {
   const { t } = useTranslation();
 
   return (
-    <section id="premios" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg-alt">
-      <div className="max-w-[1400px] mx-auto">
-        <BuilderSectionHeader
+    <section id="premios" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 bg-bg-alt">
+      <BuilderSectionHeader
           id="premios"
           tagKey="builder.premios.tag"
           title1Key="builder.premios.title1"
@@ -196,7 +198,6 @@ export function BuilderPrizesSection() {
             {t("onePager.prizes.footerNote")}
           </p>
         </div>
-      </div>
     </section>
   );
 }

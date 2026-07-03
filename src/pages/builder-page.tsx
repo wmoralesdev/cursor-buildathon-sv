@@ -1,22 +1,21 @@
 import { lazy, Suspense } from "react";
+import { useAuth } from "@clerk/react";
 
-import { BuilderAnnouncementBanner } from "../components/builder/builder-announcement-banner";
-import { HubDashboard } from "../components/hub/hub-dashboard";
-import { BuilderDeferredSection } from "../components/builder/builder-deferred-section";
-import { BuilderLogisticsSection } from "../components/builder/builder-logistics-section";
-import { BuilderPageHero } from "../components/builder/builder-page-hero";
-import { BuilderSubmitSection } from "../components/builder/builder-submit-section";
-import { BuilderTracksSection } from "../components/builder/builder-tracks-section";
 import { BUILDER_TEAM_SECTION_ENABLED } from "../constants";
+import { useBuilderActiveSection } from "../hooks/use-builder-active-section";
+import type { BuilderSectionId } from "../lib/builder-sections";
+import { isClerkConfigured } from "../lib/convex-clerk-provider";
+import { BuilderAnnouncementBanner } from "../components/builder/builder-announcement-banner";
+import { BuilderHeroHeader, BuilderTabNav } from "../components/builder/builder-page-hero";
+import { BuilderLogisticsSection } from "../components/builder/builder-logistics-section";
+import { BuilderSubmitSection } from "../components/builder/builder-submit-section";
+import { BuilderTabPanel } from "../components/builder/builder-tab-panel";
+import { BuilderTracksSection } from "../components/builder/builder-tracks-section";
+import { HubDashboard } from "../components/hub/hub-dashboard";
 
 const BuilderMentorsSection = lazy(() =>
   import("../components/builder/builder-mentors-section").then((m) => ({
     default: m.BuilderMentorsSection,
-  })),
-);
-const BuilderJudgesSection = lazy(() =>
-  import("../components/builder/builder-judges-section").then((m) => ({
-    default: m.BuilderJudgesSection,
   })),
 );
 const BuilderPrizesSection = lazy(() =>
@@ -45,6 +44,9 @@ const BuilderTeamSectionLazy = lazy(() =>
   })),
 );
 
+const BUILDER_MAIN_CLASS =
+  "builder-page flex h-[calc(100dvh-var(--site-nav-height))] max-h-[calc(100dvh-var(--site-nav-height))] min-h-0 flex-col overflow-hidden pb-20 sm:pb-[4.75rem]";
+
 function BuilderSectionSkeleton({
   sectionId,
   minHeight = "14rem",
@@ -55,73 +57,147 @@ function BuilderSectionSkeleton({
   return (
     <div
       id={sectionId}
-      className="scroll-mt-24 section-padding py-24 sm:py-32 lg:py-40"
+      className="py-16 sm:py-20"
       style={{ minHeight }}
       aria-hidden
     >
-      <div className="mx-auto h-32 max-w-[1400px] border border-border-faint bg-surface/40 sm:h-40" />
+      <div className="h-32 border border-border-faint bg-surface/40 sm:h-40" />
     </div>
   );
 }
 
-/**
- * Participant hub (/builder): countdown, sponsors, team progress, day-of logistics,
- * mentors, judges, submission instructions, tracks, prizes, credit redemption, and FAQ.
- */
-export function BuilderPage() {
+function BuilderSponsorRail() {
+  return (
+    <Suspense fallback={null}>
+      <BuilderSponsorCarousel />
+    </Suspense>
+  );
+}
+
+function BuilderGuestPage() {
   return (
     <>
-      <main className="builder-page pb-20 sm:pb-[4.75rem]">
+      <main className={BUILDER_MAIN_CLASS}>
         <BuilderAnnouncementBanner />
-        <HubDashboard />
-        <BuilderPageHero />
-        {BUILDER_TEAM_SECTION_ENABLED ? (
-          <BuilderDeferredSection sectionId="team" minHeight="12rem">
-            <Suspense fallback={<BuilderSectionSkeleton sectionId="team" minHeight="12rem" />}>
-              <BuilderTeamSectionLazy />
-            </Suspense>
-          </BuilderDeferredSection>
-        ) : null}
-        <BuilderLogisticsSection />
-
-        <BuilderDeferredSection sectionId="mentors" minHeight="28rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="mentors" minHeight="28rem" />}>
-            <BuilderMentorsSection />
-          </Suspense>
-        </BuilderDeferredSection>
-
-        <BuilderDeferredSection sectionId="judges" minHeight="18rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="judges" minHeight="18rem" />}>
-            <BuilderJudgesSection />
-          </Suspense>
-        </BuilderDeferredSection>
-
-        <BuilderSubmitSection />
-
-        <BuilderTracksSection />
-
-        <BuilderDeferredSection sectionId="premios" minHeight="20rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="premios" minHeight="20rem" />}>
-            <BuilderPrizesSection />
-          </Suspense>
-        </BuilderDeferredSection>
-
-        <BuilderDeferredSection sectionId="credits" minHeight="22rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="credits" minHeight="22rem" />}>
-            <BuilderCreditsHelpSection />
-          </Suspense>
-        </BuilderDeferredSection>
-
-        <BuilderDeferredSection sectionId="faq" minHeight="12rem">
-          <Suspense fallback={<BuilderSectionSkeleton sectionId="faq" minHeight="12rem" />}>
-            <BuilderFaqSection />
-          </Suspense>
-        </BuilderDeferredSection>
+        <BuilderHeroHeader />
       </main>
-
-      <Suspense fallback={null}>
-        <BuilderSponsorCarousel />
-      </Suspense>
+      <BuilderSponsorRail />
     </>
   );
+}
+
+function BuilderAuthedPage() {
+  const { activeSection, visitedSections, setActiveSection, paneRef } = useBuilderActiveSection({
+    enabled: true,
+  });
+  const hasVisited = (sectionId: BuilderSectionId) => visitedSections.has(sectionId);
+
+  return (
+    <>
+      <main className={BUILDER_MAIN_CLASS}>
+        <BuilderAnnouncementBanner />
+        <BuilderTabNav activeSection={activeSection} onSectionChange={setActiveSection} />
+
+        <div
+          ref={paneRef}
+          className="builder-tab-pane min-h-0 flex-1 overflow-y-auto overscroll-y-contain"
+        >
+          <BuilderTabPanel
+            sectionId="hub"
+            activeSection={activeSection}
+            visited={hasVisited("hub")}
+          >
+            <HubDashboard />
+          </BuilderTabPanel>
+
+          {BUILDER_TEAM_SECTION_ENABLED ? (
+            <BuilderTabPanel
+              sectionId="team"
+              activeSection={activeSection}
+              visited={hasVisited("team")}
+              fallback={<BuilderSectionSkeleton sectionId="team" minHeight="12rem" />}
+            >
+              <BuilderTeamSectionLazy />
+            </BuilderTabPanel>
+          ) : null}
+
+          <BuilderTabPanel
+            sectionId="logistics"
+            activeSection={activeSection}
+            visited={hasVisited("logistics")}
+          >
+            <BuilderLogisticsSection />
+          </BuilderTabPanel>
+
+          <BuilderTabPanel
+            sectionId="mentors"
+            activeSection={activeSection}
+            visited={hasVisited("mentors")}
+            fallback={<BuilderSectionSkeleton sectionId="mentors" minHeight="28rem" />}
+          >
+            <BuilderMentorsSection />
+          </BuilderTabPanel>
+
+          <BuilderTabPanel
+            sectionId="submit"
+            activeSection={activeSection}
+            visited={hasVisited("submit")}
+          >
+            <BuilderSubmitSection />
+          </BuilderTabPanel>
+
+          <BuilderTabPanel
+            sectionId="tracks"
+            activeSection={activeSection}
+            visited={hasVisited("tracks")}
+          >
+            <BuilderTracksSection />
+          </BuilderTabPanel>
+
+          <BuilderTabPanel
+            sectionId="premios"
+            activeSection={activeSection}
+            visited={hasVisited("premios")}
+            fallback={<BuilderSectionSkeleton sectionId="premios" minHeight="20rem" />}
+          >
+            <BuilderPrizesSection />
+          </BuilderTabPanel>
+
+          <BuilderTabPanel
+            sectionId="credits"
+            activeSection={activeSection}
+            visited={hasVisited("credits")}
+            fallback={<BuilderSectionSkeleton sectionId="credits" minHeight="22rem" />}
+          >
+            <BuilderCreditsHelpSection />
+          </BuilderTabPanel>
+
+          <BuilderTabPanel
+            sectionId="faq"
+            activeSection={activeSection}
+            visited={hasVisited("faq")}
+            fallback={<BuilderSectionSkeleton sectionId="faq" minHeight="12rem" />}
+          >
+            <BuilderFaqSection />
+          </BuilderTabPanel>
+        </div>
+      </main>
+
+      <BuilderSponsorRail />
+    </>
+  );
+}
+
+/**
+ * Participant hub (/builder): guests see hero + sponsors; signed-in users see tabs and panes.
+ */
+export function BuilderPage() {
+  const { isSignedIn, isLoaded } = useAuth();
+  const showAuthedHub = isClerkConfigured && isLoaded && isSignedIn;
+
+  if (!showAuthedHub) {
+    return <BuilderGuestPage />;
+  }
+
+  return <BuilderAuthedPage />;
 }

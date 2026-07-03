@@ -8,10 +8,11 @@ export type PrizeLogo =
   | "zavu"
   | "firecrawl"
   | "datamcp"
+  | "cognition"
   | null;
 
-/** Sum of PARTICIPANT_PERK_DEFS values: 60+70+22+60+75+20+38+20 */
-export const CREDITS_TOTAL = "$365";
+/** Sum of PARTICIPANT_PERK_DEFS values: 60+70+22+60+75+20+38+40 */
+export const CREDITS_TOTAL = "$385";
 /** Solo-team baseline: cash $1,000 + Codex 10K×3 + n8n 720 + EL Scale 990 + EL Pro 297 + Cursor credits 500 */
 export const PRIZES_TOTAL = "$33K+";
 
@@ -43,7 +44,7 @@ export const PARTICIPANT_PERK_DEFS: ParticipantPerkDef[] = [
   { id: "zavu", logo: "zavu", sponsor: "Zavu", value: "$75" },
   { id: "firecrawl", logo: "firecrawl", sponsor: "Firecrawl", value: "~$20" },
   { id: "datamcp", logo: "datamcp", sponsor: "DataMCP", value: "$38" },
-  { id: "devin", logo: null, sponsor: "Devin", value: "$20" },
+  { id: "devin", logo: "cognition", sponsor: "Cognition", value: "$40" },
 ];
 
 export type TrackPrizeId = "codex" | "elevenlabs" | "n8n";

@@ -120,7 +120,23 @@ export const getProgress = query({
     checkpoints: v.array(checkpointValidator),
   }),
   handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) {
+      return {
+        steps: HUB_PROGRESS_STEP_IDS.map((id) => ({
+          id,
+          completed: false,
+          manual: id === "checkpoint_midday",
+        })),
+        checkpoints: HUB_CHECKPOINT_IDS.map((id) => ({
+          id,
+          label: id.replace("cp_", "").replace("am", " AM").replace("pm", " PM"),
+          note: undefined,
+          submittedAt: undefined,
+        })),
+      };
+    }
+
     const membership = await ctx.db
       .query("hub_team_members")
       .withIndex("by_user", (q) => q.eq("userId", user._id))

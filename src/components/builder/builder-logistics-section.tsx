@@ -32,9 +32,8 @@ export function BuilderLogisticsSection() {
   const { t } = useTranslation();
 
   return (
-    <section id="logistics" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg-alt">
-      <div className="max-w-[1400px] mx-auto">
-        <BuilderSectionHeader
+    <section id="logistics" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 bg-bg-alt">
+      <BuilderSectionHeader
           id="logistics"
           tagKey="builder.logistics.tag"
           title1Key="builder.logistics.title1"
@@ -116,7 +115,6 @@ export function BuilderLogisticsSection() {
             </a>
           </div>
         </div>
-      </div>
     </section>
   );
 }

@@ -418,7 +418,7 @@ export const translations = {
   "admin.nextPending": { en: "Next pending", es: "Siguiente pendiente" },
   "admin.rankings.allTracks": { en: "All tracks", es: "Todos los tracks" },
 
-  "nav.admin": { en: "Jury", es: "Jurado" },
+  "nav.admin": { en: "Admin", es: "Admin" },
 
   "hero.sponsorTagline": {
     en: "04 · 05 · JUL 2026 · 8:00 → 9:00 ·",
@@ -2050,16 +2050,17 @@ export const translations = {
   "builder.hero.title1": { en: "Welcome, builder.", es: "Bienvenido, builder." },
   "builder.hero.title2": { en: "Let's build & ship.", es: "A construir y entregar." },
   "builder.hero.intro": {
-    en: "Everything for the build window lives here — mentors on call, submission steps, sponsor tracks, and prizes. Jump in whenever you're ready.",
-    es: "Todo para la ventana de build está aquí — mentores disponibles, pasos de envío, tracks de sponsors y premios. Empieza cuando estés listo.",
+    en: "Mentors, submission, tracks, and prizes — all in one place.",
+    es: "Mentores, envío, tracks y premios — todo en un solo lugar.",
   },
-  "builder.hero.ctaTeam": { en: "Create or join a team", es: "Crea o únete a un equipo" },
+  "builder.hero.ctaLogin": { en: "Sign in", es: "Iniciar sesión" },
   "builder.hero.ctaSubmit": { en: "Submit your project", es: "Envía tu proyecto" },
   "builder.hero.countdownLabel": { en: "// Build window opens", es: "// Abre la ventana de build" },
   "builder.hero.countdownWhen": {
-    en: "July 4 · 6:00 AM · San Salvador",
-    es: "4 jul · 6:00 AM · San Salvador",
+    en: "Saturday · Jul 4 · 10:30 AM · San Salvador",
+    es: "Sábado · 4 jul · 10:30 AM · San Salvador",
   },
+  "builder.nav.hub": { en: "Hub", es: "Hub" },
   "builder.nav.team": { en: "Team", es: "Equipo" },
   "builder.nav.mentors": { en: "Mentors", es: "Mentores" },
   "builder.nav.submit": { en: "Submit", es: "Envío" },
@@ -2098,6 +2099,14 @@ export const translations = {
   "builder.mentors.remoteEmpty": {
     en: "Remote mentors are being confirmed. Check back soon.",
     es: "Mentores remotos en confirmación. Vuelve pronto.",
+  },
+  "builder.mentors.onsiteEmpty": {
+    en: "On-site mentors are being confirmed. Check back soon.",
+    es: "Mentores en sede en confirmación. Vuelve pronto.",
+  },
+  "builder.mentors.subtabNav": {
+    en: "Mentor availability",
+    es: "Disponibilidad de mentores",
   },
   "builder.mentors.bookSlot": { en: "Book a slot →", es: "Reservar espacio →" },
 
@@ -2224,8 +2233,8 @@ export const translations = {
   "builder.credits.title1": { en: "How to redeem", es: "Cómo canjear" },
   "builder.credits.title2": { en: "your perks", es: "tus perks" },
   "builder.credits.aside": {
-    en: "Every builder gets ~$365 in credits on day one. Follow the steps below at check-in or anytime during the event.",
-    es: "Cada builder recibe ~$365 en créditos desde el día uno. Sigue los pasos abajo al registrarte o en cualquier momento del evento.",
+    en: "Every builder gets ~$385 in credits on day one. Follow the steps below at check-in or anytime during the event.",
+    es: "Cada builder recibe ~$385 en créditos desde el día uno. Sigue los pasos abajo al registrarte o en cualquier momento del evento.",
   },
   "builder.credits.intro": {
     en: "Your builder pack includes a card or sheet with sponsor-specific codes and links. Redeem with the same email you used on Luma.",
@@ -2713,6 +2722,10 @@ export const translations = {
     es: "Usa tu cuenta de Google para acceder a herramientas de equipo, progreso y envíos.",
   },
   "hub.signInCta": { en: "Sign in with Google", es: "Iniciar sesión con Google" },
+  "hub.connecting": {
+    en: "Connecting your workspace…",
+    es: "Conectando tu espacio de trabajo…",
+  },
   "hub.openAdmin": { en: "Open admin", es: "Abrir admin" },
   "hub.error.generic": { en: "Something went wrong. Try again.", es: "Algo salió mal. Intenta de nuevo." },
 

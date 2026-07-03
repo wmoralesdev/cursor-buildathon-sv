@@ -25,9 +25,8 @@ export function BuilderTracksSection() {
   const { t } = useTranslation();
 
   return (
-    <section id="tracks" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 section-padding bg-bg">
-      <div className="max-w-[1400px] mx-auto">
-        <BuilderSectionHeader
+    <section id="tracks" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 bg-bg">
+      <BuilderSectionHeader
           id="tracks"
           tagKey="builder.tracks.tag"
           title1Key="builder.tracks.title1"
@@ -57,7 +56,6 @@ export function BuilderTracksSection() {
             </article>
           ))}
         </div>
-      </div>
     </section>
   );
 }

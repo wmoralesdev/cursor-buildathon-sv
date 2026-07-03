@@ -7,6 +7,8 @@ export function useHashScroll() {
   const location = useLocation();
 
   useEffect(() => {
+    if (location.pathname === "/builder") return;
+
     const hash = location.hash;
     if (!hash) return;
     const id = hash.slice(1);

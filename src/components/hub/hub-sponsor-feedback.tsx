@@ -4,17 +4,15 @@ import { api } from "../../../convex/_generated/api";
 import type { HubSponsorId } from "../../../convex/lib/hubSponsorIds";
 import { sponsors } from "../../data/sponsors";
 import { useTranslation } from "../../context/language-context";
-import { isConvexConfigured } from "../../lib/convex-client";
+import { useHubUser } from "../../hooks/use-hub-user";
 import { HubButton, HubCard, HubError, HubField, HubTextarea } from "./hub-ui-primitives";
 
 const sponsorNameById = Object.fromEntries(sponsors.map((s) => [s.id, s.name]));
 
 export function HubSponsorFeedback() {
   const { t } = useTranslation();
-  const pending = useQuery(
-    api.hub.sponsorFeedback.getMyPendingFeedback,
-    isConvexConfigured ? {} : "skip",
-  );
+  const { hubQueryArgs } = useHubUser();
+  const pending = useQuery(api.hub.sponsorFeedback.getMyPendingFeedback, hubQueryArgs);
   const submitFeedback = useMutation(api.hub.sponsorFeedback.submitFeedback);
 
   const [drafts, setDrafts] = useState<Record<string, string>>({});

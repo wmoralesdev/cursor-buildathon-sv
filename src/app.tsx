@@ -2,12 +2,14 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import { SiteNav } from "./components/site-nav";
 import { useHashScroll } from "./hooks/use-hash-scroll";
+import { usePostSignInRedirect } from "./hooks/use-post-sign-in-redirect";
 import { useScrollReveal } from "./hooks/use-scroll-reveal";
 
 export default function App() {
   const location = useLocation();
   useScrollReveal();
   useHashScroll();
+  usePostSignInRedirect();
 
   return (
     <div className="relative min-h-screen bg-bg">

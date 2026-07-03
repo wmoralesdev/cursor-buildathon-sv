@@ -15,9 +15,8 @@ function BuilderTeamSectionInner() {
   const { sessionId, team, isLoading, canSubmit, minSubmitMembers } = useBuilderTeam();
 
   return (
-    <section id="team" className="relative scroll-mt-24 section-padding pb-4 pt-12 sm:pt-16">
-      <div className="mx-auto max-w-[1400px]">
-        <span className="tag mb-5 inline-block">{t("builder.team.tag")}</span>
+    <section id="team" className="relative scroll-mt-24 pb-4 pt-12 sm:pt-16">
+      <span className="tag mb-5 inline-block">{t("builder.team.tag")}</span>
 
         {isLoading || !sessionId ? (
           <div className="border border-border bg-surface p-6 sm:p-8">
@@ -40,7 +39,6 @@ function BuilderTeamSectionInner() {
         ) : (
           <BuilderTeamOnboarding sessionId={sessionId} />
         )}
-      </div>
     </section>
   );
 }
