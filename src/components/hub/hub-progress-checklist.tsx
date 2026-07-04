@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { HUB_CHECKPOINTS } from "../../data/hub-progress-steps";
@@ -16,28 +16,6 @@ export function HubProgressChecklist() {
   const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-
-  // #region agent log
-  useEffect(() => {
-    fetch("http://127.0.0.1:7524/ingest/ae7e5f7a-7927-4023-a554-d1b0cfb79922", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "73c77a" },
-      body: JSON.stringify({
-        sessionId: "73c77a",
-        runId: "post-fix",
-        hypothesisId: "B,E",
-        location: "hub-progress-checklist.tsx:progress-query",
-        message: "Progress query state",
-        data: {
-          progressStatus:
-            progress === undefined ? "loading" : progress.steps.length === 0 ? "empty" : "resolved",
-          stepCount: progress?.steps.length ?? null,
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-  }, [progress]);
-  // #endregion
 
   if (progress === undefined) {
     return (

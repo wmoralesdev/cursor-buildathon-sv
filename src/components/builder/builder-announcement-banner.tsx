@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "convex/react";
 import { X } from "lucide-react";
 
@@ -25,10 +25,16 @@ export function BuilderAnnouncementBanner() {
 function BuilderAnnouncementBannerInner() {
   const { t, language } = useTranslation();
   const [dismissed, setDismissed] = useState<string[]>(readDismissed);
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Date.now()), 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const announcements = useQuery(api.announcements.listActiveAnnouncements, {
     locale: language,
-    now: Date.now(),
+    now,
   });
 
   const active = announcements?.find((a) => !dismissed.includes(a.id));

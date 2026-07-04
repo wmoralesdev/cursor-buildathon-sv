@@ -1,14 +1,18 @@
+import { useEffect, useRef } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
+import { HUB_EVENT_TIMEZONE } from "../../data/hub-progress-steps";
 import { useTranslation } from "../../context/language-context";
 import { useHubUser } from "../../hooks/use-hub-user";
 import { HubButton, HubCard } from "./hub-ui-primitives";
 
 function formatSlotTime(timestamp: number) {
   return new Intl.DateTimeFormat(undefined, {
+    weekday: "short",
     hour: "numeric",
     minute: "2-digit",
+    timeZone: HUB_EVENT_TIMEZONE,
   }).format(new Date(timestamp));
 }
 
@@ -16,21 +20,24 @@ export function HubBoothScheduler() {
   const { t } = useTranslation();
   const { hubQueryArgs } = useHubUser();
   const booths = useQuery(api.hub.booths.listBoothsWithSlots, hubQueryArgs);
+  const ensureDefaultSchedule = useMutation(api.hub.booths.ensureDefaultSchedule);
   const reserveSlot = useMutation(api.hub.booths.reserveSlot);
   const cancelReservation = useMutation(api.hub.booths.cancelReservation);
+  const ensureAttemptedRef = useRef(false);
 
-  if (booths === undefined) {
+  useEffect(() => {
+    if (booths === undefined || booths.length > 0 || ensureAttemptedRef.current) {
+      return;
+    }
+    ensureAttemptedRef.current = true;
+    void ensureDefaultSchedule({});
+  }, [booths, ensureDefaultSchedule]);
+
+  if (booths === undefined || booths.length === 0) {
     return (
       <HubCard title={t("hub.booths.title")} tag={t("hub.booths.tag")}>
         <div className="h-24 animate-pulse bg-border-faint" />
-      </HubCard>
-    );
-  }
-
-  if (booths.length === 0) {
-    return (
-      <HubCard title={t("hub.booths.title")} tag={t("hub.booths.tag")}>
-        <p className="font-display text-[0.925rem] text-fg-2">{t("hub.booths.empty")}</p>
+        <p className="mt-4 font-display text-[0.925rem] text-fg-2">{t("hub.booths.loading")}</p>
       </HubCard>
     );
   }
@@ -38,7 +45,7 @@ export function HubBoothScheduler() {
   return (
     <HubCard title={t("hub.booths.title")} tag={t("hub.booths.tag")}>
       <p className="mb-5 font-display text-[0.925rem] text-fg-2">{t("hub.booths.intro")}</p>
-      <div className="space-y-6">
+      <div className="max-h-[28rem] space-y-6 overflow-y-auto pr-1">
         {booths.map((booth) => (
           <div key={booth._id}>
             <div className="mb-3">

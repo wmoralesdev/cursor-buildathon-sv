@@ -1,7 +1,8 @@
+import type { Id } from "../_generated/dataModel";
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubUser, requireTeamMembership } from "../lib/hub-auth";
-import { normalizeHttpUrl } from "../lib/profileValidation";
+import { requireHubUser, requireTeamMembership } from "../lib/hub_auth";
+import { validateSocialPostUrl } from "../lib/social_post_url";
 
 const postValidator = v.object({
   _id: v.id("hub_social_posts"),
@@ -9,21 +10,20 @@ const postValidator = v.object({
   url: v.string(),
   createdAt: v.number(),
   authorName: v.string(),
+  userId: v.id("hub_users"),
 });
 
-function validateSocialUrl(platform: "x" | "linkedin", url: string): string {
-  const normalized = normalizeHttpUrl(url, "Post URL");
-  const hostname = new URL(normalized).hostname.replace(/^www\./, "");
+const postInputValidator = v.object({
+  postId: v.optional(v.id("hub_social_posts")),
+  url: v.string(),
+});
 
-  if (platform === "x") {
-    if (!["x.com", "twitter.com"].includes(hostname)) {
-      throw new Error("X posts must use x.com or twitter.com URLs");
-    }
-  } else if (!["linkedin.com", "lnkd.in"].includes(hostname)) {
-    throw new Error("LinkedIn posts must use linkedin.com URLs");
-  }
-
-  return normalized;
+function canModifyPost(
+  post: { userId: Id<"hub_users"> },
+  userId: Id<"hub_users">,
+  captainId: Id<"hub_users">,
+): boolean {
+  return post.userId === userId || captainId === userId;
 }
 
 export const listByTeam = query({
@@ -53,27 +53,90 @@ export const listByTeam = query({
           url: post.url,
           createdAt: post.createdAt,
           authorName: author?.name ?? "Unknown",
+          userId: post.userId,
         };
       }),
     );
   },
 });
 
+export const syncPosts = mutation({
+  args: {
+    posts: v.array(postInputValidator),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const user = await requireHubUser(ctx);
+    const { team } = await requireTeamMembership(ctx, user._id);
+
+    const existingPosts = await ctx.db
+      .query("hub_social_posts")
+      .withIndex("by_team", (q) => q.eq("teamId", team._id))
+      .collect();
+
+    const existingById = new Map(existingPosts.map((post) => [post._id, post]));
+    const submittedIds = new Set<Id<"hub_social_posts">>();
+
+    for (const item of args.posts) {
+      const trimmed = item.url.trim();
+      if (!trimmed) continue;
+
+      const { platform, url } = validateSocialPostUrl(trimmed);
+
+      if (item.postId) {
+        submittedIds.add(item.postId);
+        const existing = existingById.get(item.postId);
+        if (!existing) {
+          throw new Error("Post not found");
+        }
+        if (existing.teamId !== team._id) {
+          throw new Error("Post does not belong to your team");
+        }
+        if (existing.url === url && existing.platform === platform) {
+          continue;
+        }
+        if (!canModifyPost(existing, user._id, team.captainId)) {
+          throw new Error("Only the author or captain can edit another member's post");
+        }
+        await ctx.db.patch(item.postId, { url, platform });
+        continue;
+      }
+
+      await ctx.db.insert("hub_social_posts", {
+        teamId: team._id,
+        userId: user._id,
+        platform,
+        url,
+        createdAt: Date.now(),
+      });
+    }
+
+    for (const post of existingPosts) {
+      if (submittedIds.has(post._id)) continue;
+      if (!canModifyPost(post, user._id, team.captainId)) {
+        throw new Error("Only the author or captain can remove another member's post");
+      }
+      await ctx.db.delete(post._id);
+    }
+
+    return null;
+  },
+});
+
 export const addPost = mutation({
   args: {
-    platform: v.union(v.literal("x"), v.literal("linkedin")),
     url: v.string(),
   },
   returns: v.id("hub_social_posts"),
   handler: async (ctx, args) => {
     const user = await requireHubUser(ctx);
     const { team } = await requireTeamMembership(ctx, user._id);
-    const url = validateSocialUrl(args.platform, args.url);
+    const { platform, url } = validateSocialPostUrl(args.url);
 
     return await ctx.db.insert("hub_social_posts", {
       teamId: team._id,
       userId: user._id,
-      platform: args.platform,
+      platform,
       url,
       createdAt: Date.now(),
     });
@@ -92,7 +155,7 @@ export const removePost = mutation({
     if (post.teamId !== team._id) {
       throw new Error("Post does not belong to your team");
     }
-    if (post.userId !== user._id && team.captainId !== user._id) {
+    if (!canModifyPost(post, user._id, team.captainId)) {
       throw new Error("Only the author or captain can remove this post");
     }
 

@@ -30,11 +30,16 @@ interface CountdownTimerProps {
   animate?: boolean;
 }
 
-export function CountdownTimer({
-  targetIso = EVENT_START_ISO,
+export function CountdownTimer(props: CountdownTimerProps) {
+  const targetIso = props.targetIso ?? EVENT_START_ISO;
+  return <CountdownTimerInner key={targetIso} {...props} targetIso={targetIso} />;
+}
+
+function CountdownTimerInner({
+  targetIso,
   legible = false,
   animate = true,
-}: CountdownTimerProps) {
+}: CountdownTimerProps & { targetIso: string }) {
   const { t } = useTranslation();
   const targetDate = useMemo(() => new Date(targetIso), [targetIso]);
   const [values, setValues] = useState(() => getTimeLeftValues(targetDate));
@@ -47,7 +52,6 @@ export function CountdownTimer({
   ];
 
   useEffect(() => {
-    setValues(getTimeLeftValues(targetDate));
     const interval = setInterval(() => {
       const next = getTimeLeftValues(targetDate);
       setValues((prev) => {

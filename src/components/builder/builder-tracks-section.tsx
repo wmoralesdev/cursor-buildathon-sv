@@ -29,7 +29,10 @@ export function BuilderTracksSection({ layout = "page" }: { layout?: BuilderSect
   const { t } = useTranslation();
 
   return (
-    <section id="tracks" className="relative scroll-mt-24 py-24 sm:py-32 lg:py-40 bg-bg">
+    <section
+      id="tracks"
+      className={builderSectionSurfaceClass(layout, "bg-bg")}
+    >
       <BuilderSectionHeader
           id="tracks"
           tagKey="builder.tracks.tag"

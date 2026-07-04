@@ -10,9 +10,12 @@ import {
   CursorLockup,
   DatamcpLogo,
   ElevenLabsLogo,
+  ExaLogo,
+  FalLogo,
   FirecrawlLogo,
   N8nLogo,
   OnePagerCashLightLogoAssetsProvider,
+  WisprLogo,
   ZavuLogo,
 } from "../components/sponsor-logos";
 import { useTranslation } from "../context/language-context";
@@ -118,6 +121,12 @@ function PerkMark({ logo, sponsor }: { logo: PrizeLogo; sponsor: string }) {
       return <DatamcpLogo alt={sponsor} className={cls} />;
     case "cognition":
       return <CognitionLogo alt={sponsor} className={cls} />;
+    case "exa":
+      return <ExaLogo alt={sponsor} className={cls} />;
+    case "fal":
+      return <FalLogo alt={sponsor} className={cls} />;
+    case "wispr":
+      return <WisprLogo alt={sponsor} className={cls} />;
     case null:
       return (
         <span className="font-display text-[8pt] font-bold uppercase leading-none tracking-tight text-fg">

@@ -43,18 +43,11 @@ export function EventRosterCard({
   unconfirmedRoleLabel,
   legible = false,
 }: RosterCardProps) {
-  const { t } = useTranslation();
-  const [bioExpanded, setBioExpanded] = useState(false);
-  const [bioTruncated, setBioTruncated] = useState(false);
-  const briefRef = useRef<HTMLParagraphElement>(null);
-
   const recordCode = RECORD_CODE[kind];
   const recordNum = String(index + 1).padStart(2, "0");
   const hasRole = !placeholder && role !== "—" && role.trim().length > 0;
   const hasCompany = !placeholder && Boolean(company);
   const hasBrief = !placeholder && Boolean(brief && brief.trim().length > 0);
-  const bioLikelyTruncated =
-    hasBrief && Boolean(brief && (brief.length > 140 || brief.split(/\s+/).length > 22));
   const micro = legible ? "text-[0.675rem]" : "text-[0.6rem]";
   const nano = legible ? "text-[0.625rem]" : "text-[0.55rem]";
   const recordId = legible ? "text-[0.65rem]" : "text-[0.58rem]";
@@ -65,31 +58,6 @@ export function EventRosterCard({
   const briefSize = legible ? "text-[0.85rem]" : "text-[0.78rem]";
   const companySize = legible ? "text-[0.9rem]" : "text-[0.82rem]";
   const bioToggleSize = legible ? "text-[0.675rem]" : "text-[0.6rem]";
-
-  useEffect(() => {
-    setBioExpanded(false);
-  }, [brief]);
-
-  useEffect(() => {
-    if (legible) return;
-    const el = briefRef.current;
-    if (!el || !hasBrief) {
-      setBioTruncated(false);
-      return;
-    }
-
-    const measure = () => {
-      if (bioExpanded) return;
-      setBioTruncated(el.scrollHeight > el.clientHeight + 1);
-    };
-
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [brief, hasBrief, bioExpanded, legible]);
-
-  const showBioToggle = hasBrief && (legible ? bioLikelyTruncated || bioExpanded : bioTruncated || bioExpanded);
 
   return (
     <article
@@ -194,26 +162,13 @@ export function EventRosterCard({
 
         {/* brief */}
         {hasBrief ? (
-          <div className="min-w-0">
-            <p
-              ref={briefRef}
-              className={`font-display leading-[1.5] text-fg-3 ${briefSize} ${
-                bioExpanded ? "" : "line-clamp-3"
-              }`}
-            >
-              {brief}
-            </p>
-            {showBioToggle && (
-              <button
-                type="button"
-                onClick={() => setBioExpanded((open) => !open)}
-                aria-expanded={bioExpanded}
-                className={`mt-1.5 font-mono uppercase tracking-[0.12em] text-accent transition-colors hover:text-fg ${bioToggleSize}`}
-              >
-                {bioExpanded ? t("roster.readLess") : t("roster.readMore")}
-              </button>
-            )}
-          </div>
+          <RosterBrief
+            key={brief}
+            brief={brief!}
+            legible={legible}
+            briefSize={briefSize}
+            bioToggleSize={bioToggleSize}
+          />
         ) : (
           !hasRole && (
             <div className="flex flex-col gap-1.5 py-0.5" aria-hidden>
@@ -243,6 +198,68 @@ export function EventRosterCard({
 
       <span className="absolute bottom-0 left-0 z-30 h-px w-0 bg-accent transition-[width] duration-400 group-hover:w-full" />
     </article>
+  );
+}
+
+function RosterBrief({
+  brief,
+  legible,
+  briefSize,
+  bioToggleSize,
+}: {
+  brief: string;
+  legible: boolean;
+  briefSize: string;
+  bioToggleSize: string;
+}) {
+  const { t } = useTranslation();
+  const [bioExpanded, setBioExpanded] = useState(false);
+  const [bioTruncated, setBioTruncated] = useState(false);
+  const briefRef = useRef<HTMLParagraphElement>(null);
+  const bioLikelyTruncated = brief.length > 140 || brief.split(/\s+/).length > 22;
+
+  useEffect(() => {
+    if (legible) return;
+    const el = briefRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      if (bioExpanded) return;
+      setBioTruncated(el.scrollHeight > el.clientHeight + 1);
+    };
+
+    const frame = requestAnimationFrame(measure);
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [brief, bioExpanded, legible]);
+
+  const showBioToggle = legible ? bioLikelyTruncated || bioExpanded : bioTruncated || bioExpanded;
+
+  return (
+    <div className="min-w-0">
+      <p
+        ref={briefRef}
+        className={`font-display leading-[1.5] text-fg-3 ${briefSize} ${
+          bioExpanded ? "" : "line-clamp-3"
+        }`}
+      >
+        {brief}
+      </p>
+      {showBioToggle && (
+        <button
+          type="button"
+          onClick={() => setBioExpanded((open) => !open)}
+          aria-expanded={bioExpanded}
+          className={`mt-1.5 font-mono uppercase tracking-[0.12em] text-accent transition-colors hover:text-fg ${bioToggleSize}`}
+        >
+          {bioExpanded ? t("roster.readLess") : t("roster.readMore")}
+        </button>
+      )}
+    </div>
   );
 }
 

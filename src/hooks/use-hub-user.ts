@@ -1,85 +1,99 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/react";
 import { useConvexAuth, useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { isClerkConfigured } from "../lib/convex-clerk-provider";
+import type { HubUserPublic } from "../../convex/lib/hub_projections";
+import { isClerkConfigured } from "../lib/clerk-config";
 import { isConvexConfigured } from "../lib/convex-client";
 
-export function useHubUser() {
-  const { isSignedIn, isLoaded: isClerkLoaded } = useAuth();
-  const { isLoading: isConvexAuthLoading, isAuthenticated } = useConvexAuth();
+export type EventAccessReason = "registered" | "not_eligible" | "staff";
+
+function useEnsureHubUser(active: boolean) {
   const ensureUser = useMutation(api.hub.users.ensureUser);
+  const [bootstrappedUser, setBootstrappedUser] = useState<HubUserPublic | null>(null);
+  const [bootstrapError, setBootstrapError] = useState<string | null>(null);
+  const activeKey = String(active);
+
+  const [appliedActiveKey, setAppliedActiveKey] = useState(activeKey);
+  if (appliedActiveKey !== activeKey) {
+    setAppliedActiveKey(activeKey);
+    setBootstrappedUser(null);
+    setBootstrapError(null);
+  }
+
+  useEffect(() => {
+    if (!active) return;
+
+    let cancelled = false;
+
+    void ensureUser({})
+      .then((created) => {
+        if (cancelled) return;
+        setBootstrappedUser(created);
+        setBootstrapError(null);
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setBootstrapError(err instanceof Error ? err.message : "Failed to set up hub user");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [active, ensureUser]);
+
+  return {
+    bootstrappedUser: active ? bootstrappedUser : null,
+    bootstrapError: active ? bootstrapError : null,
+    isEnsuringUser: active && bootstrappedUser === null && bootstrapError === null,
+  };
+}
+
+export function useHubUser() {
+  const { isSignedIn } = useAuth();
+  const { isLoading: isConvexAuthLoading, isAuthenticated } = useConvexAuth();
 
   const isHubConvexLoading =
     Boolean(isSignedIn && isConvexConfigured && isClerkConfigured && isConvexAuthLoading);
 
-  const hubQueryArgs =
-    isSignedIn && isConvexConfigured && isClerkConfigured && !isConvexAuthLoading
-      ? ({} as const)
-      : ("skip" as const);
+  const canBootstrap =
+    Boolean(
+      isSignedIn && isConvexConfigured && isClerkConfigured && !isConvexAuthLoading && isAuthenticated,
+    );
 
-  const me = useQuery(api.hub.users.getMe, hubQueryArgs);
+  const eventAccessArgs = canBootstrap ? ({} as const) : ("skip" as const);
+  const eventAccess = useQuery(api.hub.eventAccess.getEventAccess, eventAccessArgs);
+
+  const canEnsureUser = canBootstrap && eventAccess?.eligible === true;
+
+  const meQueryArgs = canEnsureUser ? ({} as const) : ("skip" as const);
+  const me = useQuery(api.hub.users.getMe, meQueryArgs);
+
+  const shouldEnsureUser = canEnsureUser && me === null;
+  const { bootstrappedUser, bootstrapError, isEnsuringUser } = useEnsureHubUser(shouldEnsureUser);
+
+  const user = me ?? bootstrappedUser;
+
+  const hubQueryArgs = canEnsureUser && user ? ({} as const) : ("skip" as const);
+
   const role = useQuery(api.hub.users.getMyRole, hubQueryArgs);
 
-  useEffect(() => {
-    if (
-      !isSignedIn ||
-      !isConvexConfigured ||
-      !isClerkConfigured ||
-      isConvexAuthLoading ||
-      !isAuthenticated
-    ) {
-      return;
-    }
-    void ensureUser({});
-  }, [ensureUser, isAuthenticated, isConvexAuthLoading, isSignedIn]);
-
-  // #region agent log
-  useEffect(() => {
-    fetch("http://127.0.0.1:7524/ingest/ae7e5f7a-7927-4023-a554-d1b0cfb79922", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "73c77a" },
-      body: JSON.stringify({
-        sessionId: "73c77a",
-        runId: "post-fix",
-        hypothesisId: "A,C",
-        location: "use-hub-user.ts:auth-state",
-        message: "Hub user auth snapshot",
-        data: {
-          isClerkLoaded,
-          isSignedIn,
-          isConvexAuthLoading,
-          isAuthenticated,
-          isHubConvexLoading,
-          hubQuerySkipped: hubQueryArgs === "skip",
-          meDefined: me !== undefined,
-          meIsNull: me === null,
-          roleDefined: role !== undefined,
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-  }, [
-    isClerkLoaded,
-    isSignedIn,
-    isConvexAuthLoading,
-    isAuthenticated,
-    isHubConvexLoading,
-    hubQueryArgs,
-    me,
-    role,
-  ]);
-  // #endregion
-
-  const isLoading = isHubConvexLoading;
+  const isEventAccessLoading = canBootstrap && eventAccess === undefined;
+  const isHubBootstrapping = canEnsureUser && !user && !bootstrapError;
+  const isLoading = isHubConvexLoading || isEventAccessLoading || isHubBootstrapping || isEnsuringUser;
 
   return {
-    user: me ?? null,
+    user: user ?? null,
     role: role ?? null,
+    eventAccess: eventAccess ?? null,
+    isEventAccessLoading,
     isLoading,
     isHubConvexLoading,
+    isHubBootstrapping,
+    bootstrapError,
     hubQueryArgs,
-    isReady: !isSignedIn || me !== undefined,
+    isReady: !isSignedIn || Boolean(user),
     isRoleReady: !isSignedIn || role !== undefined,
+    hasEventAccess: !isSignedIn || eventAccess?.eligible === true,
   };
 }

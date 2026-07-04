@@ -28,6 +28,12 @@ export const sponsors: Sponsor[] = [
     tier: "product",
   },
   {
+    id: "cursor",
+    name: "Cursor",
+    url: "https://cursor.com",
+    tier: "product",
+  },
+  {
     id: "cognition",
     name: "Cognition",
     url: "https://cognition.ai/",

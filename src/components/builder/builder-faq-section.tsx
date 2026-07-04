@@ -2,13 +2,9 @@ import { useMemo, useState } from "react";
 
 import { BUILDER_FAQ_KEYS } from "../../data/builder-faq";
 import { useTranslation } from "../../context/language-context";
-import {
-  builderSectionSurfaceClass,
-  type BuilderSectionLayout,
-} from "../../lib/builder-section-layout";
 import { BuilderSectionHeader } from "./builder-section-header";
 
-export function BuilderFaqSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
+export function BuilderFaqSection() {
   const { t } = useTranslation();
   const [open, setOpen] = useState<number | null>(null);
 

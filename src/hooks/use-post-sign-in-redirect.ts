@@ -3,7 +3,7 @@ import { useAuth } from "@clerk/react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useHubUser } from "./use-hub-user";
-import { isClerkConfigured } from "../lib/convex-clerk-provider";
+import { isClerkConfigured } from "../lib/clerk-config";
 import { isConvexConfigured } from "../lib/convex-client";
 
 export const BUILDER_HUB_PATH = "/builder";

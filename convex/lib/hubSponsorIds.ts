@@ -3,6 +3,8 @@ import { v } from "convex/values";
 export const HUB_SPONSOR_IDS = [
   "n8n",
   "codex",
+  "cognition",
+  "cursor",
   "yonjob",
   "nubiwork",
   "abaco",
@@ -33,6 +35,23 @@ export const HUB_SPONSOR_IDS = [
   "ieee",
   "ufg",
 ] as const;
+
+/** Tool sponsors selectable in hub project details (/builder → Build → Project details). */
+export const HUB_PROJECT_TOOL_SPONSOR_IDS = [
+  "n8n",
+  "codex",
+  "cognition",
+  "elevenlabs",
+  "netlify",
+  "wispr",
+  "fal",
+  "exa",
+  "firecrawl",
+  "datamcp",
+  "cursor",
+] as const satisfies readonly HubSponsorId[];
+
+export type HubProjectToolSponsorId = (typeof HUB_PROJECT_TOOL_SPONSOR_IDS)[number];
 
 export type HubSponsorId = (typeof HUB_SPONSOR_IDS)[number];
 

@@ -1,6 +1,7 @@
 export type ProductSponsorId =
   | "n8n"
   | "codex"
+  | "cursor"
   | "cognition"
   | "yonjob"
   | "nubiwork"
@@ -25,7 +26,6 @@ export type ProductSponsorId =
   | "esrobotica"
   | "datamcp"
   | "rcns"
-  | "cognition"
   | "from021"
   | "gad-dev"
   | "mistral"

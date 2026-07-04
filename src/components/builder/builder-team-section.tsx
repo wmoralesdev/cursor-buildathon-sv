@@ -4,17 +4,13 @@ import { BuilderTeamPanel } from "./builder-team-panel";
 import { useBuilderTeam } from "../../hooks/use-builder-team";
 import { isConvexConfigured } from "../../lib/convex-client";
 import { useTranslation } from "../../context/language-context";
-import {
-  builderSectionSurfaceClass,
-  type BuilderSectionLayout,
-} from "../../lib/builder-section-layout";
 
-export function BuilderTeamSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
+export function BuilderTeamSection() {
   if (!isConvexConfigured) return null;
-  return <BuilderTeamSectionInner layout={layout} />;
+  return <BuilderTeamSectionInner />;
 }
 
-function BuilderTeamSectionInner({ layout }: { layout: BuilderSectionLayout }) {
+function BuilderTeamSectionInner() {
   const { t } = useTranslation();
   const { sessionId, team, isLoading, canSubmit, minSubmitMembers } = useBuilderTeam();
 

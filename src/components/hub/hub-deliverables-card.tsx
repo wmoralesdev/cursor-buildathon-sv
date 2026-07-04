@@ -1,25 +1,22 @@
-import { useEffect, useRef, useState } from "react";
-import { useAction, useMutation, useQuery } from "convex/react";
+import { useEffect, useState } from "react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useTranslation } from "../../context/language-context";
 import { useHubUser } from "../../hooks/use-hub-user";
-import { uploadVideoToR2 } from "../../lib/r2-upload";
 import { HubButton, HubCard, HubError, HubField, HubInput, HubTextarea } from "./hub-ui-primitives";
 
 export function HubDeliverablesCard() {
   const { t } = useTranslation();
   const { hubQueryArgs } = useHubUser();
   const data = useQuery(api.hub.projects.getMyProject, hubQueryArgs);
-  const feedbackStatus = useQuery(api.hub.sponsorFeedback.getTeamFeedbackStatus, hubQueryArgs);
+  const completionStatus = useQuery(api.hub.projects.getCompletionStatus, hubQueryArgs);
   const upsertDeliverables = useMutation(api.hub.projects.upsertDeliverables);
-  const generateUploadUrl = useAction(api.uploads.generateUploadUrl);
 
   const [slidesUrl, setSlidesUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [testUsers, setTestUsers] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!data?.deliverables) return;
@@ -32,17 +29,9 @@ export function HubDeliverablesCard() {
     setBusy(true);
     setError(null);
     try {
-      let videoR2Key: string | undefined;
-      const file = fileRef.current?.files?.[0];
-      if (file) {
-        const target = await uploadVideoToR2(file, "hub", (request) => generateUploadUrl(request));
-        videoR2Key = target.objectKey;
-      }
-
       await upsertDeliverables({
         slidesUrl: slidesUrl.trim() || undefined,
         videoUrl: videoUrl.trim() || undefined,
-        videoR2Key,
         testUsers: testUsers.trim() || undefined,
         finalize,
       });
@@ -70,7 +59,18 @@ export function HubDeliverablesCard() {
   }
 
   const submitted = Boolean(data.deliverables?.submittedAt);
-  const feedbackReady = feedbackStatus?.allComplete ?? false;
+  const canFinalize = completionStatus?.canFinalize ?? false;
+
+  let blockReason: string | null = null;
+  if (!submitted && completionStatus) {
+    if (!completionStatus.detailsComplete) {
+      blockReason = t("hub.deliverables.blockedByDetails");
+    } else if (!completionStatus.feedbackComplete) {
+      blockReason = t("hub.deliverables.blockedByFeedback");
+    } else if (!completionStatus.deliverablesReady) {
+      blockReason = t("hub.deliverables.blockedByDeliverables");
+    }
+  }
 
   return (
     <HubCard title={t("hub.deliverables.title")} tag={t("hub.deliverables.tag")}>
@@ -82,25 +82,11 @@ export function HubDeliverablesCard() {
         />
       </HubField>
 
-      <HubField label={t("hub.deliverables.videoUpload")}>
-        <input ref={fileRef} type="file" accept="video/mp4,video/webm,video/quicktime" className="w-full text-fg-2" />
-        {data.deliverables?.videoPlaybackUrl ? (
-          <a
-            href={data.deliverables.videoPlaybackUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-2 inline-block font-mono text-[0.7rem] text-accent"
-          >
-            {t("hub.deliverables.viewUploadedVideo")}
-          </a>
-        ) : null}
-      </HubField>
-
       <HubField label={t("hub.deliverables.videoUrl")}>
         <HubInput
           value={videoUrl}
           onChange={(e) => setVideoUrl(e.target.value)}
-          placeholder="https://youtube.com/..."
+          placeholder={t("hub.deliverables.videoUrlPlaceholder")}
         />
       </HubField>
 
@@ -113,15 +99,28 @@ export function HubDeliverablesCard() {
       </HubField>
 
       <div className="mb-5 space-y-1 font-display text-[0.875rem] text-fg-2">
-        <p>{feedbackReady ? t("hub.deliverables.feedbackReady") : t("hub.deliverables.feedbackPending")}</p>
+        {completionStatus?.detailsComplete === false ? (
+          <p>{t("hub.deliverables.detailsPending")}</p>
+        ) : null}
+        {completionStatus?.feedbackComplete === false ? (
+          <p>{t("hub.deliverables.feedbackPending")}</p>
+        ) : completionStatus?.feedbackComplete ? (
+          <p>{t("hub.deliverables.feedbackReady")}</p>
+        ) : null}
+        {completionStatus?.deliverablesReady === false && completionStatus.detailsComplete ? (
+          <p>{t("hub.deliverables.deliverablesPending")}</p>
+        ) : null}
         {submitted ? <p className="text-accent">{t("hub.deliverables.submitted")}</p> : null}
+        {blockReason && !submitted ? (
+          <p className="text-fg-3">{blockReason}</p>
+        ) : null}
       </div>
 
       <div className="flex flex-wrap gap-3">
         <HubButton variant="ghost" disabled={busy} onClick={() => save(false)}>
           {t("hub.deliverables.saveDraft")}
         </HubButton>
-        <HubButton disabled={busy || !feedbackReady} onClick={() => save(true)}>
+        <HubButton disabled={busy || !canFinalize || submitted} onClick={() => save(true)}>
           {t("hub.deliverables.submitFinal")}
         </HubButton>
       </div>

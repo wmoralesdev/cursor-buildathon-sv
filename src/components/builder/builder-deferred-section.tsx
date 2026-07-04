@@ -32,23 +32,18 @@ export function BuilderDeferredSection({
   children: ReactNode;
 }) {
   const sentinelRef = useRef<HTMLDivElement>(null);
-  const [shouldMount, setShouldMount] = useState(() => {
+  const [mountedFromDeferred, setMountedFromDeferred] = useState(() => {
     if (typeof window === "undefined") return active;
     return active || window.location.hash === `#${sectionId}`;
   });
-
-  useEffect(() => {
-    if (active) {
-      setShouldMount(true);
-    }
-  }, [active]);
+  const shouldMount = active || mountedFromDeferred;
 
   useEffect(() => {
     if (shouldMount) return;
 
     const onHashChange = () => {
       if (window.location.hash === `#${sectionId}`) {
-        setShouldMount(true);
+        setMountedFromDeferred(true);
       }
     };
 
@@ -62,7 +57,7 @@ export function BuilderDeferredSection({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
-          setShouldMount(true);
+          setMountedFromDeferred(true);
           observer.disconnect();
         }
       },

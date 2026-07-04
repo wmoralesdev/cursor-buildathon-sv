@@ -2,7 +2,11 @@ import type { Id } from "../_generated/dataModel";
 import type { MutationCtx, QueryCtx } from "../_generated/server";
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import { HUB_CHECKPOINT_IDS, checkpointLabel } from "../lib/hub_checkpoints";
+import { captureCheckpointSnapshot } from "../lib/hub_checkpoint_snapshot";
+import { requireHubUser, requireTeamMembership } from "../lib/hub_auth";
+
+const CHECKPOINT_NOTE_MAX_LENGTH = 2000;
 
 const progressStepValidator = v.object({
   id: v.string(),
@@ -28,14 +32,23 @@ export const HUB_PROGRESS_STEP_IDS = [
   "final_submitted",
 ] as const;
 
-export const HUB_CHECKPOINT_IDS = [
-  "cp_12pm",
-  "cp_3pm",
-  "cp_9pm",
-  "cp_12am",
-  "cp_4am",
-  "cp_6am",
-] as const;
+export { HUB_CHECKPOINT_IDS };
+
+function emptyProgressResponse() {
+  return {
+    steps: HUB_PROGRESS_STEP_IDS.map((id) => ({
+      id,
+      completed: false,
+      manual: id === "checkpoint_midday",
+    })),
+    checkpoints: HUB_CHECKPOINT_IDS.map((id) => ({
+      id,
+      label: checkpointLabel(id),
+      note: undefined,
+      submittedAt: undefined,
+    })),
+  };
+}
 
 async function deriveAutoSteps(
   ctx: QueryCtx | MutationCtx,
@@ -104,7 +117,7 @@ async function deriveAutoSteps(
 
   return {
     team_formed: members.length >= 2,
-    project_started: Boolean(project?.name && project.description),
+    project_started: Boolean(project?.name?.trim()),
     social_posted: socialPosts.length > 0,
     checkpoint_midday: hasMiddayCheckpoint,
     deliverables_ready: deliverablesReady,
@@ -122,19 +135,7 @@ export const getProgress = query({
   handler: async (ctx) => {
     const user = await requireHubUser(ctx).catch(() => null);
     if (!user) {
-      return {
-        steps: HUB_PROGRESS_STEP_IDS.map((id) => ({
-          id,
-          completed: false,
-          manual: id === "checkpoint_midday",
-        })),
-        checkpoints: HUB_CHECKPOINT_IDS.map((id) => ({
-          id,
-          label: id.replace("cp_", "").replace("am", " AM").replace("pm", " PM"),
-          note: undefined,
-          submittedAt: undefined,
-        })),
-      };
+      return emptyProgressResponse();
     }
 
     const membership = await ctx.db
@@ -143,19 +144,7 @@ export const getProgress = query({
       .unique();
 
     if (!membership) {
-      return {
-        steps: HUB_PROGRESS_STEP_IDS.map((id) => ({
-          id,
-          completed: false,
-          manual: id === "checkpoint_midday",
-        })),
-        checkpoints: HUB_CHECKPOINT_IDS.map((id) => ({
-          id,
-          label: id.replace("cp_", "").replace("am", " AM").replace("pm", " PM"),
-          note: undefined,
-          submittedAt: undefined,
-        })),
-      };
+      return emptyProgressResponse();
     }
 
     const team = await ctx.db.get(membership.teamId);
@@ -175,15 +164,6 @@ export const getProgress = query({
       .withIndex("by_team", (q) => q.eq("teamId", team._id))
       .collect();
 
-    const checkpointLabels: Record<string, string> = {
-      cp_12pm: "12:00 PM",
-      cp_3pm: "3:00 PM",
-      cp_9pm: "9:00 PM",
-      cp_12am: "12:00 AM",
-      cp_4am: "4:00 AM",
-      cp_6am: "6:00 AM",
-    };
-
     return {
       steps: HUB_PROGRESS_STEP_IDS.map((id) => {
         const manual = id === "checkpoint_midday";
@@ -202,7 +182,7 @@ export const getProgress = query({
         const row = checkpointRows.find((cp) => cp.checkpointId === id);
         return {
           id,
-          label: checkpointLabels[id] ?? id,
+          label: checkpointLabel(id),
           note: row?.note,
           submittedAt: row?.submittedAt,
         };
@@ -261,6 +241,11 @@ export const submitCheckpoint = mutation({
     if (note.length < 3) {
       throw new Error("Checkpoint note must be at least 3 characters");
     }
+    if (note.length > CHECKPOINT_NOTE_MAX_LENGTH) {
+      throw new Error(`Checkpoint note must be at most ${CHECKPOINT_NOTE_MAX_LENGTH} characters`);
+    }
+
+    const snapshot = await captureCheckpointSnapshot(ctx, team._id);
 
     const existing = await ctx.db
       .query("hub_checkpoints")
@@ -275,6 +260,7 @@ export const submitCheckpoint = mutation({
         note,
         submittedAt: now,
         submittedBy: user._id,
+        snapshot,
       });
       return null;
     }
@@ -285,6 +271,7 @@ export const submitCheckpoint = mutation({
       note,
       submittedAt: now,
       submittedBy: user._id,
+      snapshot,
     });
     return null;
   },

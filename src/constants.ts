@@ -36,6 +36,9 @@ export const BUILDER_COUNTDOWN_ISO = "2026-07-04T10:30:00-06:00";
 export const EVENT_START_ISO = "2026-07-04T08:00:00-06:00";
 export const EVENT_END_ISO = "2026-07-05T09:00:00-06:00";
 
+/** Call booth reservations close Sunday July 5 at 6:00 AM local. */
+export const BOOTH_RESERVATION_END_ISO = "2026-07-05T06:00:00-06:00";
+
 /** Project submission closes before closing remarks — adjust as the run-of-show firms up. */
 export const SUBMISSION_DEADLINE_ISO = "2026-07-05T08:00:00-06:00";
 

@@ -9,6 +9,44 @@ To populate the DB with sample projects, teams, and social posts:
 1. Set `ADMIN_EMAILS` in Convex Dashboard (Settings → Environment Variables), e.g. `your@email.com`
 2. Sign in at `/login` with that email so your user exists
 3. Run: `npx convex run seed:seed`
+
+## Luma allowlists (builder hub sign-in + credits)
+
+Export Luma registrants to [seed/luma.csv](../seed/luma.csv) (columns: `email`, `ticket_name`).
+
+| Command | Target |
+|---------|--------|
+| `pnpm seed:luma` | Dev Convex deployment |
+| `pnpm seed:luma:prod` | Production Convex deployment |
+
+The script is idempotent — safe to re-run after a fresh Luma export. It seeds:
+
+- **All CSV emails** → `hub_event_eligible_emails` (hub sign-in)
+- **`Standard` ticket emails** → `hub_perk_eligible_emails` (builder credits)
+- Always includes `walterrafael26@gmail.com` and `26irenelopez@gmail.com` as Standard
+- Runs `backfillPerkClaims` for users who signed in before seeding
+
+### Production go-live checklist
+
+1. Export Luma → save as `seed/luma.csv`
+2. Deploy Convex: `pnpm convex:deploy`
+3. **Convex prod env vars** (Dashboard → prod → Settings → Environment Variables):
+   - `CLERK_JWT_ISSUER_DOMAIN` = production Clerk Frontend API URL
+   - `ADMIN_EMAILS` = logistics/admin emails
+4. **Clerk production** (email OTP only — no OAuth):
+   - Session token must include `email` claim (`{{user.primary_email_address.email_address}}`)
+   - Enable **Email verification code**; disable Google/GitHub and other social connections
+   - Configure domain DNS in Clerk for production OTP email delivery
+   - Add production (and preview) origins to **Paths → Allowed redirect URLs**
+5. Seed perk inventory:
+   - `pnpm seed:cursor:prod` — referral links from `seed/cursor.csv`
+   - `pnpm seed:devin:prod` — API codes from `seed/devin.csv`
+   - `pnpm seed:codex:prod` — $100 Codex credits links from `seed/codex-credits.csv`
+   - `pnpm seed:codex-api:prod` — OpenAI API codes from `seed/codex-api.csv`
+6. Seed allowlists: `pnpm seed:luma:prod`
+7. Verify logistics admin panel counts; test Standard vs Sobrecupo sign-in on prod
+8. Test email OTP sign-in (allowlisted Luma email) on prod; dev can use test code `424242`
+
 See https://docs.convex.dev/functions for more.
 
 A query function that takes two arguments looks like:

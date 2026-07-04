@@ -4,6 +4,7 @@ import type { ProductSponsorId } from "./sponsor-logo-ids";
 import { AbacoLogo } from "./abaco-logo";
 import { CodexLogo } from "./codex-logo";
 import { CognitionLogo } from "./cognition-logo";
+import { CursorLockup } from "./cursor-lockup";
 import { ElevenLabsLogo } from "./elevenlabs-logo";
 import { SimovLogo } from "./simov-logo";
 import { N8nLogo } from "./n8n-logo";
@@ -79,6 +80,7 @@ export { ZavuLogo } from "./zavu-logo";
 export const productSponsorLogoById: Record<ProductSponsorId, ComponentType<BrandLogoProps>> = {
   n8n: N8nLogo,
   codex: CodexLogo,
+  cursor: CursorLockup,
   cognition: CognitionLogo,
   yonjob: YonjobLogo,
   nubiwork: NubiworkLogo,

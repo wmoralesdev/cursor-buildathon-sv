@@ -5,8 +5,11 @@ import {
   CursorLockup,
   DatamcpLogo,
   ElevenLabsLogo,
+  ExaLogo,
+  FalLogo,
   FirecrawlLogo,
   N8nLogo,
+  WisprLogo,
   ZavuLogo,
 } from "../sponsor-logos";
 import {
@@ -19,10 +22,6 @@ import {
 } from "../../data/prizes";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
-import {
-  builderSectionSurfaceClass,
-  type BuilderSectionLayout,
-} from "../../lib/builder-section-layout";
 
 const PERK_LOGO_CLASS = "h-3.5 w-auto max-w-[5.5rem] shrink-0 object-contain";
 
@@ -44,6 +43,12 @@ function PerkMark({ logo, sponsor }: { logo: PrizeLogo; sponsor: string }) {
       return <DatamcpLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
     case "cognition":
       return <CognitionLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
+    case "exa":
+      return <ExaLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
+    case "fal":
+      return <FalLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
+    case "wispr":
+      return <WisprLogo alt={sponsor} className={PERK_LOGO_CLASS} />;
     case null:
       return (
         <span className="font-display text-[0.875rem] font-bold uppercase leading-none tracking-tight text-fg">
@@ -57,7 +62,7 @@ function PerkMark({ logo, sponsor }: { logo: PrizeLogo; sponsor: string }) {
   }
 }
 
-export function BuilderPrizesSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
+export function BuilderPrizesSection() {
   const { t } = useTranslation();
 
   return (
@@ -101,6 +106,11 @@ export function BuilderPrizesSection({ layout = "page" }: { layout?: BuilderSect
                   <PerkMark logo={perk.logo} sponsor={perk.sponsor} />
                   <span className="min-w-0 truncate font-display text-[0.925rem] text-fg-3">
                     {t(`onePager.prizes.perk.${perk.id}` as TranslationKey)}
+                    {perk.perTeam ? (
+                      <span className="ml-1.5 font-mono text-[0.6rem] font-bold uppercase tracking-[0.1em] text-accent">
+                        ({t("builder.perks.perTeamBadge")})
+                      </span>
+                    ) : null}
                   </span>
                 </div>
                 <span className="shrink-0 font-display text-[1.025rem] font-bold tabular-nums text-accent">

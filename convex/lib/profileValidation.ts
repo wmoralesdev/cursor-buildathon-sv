@@ -6,6 +6,14 @@ export function trimOrThrow(value: string, label: string): string {
   return trimmed;
 }
 
+export function normalizeOptionalHttpUrl(value: string, label: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return "";
+  }
+  return normalizeHttpUrl(trimmed, label);
+}
+
 export function normalizeHttpUrl(value: string, label: string): string {
   const trimmed = trimOrThrow(value, label);
   const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;

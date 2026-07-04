@@ -9,7 +9,6 @@ export type BuilderSectionId =
   | "logistics"
   | "mentors"
   | "submit"
-  | "tracks"
   | "premios"
   | "credits"
   | "faq";
@@ -20,7 +19,6 @@ const BUILDER_SECTION_IDS: BuilderSectionId[] = [
   "logistics",
   "mentors",
   "submit",
-  "tracks",
   "premios",
   "credits",
   "faq",
@@ -32,14 +30,15 @@ export function isBuilderSectionId(id: string): id is BuilderSectionId {
 
 export function resolveBuilderSectionFromHash(hash: string): BuilderSectionId {
   const id = hash.startsWith("#") ? hash.slice(1) : hash;
-  if (id === "judges") {
+  const baseId = id.split("/")[0] ?? id;
+  if (baseId === "judges" || baseId === "tracks") {
     return BUILDER_DEFAULT_SECTION;
   }
-  if (id && isBuilderSectionId(id)) {
-    if (id === "team" && !BUILDER_TEAM_SECTION_ENABLED) {
+  if (baseId && isBuilderSectionId(baseId)) {
+    if (baseId === "team" && !BUILDER_TEAM_SECTION_ENABLED) {
       return BUILDER_DEFAULT_SECTION;
     }
-    return id;
+    return baseId;
   }
   return BUILDER_DEFAULT_SECTION;
 }
@@ -52,7 +51,6 @@ export const BUILDER_NAV_SECTIONS: { id: BuilderSectionId; labelKey: Translation
   { id: "logistics", labelKey: "builder.nav.logistics" },
   { id: "mentors", labelKey: "builder.nav.mentors" },
   { id: "submit", labelKey: "builder.nav.submit" },
-  { id: "tracks", labelKey: "builder.nav.tracks" },
   { id: "premios", labelKey: "builder.nav.premios" },
   { id: "credits", labelKey: "builder.nav.credits" },
   { id: "faq", labelKey: "builder.nav.faq" },

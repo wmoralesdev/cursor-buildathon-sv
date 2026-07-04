@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { buildBoothSlotStarts, BOOTH_SLOT_DURATION_MS } from "../../lib/hub-booth-schedule";
 import { HubButton, HubCard, HubField, HubInput, HubTextarea } from "../hub/hub-ui-primitives";
+import { AdminCheckpointFeed } from "./admin-checkpoint-feed";
 
 export function AdminLogisticsPanel() {
   const teams = useQuery(api.hub.adminLogistics.listTeamsOverview, {});
   const reservations = useQuery(api.hub.booths.listAllReservations, {});
   const roles = useQuery(api.hub.adminLogistics.listRoleAssignments, {});
   const mentors = useQuery(api.hub.mentors.listMentors, {});
+  const perkInventory = useQuery(api.hub.perks.getInventoryStats, {});
+  const eligibleEmails = useQuery(api.hub.perks.getEligibleEmailStats, {});
+  const eventEligibleEmails = useQuery(api.hub.eventAccess.getEventEligibleEmailStats, {});
   const configureBooths = useMutation(api.hub.booths.configureBooths);
   const postAnnouncement = useMutation(api.hub.adminLogistics.postAnnouncement);
   const upsertRole = useMutation(api.hub.adminLogistics.upsertRoleAssignment);
@@ -17,7 +22,7 @@ export function AdminLogisticsPanel() {
   const [boothJson, setBoothJson] = useState(
     '[{"name":"Booth A","location":"Main floor","sortOrder":0},{"name":"Booth B","location":"Side hall","sortOrder":1}]',
   );
-  const [slotStarts, setSlotStarts] = useState("1740000000000,1740001800000,1740003600000");
+  const boothSlotCount = buildBoothSlotStarts().length;
   const [announcement, setAnnouncement] = useState("");
   const [roleEmail, setRoleEmail] = useState("");
   const [role, setRole] = useState<"logistics" | "mentor" | "jury">("logistics");
@@ -56,25 +61,129 @@ export function AdminLogisticsPanel() {
         </div>
       </HubCard>
 
+      <AdminCheckpointFeed />
+
       <HubCard title="Configure booths">
+        <p className="mb-4 font-display text-[0.875rem] text-fg-2">
+          Slots auto-generate every 30 minutes from event start (Jul 4, 8:00 AM) through Sunday
+          6:00 AM — {boothSlotCount} slots per booth.
+        </p>
         <HubField label="Booths JSON">
           <HubTextarea value={boothJson} onChange={(e) => setBoothJson(e.target.value)} />
-        </HubField>
-        <HubField label="Slot start timestamps (comma-separated ms)">
-          <HubInput value={slotStarts} onChange={(e) => setSlotStarts(e.target.value)} />
         </HubField>
         <HubButton
           onClick={() =>
             configureBooths({
               booths: JSON.parse(boothJson) as Array<{ name: string; location: string; sortOrder: number }>,
-              slotStartsAt: slotStarts.split(",").map((v) => Number(v.trim())).filter(Boolean),
-              slotDurationMs: 30 * 60 * 1000,
+              slotDurationMs: BOOTH_SLOT_DURATION_MS,
               replaceExisting: true,
             })
           }
         >
           Save booth grid
         </HubButton>
+      </HubCard>
+
+      <HubCard title="Event registration allowlist">
+        <p className="mb-4 font-display text-[0.875rem] text-fg-2">
+          Only emails on this list can sign in to the builder hub (all Luma registrants). Seed from{" "}
+          <code className="font-mono text-[0.8rem]">seed/luma.csv</code> with{" "}
+          <code className="font-mono text-[0.8rem]">pnpm seed:luma</code> (dev) or{" "}
+          <code className="font-mono text-[0.8rem]">pnpm seed:luma:prod</code> (production).
+        </p>
+        <p className="mb-4 font-display text-[0.925rem] text-fg">
+          {(eventEligibleEmails?.total ?? 0).toLocaleString()} registered emails
+        </p>
+        {(eventEligibleEmails?.batches ?? []).length > 0 ? (
+          <ul className="space-y-1 text-sm text-fg-3">
+            {eventEligibleEmails!.batches.map((batch) => (
+              <li key={batch.batchId}>
+                {batch.batchId}: {batch.count}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-fg-3">No registration allowlist seeded yet.</p>
+        )}
+      </HubCard>
+
+      <HubCard title="Standard-ticket allowlist">
+        <p className="mb-4 font-display text-[0.875rem] text-fg-2">
+          Only emails on this list receive builder credits (Luma Standard ticket). Seeded together
+          with event access via <code className="font-mono text-[0.8rem]">pnpm seed:luma</code> or{" "}
+          <code className="font-mono text-[0.8rem]">pnpm seed:luma:prod</code>. Seed perk inventory
+          separately with{" "}
+          <code className="font-mono text-[0.8rem]">
+            npx convex run hub/perks:seedPerkInventory
+          </code>
+          .
+        </p>
+        <p className="mb-4 font-display text-[0.925rem] text-fg">
+          {(eligibleEmails?.total ?? 0).toLocaleString()} eligible emails
+        </p>
+        {(eligibleEmails?.batches ?? []).length > 0 ? (
+          <ul className="space-y-1 text-sm text-fg-3">
+            {eligibleEmails!.batches.map((batch) => (
+              <li key={batch.batchId}>
+                {batch.batchId}: {batch.count}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-fg-3">No allowlist seeded yet.</p>
+        )}
+      </HubCard>
+
+      <HubCard title="Perk inventory">
+        <p className="mb-4 font-display text-[0.875rem] text-fg-2">
+          Unique codes and links for auto-assignment on sign-in. Seed Cursor links (
+          <code className="font-mono text-[0.8rem]">pnpm seed:cursor</code>), Devin codes (
+          <code className="font-mono text-[0.8rem]">pnpm seed:devin</code>), Codex credits (
+          <code className="font-mono text-[0.8rem]">pnpm seed:codex</code>) and OpenAI API codes (
+          <code className="font-mono text-[0.8rem]">pnpm seed:codex-api</code>) from{" "}
+          <code className="font-mono text-[0.8rem]">seed/*.csv</code> — add{" "}
+          <code className="font-mono text-[0.8rem]">:prod</code> for production. Other sponsors
+          still use{" "}
+          <code className="font-mono text-[0.8rem]">
+            npx convex run hub/perks:seedPerkInventory
+          </code>
+          .
+        </p>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-border-faint text-fg-3">
+                <th className="py-2 pr-4">Sponsor</th>
+                <th className="py-2 pr-4">Kind</th>
+                <th className="py-2 pr-4">Variant</th>
+                <th className="py-2 pr-4">Available</th>
+                <th className="py-2">Assigned</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(perkInventory ?? []).length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="py-3 text-fg-3">
+                    No inventory seeded yet.
+                  </td>
+                </tr>
+              ) : (
+                (perkInventory ?? []).map((row) => (
+                  <tr
+                    key={`${row.sponsorId}-${row.kind}-${row.variant}`}
+                    className="border-b border-border-faint/60"
+                  >
+                    <td className="py-2 pr-4">{row.sponsorId}</td>
+                    <td className="py-2 pr-4">{row.kind}</td>
+                    <td className="py-2 pr-4">{row.variant}</td>
+                    <td className="py-2 pr-4 tabular-nums">{row.available}</td>
+                    <td className="py-2 tabular-nums">{row.assigned}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </HubCard>
 
       <HubCard title="Reservations">

@@ -5,10 +5,6 @@ import { CountdownTimer } from "../countdown-timer";
 import { EVENT_VENUE_FULL, SUBMISSION_DEADLINE_ISO } from "../../constants";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
-import {
-  builderSectionSurfaceClass,
-  type BuilderSectionLayout,
-} from "../../lib/builder-section-layout";
 
 const SCHEDULE_ITEMS: {
   timeKey: TranslationKey;
@@ -32,7 +28,7 @@ const SCHEDULE_ITEMS: {
   },
 ];
 
-export function BuilderLogisticsSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
+export function BuilderLogisticsSection() {
   const { t } = useTranslation();
 
   return (

@@ -13,6 +13,7 @@ const RAIL_LOGO_CLASS: Record<HeroPartnerId, string> = {
   zavu: "h-5.5 w-auto max-w-28 object-contain object-left",
   n8n: "h-7 w-auto max-w-32 object-contain object-left",
   codex: "h-9 w-auto max-w-36 object-contain object-left",
+  cursor: "h-6 w-auto max-w-36 object-contain object-left",
   cognition: "h-6 w-auto max-w-36 object-contain object-left",
   yonjob: "h-8 w-auto max-w-36 object-contain object-left",
   nubiwork: "h-11 w-auto max-w-48 object-contain object-left",

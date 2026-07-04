@@ -1,6 +1,7 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubRole } from "../lib/hub-auth";
+import { requireHubRole } from "../lib/hub_auth";
+import { toHubMentorPublic } from "../lib/hub_projections";
 
 const mentorValidator = v.object({
   _id: v.id("hub_mentors"),
@@ -24,7 +25,8 @@ export const listMentors = query({
     return mentors
       .filter((mentor) => mentor.active)
       .filter((mentor) => (args.remoteOnly ? mentor.remote : true))
-      .sort((a, b) => a.sortOrder - b.sortOrder);
+      .sort((a, b) => a.sortOrder - b.sortOrder)
+      .map(toHubMentorPublic);
   },
 });
 

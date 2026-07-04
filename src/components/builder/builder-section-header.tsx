@@ -8,6 +8,7 @@ interface BuilderSectionHeaderProps {
   title1Key: TranslationKey;
   title2Key: TranslationKey;
   asideKey: TranslationKey;
+  asideReplacements?: Record<string, string>;
 }
 
 export function BuilderSectionHeader({
@@ -16,8 +17,16 @@ export function BuilderSectionHeader({
   title1Key,
   title2Key,
   asideKey,
+  asideReplacements,
 }: BuilderSectionHeaderProps) {
   const { t } = useTranslation();
+
+  let aside = t(asideKey);
+  if (asideReplacements) {
+    for (const [key, value] of Object.entries(asideReplacements)) {
+      aside = aside.replace(`{${key}}`, value);
+    }
+  }
 
   return (
     <header className="reveal mb-12 grid gap-6 md:grid-cols-12 md:items-end">
@@ -32,7 +41,7 @@ export function BuilderSectionHeader({
         </AnchorHeading>
       </div>
       <p className="md:col-span-5 font-display text-lg text-fg-3 leading-[1.7] max-w-[40ch] md:text-right md:ml-auto">
-        {t(asideKey)}
+        {aside}
       </p>
     </header>
   );

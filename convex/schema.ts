@@ -3,7 +3,15 @@ import { v } from "convex/values";
 import { sponsorTrackValidator } from "./lib/sponsorTracks";
 import { competitionTrackValidator } from "./lib/competitionTracks";
 import { hubRoleValidator } from "./lib/hubRoles";
+import { hubCheckpointSnapshotValidator } from "./lib/hub_checkpoint_snapshot";
 import { hubSponsorIdValidator } from "./lib/hubSponsorIds";
+import { hubProjectEventKindValidator } from "./lib/hub_project_events";
+import {
+  perkKindValidator,
+  perkInventoryStatusValidator,
+  perkSponsorIdValidator,
+  perkVariantValidator,
+} from "./lib/hub_perk_delivery";
 
 const memberValidator = v.object({
   name: v.string(),
@@ -168,6 +176,7 @@ export default defineSchema({
     note: v.string(),
     submittedAt: v.number(),
     submittedBy: v.id("hub_users"),
+    snapshot: v.optional(hubCheckpointSnapshotValidator),
   })
     .index("by_team", ["teamId"])
     .index("by_team_and_checkpoint", ["teamId", "checkpointId"]),
@@ -182,6 +191,22 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.optional(v.number()),
   }).index("by_team", ["teamId"]),
+
+  hub_project_events: defineTable({
+    teamId: v.id("hub_teams"),
+    actorId: v.id("hub_users"),
+    kind: hubProjectEventKindValidator,
+    meta: v.optional(
+      v.object({
+        from: v.optional(v.string()),
+        to: v.optional(v.string()),
+        sponsorId: v.optional(hubSponsorIdValidator),
+      }),
+    ),
+    createdAt: v.number(),
+  })
+    .index("by_team", ["teamId"])
+    .index("by_team_created", ["teamId", "createdAt"]),
 
   hub_deliverables: defineTable({
     teamId: v.id("hub_teams"),
@@ -265,4 +290,37 @@ export default defineSchema({
   })
     .index("by_team", ["teamId"])
     .index("by_jury_and_team", ["juryUserId", "teamId"]),
+
+  hub_perk_inventory: defineTable({
+    sponsorId: perkSponsorIdValidator,
+    kind: perkKindValidator,
+    variant: perkVariantValidator,
+    secret: v.string(),
+    status: perkInventoryStatusValidator,
+    assignedToUserId: v.optional(v.id("hub_users")),
+    assignedAt: v.optional(v.number()),
+    batchId: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_sponsor_kind_variant_status", [
+      "sponsorId",
+      "kind",
+      "variant",
+      "status",
+    ])
+    .index("by_assigned_user", ["assignedToUserId"]),
+
+  /** Standard-ticket builders from Luma — only these emails receive perks. */
+  hub_perk_eligible_emails: defineTable({
+    email: v.string(),
+    batchId: v.optional(v.string()),
+    createdAt: v.number(),
+  }).index("by_email", ["email"]),
+
+  /** Luma registrants — only these emails can sign in to the builder hub. */
+  hub_event_eligible_emails: defineTable({
+    email: v.string(),
+    batchId: v.optional(v.string()),
+    createdAt: v.number(),
+  }).index("by_email", ["email"]),
 });

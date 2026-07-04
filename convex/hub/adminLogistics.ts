@@ -1,7 +1,24 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubRole } from "../lib/hub-auth";
+import { HUB_CHECKPOINTS } from "../lib/hub_checkpoints";
+import { hubCheckpointSnapshotValidator } from "../lib/hub_checkpoint_snapshot";
+import { requireHubRole } from "../lib/hub_auth";
 import { hubRoleValidator } from "../lib/hubRoles";
+
+const checkpointFeedWindowValidator = v.object({
+  checkpointId: v.string(),
+  label: v.string(),
+  submitted: v.boolean(),
+  submittedAt: v.optional(v.number()),
+  note: v.optional(v.string()),
+  snapshot: v.optional(hubCheckpointSnapshotValidator),
+});
+
+const checkpointFeedTeamValidator = v.object({
+  teamId: v.id("hub_teams"),
+  name: v.string(),
+  windows: v.array(checkpointFeedWindowValidator),
+});
 
 export const listRoleAssignments = query({
   args: {},
@@ -14,7 +31,12 @@ export const listRoleAssignments = query({
   ),
   handler: async (ctx) => {
     await requireHubRole(ctx, "logistics");
-    return await ctx.db.query("hub_role_assignments").collect();
+    const rows = await ctx.db.query("hub_role_assignments").collect();
+    return rows.map((row) => ({
+      _id: row._id,
+      email: row.email,
+      role: row.role,
+    }));
   },
 });
 
@@ -100,6 +122,40 @@ export const listTeamsOverview = query({
           hasProject: Boolean(project),
           socialPostCount: posts.length,
           submitted: Boolean(deliverables?.submittedAt),
+        };
+      }),
+    );
+  },
+});
+
+export const listCheckpointFeed = query({
+  args: {},
+  returns: v.array(checkpointFeedTeamValidator),
+  handler: async (ctx) => {
+    await requireHubRole(ctx, "logistics");
+    const teams = await ctx.db.query("hub_teams").collect();
+
+    return await Promise.all(
+      teams.map(async (team) => {
+        const checkpointRows = await ctx.db
+          .query("hub_checkpoints")
+          .withIndex("by_team", (q) => q.eq("teamId", team._id))
+          .collect();
+
+        return {
+          teamId: team._id,
+          name: team.name,
+          windows: HUB_CHECKPOINTS.map((checkpoint) => {
+            const row = checkpointRows.find((entry) => entry.checkpointId === checkpoint.id);
+            return {
+              checkpointId: checkpoint.id,
+              label: checkpoint.label,
+              submitted: Boolean(row),
+              submittedAt: row?.submittedAt,
+              note: row?.note,
+              snapshot: row?.snapshot,
+            };
+          }),
         };
       }),
     );

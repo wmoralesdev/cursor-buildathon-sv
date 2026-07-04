@@ -40,7 +40,7 @@ function initialsFromName(name: string): string {
   return `${parts[0]![0] ?? ""}${parts[parts.length - 1]![0] ?? ""}`.toUpperCase();
 }
 
-export function BuilderMentorsSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
+export function BuilderMentorsSection() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<MentorPresenceTab>("irl");
 

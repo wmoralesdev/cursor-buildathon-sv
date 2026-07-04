@@ -1,13 +1,15 @@
 import { SignInButton, useAuth } from "@clerk/react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "../context/language-context";
 import { useHubUser } from "../hooks/use-hub-user";
-import { isClerkConfigured } from "../lib/convex-clerk-provider";
+import { isClerkConfigured } from "../lib/clerk-config";
 import { AdminJuryPanel } from "../components/admin/admin-jury-panel";
 import { AdminLogisticsPanel } from "../components/admin/admin-logistics-panel";
 import { AdminMentorPanel } from "../components/admin/admin-mentor-panel";
 import { HubButton, HubCard } from "../components/hub/hub-ui-primitives";
 
 export function AdminPage() {
+  const { t } = useTranslation();
   const { isSignedIn } = useAuth();
   const { role, isLoading } = useHubUser();
   const activeRole = role?.role ?? null;
@@ -42,7 +44,7 @@ export function AdminPage() {
         {!isSignedIn ? (
           <HubCard title="Sign in required">
             <SignInButton mode="modal">
-              <HubButton>Sign in with Google</HubButton>
+              <HubButton>{t("hub.signInCta")}</HubButton>
             </SignInButton>
           </HubCard>
         ) : isLoading ? (

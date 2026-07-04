@@ -3,14 +3,15 @@ import { useAuth } from "@clerk/react";
 
 import { BUILDER_TEAM_SECTION_ENABLED } from "../constants";
 import { useBuilderActiveSection } from "../hooks/use-builder-active-section";
+import { useHubUser } from "../hooks/use-hub-user";
 import type { BuilderSectionId } from "../lib/builder-sections";
-import { isClerkConfigured } from "../lib/convex-clerk-provider";
+import { isClerkConfigured } from "../lib/clerk-config";
 import { BuilderAnnouncementBanner } from "../components/builder/builder-announcement-banner";
+import { BuilderEventAccessGate } from "../components/builder/builder-event-access-gate";
 import { BuilderHeroHeader, BuilderTabNav } from "../components/builder/builder-page-hero";
 import { BuilderLogisticsSection } from "../components/builder/builder-logistics-section";
 import { BuilderSubmitSection } from "../components/builder/builder-submit-section";
 import { BuilderTabPanel } from "../components/builder/builder-tab-panel";
-import { BuilderTracksSection } from "../components/builder/builder-tracks-section";
 import { HubDashboard } from "../components/hub/hub-dashboard";
 
 const BuilderMentorsSection = lazy(() =>
@@ -147,14 +148,6 @@ function BuilderAuthedPage() {
           </BuilderTabPanel>
 
           <BuilderTabPanel
-            sectionId="tracks"
-            activeSection={activeSection}
-            visited={hasVisited("tracks")}
-          >
-            <BuilderTracksSection />
-          </BuilderTabPanel>
-
-          <BuilderTabPanel
             sectionId="premios"
             activeSection={activeSection}
             visited={hasVisited("premios")}
@@ -193,10 +186,19 @@ function BuilderAuthedPage() {
  */
 export function BuilderPage() {
   const { isSignedIn, isLoaded } = useAuth();
+  const { eventAccess, isEventAccessLoading } = useHubUser();
   const showAuthedHub = isClerkConfigured && isLoaded && isSignedIn;
 
   if (!showAuthedHub) {
     return <BuilderGuestPage />;
+  }
+
+  if (isEventAccessLoading) {
+    return <BuilderGuestPage />;
+  }
+
+  if (eventAccess && !eventAccess.eligible) {
+    return <BuilderEventAccessGate email={eventAccess.email} />;
   }
 
   return <BuilderAuthedPage />;

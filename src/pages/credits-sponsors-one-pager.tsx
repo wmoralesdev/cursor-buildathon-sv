@@ -15,10 +15,11 @@ import { useTranslation } from "../context/language-context";
 import { AILABS_URL } from "../constants";
 import type { TranslationKey } from "../i18n/translations";
 import {
+  BUILDER_PERK_TOTAL,
   CREDIT_PARTNERS,
   CREDIT_EVENT_TOTAL,
-  CREDIT_PER_BUILDER_TOTAL,
   CREDIT_PER_TEAM_TOTAL,
+  formatCreditPartnerValue,
   type CreditPartner,
   type CreditPartnerId,
 } from "../lib/credits-sponsor-sections";
@@ -140,7 +141,7 @@ function CreditPartnerRow({
   newTag: string;
   newTagAria: string;
 }) {
-  const valueDisplay = `$${partner.value}`;
+  const valueDisplay = formatCreditPartnerValue(partner);
   return (
     <div className="one-pager-credit-row flex min-w-0 items-center gap-2.5">
       <span className="flex min-w-0 flex-1 items-center gap-2">
@@ -209,7 +210,7 @@ function renderCreditsSponsorsSheet(tc: (suffix: string) => string): ReactElemen
       >
         <div className="border-r border-white/25 px-3.5 py-2.5">
           <p className="font-display text-[1.75rem] font-bold leading-none tracking-tight">
-            ${CREDIT_PER_BUILDER_TOTAL}
+            ${BUILDER_PERK_TOTAL}
           </p>
           <p className="mt-1 font-mono text-[0.46rem] font-bold uppercase tracking-[0.12em] text-white/85">
             {tc("totalLabel")}

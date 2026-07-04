@@ -39,3 +39,4 @@ scripts/mcp-*.json
 
 # Local agent skills / scratch
 .agents
+seed/

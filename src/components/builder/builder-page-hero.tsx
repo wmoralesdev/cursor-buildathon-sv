@@ -2,7 +2,7 @@ import { SignInButton } from "@clerk/react";
 
 import { BUILDER_COUNTDOWN_ISO } from "../../constants";
 import { BUILDER_NAV_SECTIONS, type BuilderSectionId } from "../../lib/builder-sections";
-import { isClerkConfigured } from "../../lib/convex-clerk-provider";
+import { isClerkConfigured } from "../../lib/clerk-config";
 import { useTranslation } from "../../context/language-context";
 import { CountdownTimer } from "../countdown-timer";
 

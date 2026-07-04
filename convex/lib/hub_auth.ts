@@ -1,8 +1,32 @@
 import type { MutationCtx, QueryCtx } from "../_generated/server";
 import type { Doc } from "../_generated/dataModel";
 import type { HubRole } from "./hubRoles";
+import { getEventEligibilityForEmail } from "./hub_event_eligibility";
 
 export type HubUser = Doc<"hub_users">;
+
+export class EventAccessDeniedError extends Error {
+  constructor() {
+    super("This email is not on the event whitelist");
+    this.name = "EventAccessDeniedError";
+  }
+}
+
+async function assertEventAccess(
+  ctx: QueryCtx | MutationCtx,
+  user: HubUser,
+): Promise<void> {
+  if (user.role) {
+    return;
+  }
+
+  const { eligible } = await getEventEligibilityForEmail(ctx, user.email);
+  if (eligible) {
+    return;
+  }
+
+  throw new EventAccessDeniedError();
+}
 
 export async function getHubUserByClerkId(
   ctx: QueryCtx | MutationCtx,
@@ -24,6 +48,8 @@ export async function requireHubUser(ctx: QueryCtx | MutationCtx): Promise<HubUs
   if (!user) {
     throw new Error("Hub user not found — sign in again");
   }
+
+  await assertEventAccess(ctx, user);
 
   return user;
 }

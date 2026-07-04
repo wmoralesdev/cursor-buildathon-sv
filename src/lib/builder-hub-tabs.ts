@@ -9,7 +9,6 @@ export type BuilderHubSectionId =
   | "mentors"
   | "submit"
   | "credits"
-  | "tracks"
   | "judges"
   | "premios"
   | "faq"
@@ -41,7 +40,6 @@ const BUILD_SECTIONS: BuilderHubTabSection[] = [
 ];
 
 const COMPETE_SECTIONS: BuilderHubTabSection[] = [
-  { id: "tracks", labelKey: "builder.nav.tracks" },
   { id: "judges", labelKey: "builder.nav.judges" },
   { id: "premios", labelKey: "builder.nav.premios" },
 ];

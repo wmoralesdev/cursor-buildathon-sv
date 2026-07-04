@@ -2,8 +2,9 @@ import type { Id } from "../_generated/dataModel";
 import type { MutationCtx, QueryCtx } from "../_generated/server";
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { generateInviteCode, requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import { generateInviteCode, requireHubUser, requireTeamMembership } from "../lib/hub_auth";
 import { competitionTrackValidator } from "../lib/competitionTracks";
+import { toHubTeamPublic } from "../lib/hub_projections";
 
 const memberValidator = v.object({
   userId: v.id("hub_users"),
@@ -50,7 +51,7 @@ async function buildTeamWithMembers(
     }),
   );
 
-  return { ...team, members };
+  return toHubTeamPublic(team, members);
 }
 
 export const createTeam = mutation({

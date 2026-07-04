@@ -6,10 +6,6 @@ import { BUILDER_TEAM_SECTION_ENABLED } from "../../constants";
 import { isConvexConfigured } from "../../lib/convex-client";
 import { useTranslation } from "../../context/language-context";
 import type { TranslationKey } from "../../i18n/translations";
-import {
-  builderSectionSurfaceClass,
-  type BuilderSectionLayout,
-} from "../../lib/builder-section-layout";
 
 const ELIGIBILITY_KEYS: TranslationKey[] = [
   "builder.submit.eligibility.i0",
@@ -36,7 +32,7 @@ const CHECKLIST_KEYS: TranslationKey[] = [
   "builder.submit.checklist.i4",
 ];
 
-export function BuilderSubmitSection({ layout = "page" }: { layout?: BuilderSectionLayout }) {
+export function BuilderSubmitSection() {
   const { t } = useTranslation();
 
   return (

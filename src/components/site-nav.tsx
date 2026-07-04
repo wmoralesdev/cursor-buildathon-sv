@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { SignInButton, UserButton, useAuth } from "@clerk/react";
 
 import { CursorLockup } from "./sponsor-logos";
-import { isClerkConfigured } from "../lib/convex-clerk-provider";
+import { isClerkConfigured } from "../lib/clerk-config";
 import { useTranslation } from "../context/language-context";
 
 const loginButtonClassName =

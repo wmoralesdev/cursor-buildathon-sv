@@ -347,6 +347,37 @@ export const translations = {
   "admin.track.ai_consumer": { en: "AI Consumer", es: "AI Consumer" },
   "admin.track.fintech_web3": { en: "Fintech & Web3", es: "Fintech & Web3" },
 
+  "admin.checkpointFeed.title": { en: "Checkpoint feed", es: "Feed de checkpoints" },
+  "admin.checkpointFeed.subtitle": {
+    en: "Review team check-ins across event windows. Missing windows may indicate late code dumps or inactive teams.",
+    es: "Revisa los check-ins de equipos en cada ventana del evento. Ventanas faltantes pueden indicar subidas tardías o equipos inactivos.",
+  },
+  "admin.checkpointFeed.team": { en: "Team", es: "Equipo" },
+  "admin.checkpointFeed.checkedIn": { en: "Checked in", es: "Registrado" },
+  "admin.checkpointFeed.missing": { en: "Missing", es: "Faltante" },
+  "admin.checkpointFeed.noTeams": { en: "No teams registered yet.", es: "Aún no hay equipos registrados." },
+  "admin.checkpointFeed.selectTeam": {
+    en: "Select a team to review checkpoint notes and project snapshots.",
+    es: "Selecciona un equipo para revisar notas de checkpoint y snapshots del proyecto.",
+  },
+  "admin.checkpointFeed.note": { en: "Status note", es: "Nota de estado" },
+  "admin.checkpointFeed.noNote": { en: "No note submitted.", es: "Sin nota enviada." },
+  "admin.checkpointFeed.snapshot": { en: "Project snapshot", es: "Snapshot del proyecto" },
+  "admin.checkpointFeed.projectName": { en: "Project", es: "Proyecto" },
+  "admin.checkpointFeed.repo": { en: "Repo", es: "Repo" },
+  "admin.checkpointFeed.demo": { en: "Demo", es: "Demo" },
+  "admin.checkpointFeed.sponsors": { en: "Sponsors used", es: "Sponsors usados" },
+  "admin.checkpointFeed.socialPosts": { en: "Social posts", es: "Publicaciones sociales" },
+  "admin.checkpointFeed.deliverablesSubmitted": { en: "Final submitted", es: "Entrega final" },
+  "admin.checkpointFeed.yes": { en: "Yes", es: "Sí" },
+  "admin.checkpointFeed.no": { en: "No", es: "No" },
+  "admin.checkpointFeed.none": { en: "None", es: "Ninguno" },
+  "admin.checkpointFeed.noSnapshot": {
+    en: "No snapshot captured (check-in predates snapshots).",
+    es: "Sin snapshot capturado (check-in anterior a snapshots).",
+  },
+  "admin.checkpointFeed.submittedAt": { en: "Submitted {time}", es: "Enviado {time}" },
+
   "admin.ac.c1.name": { en: "Problem & Impact", es: "Problema e impacto" },
   "admin.ac.c1.question": { en: "Is there a real problem? Does the solution create meaningful impact?", es: "¿Hay un problema real? ¿La solución genera impacto significativo?" },
   "admin.ac.c1.anchor1": { en: "No clear problem or trivial impact", es: "Sin problema claro o impacto trivial" },
@@ -1214,13 +1245,19 @@ export const translations = {
     es: "Los créditos por miembro se multiplican por el tamaño del equipo; el efectivo es por equipo.",
   },
   "onePager.prizes.perk.cursor": { en: "1 month of Pro+", es: "1 mes de Pro+" },
-  "onePager.prizes.perk.codex": { en: "1 mo GPT Plus + $50 API", es: "1 mes GPT Plus + $50 API" },
+  "onePager.prizes.perk.codex": {
+    en: "$100 Codex credits + $50 OpenAI API credits",
+    es: "$100 créditos Codex + $50 créditos API OpenAI",
+  },
   "onePager.prizes.perk.elevenlabs": { en: "1 month of Creator", es: "1 mes de Creator" },
   "onePager.prizes.perk.n8n": { en: "1 month of Pro", es: "1 mes de Pro" },
   "onePager.prizes.perk.zavu": { en: "3 months of Hobby", es: "3 meses de Hobby" },
   "onePager.prizes.perk.firecrawl": { en: "10K credits", es: "10K créditos" },
   "onePager.prizes.perk.datamcp": { en: "2 months of Pro", es: "2 meses de Pro" },
   "onePager.prizes.perk.devin": { en: "API credits", es: "Créditos API" },
+  "onePager.prizes.perk.exa": { en: "$50 search credits", es: "$50 en créditos de búsqueda" },
+  "onePager.prizes.perk.wispr": { en: "Wispr Flow Pro trial", es: "Trial Wispr Flow Pro" },
+  "onePager.prizes.perk.fal": { en: "$100 team credits", es: "$100 créditos por equipo" },
   "onePager.prizes.track.codex.title": {
     en: "Best use of Codex · Top 3 teams",
     es: "Mejor uso de Codex · Top 3 equipos",
@@ -2053,7 +2090,7 @@ export const translations = {
     en: "Mentors, submission, tracks, and prizes — all in one place.",
     es: "Mentores, envío, tracks y premios — todo en un solo lugar.",
   },
-  "builder.hero.ctaLogin": { en: "Sign in", es: "Iniciar sesión" },
+  "builder.hero.ctaLogin": { en: "Continue", es: "Continuar" },
   "builder.hero.ctaSubmit": { en: "Submit your project", es: "Envía tu proyecto" },
   "builder.hero.countdownLabel": { en: "// Build window opens", es: "// Abre la ventana de build" },
   "builder.hero.countdownWhen": {
@@ -2233,13 +2270,22 @@ export const translations = {
   "builder.credits.title1": { en: "How to redeem", es: "Cómo canjear" },
   "builder.credits.title2": { en: "your perks", es: "tus perks" },
   "builder.credits.aside": {
-    en: "Every builder gets ~$385 in credits on day one. Follow the steps below at check-in or anytime during the event.",
-    es: "Cada builder recibe ~$385 en créditos desde el día uno. Sigue los pasos abajo al registrarte o en cualquier momento del evento.",
+    en: "Every builder gets ~{amount} in credits on day one. Follow the steps below at check-in or anytime during the event.",
+    es: "Cada builder recibe ~{amount} en créditos desde el día uno. Sigue los pasos abajo al registrarte o en cualquier momento del evento.",
   },
   "builder.credits.intro": {
     en: "Your builder pack includes a card or sheet with sponsor-specific codes and links. Redeem with the same email you used on Luma.",
     es: "Tu pack de builder incluye una tarjeta o hoja con códigos y enlaces por sponsor. Canjea con el mismo correo que usaste en Luma.",
   },
+  "builder.credits.introSignedIn": {
+    en: "Your personal codes and links appear below. Unique perks are assigned when you sign in — use the same email as your Luma registration when redeeming.",
+    es: "Tus códigos y enlaces personales aparecen abajo. Los perks únicos se asignan al iniciar sesión — usa el mismo correo de tu registro en Luma al canjear.",
+  },
+  "builder.credits.introGuest": {
+    en: "Enter your Luma email and verification code to reveal personal codes and redemption links. Shared promo codes appear instantly; unique links are assigned per builder.",
+    es: "Ingresa tu correo de Luma y el código de verificación para ver tus códigos y enlaces personales. Los códigos promo compartidos aparecen al instante; los enlaces únicos se asignan por builder.",
+  },
+  "builder.credits.signInCta": { en: "Continue to view perks", es: "Continuar para ver perks" },
   "builder.credits.general.i0.title": { en: "Check in", es: "Regístrate" },
   "builder.credits.general.i0.body": {
     en: "Pick up your builder pack at registration when doors open — it lists every perk and code.",
@@ -2256,8 +2302,115 @@ export const translations = {
     es: "Visita el desk de sponsors en sede o avisa al staff — te guiamos si algún canje se traba.",
   },
   "builder.credits.footer": {
-    en: "Codes are single-use and tied to your registration email. Podium and track prizes are distributed after judging.",
-    es: "Los códigos son de un solo uso y van ligados a tu correo de registro. Premios de podio y tracks se entregan después del jurado.",
+    en: "Unique codes and links are single-use and tied to your account. Podium and track prizes are distributed after judging.",
+    es: "Los códigos y enlaces únicos son de un solo uso y van ligados a tu cuenta. Premios de podio y tracks se entregan después del jurado.",
+  },
+
+  "builder.perks.copy": { en: "Copy", es: "Copiar" },
+  "builder.perks.yourCode": { en: "Your code", es: "Tu código" },
+  "builder.perks.yourLink": { en: "Your link", es: "Tu enlace" },
+  "builder.perks.social.website": { en: "Website", es: "Sitio web" },
+  "builder.perks.social.linkedin": { en: "LinkedIn", es: "LinkedIn" },
+  "builder.perks.social.x": { en: "X", es: "X" },
+  "builder.perks.discordCta": { en: "Open Discord channel", es: "Abrir canal de Discord" },
+  "builder.perks.signInToReveal": {
+    en: "Continue with your Luma email to see your personal code or link.",
+    es: "Continúa con tu correo de Luma para ver tu código o enlace personal.",
+  },
+  "builder.perks.perTeamBadge": { en: "Per team", es: "Por equipo" },
+  "builder.perks.perTeamHint": {
+    en: "Join or create a team in the Hub to unlock this perk.",
+    es: "Únete o crea un equipo en el Hub para desbloquear este perk.",
+  },
+  "builder.perks.status.pending": {
+    en: "Code coming soon — check back during the event.",
+    es: "Código próximamente — vuelve durante el evento.",
+  },
+  "builder.perks.status.needsTeam": {
+    en: "Join a team to unlock this perk.",
+    es: "Únete a un equipo para desbloquear este perk.",
+  },
+  "builder.perks.status.unavailable": {
+    en: "Your unique perk is not assigned yet — ask logistics if this persists.",
+    es: "Tu perk único aún no está asignado — pregunta a logística si persiste.",
+  },
+  "builder.perks.status.locked": {
+    en: "Not included with your ticket type.",
+    es: "No incluido con tu tipo de entrada.",
+  },
+  "builder.perks.eligibility.listPending": {
+    en: "Builder credits unlock once your standard-ticket registration is verified. If you have a Standard pass, check back shortly after check-in.",
+    es: "Los créditos de builder se desbloquean cuando se verifique tu registro con entrada Standard. Si tienes pase Standard, vuelve pronto después del check-in.",
+  },
+  "builder.perks.eligibility.notEligible": {
+    en: "Builder credits are included with Standard tickets only. Your Luma registration does not include the ~{amount} perk pack.",
+    es: "Los créditos de builder van incluidos solo con entradas Standard. Tu registro en Luma no incluye el pack de perks (~{amount}).",
+  },
+  "builder.eventAccess.tag": { en: "// Access", es: "// Acceso" },
+  "builder.eventAccess.title": {
+    en: "Not on the whitelist",
+    es: "No estás en la whitelist",
+  },
+  "builder.eventAccess.notEligible": {
+    en: "This signed-in email is not on the event whitelist, so builder hub access is blocked.",
+    es: "Este correo con sesión iniciada no está en la whitelist del evento, así que el acceso al hub de builders está bloqueado.",
+  },
+  "builder.eventAccess.notEligibleHint": {
+    en: "Use the same email you registered with on Luma. First visit or return — same step. If you registered and still see this, contact the organizers.",
+    es: "Usa el mismo correo con el que te registraste en Luma. Primera visita o regreso — mismo paso. Si te registraste y sigues viendo esto, contacta a los organizadores.",
+  },
+  "builder.eventAccess.signedInAs": {
+    en: "Signed in as",
+    es: "Sesión iniciada como",
+  },
+  "builder.perks.variant.codex_link": { en: "$100 Codex credits", es: "$100 créditos Codex" },
+  "builder.perks.variant.codex_api": {
+    en: "$50 OpenAI API credits",
+    es: "$50 créditos API OpenAI",
+  },
+  "builder.perks.instructions.cursor": {
+    en: "Open your link, sign in with your event email, and confirm Pro+ is active under Settings → Billing.",
+    es: "Abre tu enlace, inicia sesión con tu correo del evento y confirma Pro+ activo en Settings → Billing.",
+  },
+  "builder.perks.instructions.cognition": {
+    en: "Sign in at devin.ai, apply your personal API credits code, and verify the balance in the dashboard.",
+    es: "Inicia sesión en devin.ai, aplica tu código personal de créditos API y verifica el saldo en el dashboard.",
+  },
+  "builder.perks.instructions.codex": {
+    en: "You receive two Codex perks: a $100 Codex credits link plus a separate OpenAI API code for platform models. Redeem both with your event email.",
+    es: "Recibes dos perks Codex: un enlace de $100 en créditos Codex más un código API OpenAI aparte para modelos en la plataforma. Canjea ambos con tu correo del evento.",
+  },
+  "builder.perks.instructions.wispr": {
+    en: "Open the referral link and sign up with your event email to activate Wispr Flow Pro.",
+    es: "Abre el enlace de referido y regístrate con tu correo del evento para activar Wispr Flow Pro.",
+  },
+  "builder.perks.instructions.exa": {
+    en: "Create an Exa account and apply the promo code at checkout or in billing.",
+    es: "Crea una cuenta Exa y aplica el código promo al pagar o en billing.",
+  },
+  "builder.perks.instructions.datamcp": {
+    en: "Sign up at DataMCP and enter the promo code in account settings.",
+    es: "Regístrate en DataMCP e ingresa el código promo en ajustes de cuenta.",
+  },
+  "builder.perks.instructions.n8n": {
+    en: "Sign in at n8n.io, upgrade to Pro (Monthly), then apply your voucher at checkout via Add discount.",
+    es: "Inicia sesión en n8n.io, actualiza a Pro (Mensual) y aplica tu voucher en el checkout con Add discount.",
+  },
+  "builder.perks.instructions.firecrawl": {
+    en: "Create a Firecrawl account, open Billing in the dashboard, and apply the promo code from your builder pack.",
+    es: "Crea una cuenta Firecrawl, abre Billing en el dashboard y aplica el código promo de tu pack de builder.",
+  },
+  "builder.perks.instructions.zavu": {
+    en: "Sign in at zavu.dev, open Upgrade in the sidebar, apply your promo code, and choose the Hobby plan (3 months; new customers only; expires Sunday 11:59 PM Chile, GMT-4).",
+    es: "Inicia sesión en zavu.dev, abre Upgrade en la barra lateral, aplica tu código promo y elige el plan Hobby (3 meses; solo clientes nuevos; vence el domingo 11:59 PM hora Chile, GMT-4).",
+  },
+  "builder.perks.instructions.fal": {
+    en: "One code per team — only one teammate should redeem FALXCURSOR50 at fal.ai once your team is ready. Do not redeem on multiple accounts.",
+    es: "Un código por equipo — solo un teammate debe canjear FALXCURSOR50 en fal.ai cuando el equipo esté listo. No lo canjeen en varias cuentas.",
+  },
+  "builder.perks.instructions.elevenlabs": {
+    en: "Join the ElevenLabs Discord server, open #coupon-codes, start redemption for \"Cursor Buildathon San Salvador\" with your registration email — the bot sends your unique Creator code instantly.",
+    es: "Únete al servidor Discord de ElevenLabs, abre #coupon-codes, inicia el canje para \"Cursor Buildathon San Salvador\" con tu correo de registro — el bot envía tu código Creator único al instante.",
   },
   "builder.credits.redeem.cursor.s0": {
     en: "Sign in at cursor.com with your registration email.",
@@ -2272,64 +2425,64 @@ export const translations = {
     es: "Confirma que el trial de 1 mes Pro+ aparece activo antes de empezar a construir.",
   },
   "builder.credits.redeem.codex.s0": {
-    en: "Open the Codex redemption link printed on your builder card.",
-    es: "Abre el enlace de canje Codex impreso en tu tarjeta de builder.",
+    en: "Open your $100 Codex credits link from the builder hub and sign in with your registration email.",
+    es: "Abre tu enlace de $100 en créditos Codex desde el builder hub e inicia sesión con tu correo de registro.",
   },
   "builder.credits.redeem.codex.s1": {
-    en: "Connect your OpenAI account — GPT Plus and the $50 API credit bundle apply automatically.",
-    es: "Conecta tu cuenta OpenAI — GPT Plus y el paquete de $50 API se aplican automáticamente.",
+    en: "Confirm the Codex credit balance, then apply your OpenAI API code at platform.openai.com.",
+    es: "Confirma el saldo de créditos Codex y luego aplica tu código API OpenAI en platform.openai.com.",
   },
   "builder.credits.redeem.codex.s2": {
-    en: "Verify API billing shows the credit balance in the Codex dashboard.",
-    es: "Verifica que el billing API muestre el saldo de crédito en el dashboard de Codex.",
+    en: "Verify both balances are active — Codex credits for Codex, API credits for OpenAI models — before you start building.",
+    es: "Verifica que ambos saldos estén activos — créditos Codex para Codex, créditos API para modelos OpenAI — antes de empezar a construir.",
   },
   "builder.credits.redeem.elevenlabs.s0": {
-    en: "Create or sign in to elevenlabs.io with your event email.",
-    es: "Crea o inicia sesión en elevenlabs.io con tu correo del evento.",
+    en: "Join the ElevenLabs Discord server (discord.com/invite/VnBvbbcdEC) using the button on your builder card.",
+    es: "Únete al servidor Discord de ElevenLabs (discord.com/invite/VnBvbbcdEC) con el botón de tu tarjeta de builder.",
   },
   "builder.credits.redeem.elevenlabs.s1": {
-    en: "Go to Subscription → Redeem code and paste the Creator plan code from your pack.",
-    es: "Ve a Subscription → Redeem code y pega el código del plan Creator de tu pack.",
+    en: "Open #coupon-codes, click Start Redemption, select event \"Cursor Buildathon San Salvador\", and submit your registration email.",
+    es: "Abre #coupon-codes, haz clic en Start Redemption, selecciona el evento \"Cursor Buildathon San Salvador\" y envía tu correo de registro.",
   },
   "builder.credits.redeem.elevenlabs.s2": {
-    en: "Confirm Creator tier is active — you'll need it for voice demos during the build.",
-    es: "Confirma que el tier Creator está activo — lo necesitarás para demos de voz durante el build.",
+    en: "Copy the unique coupon code from the bot, redeem it at elevenlabs.io → Subscription → Redeem code, and confirm Creator is active. Walkthrough: youtu.be/S143_JtCtV8",
+    es: "Copia el código de cupón único del bot, canjéalo en elevenlabs.io → Subscription → Redeem code y confirma que Creator está activo. Tutorial: youtu.be/S143_JtCtV8",
   },
   "builder.credits.redeem.n8n.s0": {
-    en: "Register at n8n.io (or sign in) using your registration email.",
-    es: "Regístrate en n8n.io (o inicia sesión) con tu correo de registro.",
+    en: "Create an account or sign in at n8n.io, then click Upgrade now on the dashboard.",
+    es: "Crea una cuenta o inicia sesión en n8n.io, luego haz clic en Upgrade now en el dashboard.",
   },
   "builder.credits.redeem.n8n.s1": {
-    en: "In Account Settings, apply the 1-month Pro promo code from your builder pack.",
-    es: "En Account Settings, aplica el código promo Pro de 1 mes de tu pack de builder.",
+    en: "Choose Pro with Monthly billing — the voucher only works for that plan and cycle.",
+    es: "Elige Pro con facturación Mensual — el voucher solo funciona para ese plan y ciclo.",
   },
   "builder.credits.redeem.n8n.s2": {
-    en: "Spin up a cloud instance to confirm Pro features are unlocked.",
-    es: "Levanta una instancia cloud para confirmar que las funciones Pro están desbloqueadas.",
+    en: "At checkout, click Add discount, paste your voucher code, Apply, then Continue.",
+    es: "En el checkout, haz clic en Add discount, pega tu código voucher, Apply y luego Continue.",
   },
   "builder.credits.redeem.zavu.s0": {
-    en: "Sign up at zavu.dev with the same email you used on Luma.",
-    es: "Regístrate en zavu.dev con el mismo correo que usaste en Luma.",
+    en: "Create an account or sign in at zavu.dev with your event email.",
+    es: "Crea una cuenta o inicia sesión en zavu.dev con tu correo del evento.",
   },
   "builder.credits.redeem.zavu.s1": {
-    en: "Enter the 3-month Hobby code from your pack during onboarding or in billing.",
-    es: "Ingresa el código Hobby de 3 meses de tu pack durante el onboarding o en billing.",
+    en: "In the sidebar, click Upgrade, then \"Do you have a promo code?\" and select the Hobby plan.",
+    es: "En la barra lateral, haz clic en Upgrade, luego en \"¿Tienes un código promocional?\" y selecciona el plan Hobby.",
   },
   "builder.credits.redeem.zavu.s2": {
-    en: "Confirm the Hobby workspace is active before wiring automations into your project.",
-    es: "Confirma que el workspace Hobby está activo antes de conectar automatizaciones a tu proyecto.",
+    en: "Enter your promo code at checkout. Covers 3 months on Hobby only; expires Sunday 11:59 PM Chile (GMT-4); first-time Zavu customers only.",
+    es: "Ingresa tu código promo en el checkout. Cubre 3 meses en Hobby únicamente; vence el domingo a las 11:59 PM hora de Chile (GMT-4); solo para clientes nuevos de Zavu.",
   },
   "builder.credits.redeem.firecrawl.s0": {
-    en: "Create a Firecrawl account at firecrawl.dev with your event email.",
-    es: "Crea una cuenta Firecrawl en firecrawl.dev con tu correo del evento.",
+    en: "Create an account or sign in at firecrawl.dev with your event email.",
+    es: "Crea una cuenta o inicia sesión en firecrawl.dev con tu correo del evento.",
   },
   "builder.credits.redeem.firecrawl.s1": {
-    en: "Paste the API key from your builder pack into the dashboard — 10K credits load instantly.",
-    es: "Pega la API key de tu pack de builder en el dashboard — 10K créditos cargan al instante.",
+    en: "Open Settings → Billing (or use the redeem link on your card) and paste your promo code into the coupon field.",
+    es: "Abre Settings → Billing (o usa el enlace de canje en tu tarjeta) y pega tu código promo en el campo de cupón.",
   },
   "builder.credits.redeem.firecrawl.s2": {
-    en: "Run a quick scrape test to confirm credits are deducting correctly.",
-    es: "Corre un scrape de prueba para confirmar que los créditos se descuentan bien.",
+    en: "Confirm 10K credits appear in your balance before running your first scrape.",
+    es: "Confirma que aparecen 10K créditos en tu balance antes de correr tu primer scrape.",
   },
   "builder.credits.redeem.datamcp.s0": {
     en: "Sign up at the DataMCP link on your builder card.",
@@ -2344,12 +2497,12 @@ export const translations = {
     es: "Verifica acceso tier Pro antes de conectar servidores MCP en Cursor.",
   },
   "builder.credits.redeem.devin.s0": {
-    en: "Follow the Devin API credits link printed in your builder pack.",
-    es: "Sigue el enlace de créditos API Devin impreso en tu pack de builder.",
+    en: "Sign in at devin.ai with your registration email.",
+    es: "Inicia sesión en devin.ai con tu correo de registro.",
   },
   "builder.credits.redeem.devin.s1": {
-    en: "Sign in and claim the API credit bundle tied to your registration email.",
-    es: "Inicia sesión y reclama el paquete de créditos API ligado a tu correo de registro.",
+    en: "Enter your personal API credits code from the builder hub.",
+    es: "Ingresa tu código personal de créditos API desde el builder hub.",
   },
   "builder.credits.redeem.devin.s2": {
     en: "Check the dashboard balance before calling Devin endpoints in your demo.",
@@ -2738,18 +2891,54 @@ export const translations = {
     en: "Configure Convex and Clerk environment variables to enable the builder hub.",
     es: "Configura las variables de entorno de Convex y Clerk para habilitar el hub.",
   },
-  "hub.signInTitle": { en: "Sign in to continue", es: "Inicia sesión para continuar" },
+  "hub.signInTitle": { en: "Continue to the hub", es: "Continúa al hub" },
   "hub.signInIntro": {
-    en: "Use your Google account to access team tools, progress tracking, and submissions.",
-    es: "Usa tu cuenta de Google para acceder a herramientas de equipo, progreso y envíos.",
+    en: "Enter your Luma registration email — we'll send a one-time code. First visit or return, same step.",
+    es: "Ingresa tu correo de registro en Luma — te enviamos un código de un solo uso. Primera visita o regreso, mismo paso.",
   },
-  "hub.signInCta": { en: "Sign in with Google", es: "Iniciar sesión con Google" },
+  "hub.signInCta": { en: "Continue", es: "Continuar" },
   "hub.connecting": {
     en: "Connecting your workspace…",
     es: "Conectando tu espacio de trabajo…",
   },
+  "hub.bootstrapError": {
+    en: "Your Clerk session token is missing the email claim. In Clerk Dashboard → Sessions → Claims, add email = {{user.primary_email_address.email_address}}, then sign out and back in.",
+    es: "Falta el claim de email en tu token de Clerk. En Clerk Dashboard → Sessions → Claims, agrega email = {{user.primary_email_address.email_address}} y vuelve a iniciar sesión.",
+  },
   "hub.openAdmin": { en: "Open admin", es: "Abrir admin" },
   "hub.error.generic": { en: "Something went wrong. Try again.", es: "Algo salió mal. Intenta de nuevo." },
+
+  "hub.subTabs.listLabel": { en: "Hub sections", es: "Secciones del hub" },
+  "hub.subTabs.equipo": { en: "Team", es: "Equipo" },
+  "hub.subTabs.equipoDesc": {
+    en: "Your team roster and day progress at a glance.",
+    es: "Tu equipo y el progreso del día de un vistazo.",
+  },
+  "hub.subTabs.proyecto": { en: "Project", es: "Proyecto" },
+  "hub.subTabs.proyectoDesc": {
+    en: "Project details and final deliverables in one workspace.",
+    es: "Detalles del proyecto y entregables finales en un solo espacio.",
+  },
+  "hub.subTabs.tracks": { en: "Sponsor tracks", es: "Tracks de sponsors" },
+  "hub.subTabs.tracksDesc": {
+    en: "Codex, ElevenLabs, and n8n competition tracks — prizes and how to qualify.",
+    es: "Tracks de competencia Codex, ElevenLabs y n8n — premios y cómo calificar.",
+  },
+  "hub.subTabs.envio": { en: "Sponsors", es: "Envío" },
+  "hub.subTabs.envioDesc": {
+    en: "Sponsor feedback and submission requirements.",
+    es: "Feedback de sponsors y requisitos de envío.",
+  },
+  "hub.subTabs.posts": { en: "Posts", es: "Posts" },
+  "hub.subTabs.postsDesc": {
+    en: "Social posts linked to your buildathon submission.",
+    es: "Publicaciones sociales vinculadas a tu envío del buildathon.",
+  },
+  "hub.subTabs.reservas": { en: "Bookings", es: "Reservas" },
+  "hub.subTabs.reservasDesc": {
+    en: "Reserve a call booth slot for your team.",
+    es: "Reserva un slot de call booth para tu equipo.",
+  },
 
   "hub.team.tag": { en: "// Team", es: "// Equipo" },
   "hub.team.title": { en: "Your team", es: "Tu equipo" },
@@ -2788,16 +2977,137 @@ export const translations = {
   "hub.project.description": { en: "Description", es: "Descripción" },
   "hub.project.url": { en: "Live URL", es: "URL en vivo" },
   "hub.project.repo": { en: "Repository", es: "Repositorio" },
+  "hub.project.repoRequiredHint": {
+    en: "Required — must be an empty GitHub or GitLab repo",
+    es: "Requerido — debe ser un repo vacío en GitHub o GitLab",
+  },
+  "hub.project.repoValidating": {
+    en: "Checking repository…",
+    es: "Verificando repositorio…",
+  },
+  "hub.project.repoValidation.invalidUrl": {
+    en: "Enter a valid GitHub or GitLab repository URL",
+    es: "Ingresa una URL válida de repositorio en GitHub o GitLab",
+  },
+  "hub.project.repoValidation.unsupportedHost": {
+    en: "Only GitHub and GitLab repository URLs are supported",
+    es: "Solo se admiten URLs de repositorio en GitHub y GitLab",
+  },
+  "hub.project.repoValidation.notFound": {
+    en: "Repository not found or not public — check the URL",
+    es: "Repositorio no encontrado o no público — verifica la URL",
+  },
+  "hub.project.repoValidation.tooManyCommits": {
+    en: "Repository already has commit history — use a new empty repo",
+    es: "El repositorio ya tiene historial de commits — usa un repo nuevo y vacío",
+  },
+  "hub.project.repoValidation.hasNonReadmeFiles": {
+    en: "Repository must be empty or contain only a README at the root",
+    es: "El repositorio debe estar vacío o contener solo un README en la raíz",
+  },
+  "hub.project.repoValidation.apiError": {
+    en: "Could not verify the repository — try again in a moment",
+    es: "No se pudo verificar el repositorio — inténtalo de nuevo en un momento",
+  },
   "hub.project.sponsorsUsed": { en: "Sponsors used", es: "Sponsors usados" },
   "hub.project.save": { en: "Save project", es: "Guardar proyecto" },
+  "hub.project.optionalHint": {
+    en: "Required before final submission",
+    es: "Requerido antes del envío final",
+  },
+  "hub.project.completionTitle": {
+    en: "Before you can submit",
+    es: "Antes de enviar",
+  },
+  "hub.project.completion.missingDescription": {
+    en: "Add a description",
+    es: "Agrega una descripción",
+  },
+  "hub.project.completion.missingUrl": {
+    en: "Add a live URL",
+    es: "Agrega una URL en vivo",
+  },
+  "hub.project.completion.missingRepo": {
+    en: "Add a repository URL",
+    es: "Agrega una URL del repositorio",
+  },
+  "hub.project.timeline.tag": { en: "// Activity", es: "// Actividad" },
+  "hub.project.timeline.title": { en: "Project activity", es: "Actividad del proyecto" },
+  "hub.project.timeline.empty": {
+    en: "Changes to your project will appear here.",
+    es: "Los cambios en tu proyecto aparecerán aquí.",
+  },
+  "hub.project.timeline.loadMore": { en: "Load more", es: "Cargar más" },
+  "hub.project.timeline.project_created": {
+    en: "{name} created the project \"{title}\"",
+    es: "{name} creó el proyecto \"{title}\"",
+  },
+  "hub.project.timeline.title_changed": {
+    en: "{name} changed the title to \"{to}\"",
+    es: "{name} cambió el título a \"{to}\"",
+  },
+  "hub.project.timeline.description_changed": {
+    en: "{name} updated the description",
+    es: "{name} actualizó la descripción",
+  },
+  "hub.project.timeline.url_changed": {
+    en: "{name} updated the live URL",
+    es: "{name} actualizó la URL en vivo",
+  },
+  "hub.project.timeline.repo_changed": {
+    en: "{name} updated the repository URL",
+    es: "{name} actualizó la URL del repositorio",
+  },
+  "hub.project.timeline.sponsor_added": {
+    en: "{name} added {sponsor} sponsor",
+    es: "{name} agregó el sponsor {sponsor}",
+  },
+  "hub.project.timeline.sponsor_removed": {
+    en: "{name} removed {sponsor} sponsor",
+    es: "{name} quitó el sponsor {sponsor}",
+  },
+  "hub.project.timeline.deliverables_saved": {
+    en: "{name} saved deliverables draft",
+    es: "{name} guardó borrador de entregables",
+  },
+  "hub.project.timeline.sponsor_feedback_submitted": {
+    en: "{name} submitted {sponsor} feedback",
+    es: "{name} envió feedback de {sponsor}",
+  },
+  "hub.project.timeline.final_submitted": {
+    en: "{name} submitted the project for judging",
+    es: "{name} envió el proyecto para evaluación",
+  },
+  "hub.deliverables.detailsPending": {
+    en: "Complete all project details before final submission.",
+    es: "Completa todos los detalles del proyecto antes del envío final.",
+  },
+  "hub.deliverables.deliverablesPending": {
+    en: "Add slides and a video link before final submission.",
+    es: "Agrega slides y un enlace de video antes del envío final.",
+  },
+  "hub.deliverables.blockedByDetails": {
+    en: "Missing project details",
+    es: "Faltan detalles del proyecto",
+  },
+  "hub.deliverables.blockedByFeedback": {
+    en: "Sponsor feedback incomplete",
+    es: "Feedback de sponsors incompleto",
+  },
+  "hub.deliverables.blockedByDeliverables": {
+    en: "Deliverables incomplete",
+    es: "Entregables incompletos",
+  },
 
   "hub.deliverables.tag": { en: "// Deliverables", es: "// Entregables" },
   "hub.deliverables.title": { en: "Final deliverables", es: "Entregables finales" },
   "hub.deliverables.needProject": { en: "Save your project details first.", es: "Primero guarda los detalles del proyecto." },
   "hub.deliverables.slides": { en: "Presentation slides URL", es: "URL de slides" },
-  "hub.deliverables.videoUpload": { en: "Upload video showcase", es: "Subir video showcase" },
-  "hub.deliverables.videoUrl": { en: "Or video URL", es: "O URL del video" },
-  "hub.deliverables.viewUploadedVideo": { en: "View uploaded video", es: "Ver video subido" },
+  "hub.deliverables.videoUrl": { en: "Video showcase URL", es: "URL del video showcase" },
+  "hub.deliverables.videoUrlPlaceholder": {
+    en: "https://youtube.com/... or Loom, Drive, etc.",
+    es: "https://youtube.com/... o Loom, Drive, etc.",
+  },
   "hub.deliverables.testUsers": { en: "Test users (if any)", es: "Usuarios de prueba (si aplica)" },
   "hub.deliverables.testUsersPlaceholder": {
     en: "Credentials or instructions for judges to test your product.",
@@ -2829,9 +3139,24 @@ export const translations = {
 
   "hub.social.tag": { en: "// Social", es: "// Social" },
   "hub.social.title": { en: "Social posts", es: "Publicaciones sociales" },
+  "hub.social.intro": {
+    en: "Add X and LinkedIn post URLs for your team. The platform is detected from each link.",
+    es: "Agrega URLs de publicaciones de X y LinkedIn para tu equipo. La plataforma se detecta desde cada enlace.",
+  },
   "hub.social.url": { en: "Post URL", es: "URL de la publicación" },
+  "hub.social.urlPlaceholder": {
+    en: "https://x.com/... or https://linkedin.com/...",
+    es: "https://x.com/... o https://linkedin.com/...",
+  },
+  "hub.social.postLabel": { en: "Post", es: "Publicación" },
+  "hub.social.platformUnknown": { en: "Unsupported URL", es: "URL no compatible" },
+  "hub.social.invalidUrl": {
+    en: "Only X (x.com, twitter.com) and LinkedIn URLs are allowed.",
+    es: "Solo se permiten URLs de X (x.com, twitter.com) y LinkedIn.",
+  },
   "hub.social.add": { en: "Add post", es: "Agregar publicación" },
   "hub.social.remove": { en: "Remove", es: "Eliminar" },
+  "hub.social.save": { en: "Save posts", es: "Guardar publicaciones" },
 
   "hub.mentors.tag": { en: "// Mentors", es: "// Mentores" },
   "hub.mentors.title": { en: "Remote mentors", es: "Mentores remotos" },
@@ -2845,10 +3170,11 @@ export const translations = {
   "hub.booths.tag": { en: "// Call booths", es: "// Call booths" },
   "hub.booths.title": { en: "Call booth reservations", es: "Reservas de call booths" },
   "hub.booths.intro": {
-    en: "One reservation per team. Pick an open slot.",
-    es: "Una reserva por equipo. Elige un slot disponible.",
+    en: "One reservation per team. Slots run from event start (Sat 8:00 AM) through Sunday 6:00 AM.",
+    es: "Una reserva por equipo. Los slots van desde el inicio del evento (sáb 8:00 AM) hasta el domingo 6:00 AM.",
   },
   "hub.booths.empty": { en: "Booth schedule will be published soon.", es: "El horario de booths se publicará pronto." },
+  "hub.booths.loading": { en: "Loading booth schedule…", es: "Cargando horario de booths…" },
   "hub.booths.reserve": { en: "Reserve", es: "Reservar" },
   "hub.booths.cancel": { en: "Cancel", es: "Cancelar" },
   "hub.booths.yours": { en: "Your team", es: "Tu equipo" },

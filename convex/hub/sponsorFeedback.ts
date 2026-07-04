@@ -1,6 +1,7 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import { requireHubUser, requireTeamMembership } from "../lib/hub_auth";
+import { logProjectEvent } from "../lib/hub_project_events";
 import { hubSponsorIdValidator } from "../lib/hubSponsorIds";
 
 const pendingItemValidator = v.object({
@@ -107,16 +108,23 @@ export const submitFeedback = mutation({
 
     if (existing) {
       await ctx.db.patch(existing._id, { feedback, updatedAt: now });
-      return null;
+    } else {
+      await ctx.db.insert("hub_sponsor_feedback", {
+        userId: user._id,
+        teamId: team._id,
+        sponsorId: args.sponsorId,
+        feedback,
+        createdAt: now,
+      });
     }
 
-    await ctx.db.insert("hub_sponsor_feedback", {
-      userId: user._id,
+    await logProjectEvent(ctx, {
       teamId: team._id,
-      sponsorId: args.sponsorId,
-      feedback,
-      createdAt: now,
+      actorId: user._id,
+      kind: "sponsor_feedback_submitted",
+      meta: { sponsorId: args.sponsorId },
     });
+
     return null;
   },
 });
@@ -139,8 +147,17 @@ export const getTeamFeedbackStatus = query({
     v.null(),
   ),
   handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
-    const { team } = await requireTeamMembership(ctx, user._id);
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) return null;
+
+    const membership = await ctx.db
+      .query("hub_team_members")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .unique();
+    if (!membership) return null;
+
+    const team = await ctx.db.get(membership.teamId);
+    if (!team) return null;
 
     const project = await ctx.db
       .query("hub_projects")

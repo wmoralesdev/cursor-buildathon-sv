@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useTranslation } from "../../context/language-context";
@@ -17,27 +17,6 @@ export function HubTeamCard() {
   const [inviteCode, setInviteCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-
-  // #region agent log
-  useEffect(() => {
-    fetch("http://127.0.0.1:7524/ingest/ae7e5f7a-7927-4023-a554-d1b0cfb79922", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "73c77a" },
-      body: JSON.stringify({
-        sessionId: "73c77a",
-        runId: "post-fix",
-        hypothesisId: "B,D",
-        location: "hub-team-card.tsx:team-query",
-        message: "Team query state",
-        data: {
-          teamStatus: team === undefined ? "loading" : team === null ? "no-team" : "has-team",
-          memberCount: team?.members.length ?? null,
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-  }, [team]);
-  // #endregion
 
   async function run(action: () => Promise<unknown>) {
     setBusy(true);

@@ -1,9 +1,24 @@
-import { mutation, query } from "../_generated/server";
+import { internalMutation, internalQuery, mutation, query } from "../_generated/server";
+import { paginationOptsValidator } from "convex/server";
 import { v } from "convex/values";
-import { requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import { requireHubUser, requireTeamMembership } from "../lib/hub_auth";
+import {
+  assertReadyForFinalSubmit,
+  diffAndLogProjectChanges,
+  getMissingProjectDetails,
+  isProjectDetailsComplete,
+  isTeamFeedbackComplete,
+  logProjectEvent,
+} from "../lib/hub_project_events";
 import { hubSponsorIdValidator } from "../lib/hubSponsorIds";
-import { getPublicUrl, verifyVideoR2Key } from "../lib/r2";
-import { normalizeHttpUrl, trimOrThrow } from "../lib/profileValidation";
+import {
+  toHubDeliverablesPublic,
+  toHubProjectPublic,
+} from "../lib/hub_projections";
+import {
+  normalizeOptionalHttpUrl,
+  trimOrThrow,
+} from "../lib/profileValidation";
 
 const DESCRIPTION_MAX = 1000;
 
@@ -29,21 +44,86 @@ const deliverablesValidator = v.object({
   submittedAt: v.optional(v.number()),
 });
 
-function deliverablesWithPlayback<T extends { videoR2Key?: string; videoUrl?: string }>(
-  deliverables: T,
-): T & { videoPlaybackUrl?: string } {
-  const videoPlaybackUrl = deliverables.videoR2Key
-    ? getPublicUrl(deliverables.videoR2Key)
-    : deliverables.videoUrl;
-  return { ...deliverables, videoPlaybackUrl };
-}
+const timelineActorValidator = v.object({
+  _id: v.id("hub_users"),
+  name: v.string(),
+  avatarUrl: v.optional(v.string()),
+});
+
+const timelineEventValidator = v.object({
+  _id: v.id("hub_project_events"),
+  kind: v.union(
+    v.literal("project_created"),
+    v.literal("title_changed"),
+    v.literal("description_changed"),
+    v.literal("url_changed"),
+    v.literal("repo_changed"),
+    v.literal("sponsor_added"),
+    v.literal("sponsor_removed"),
+    v.literal("deliverables_saved"),
+    v.literal("sponsor_feedback_submitted"),
+    v.literal("final_submitted"),
+  ),
+  meta: v.optional(
+    v.object({
+      from: v.optional(v.string()),
+      to: v.optional(v.string()),
+      sponsorId: v.optional(hubSponsorIdValidator),
+    }),
+  ),
+  createdAt: v.number(),
+  actor: timelineActorValidator,
+});
 
 export const getMyProject = query({
   args: {},
   returns: v.union(
     v.object({
-      project: projectValidator,
+      project: v.union(projectValidator, v.null()),
       deliverables: v.union(deliverablesValidator, v.null()),
+    }),
+    v.null(),
+  ),
+  handler: async (ctx) => {
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) return null;
+
+    const membership = await ctx.db
+      .query("hub_team_members")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .unique();
+    if (!membership) return null;
+
+    const project = await ctx.db
+      .query("hub_projects")
+      .withIndex("by_team", (q) => q.eq("teamId", membership.teamId))
+      .unique();
+
+    if (!project) {
+      return { project: null, deliverables: null };
+    }
+
+    const deliverables = await ctx.db
+      .query("hub_deliverables")
+      .withIndex("by_team", (q) => q.eq("teamId", membership.teamId))
+      .unique();
+
+    return {
+      project: toHubProjectPublic(project),
+      deliverables: deliverables ? toHubDeliverablesPublic(deliverables) : null,
+    };
+  },
+});
+
+export const getCompletionStatus = query({
+  args: {},
+  returns: v.union(
+    v.object({
+      detailsComplete: v.boolean(),
+      missingDetails: v.array(v.string()),
+      feedbackComplete: v.boolean(),
+      deliverablesReady: v.boolean(),
+      canFinalize: v.boolean(),
     }),
     v.null(),
   ),
@@ -68,20 +148,117 @@ export const getMyProject = query({
       .withIndex("by_team", (q) => q.eq("teamId", membership.teamId))
       .unique();
 
+    const snapshot = {
+      name: project.name,
+      description: project.description,
+      url: project.url,
+      repoUrl: project.repoUrl,
+      sponsorsUsed: project.sponsorsUsed,
+    };
+
+    const detailsComplete = isProjectDetailsComplete(snapshot);
+    const missingDetails = getMissingProjectDetails(snapshot);
+    const feedbackComplete = await isTeamFeedbackComplete(
+      ctx,
+      membership.teamId,
+      project.sponsorsUsed,
+    );
+    const deliverablesReady = Boolean(
+      deliverables?.slidesUrl &&
+        (deliverables.videoR2Key || deliverables.videoUrl),
+    );
+
     return {
-      project,
-      deliverables: deliverables ? deliverablesWithPlayback(deliverables) : null,
+      detailsComplete,
+      missingDetails,
+      feedbackComplete,
+      deliverablesReady,
+      canFinalize: detailsComplete && feedbackComplete && deliverablesReady,
     };
   },
 });
 
-export const upsertProject = mutation({
+export const listTimeline = query({
+  args: { paginationOpts: paginationOptsValidator },
+  returns: v.object({
+    page: v.array(timelineEventValidator),
+    isDone: v.boolean(),
+    continueCursor: v.string(),
+  }),
+  handler: async (ctx, args) => {
+    const user = await requireHubUser(ctx).catch(() => null);
+    if (!user) {
+      return { page: [], isDone: true, continueCursor: "" };
+    }
+
+    const membership = await ctx.db
+      .query("hub_team_members")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .unique();
+    if (!membership) {
+      return { page: [], isDone: true, continueCursor: "" };
+    }
+
+    const result = await ctx.db
+      .query("hub_project_events")
+      .withIndex("by_team_created", (q) => q.eq("teamId", membership.teamId))
+      .order("desc")
+      .paginate(args.paginationOpts);
+
+    const page = await Promise.all(
+      result.page.map(async (event) => {
+        const actorDoc = await ctx.db.get(event.actorId);
+        const actor = actorDoc
+          ? {
+              _id: actorDoc._id,
+              name: actorDoc.name,
+              avatarUrl: actorDoc.avatarUrl,
+            }
+          : {
+              _id: event.actorId,
+              name: "Unknown",
+              avatarUrl: undefined,
+            };
+
+        return {
+          _id: event._id,
+          kind: event.kind,
+          meta: event.meta,
+          createdAt: event.createdAt,
+          actor,
+        };
+      }),
+    );
+
+    return {
+      page,
+      isDone: result.isDone,
+      continueCursor: result.continueCursor,
+    };
+  },
+});
+
+export const getExistingRepoUrlForUpsert = internalQuery({
+  args: {},
+  returns: v.union(v.string(), v.null()),
+  handler: async (ctx) => {
+    const user = await requireHubUser(ctx);
+    const { team } = await requireTeamMembership(ctx, user._id);
+    const project = await ctx.db
+      .query("hub_projects")
+      .withIndex("by_team", (q) => q.eq("teamId", team._id))
+      .unique();
+    return project?.repoUrl ?? null;
+  },
+});
+
+export const upsertProjectInternal = internalMutation({
   args: {
     name: v.string(),
-    description: v.string(),
-    url: v.string(),
+    description: v.optional(v.string()),
+    url: v.optional(v.string()),
     repoUrl: v.string(),
-    sponsorsUsed: v.array(hubSponsorIdValidator),
+    sponsorsUsed: v.optional(v.array(hubSponsorIdValidator)),
   },
   returns: projectValidator,
   handler: async (ctx, args) => {
@@ -89,14 +266,17 @@ export const upsertProject = mutation({
     const { team } = await requireTeamMembership(ctx, user._id);
 
     const name = trimOrThrow(args.name, "Project name");
-    const description = trimOrThrow(args.description, "Description");
+    const description = (args.description ?? "").trim();
     if (description.length > DESCRIPTION_MAX) {
       throw new Error(`Description must be ${DESCRIPTION_MAX} characters or fewer`);
     }
 
-    const url = normalizeHttpUrl(args.url, "Project URL");
-    const repoUrl = normalizeHttpUrl(args.repoUrl, "Repository URL");
+    const url = normalizeOptionalHttpUrl(args.url ?? "", "Project URL");
+    const repoUrl = trimOrThrow(args.repoUrl, "Repository URL");
+    const sponsorsUsed = args.sponsorsUsed ?? [];
     const now = Date.now();
+
+    const snapshot = { name, description, url, repoUrl, sponsorsUsed };
 
     const existing = await ctx.db
       .query("hub_projects")
@@ -105,38 +285,32 @@ export const upsertProject = mutation({
 
     if (existing) {
       await ctx.db.patch(existing._id, {
-        name,
-        description,
-        url,
-        repoUrl,
-        sponsorsUsed: args.sponsorsUsed,
+        ...snapshot,
         updatedAt: now,
       });
+      await diffAndLogProjectChanges(ctx, existing, snapshot, user._id, team._id);
       const updated = await ctx.db.get(existing._id);
       if (!updated) throw new Error("Project update failed");
-      return updated;
+      return toHubProjectPublic(updated);
     }
 
     const projectId = await ctx.db.insert("hub_projects", {
       teamId: team._id,
-      name,
-      description,
-      url,
-      repoUrl,
-      sponsorsUsed: args.sponsorsUsed,
+      ...snapshot,
       createdAt: now,
     });
 
+    await diffAndLogProjectChanges(ctx, null, snapshot, user._id, team._id);
+
     const created = await ctx.db.get(projectId);
     if (!created) throw new Error("Project creation failed");
-    return created;
+    return toHubProjectPublic(created);
   },
 });
 
 export const upsertDeliverables = mutation({
   args: {
     slidesUrl: v.optional(v.string()),
-    videoR2Key: v.optional(v.string()),
     videoUrl: v.optional(v.string()),
     testUsers: v.optional(v.string()),
     finalize: v.optional(v.boolean()),
@@ -154,55 +328,32 @@ export const upsertDeliverables = mutation({
       throw new Error("Create your project before adding deliverables");
     }
 
-    const slidesUrl = args.slidesUrl?.trim()
-      ? normalizeHttpUrl(args.slidesUrl, "Slides URL")
-      : undefined;
-    const videoUrl = args.videoUrl?.trim()
-      ? normalizeHttpUrl(args.videoUrl, "Video URL")
-      : undefined;
-
-    if (args.videoR2Key) {
-      await verifyVideoR2Key(args.videoR2Key, "hub");
-    }
-
-    if (args.finalize) {
-      if (!slidesUrl) throw new Error("Slides URL is required to submit");
-      if (!args.videoR2Key && !videoUrl) {
-        throw new Error("Video showcase is required to submit");
-      }
-
-      const members = await ctx.db
-        .query("hub_team_members")
-        .withIndex("by_team", (q) => q.eq("teamId", team._id))
-        .collect();
-
-      for (const member of members) {
-        for (const sponsorId of project.sponsorsUsed) {
-          const feedback = await ctx.db
-            .query("hub_sponsor_feedback")
-            .withIndex("by_user_team_sponsor", (q) =>
-              q
-                .eq("userId", member.userId)
-                .eq("teamId", team._id)
-                .eq("sponsorId", sponsorId),
-            )
-            .unique();
-          if (!feedback?.feedback.trim()) {
-            throw new Error("All team members must submit sponsor feedback before final submission");
-          }
-        }
-      }
-    }
-
     const now = Date.now();
     const existing = await ctx.db
       .query("hub_deliverables")
       .withIndex("by_team", (q) => q.eq("teamId", team._id))
       .unique();
 
+    const slidesUrl = args.slidesUrl?.trim()
+      ? normalizeOptionalHttpUrl(args.slidesUrl, "Slides URL")
+      : undefined;
+    const videoUrl = args.videoUrl?.trim()
+      ? normalizeOptionalHttpUrl(args.videoUrl, "Video URL")
+      : undefined;
+
+    const mergedSlidesUrl = slidesUrl ?? existing?.slidesUrl;
+    const mergedVideoUrl = videoUrl ?? existing?.videoUrl;
+
+    if (args.finalize) {
+      await assertReadyForFinalSubmit(ctx, team._id, project, {
+        slidesUrl: mergedSlidesUrl,
+        videoR2Key: existing?.videoR2Key,
+        videoUrl: mergedVideoUrl,
+      });
+    }
+
     const payload = {
       slidesUrl,
-      videoR2Key: args.videoR2Key,
       videoUrl,
       testUsers: args.testUsers?.trim() || undefined,
       updatedAt: now,
@@ -211,17 +362,32 @@ export const upsertDeliverables = mutation({
 
     if (existing) {
       await ctx.db.patch(existing._id, payload);
-      const updated = await ctx.db.get(existing._id);
-      if (!updated) throw new Error("Deliverables update failed");
-      return deliverablesWithPlayback(updated);
+    } else {
+      await ctx.db.insert("hub_deliverables", {
+        teamId: team._id,
+        ...payload,
+      });
     }
 
-    const deliverableId = await ctx.db.insert("hub_deliverables", {
+    await logProjectEvent(ctx, {
       teamId: team._id,
-      ...payload,
+      actorId: user._id,
+      kind: "deliverables_saved",
     });
-    const created = await ctx.db.get(deliverableId);
-    if (!created) throw new Error("Deliverables creation failed");
-    return deliverablesWithPlayback(created);
+
+    if (args.finalize) {
+      await logProjectEvent(ctx, {
+        teamId: team._id,
+        actorId: user._id,
+        kind: "final_submitted",
+      });
+    }
+
+    const deliverables = await ctx.db
+      .query("hub_deliverables")
+      .withIndex("by_team", (q) => q.eq("teamId", team._id))
+      .unique();
+    if (!deliverables) throw new Error("Deliverables update failed");
+    return toHubDeliverablesPublic(deliverables);
   },
 });

@@ -1,6 +1,42 @@
 import { mutation, query } from "../_generated/server";
+import type { MutationCtx } from "../_generated/server";
 import { v } from "convex/values";
-import { requireHubRole, requireHubUser, requireTeamMembership } from "../lib/hub-auth";
+import {
+  BOOTH_RESERVATION_END_MS,
+  BOOTH_SLOT_DURATION_MS,
+  buildBoothSlotStarts,
+  DEFAULT_HUB_BOOTHS,
+  HUB_EVENT_START_MS,
+} from "../lib/hub_event_schedule";
+import { requireHubRole, requireHubUser, requireTeamMembership } from "../lib/hub_auth";
+
+type BoothInput = { name: string; location: string; sortOrder: number };
+
+async function insertBoothGrid(
+  ctx: MutationCtx,
+  booths: readonly BoothInput[],
+  slotStartsAt: number[],
+  slotDurationMs: number,
+) {
+  const now = Date.now();
+  for (const booth of booths) {
+    const boothId = await ctx.db.insert("hub_booths", {
+      name: booth.name.trim(),
+      location: booth.location.trim(),
+      active: true,
+      sortOrder: booth.sortOrder,
+      createdAt: now,
+    });
+
+    for (const startsAt of slotStartsAt) {
+      await ctx.db.insert("hub_booth_slots", {
+        boothId,
+        startsAt,
+        endsAt: startsAt + slotDurationMs,
+      });
+    }
+  }
+}
 
 const slotValidator = v.object({
   _id: v.id("hub_booth_slots"),
@@ -45,6 +81,11 @@ export const listBoothsWithSlots = query({
 
         const slotRows = await Promise.all(
           slots
+            .filter(
+              (slot) =>
+                slot.startsAt >= HUB_EVENT_START_MS &&
+                slot.endsAt <= BOOTH_RESERVATION_END_MS,
+            )
             .sort((a, b) => a.startsAt - b.startsAt)
             .map(async (slot) => {
               const reservation = await ctx.db
@@ -80,6 +121,26 @@ export const listBoothsWithSlots = query({
   },
 });
 
+/** Idempotent — seeds default booths + event-window slots when none exist. */
+export const ensureDefaultSchedule = mutation({
+  args: {},
+  returns: v.boolean(),
+  handler: async (ctx) => {
+    await requireHubUser(ctx);
+
+    const existing = await ctx.db.query("hub_booths").first();
+    if (existing) return false;
+
+    await insertBoothGrid(
+      ctx,
+      DEFAULT_HUB_BOOTHS,
+      buildBoothSlotStarts(),
+      BOOTH_SLOT_DURATION_MS,
+    );
+    return true;
+  },
+});
+
 export const reserveSlot = mutation({
   args: { slotId: v.id("hub_booth_slots") },
   returns: v.null(),
@@ -89,6 +150,13 @@ export const reserveSlot = mutation({
 
     const slot = await ctx.db.get(args.slotId);
     if (!slot) throw new Error("Slot not found");
+
+    if (
+      slot.startsAt < HUB_EVENT_START_MS ||
+      slot.endsAt > BOOTH_RESERVATION_END_MS
+    ) {
+      throw new Error("This slot is outside the reservation window");
+    }
 
     const booth = await ctx.db.get(slot.boothId);
     if (!booth?.active) throw new Error("Booth is not available");
@@ -149,13 +217,19 @@ export const configureBooths = mutation({
         sortOrder: v.number(),
       }),
     ),
-    slotStartsAt: v.array(v.number()),
-    slotDurationMs: v.number(),
+    slotStartsAt: v.optional(v.array(v.number())),
+    slotDurationMs: v.optional(v.number()),
     replaceExisting: v.boolean(),
   },
   returns: v.null(),
   handler: async (ctx, args) => {
     await requireHubRole(ctx, "logistics");
+
+    const slotDurationMs = args.slotDurationMs ?? BOOTH_SLOT_DURATION_MS;
+    const slotStartsAt =
+      args.slotStartsAt && args.slotStartsAt.length > 0
+        ? args.slotStartsAt
+        : buildBoothSlotStarts();
 
     if (args.replaceExisting) {
       const booths = await ctx.db.query("hub_booths").collect();
@@ -186,11 +260,11 @@ export const configureBooths = mutation({
         createdAt: now,
       });
 
-      for (const startsAt of args.slotStartsAt) {
+      for (const startsAt of slotStartsAt) {
         await ctx.db.insert("hub_booth_slots", {
           boothId,
           startsAt,
-          endsAt: startsAt + args.slotDurationMs,
+          endsAt: startsAt + slotDurationMs,
         });
       }
     }
