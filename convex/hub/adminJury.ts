@@ -3,6 +3,7 @@ import { v } from "convex/values";
 import { requireHubRole } from "../lib/hub_auth";
 import { hubSponsorIdValidator } from "../lib/hubSponsorIds";
 import { getPublicUrl } from "../lib/r2";
+import { resolveProjectRepoUrls } from "../lib/hub_project_repo_urls";
 
 const CRITERION_WEIGHTS = [0.25, 0.2, 0.25, 0.2, 0.1] as const;
 
@@ -31,7 +32,7 @@ const teamForScoringValidator = v.object({
       name: v.string(),
       description: v.string(),
       url: v.string(),
-      repoUrl: v.string(),
+      repoUrls: v.array(v.string()),
       sponsorsUsed: v.array(hubSponsorIdValidator),
     }),
     v.null(),
@@ -136,7 +137,7 @@ export const listTeamsForScoring = query({
                 name: project.name,
                 description: project.description,
                 url: project.url,
-                repoUrl: project.repoUrl,
+                repoUrls: resolveProjectRepoUrls(project),
                 sponsorsUsed: project.sponsorsUsed,
               }
             : null,

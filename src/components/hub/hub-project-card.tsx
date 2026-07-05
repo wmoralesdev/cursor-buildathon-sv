@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAction, useQuery } from "convex/react";
+import { Plus, Trash2 } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import {
   HUB_PROJECT_TOOL_SPONSOR_IDS,
@@ -26,10 +27,18 @@ const MISSING_DETAIL_KEYS: Record<string, TranslationKey> = {
   name: "hub.project.completion.missingName",
   description: "hub.project.completion.missingDescription",
   url: "hub.project.completion.missingUrl",
-  repoUrl: "hub.project.completion.missingRepo",
+  repoUrls: "hub.project.completion.missingRepo",
 };
 
 const REPO_VALIDATE_DEBOUNCE_MS = 600;
+
+function repoUrlsEqual(left: string[], right: string[]): boolean {
+  if (left.length !== right.length) {
+    return false;
+  }
+
+  return left.every((url, index) => url.trim() === right[index]?.trim());
+}
 
 function HubProjectCompletionHint({
   missingDetails,
@@ -73,13 +82,13 @@ export function HubProjectCard() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
-  const [repoUrl, setRepoUrl] = useState("");
+  const [repoUrls, setRepoUrls] = useState<string[]>([""]);
   const [sponsorsUsed, setSponsorsUsed] = useState<HubSponsorId[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [repoError, setRepoError] = useState<string | null>(null);
-  const [repoValidating, setRepoValidating] = useState(false);
+  const [repoErrors, setRepoErrors] = useState<Record<number, string | null>>({});
+  const [repoValidating, setRepoValidating] = useState<Record<number, boolean>>({});
   const [busy, setBusy] = useState(false);
-  const savedRepoUrlRef = useRef("");
+  const savedRepoUrlsRef = useRef<string[]>([""]);
   const validateRequestRef = useRef(0);
 
   useEffect(() => {
@@ -87,67 +96,149 @@ export function HubProjectCard() {
     setName(data.project.name);
     setDescription(data.project.description);
     setUrl(data.project.url);
-    setRepoUrl(data.project.repoUrl);
+    const nextRepoUrls = data.project.repoUrls.length > 0 ? data.project.repoUrls : [""];
+    setRepoUrls(nextRepoUrls);
     setSponsorsUsed(data.project.sponsorsUsed);
-    savedRepoUrlRef.current = data.project.repoUrl;
-    setRepoError(null);
+    savedRepoUrlsRef.current = nextRepoUrls;
+    setRepoErrors({});
+    setRepoValidating({});
   }, [data?.project]);
 
   const runRepoValidation = useCallback(
-    async (value: string) => {
-      const trimmed = value.trim();
-      if (!trimmed) {
-        setRepoError(null);
-        setRepoValidating(false);
+    async (values: string[]) => {
+      const trimmedValues = values.map((value) => value.trim());
+      const hasAnyRepo = trimmedValues.some((value) => value !== "");
+      if (!hasAnyRepo) {
+        setRepoErrors({});
+        setRepoValidating({});
         return;
       }
 
-      if (trimmed === savedRepoUrlRef.current.trim()) {
-        setRepoError(null);
-        setRepoValidating(false);
+      if (repoUrlsEqual(trimmedValues, savedRepoUrlsRef.current)) {
+        setRepoErrors({});
+        setRepoValidating({});
         return;
       }
 
       const requestId = ++validateRequestRef.current;
-      setRepoValidating(true);
-      setRepoError(null);
+      const nextValidating: Record<number, boolean> = {};
+      const nextErrors: Record<number, string | null> = {};
 
-      try {
-        await validateRepoUrl({ repoUrl: trimmed });
-        if (requestId !== validateRequestRef.current) return;
-        setRepoError(null);
-      } catch (err) {
-        if (requestId !== validateRequestRef.current) return;
-        const message = err instanceof Error ? err.message : t("hub.error.generic");
-        setRepoError(translateRepoValidationError(message, t));
-      } finally {
-        if (requestId === validateRequestRef.current) {
-          setRepoValidating(false);
+      for (const [index, value] of trimmedValues.entries()) {
+        if (!value) {
+          nextErrors[index] = null;
+          continue;
         }
+
+        if (savedRepoUrlsRef.current[index]?.trim() === value) {
+          nextErrors[index] = null;
+          continue;
+        }
+
+        nextValidating[index] = true;
       }
+
+      setRepoValidating(nextValidating);
+      setRepoErrors((current) => {
+        const merged = { ...current };
+        for (const index of Object.keys(nextValidating).map(Number)) {
+          merged[index] = null;
+        }
+        return merged;
+      });
+
+      await Promise.all(
+        trimmedValues.map(async (value, index) => {
+          if (!value || savedRepoUrlsRef.current[index]?.trim() === value) {
+            return;
+          }
+
+          try {
+            await validateRepoUrl({ repoUrl: value });
+            if (requestId !== validateRequestRef.current) return;
+            setRepoErrors((current) => ({ ...current, [index]: null }));
+          } catch (err) {
+            if (requestId !== validateRequestRef.current) return;
+            const message = err instanceof Error ? err.message : t("hub.error.generic");
+            setRepoErrors((current) => ({
+              ...current,
+              [index]: translateRepoValidationError(message, t),
+            }));
+          } finally {
+            if (requestId === validateRequestRef.current) {
+              setRepoValidating((current) => {
+                const next = { ...current };
+                delete next[index];
+                return next;
+              });
+            }
+          }
+        }),
+      );
     },
     [t, validateRepoUrl],
   );
 
   useEffect(() => {
-    const trimmed = repoUrl.trim();
-    if (!trimmed || trimmed === savedRepoUrlRef.current.trim()) {
-      setRepoValidating(false);
-      setRepoError(null);
+    const trimmedValues = repoUrls.map((value) => value.trim());
+    if (!trimmedValues.some((value) => value !== "") || repoUrlsEqual(trimmedValues, savedRepoUrlsRef.current)) {
+      setRepoValidating({});
+      setRepoErrors({});
       return;
     }
 
     const timer = window.setTimeout(() => {
-      void runRepoValidation(trimmed);
+      void runRepoValidation(repoUrls);
     }, REPO_VALIDATE_DEBOUNCE_MS);
 
     return () => window.clearTimeout(timer);
-  }, [repoUrl, runRepoValidation]);
+  }, [repoUrls, runRepoValidation]);
 
   function toggleSponsor(id: HubSponsorId) {
     setSponsorsUsed((current) =>
       current.includes(id) ? current.filter((s) => s !== id) : [...current, id],
     );
+  }
+
+  function updateRepoUrl(index: number, value: string) {
+    setRepoUrls((current) => current.map((url, i) => (i === index ? value : url)));
+  }
+
+  function addRepoUrl() {
+    setRepoUrls((current) => [...current, ""]);
+  }
+
+  function removeRepoUrl(index: number) {
+    setRepoUrls((current) => {
+      if (current.length === 1) {
+        return [""];
+      }
+      return current.filter((_, i) => i !== index);
+    });
+    setRepoErrors((current) => {
+      const next: Record<number, string | null> = {};
+      for (const [key, value] of Object.entries(current)) {
+        const currentIndex = Number(key);
+        if (currentIndex < index) {
+          next[currentIndex] = value;
+        } else if (currentIndex > index) {
+          next[currentIndex - 1] = value;
+        }
+      }
+      return next;
+    });
+    setRepoValidating((current) => {
+      const next: Record<number, boolean> = {};
+      for (const [key, value] of Object.entries(current)) {
+        const currentIndex = Number(key);
+        if (currentIndex < index) {
+          next[currentIndex] = value;
+        } else if (currentIndex > index) {
+          next[currentIndex - 1] = value;
+        }
+      }
+      return next;
+    });
   }
 
   function formatError(err: unknown): string {
@@ -159,15 +250,23 @@ export function HubProjectCard() {
     setBusy(true);
     setError(null);
     try {
-      const result = await upsertProject({ name, description, url, repoUrl, sponsorsUsed });
-      savedRepoUrlRef.current = result.repoUrl;
-      setRepoUrl(result.repoUrl);
-      setRepoError(null);
+      const result = await upsertProject({
+        name,
+        description,
+        url,
+        repoUrls: repoUrls.map((value) => value.trim()).filter(Boolean),
+        sponsorsUsed,
+      });
+      const nextRepoUrls = result.repoUrls.length > 0 ? result.repoUrls : [""];
+      savedRepoUrlsRef.current = nextRepoUrls;
+      setRepoUrls(nextRepoUrls);
+      setRepoErrors({});
+      setRepoValidating({});
     } catch (err) {
       const message = formatError(err);
       setError(message);
       if (message !== t("hub.error.generic")) {
-        setRepoError(message);
+        setRepoErrors({ 0: message });
       }
     } finally {
       setBusy(false);
@@ -191,7 +290,10 @@ export function HubProjectCard() {
   }
 
   const optionalLabel = ` (${t("hub.project.optionalHint")})`;
-  const canSave = name.trim() !== "" && repoUrl.trim() !== "" && !repoValidating && !repoError;
+  const hasRepoInput = repoUrls.some((value) => value.trim() !== "");
+  const hasRepoValidationError = Object.values(repoErrors).some((value) => value);
+  const isRepoValidating = Object.keys(repoValidating).length > 0;
+  const canSave = name.trim() !== "" && hasRepoInput && !isRepoValidating && !hasRepoValidationError;
 
   return (
     <HubCard title={t("hub.project.title")} tag={t("hub.project.tag")}>
@@ -210,21 +312,47 @@ export function HubProjectCard() {
           <HubInput value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://" />
         </HubField>
         <HubField label={t("hub.project.repo")}>
-          <HubInput
-            value={repoUrl}
-            onChange={(e) => setRepoUrl(e.target.value)}
-            onBlur={() => void runRepoValidation(repoUrl)}
-            placeholder="https://github.com/org/repo"
-          />
+          <div className="space-y-2">
+            {repoUrls.map((repoUrl, index) => (
+              <div key={`repo-url-${index}`} className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <HubInput
+                    value={repoUrl}
+                    onChange={(e) => updateRepoUrl(index, e.target.value)}
+                    onBlur={() => void runRepoValidation(repoUrls)}
+                    placeholder="https://github.com/org/repo"
+                  />
+                  {repoUrls.length > 1 ? (
+                    <button
+                      type="button"
+                      onClick={() => removeRepoUrl(index)}
+                      className="inline-flex size-9 shrink-0 items-center justify-center border border-border-faint text-fg-3 transition-colors hover:border-red-400/50 hover:text-red-400"
+                      aria-label={t("hub.project.repoRemove")}
+                    >
+                      <Trash2 className="size-3.5" strokeWidth={2} aria-hidden />
+                    </button>
+                  ) : null}
+                </div>
+                {repoValidating[index] ? (
+                  <p className="font-display text-[0.8125rem] text-fg-3">{t("hub.project.repoValidating")}</p>
+                ) : null}
+                {repoErrors[index] ? (
+                  <p className="font-display text-[0.8125rem] text-red-400">{repoErrors[index]}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={addRepoUrl}
+            className="mt-2 inline-flex items-center gap-1.5 font-mono text-[0.625rem] uppercase tracking-[0.08em] text-fg-3 transition-colors hover:text-accent"
+          >
+            <Plus className="size-3" strokeWidth={2} aria-hidden />
+            {t("hub.project.repoAdd")}
+          </button>
           <p className="mt-1.5 font-mono text-[0.625rem] uppercase tracking-[0.08em] text-fg-3">
             {t("hub.project.repoRequiredHint")}
           </p>
-          {repoValidating ? (
-            <p className="mt-1 font-display text-[0.8125rem] text-fg-3">{t("hub.project.repoValidating")}</p>
-          ) : null}
-          {repoError ? (
-            <p className="mt-1 font-display text-[0.8125rem] text-red-400">{repoError}</p>
-          ) : null}
         </HubField>
       </div>
 

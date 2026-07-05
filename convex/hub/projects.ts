@@ -11,6 +11,7 @@ import {
   logProjectEvent,
 } from "../lib/hub_project_events";
 import { hubSponsorIdValidator } from "../lib/hubSponsorIds";
+import { normalizeProjectRepoUrls, resolveProjectRepoUrls } from "../lib/hub_project_repo_urls";
 import {
   toHubDeliverablesPublic,
   toHubProjectPublic,
@@ -26,7 +27,7 @@ const projectValidator = v.object({
   name: v.string(),
   description: v.string(),
   url: v.string(),
-  repoUrl: v.string(),
+  repoUrls: v.array(v.string()),
   sponsorsUsed: v.array(hubSponsorIdValidator),
   createdAt: v.number(),
 });
@@ -150,7 +151,7 @@ export const getCompletionStatus = query({
       name: project.name,
       description: project.description,
       url: project.url,
-      repoUrl: project.repoUrl,
+      repoUrls: resolveProjectRepoUrls(project),
       sponsorsUsed: project.sponsorsUsed,
     };
 
@@ -241,7 +242,7 @@ export const upsertProjectInternal = internalMutation({
     name: v.string(),
     description: v.optional(v.string()),
     url: v.optional(v.string()),
-    repoUrl: v.string(),
+    repoUrls: v.array(v.string()),
     sponsorsUsed: v.optional(v.array(hubSponsorIdValidator)),
   },
   returns: projectValidator,
@@ -253,11 +254,14 @@ export const upsertProjectInternal = internalMutation({
     const description = (args.description ?? "").trim();
 
     const url = normalizeOptionalHttpUrl(args.url ?? "", "Project URL");
-    const repoUrl = trimOrThrow(args.repoUrl, "Repository URL");
+    const repoUrls = normalizeProjectRepoUrls(args.repoUrls);
+    if (repoUrls.length === 0) {
+      throw new Error("At least one repository URL is required");
+    }
     const sponsorsUsed = args.sponsorsUsed ?? [];
     const now = Date.now();
 
-    const snapshot = { name, description, url, repoUrl, sponsorsUsed };
+    const snapshot = { name, description, url, repoUrls, sponsorsUsed };
 
     const existing = await ctx.db
       .query("hub_projects")

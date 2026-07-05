@@ -186,7 +186,9 @@ export default defineSchema({
     name: v.string(),
     description: v.string(),
     url: v.string(),
-    repoUrl: v.string(),
+    /** @deprecated Migrated to repoUrls — kept optional for existing documents. */
+    repoUrl: v.optional(v.string()),
+    repoUrls: v.optional(v.array(v.string())),
     sponsorsUsed: v.array(hubSponsorIdValidator),
     createdAt: v.number(),
     updatedAt: v.optional(v.number()),

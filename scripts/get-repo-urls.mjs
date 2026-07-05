@@ -11,11 +11,16 @@ const inlineQuery = `
 const projects = await ctx.db.query("hub_projects").collect();
 const teams = await ctx.db.query("hub_teams").collect();
 const teamById = Object.fromEntries(teams.map((t) => [t._id, t]));
+const resolveRepoUrls = (project) => {
+  if (project.repoUrls && project.repoUrls.length > 0) return project.repoUrls;
+  const legacy = (project.repoUrl ?? "").trim();
+  return legacy ? [legacy] : [];
+};
 return projects.map((p) => ({
   teamName: teamById[p.teamId]?.name ?? "Unknown",
   projectName: p.name,
   description: p.description,
-  repoUrl: p.repoUrl,
+  repoUrls: resolveRepoUrls(p),
   projectUrl: p.url,
   track: teamById[p.teamId]?.track ?? "",
   sponsorsUsed: (p.sponsorsUsed ?? []).join("; "),
@@ -59,7 +64,7 @@ const lines = [
     [
       esc(row.teamName),
       esc(row.projectName),
-      esc(row.repoUrl),
+      esc((row.repoUrls ?? []).join("; ")),
       esc(row.projectUrl),
       esc(row.track),
       esc(row.sponsorsUsed),

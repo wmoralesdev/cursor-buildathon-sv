@@ -2976,7 +2976,9 @@ export const translations = {
   "hub.project.name": { en: "Project name", es: "Nombre del proyecto" },
   "hub.project.description": { en: "Description", es: "Descripción" },
   "hub.project.url": { en: "Live URL", es: "URL en vivo" },
-  "hub.project.repo": { en: "Repository", es: "Repositorio" },
+  "hub.project.repo": { en: "Repositories", es: "Repositorios" },
+  "hub.project.repoAdd": { en: "Add repository", es: "Agregar repositorio" },
+  "hub.project.repoRemove": { en: "Remove repository", es: "Quitar repositorio" },
   "hub.project.repoRequiredHint": {
     en: "Required — must be a valid URL",
     es: "Requerido — debe ser una URL válida",

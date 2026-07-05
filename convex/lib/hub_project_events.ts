@@ -1,6 +1,11 @@
 import type { Doc, Id } from "../_generated/dataModel";
 import type { MutationCtx, QueryCtx } from "../_generated/server";
 import { v } from "convex/values";
+import {
+  projectRepoUrlsEqual,
+  resolveProjectRepoUrls,
+  serializeProjectRepoUrls,
+} from "./hub_project_repo_urls";
 import type { HubSponsorId } from "./hubSponsorIds";
 
 export const hubProjectEventKindValidator = v.union(
@@ -22,7 +27,7 @@ export type ProjectSnapshot = {
   name: string;
   description: string;
   url: string;
-  repoUrl: string;
+  repoUrls: string[];
   sponsorsUsed: HubSponsorId[];
 };
 
@@ -31,7 +36,7 @@ export function isProjectDetailsComplete(project: ProjectSnapshot): boolean {
     project.name.trim() !== "" &&
     project.description.trim() !== "" &&
     project.url.trim() !== "" &&
-    project.repoUrl.trim() !== ""
+    project.repoUrls.length > 0
   );
 }
 
@@ -40,7 +45,7 @@ export function getMissingProjectDetails(project: ProjectSnapshot): string[] {
   if (!project.name.trim()) missing.push("name");
   if (!project.description.trim()) missing.push("description");
   if (!project.url.trim()) missing.push("url");
-  if (!project.repoUrl.trim()) missing.push("repoUrl");
+  if (project.repoUrls.length === 0) missing.push("repoUrls");
   return missing;
 }
 
@@ -110,12 +115,15 @@ export async function diffAndLogProjectChanges(
     });
   }
 
-  if (existing.repoUrl !== next.repoUrl) {
+  if (!projectRepoUrlsEqual(resolveProjectRepoUrls(existing), next.repoUrls)) {
     await logProjectEvent(ctx, {
       teamId,
       actorId,
       kind: "repo_changed",
-      meta: { from: existing.repoUrl, to: next.repoUrl },
+      meta: {
+        from: serializeProjectRepoUrls(resolveProjectRepoUrls(existing)),
+        to: serializeProjectRepoUrls(next.repoUrls),
+      },
     });
   }
 
@@ -193,7 +201,7 @@ export async function assertReadyForFinalSubmit(
     name: project.name,
     description: project.description,
     url: project.url,
-    repoUrl: project.repoUrl,
+    repoUrls: resolveProjectRepoUrls(project),
     sponsorsUsed: project.sponsorsUsed,
   };
 
@@ -205,8 +213,8 @@ export async function assertReadyForFinalSubmit(
     if (missing.includes("url")) {
       throw new Error("Add a live project URL before submitting");
     }
-    if (missing.includes("repoUrl")) {
-      throw new Error("Add a repository URL before submitting");
+    if (missing.includes("repoUrls")) {
+      throw new Error("Add at least one repository URL before submitting");
     }
     throw new Error("Complete all project details before submitting");
   }

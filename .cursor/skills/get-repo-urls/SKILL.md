@@ -46,7 +46,7 @@ export default query({
       teamName: teamById[p.teamId]?.name ?? "Unknown",
       projectName: p.name,
       description: p.description,
-      repoUrl: p.repoUrl,
+      repoUrls: p.repoUrls ?? (p.repoUrl ? [p.repoUrl] : []),
       projectUrl: p.url,
       track: teamById[p.teamId]?.track ?? null,
       sponsorsUsed: p.sponsorsUsed ?? [],
@@ -68,7 +68,7 @@ node scripts/get-repo-urls.mjs
 | Field | Table | Column |
 |-------|-------|--------|
 | Team name | `hub_teams` | `name` |
-| Repo URL | `hub_projects` | `repoUrl` |
+| Repo URL(s) | `hub_projects` | `repoUrls` (legacy `repoUrl` fallback) |
 | Project info | `hub_projects` | `name`, `description`, `url`, `sponsorsUsed` |
 
 Join via `hub_projects.teamId` → `hub_teams._id`.

@@ -1,4 +1,5 @@
 import type { Doc, Id } from "../_generated/dataModel";
+import { resolveProjectRepoUrls } from "./hub_project_repo_urls";
 import { getPublicUrl } from "./r2";
 
 /** Strip Convex system/DB-only fields before return validation. */
@@ -65,7 +66,7 @@ export type HubProjectPublic = {
   name: string;
   description: string;
   url: string;
-  repoUrl: string;
+  repoUrls: string[];
   sponsorsUsed: Doc<"hub_projects">["sponsorsUsed"];
   createdAt: number;
 };
@@ -77,7 +78,7 @@ export function toHubProjectPublic(project: Doc<"hub_projects">): HubProjectPubl
     name: project.name,
     description: project.description,
     url: project.url,
-    repoUrl: project.repoUrl,
+    repoUrls: resolveProjectRepoUrls(project),
     sponsorsUsed: project.sponsorsUsed,
     createdAt: project.createdAt,
   };

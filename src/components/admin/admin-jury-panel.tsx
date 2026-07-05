@@ -74,11 +74,11 @@ export function AdminJuryPanel() {
                     Live app
                   </a>
                 ) : null}
-                {selectedTeam.project?.repoUrl ? (
-                  <a href={selectedTeam.project.repoUrl} target="_blank" rel="noreferrer" className="text-accent">
+                {(selectedTeam.project?.repoUrls ?? []).map((repoUrl) => (
+                  <a key={repoUrl} href={repoUrl} target="_blank" rel="noreferrer" className="text-accent">
                     Repo
                   </a>
-                ) : null}
+                ))}
                 {selectedTeam.deliverables?.slidesUrl ? (
                   <a href={selectedTeam.deliverables.slidesUrl} target="_blank" rel="noreferrer" className="text-accent">
                     Slides

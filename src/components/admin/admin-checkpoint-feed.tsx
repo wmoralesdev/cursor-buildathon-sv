@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
+import { resolveCheckpointRepoUrls } from "../../lib/hub-checkpoint-repo-urls";
 import { HUB_EVENT_TIMEZONE } from "../../data/hub-progress-steps";
 import { useTranslation } from "../../context/language-context";
 import { HubButton, HubCard } from "../hub/hub-ui-primitives";
@@ -18,7 +19,8 @@ type CheckpointFeedTeam = {
     snapshot?: {
       projectName: string;
       projectDescription: string;
-      repoUrl: string;
+      repoUrls?: string[];
+      repoUrl?: string;
       projectUrl: string;
       sponsorsUsed: string[];
       socialPostCount: number;
@@ -87,6 +89,8 @@ function SnapshotDetails({
 
   const snapshot = window.snapshot;
 
+  const repoUrls = resolveCheckpointRepoUrls(snapshot);
+
   return (
     <dl className="mt-3 grid gap-2 font-display text-[0.85rem] text-fg-2">
       <div>
@@ -100,10 +104,16 @@ function SnapshotDetails({
       <div>
         <dt className="text-fg-3">{t("admin.checkpointFeed.repo")}</dt>
         <dd>
-          {snapshot.repoUrl ? (
-            <a href={snapshot.repoUrl} target="_blank" rel="noreferrer" className="text-accent underline">
-              {snapshot.repoUrl}
-            </a>
+          {repoUrls.length > 0 ? (
+            <ul className="space-y-1">
+              {repoUrls.map((repoUrl) => (
+                <li key={repoUrl}>
+                  <a href={repoUrl} target="_blank" rel="noreferrer" className="text-accent underline">
+                    {repoUrl}
+                  </a>
+                </li>
+              ))}
+            </ul>
           ) : (
             "—"
           )}
