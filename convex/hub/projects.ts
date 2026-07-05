@@ -20,8 +20,6 @@ import {
   trimOrThrow,
 } from "../lib/profileValidation";
 
-const DESCRIPTION_MAX = 1000;
-
 const projectValidator = v.object({
   _id: v.id("hub_projects"),
   teamId: v.id("hub_teams"),
@@ -253,9 +251,6 @@ export const upsertProjectInternal = internalMutation({
 
     const name = trimOrThrow(args.name, "Project name");
     const description = (args.description ?? "").trim();
-    if (description.length > DESCRIPTION_MAX) {
-      throw new Error(`Description must be ${DESCRIPTION_MAX} characters or fewer`);
-    }
 
     const url = normalizeOptionalHttpUrl(args.url ?? "", "Project URL");
     const repoUrl = trimOrThrow(args.repoUrl, "Repository URL");

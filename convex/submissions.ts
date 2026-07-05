@@ -3,8 +3,6 @@ import { v } from "convex/values";
 import { verifyVideoR2Key } from "./lib/r2";
 import { normalizeHttpUrl, trimOrThrow } from "./lib/profileValidation";
 
-const DESCRIPTION_MAX_LENGTH = 500;
-
 export const submit = mutation({
   args: {
     eventTeamId: v.id("event_teams"),
@@ -38,9 +36,6 @@ export const submit = mutation({
     }
 
     const description = trimOrThrow(args.description, "Description");
-    if (description.length > DESCRIPTION_MAX_LENGTH) {
-      throw new Error(`Description must be ${DESCRIPTION_MAX_LENGTH} characters or fewer`);
-    }
 
     const repoUrl = normalizeHttpUrl(args.repoUrl, "Repository URL");
     const eventSocialPostUrl = normalizeHttpUrl(args.eventSocialPostUrl, "Event social post URL");

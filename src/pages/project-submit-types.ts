@@ -14,8 +14,6 @@ export type ProjectSubmitFormValues = {
   website: string;
 };
 
-export const PROJECT_SUBMIT_DESCRIPTION_MAX = 500;
-
 export const DEFAULT_PROJECT_SUBMIT_MEMBERS: ProjectSubmitMember[] = [
   { name: "", xProfile: "", linkedInProfile: "" },
   { name: "", xProfile: "", linkedInProfile: "" },

@@ -2210,8 +2210,8 @@ export const translations = {
     es: "URL del repositorio público",
   },
   "builder.submit.checklist.i2": {
-    en: "Short project description (max 500 characters)",
-    es: "Descripción breve del proyecto (máx. 500 caracteres)",
+    en: "Short project description",
+    es: "Descripción breve del proyecto",
   },
   "builder.submit.checklist.i3": {
     en: "Demo video (MP4, WebM, or MOV — up to 100 MB)",

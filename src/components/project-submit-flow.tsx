@@ -16,7 +16,6 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import type { ProjectSubmitFormValues } from "../pages/project-submit-types";
-import { PROJECT_SUBMIT_DESCRIPTION_MAX } from "../pages/project-submit-types";
 import type { BuilderTeam } from "../hooks/use-builder-team";
 import { useTranslation } from "../context/language-context";
 import { uploadProjectVideo } from "../lib/project-submit-upload";
@@ -204,8 +203,6 @@ export function ProjectSubmitFlow({ onSuccess, team, leaderSessionId }: ProjectS
         ? t("submit.submitting")
         : t("submit.submit");
 
-  const descriptionLength = description?.length ?? 0;
-
   const stepVariants = reduceMotion
     ? {
         enter: { opacity: 0 },
@@ -285,19 +282,13 @@ export function ProjectSubmitFlow({ onSuccess, team, leaderSessionId }: ProjectS
             hint={t("submit.project.descriptionPlaceholder")}
             stepNumber={progressIndex}
           >
-            <div className="space-y-2">
-              <textarea
-                id="submit-description"
-                rows={5}
-                maxLength={PROJECT_SUBMIT_DESCRIPTION_MAX}
-                className={`${projectSubmitInputClass} submit-flow-input min-h-[8rem] resize-y text-base sm:text-lg`}
-                placeholder={t("submit.project.descriptionPlaceholder")}
-                {...register("description")}
-              />
-              <p className="submit-char-count text-right font-mono text-[0.6rem] tabular-nums text-fg-4">
-                {descriptionLength}/{PROJECT_SUBMIT_DESCRIPTION_MAX}
-              </p>
-            </div>
+            <textarea
+              id="submit-description"
+              rows={5}
+              className={`${projectSubmitInputClass} submit-flow-input min-h-[8rem] resize-y text-base sm:text-lg`}
+              placeholder={t("submit.project.descriptionPlaceholder")}
+              {...register("description")}
+            />
           </StepShell>
         );
 
