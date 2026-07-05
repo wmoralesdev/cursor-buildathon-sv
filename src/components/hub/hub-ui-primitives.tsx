@@ -67,12 +67,12 @@ export function HubButton({
 }) {
   const styles =
     variant === "primary"
-      ? "border border-accent bg-accent text-bg hover:bg-accent/90"
-      : "border border-border-faint bg-transparent text-fg hover:border-accent hover:text-accent";
+      ? "border border-accent bg-accent text-bg hover:bg-accent/90 disabled:border-border-dim disabled:bg-border-faint disabled:text-fg-2"
+      : "border border-border-faint bg-transparent text-fg hover:border-accent hover:text-accent disabled:text-fg-4";
   return (
     <button
       {...props}
-      className={`inline-flex items-center justify-center px-4 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${styles} ${props.className ?? ""}`}
+      className={`inline-flex items-center justify-center px-4 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] transition-colors disabled:cursor-not-allowed ${styles} ${props.className ?? ""}`}
     />
   );
 }

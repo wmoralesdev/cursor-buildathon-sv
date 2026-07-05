@@ -32,17 +32,17 @@ function HubDeliverablesSubmitBlockers({
 
   return (
     <div
-      className="mb-5 border border-amber-500/35 bg-amber-500/[0.06] px-3 py-3"
+      className="mb-5 border border-border-dim border-l-2 border-l-accent bg-bg-alt px-3 py-3"
       role="status"
       aria-live="polite"
     >
-      <p className="mb-2 font-mono text-[0.675rem] uppercase tracking-[0.12em] text-amber-200/90">
+      <p className="mb-2 font-mono text-[0.675rem] uppercase tracking-[0.12em] text-fg-2">
         {t("hub.deliverables.submitBlockedTitle")}
       </p>
       <ul className="space-y-2">
         {blockers.map((blocker) => (
-          <li key={blocker.id} className="font-display text-[0.875rem] text-fg-1">
-            <span className="text-amber-200/90">·</span> {t(blocker.label)}
+          <li key={blocker.id} className="font-display text-[0.875rem] text-fg">
+            <span className="text-fg-3">·</span> {t(blocker.label)}
             {blocker.hint ? (
               <span className="mt-0.5 block pl-3 font-display text-[0.8125rem] text-fg-3">
                 {t(blocker.hint)}
