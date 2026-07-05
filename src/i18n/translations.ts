@@ -3019,6 +3019,10 @@ export const translations = {
     en: "Before you can submit",
     es: "Antes de enviar",
   },
+  "hub.project.completion.missingName": {
+    en: "Add a project name",
+    es: "Agrega un nombre del proyecto",
+  },
   "hub.project.completion.missingDescription": {
     en: "Add a description",
     es: "Agrega una descripción",
@@ -3097,6 +3101,38 @@ export const translations = {
   "hub.deliverables.blockedByDeliverables": {
     en: "Deliverables incomplete",
     es: "Entregables incompletos",
+  },
+  "hub.deliverables.submitBlockedTitle": {
+    en: "Submit final is disabled until you complete:",
+    es: "Enviar final está deshabilitado hasta que completes:",
+  },
+  "hub.deliverables.fixInProjectSection": {
+    en: "Fill this in the Project section above and click Save.",
+    es: "Complétalo en la sección Proyecto de arriba y haz clic en Guardar.",
+  },
+  "hub.deliverables.missingSlides": {
+    en: "Add a presentation slides URL",
+    es: "Agrega la URL de las slides",
+  },
+  "hub.deliverables.missingVideo": {
+    en: "Add a video showcase URL",
+    es: "Agrega la URL del video showcase",
+  },
+  "hub.deliverables.unsavedSlides": {
+    en: "Presentation slides URL is not saved yet",
+    es: "La URL de slides aún no está guardada",
+  },
+  "hub.deliverables.unsavedVideo": {
+    en: "Video showcase URL is not saved yet",
+    es: "La URL del video aún no está guardada",
+  },
+  "hub.deliverables.saveDraftHint": {
+    en: "Click Save draft below to keep this value.",
+    es: "Haz clic en Guardar borrador abajo para conservar este valor.",
+  },
+  "hub.deliverables.readyToSubmit": {
+    en: "Everything is complete — you can submit final.",
+    es: "Todo está completo — puedes enviar final.",
   },
 
   "hub.deliverables.tag": { en: "// Deliverables", es: "// Entregables" },

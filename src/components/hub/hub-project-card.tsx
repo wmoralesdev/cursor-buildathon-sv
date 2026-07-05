@@ -23,6 +23,7 @@ const PROJECT_TOOL_SPONSORS = HUB_PROJECT_TOOL_SPONSOR_IDS.map((id) => {
 });
 
 const MISSING_DETAIL_KEYS: Record<string, TranslationKey> = {
+  name: "hub.project.completion.missingName",
   description: "hub.project.completion.missingDescription",
   url: "hub.project.completion.missingUrl",
   repoUrl: "hub.project.completion.missingRepo",
