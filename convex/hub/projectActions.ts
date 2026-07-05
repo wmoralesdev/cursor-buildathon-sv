@@ -1,12 +1,9 @@
-"use node";
-
 import { action } from "../_generated/server";
 import { v } from "convex/values";
 import { internal } from "../_generated/api";
 import type { HubProjectPublic } from "../lib/hub_projections";
 import { hubSponsorIdValidator } from "../lib/hubSponsorIds";
 import { normalizeRepoHttpUrl } from "../lib/repo_url";
-import { validateEmptyRepo } from "../lib/validate_empty_repo";
 
 const projectValidator = v.object({
   _id: v.id("hub_projects"),
@@ -31,8 +28,7 @@ export const validateRepoUrl = action({
   args: { repoUrl: v.string() },
   returns: v.object({ normalizedUrl: v.string() }),
   handler: async (_ctx, args) => {
-    const normalizedUrl = await validateEmptyRepo(args.repoUrl);
-    return { normalizedUrl };
+    return { normalizedUrl: normalizeRepoHttpUrl(args.repoUrl) };
   },
 });
 
@@ -40,16 +36,7 @@ export const upsertProject = action({
   args: upsertProjectArgs,
   returns: projectValidator,
   handler: async (ctx, args): Promise<HubProjectPublic> => {
-    const existingRepoUrl: string | null = await ctx.runQuery(
-      internal.hub.projects.getExistingRepoUrlForUpsert,
-      {},
-    );
-
-    const candidateNormalized = normalizeRepoHttpUrl(args.repoUrl);
-    const normalizedRepoUrl: string =
-      existingRepoUrl && existingRepoUrl === candidateNormalized
-        ? existingRepoUrl
-        : await validateEmptyRepo(args.repoUrl);
+    const normalizedRepoUrl = normalizeRepoHttpUrl(args.repoUrl);
 
     return await ctx.runMutation(internal.hub.projects.upsertProjectInternal, {
       name: args.name,

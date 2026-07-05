@@ -358,6 +358,35 @@ export const backfillPerkClaims = internalMutation({
   },
 });
 
+/** Claim inventory perks for one hub user by email (ops/backfill). */
+export const claimPerksForUserByEmail = internalMutation({
+  args: { email: v.string() },
+  returns: v.object({
+    userId: v.union(v.id("hub_users"), v.null()),
+    perkCount: v.number(),
+  }),
+  handler: async (ctx, args) => {
+    const email = normalizePerkEligibleEmail(args.email);
+    const user = await ctx.db
+      .query("hub_users")
+      .withIndex("by_email", (q) => q.eq("email", email))
+      .unique();
+
+    if (!user) {
+      return { userId: null, perkCount: 0 };
+    }
+
+    await claimPerksForUser(ctx, user._id);
+
+    const assigned = await ctx.db
+      .query("hub_perk_inventory")
+      .withIndex("by_assigned_user", (q) => q.eq("assignedToUserId", user._id))
+      .collect();
+
+    return { userId: user._id, perkCount: assigned.length };
+  },
+});
+
 export const seedPerkEligibleEmails = internalMutation({
   args: {
     batchId: v.optional(v.string()),

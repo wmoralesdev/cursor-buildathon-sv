@@ -2978,16 +2978,16 @@ export const translations = {
   "hub.project.url": { en: "Live URL", es: "URL en vivo" },
   "hub.project.repo": { en: "Repository", es: "Repositorio" },
   "hub.project.repoRequiredHint": {
-    en: "Required — must be an empty GitHub or GitLab repo",
-    es: "Requerido — debe ser un repo vacío en GitHub o GitLab",
+    en: "Required — must be a valid URL",
+    es: "Requerido — debe ser una URL válida",
   },
   "hub.project.repoValidating": {
-    en: "Checking repository…",
-    es: "Verificando repositorio…",
+    en: "Checking URL…",
+    es: "Verificando URL…",
   },
   "hub.project.repoValidation.invalidUrl": {
-    en: "Enter a valid GitHub or GitLab repository URL",
-    es: "Ingresa una URL válida de repositorio en GitHub o GitLab",
+    en: "Enter a valid URL",
+    es: "Ingresa una URL válida",
   },
   "hub.project.repoValidation.unsupportedHost": {
     en: "Only GitHub and GitLab repository URLs are supported",

@@ -48,7 +48,6 @@ import type * as lib_r2Node from "../lib/r2Node.js";
 import type * as lib_repo_url from "../lib/repo_url.js";
 import type * as lib_social_post_url from "../lib/social_post_url.js";
 import type * as lib_sponsorTracks from "../lib/sponsorTracks.js";
-import type * as lib_validate_empty_repo from "../lib/validate_empty_repo.js";
 import type * as projects from "../projects.js";
 import type * as seed from "../seed.js";
 import type * as social_posts from "../social_posts.js";
@@ -104,7 +103,6 @@ declare const fullApi: ApiFromModules<{
   "lib/repo_url": typeof lib_repo_url;
   "lib/social_post_url": typeof lib_social_post_url;
   "lib/sponsorTracks": typeof lib_sponsorTracks;
-  "lib/validate_empty_repo": typeof lib_validate_empty_repo;
   projects: typeof projects;
   seed: typeof seed;
   social_posts: typeof social_posts;

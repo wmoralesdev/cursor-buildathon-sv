@@ -238,20 +238,6 @@ export const listTimeline = query({
   },
 });
 
-export const getExistingRepoUrlForUpsert = internalQuery({
-  args: {},
-  returns: v.union(v.string(), v.null()),
-  handler: async (ctx) => {
-    const user = await requireHubUser(ctx);
-    const { team } = await requireTeamMembership(ctx, user._id);
-    const project = await ctx.db
-      .query("hub_projects")
-      .withIndex("by_team", (q) => q.eq("teamId", team._id))
-      .unique();
-    return project?.repoUrl ?? null;
-  },
-});
-
 export const upsertProjectInternal = internalMutation({
   args: {
     name: v.string(),
