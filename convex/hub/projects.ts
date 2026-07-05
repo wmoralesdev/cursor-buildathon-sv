@@ -1,4 +1,4 @@
-import { internalMutation, internalQuery, mutation, query } from "../_generated/server";
+import { internalMutation, mutation, query } from "../_generated/server";
 import { paginationOptsValidator } from "convex/server";
 import { v } from "convex/values";
 import { requireHubUser, requireTeamMembership } from "../lib/hub_auth";
